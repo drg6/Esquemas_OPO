@@ -27,69 +27,86 @@ Concepto central de **relación** (**tabla**), compuesta por:
 *   **Clave Alternativa:** Cualquier clave candidata que no es clave primaria. Necesita restricción UNIQUE.
 *   **Clave Foránea o Ajena (Foreign Key - FK):** Atributo relación que referencia la clave primaria de otra relación.
 
-## 3. Restricciones de Integridad del Modelo Relacional
+## 3. Manipulación: El Álgebra Relacional
+
+Operaciones definidas sobre relaciones, operandos y resultados son siempre relaciones. 
+
+2 categorías de operadores:
+
+*   **Operadores primitivos:**
+    *   **Selección:** Relación formada por el subconjunto de tuplas que satisface dicha expresión
+    *   **Proyección:** Relación definida sobre los atributos donde se aplica, eliminando las filas repetidas.
+    *   **Unión:** Combina las tuplas que pertenecen a una relación, a otra, o a ambas.
+    *   **Diferencia:** Tuplas pertenecen a la primera relación pero no a la segunda.
+    *   **Producto Cartesiano:** Concatena cada tupla de la primera relación con todas las tuplas de la segunda.
+*   **Operadores derivados:**
+    *   **Intersección:** Tuplas presentes simultáneamente en ambas relaciones.
+    *   **Combinación o Join Natural:** Relación formada por todos los pares de tuplas que, en el producto cartesiano de ambas, cumplen una condición especificada.
+
+## 4. Restricciones de Integridad del Modelo Relacional
 
 1.  **Integridad de entidad:** Ningún componente de clave primaria puede contener valores nulos (NULL), clave primaria identifica inequívocamente cada tupla.
 2.  **Integridad referencial:** Toda clave ajena contiene valor que exista como clave primaria en la relación referenciada o es nulo. Coherencia entre tablas.
 3.  **Integridad de Dominio:** Valores de atributo respeten las restricciones de tipo de dato, rango, formato o restricciones CHECK.
 4.  **Integridad definida por el usuario:** Reglas de negocio.
 
-## 4. Las Doce Reglas de Codd
+## 5. Las Doce Reglas de Codd
 
 Fijan los requisitos para que un SGBD sea estrictamente relacional (independencia, acceso por valor, catálogo dinámico)
 
-## 5. Normalización de Bases de Datos
+## 6. Normalización de Bases de Datos
 
 Objetivo: Proceso formal para minimizar redundancia y evitar anomalías de modificación.
 Formas Normales principales:
 
-*   **1FN**: Atributos atómicos, sin grupos repetitivos.
+*   **1FN**: Atomicidad.
 
-*   **2FN**: Cumple 1FN + atributos no clave dependen de la clave primaria completa.
+*   **2FN**: Cumple 1FN + Dependencia Completa,.
 
-*   **3FN**: Cumple 2FN + sin dependencias transitivas.
+*   **3FN**: Cumple 2FN + Dependencia Transitiva.
 
 *   **BCNF (Boyce-Codd)**: Todo determinante es una clave candidata.
 
-## 6. Interoperabilidad entre SGBDR: Normas y Estándares
+## 7. El Lenguaje SQL como estándar 
+
+*   **DDL (Definición):** Crea y modifica objetos (`CREATE`, `DROP`, `ALTER`).
+*   **DML (Manipulación):** Interactúa con los registros (`SELECT`, `INSERT`, `UPDATE`, `DELETE`).
+*   **DCL (Control):** Gestiona permisos de usuarios (`GRANT`, `REVOKE`).
+*   **TCL (Transacciones):** Mantiene la integridad aislando operaciones (`BEGIN`, `COMMIT`, `ROLLBACK`).
+
+## 8. Interoperabilidad entre SGBDR: Normas y Estándares
 
 **Interoperabilidad** —> capacidad que aplicaciones accedan de forma transparente a BD heterogéneas.
 
-### 6.1. SQL como estándar universal (ANSI/ISO)
+### 8.1. SQL como estándar universal (ANSI/ISO)
 
 **SQL (Structured Query Language)**, IBM, estandar ANSI en 1986 y adoptado por la ISO. 
 
 (PL/SQL en Oracle, T-SQL en SQL Server, PL/pgSQL en PostgreSQL), pero todos respetan núcleo del estándar ANSI/ISO SQL definición, manipulación y control de datos.
 
-### 6.2. ODBC (Open Database Connectivity)
+### 8.2. ODBC (Open Database Connectivity)
 
-Desarrollado por Microsoft en 1992, **ODBC** es una API estandarizada que proporciona una interfaz uniforme para que las aplicaciones accedan a cualquier SGBDR, independientemente del fabricante.
+**ODBC**, Microsoft en 1992, API estandarizada acceder a cualquier SGBDR, independientemente del fabricante.
 
-*   **Arquitectura:** Se basa en un componente intermediario denominado **ODBC Driver Manager**. La aplicación envía las sentencias SQL al Driver Manager, que las redirige al **driver específico** del SGBDR de destino (driver de Oracle, de PostgreSQL, de SQL Server, etc.). El driver traduce las llamadas al protocolo nativo del SGBDR correspondiente.
-*   **Ventaja principal:** La aplicación se codifica una sola vez contra la API ODBC. Para cambiar de SGBDR, basta con sustituir el driver, sin modificar el código fuente de la aplicación.
-*   **Limitaciones:** Originalmente vinculado al ecosistema Windows y al lenguaje C/C++, aunque existen implementaciones multiplataforma como unixODBC.
+*   **Arquitectura:** Basado en **ODBC Driver Manager**. Redirige sentencias SQL al **driver específico** del SGBDR de destino 
+*   **Ventaja principal:** Cambio de SGBDR, sustituir el driver, sin modificar el código fuente de la aplicación.
+*   **Limitaciones:** Windows, aunque existe unixODBC.
 
-### 6.3. JDBC (Java Database Connectivity)
+### 8.3. JDBC (Java Database Connectivity)
 
-Dado que ODBC estaba ligado a C/C++ y al entorno Windows, Sun Microsystems (actualmente Oracle Corporation) desarrolló **JDBC** como el estándar de conectividad a bases de datos para el ecosistema Java.
+Conectividad ecosistema Java, Sun Microsystems (actualmente Oracle).
 
-*   **Arquitectura:** JDBC es una API Java alojada en el paquete `java.sql` (y `javax.sql` para funcionalidades avanzadas). Proporciona interfaces como `DriverManager`, `Connection`, `Statement`, `PreparedStatement` y `ResultSet` que abstraen el acceso a datos de forma independiente del SGBDR subyacente.
-*   **Tipos de drivers JDBC:**
-    *   **Tipo 1 (Puente JDBC-ODBC):** Traduce llamadas JDBC a llamadas ODBC. Obsoleto desde Java 8.
-    *   **Tipo 2 (API nativa):** Utiliza bibliotecas nativas del SGBDR. Requiere instalación de software del fabricante en el cliente.
-    *   **Tipo 3 (Protocolo de red):** Comunica con un middleware que traduce al protocolo nativo. Independiente de la plataforma.
-    *   **Tipo 4 (Protocolo nativo puro Java):** Comunica directamente con el SGBDR mediante su protocolo nativo, implementado íntegramente en Java. Es el tipo más utilizado actualmente por su rendimiento y portabilidad.
+*   **Arquitectura:** API Java alojada en `java.sql`. Interfaces para acceso a datos de forma independiente del SGBDR.
+*   **Tipos de drivers JDBC:** Estándar Tipo 4 (nativo puro Java), alto rendimiento y portabilidad. Sustituye tipos (1, 2 y 3), que dependian de software del fabricante, puentes externos o intermediarios de red.
 
-### 6.4. Otros estándares y tecnologías de interoperabilidad
+### 8.4. Otros estándares y tecnologías de interoperabilidad
 
-*   **OLE DB y ADO.NET:** APIs de acceso a datos en el ecosistema Microsoft. ADO.NET, utilizado en aplicaciones .NET (C#, VB.NET), proporciona proveedores de datos específicos para cada SGBDR con una interfaz unificada.
-*   **ORM (Object-Relational Mapping):** Frameworks como Hibernate (Java), Entity Framework (.NET) o SQLAlchemy (Python) proporcionan una capa de abstracción de alto nivel que permite a los desarrolladores trabajar con objetos del lenguaje de programación en lugar de escribir SQL directamente, facilitando la portabilidad entre SGBDR.
-*   **SQL/MED (Management of External Data):** Extensión del estándar SQL que permite acceder a datos externos (otros SGBDR, ficheros, servicios web) como si fueran tablas locales, mediante el concepto de **Foreign Data Wrappers (FDW)**. PostgreSQL implementa esta funcionalidad de forma nativa.
+*   **OLE DB y ADO.NET:** APIs ecosistema Microsoft. ADO.NET, aplicaciones .NET.
+*   **ORM (Object-Relational Mapping):** Frameworks como Hibernate (Java), Entity Framework (.NET) o SQLAlchemy (Python) permiten trabajar con objetos del lenguaje de programación en vez de escribir SQL, facilita portabilidad entre SGBDR.
+*   **SQL/MED (Management of External Data):** Extensión de SQL que permite acceder a datos externos (otros SGBDR, ficheros, servicios web) como si fueran tablas locales, mediante  **Foreign Data Wrappers (FDW)**. PostgreSQL usa funcionalidad de forma nativa.
 
-## 7. Conclusión
+## 9. Conclusión
 
-El modelo relacional de Codd sigue siendo, más de cinco décadas después de su formulación, el fundamento teórico sobre el que se construyen los sistemas de gestión de datos más críticos del mundo. Su rigor matemático —basado en la teoría de conjuntos, las dependencias funcionales y la normalización— garantiza la coherencia, integridad y ausencia de redundancia en las bases de datos.
+El modelo relacional base que se construyen los SGBD al garantizarse la coherencia, integridad y ausencia de redundancia en BDs.
 
-La interoperabilidad entre SGBDR heterogéneos, resuelta mediante la estandarización del lenguaje SQL (ANSI/ISO) y las APIs de conectividad universales (ODBC, JDBC, ADO.NET), permite a las organizaciones —y especialmente a las Administraciones Públicas— integrar sistemas de distintos fabricantes sin dependencia tecnológica de un único proveedor. Esta capacidad resulta esencial para cumplir los principios de neutralidad tecnológica e interoperabilidad contemplados en el Esquema Nacional de Interoperabilidad (ENI) regulado por el Real Decreto 4/2010 y actualizado por el Real Decreto 311/2022.
-
-El dominio de estos fundamentos teóricos y estándares de interoperabilidad constituye una competencia imprescindible para el profesional de las tecnologías de la información al servicio de la Administración Pública.
+Interoperabilidad entre SGBDR, resuelta mediante SQL (ANSI/ISO) y APIs de conectividad universales (ODBC, JDBC, ADO.NET). Esencial cumplir principios de neutralidad tecnológica e interoperabilidad del ENI.
