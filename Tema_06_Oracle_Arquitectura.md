@@ -2,50 +2,46 @@
 
 ## 1. Introducción
 
-Oracle Database, desarrollado por Oracle Corporation (fundada por Larry Ellison, Bob Miner y Ed Oates en 1977), constituye uno de los Sistemas Gestores de Bases de Datos Relacionales (SGBDR) más implantados en entornos empresariales y en las Administraciones Públicas de todo el mundo. Su dominio es especialmente notable en entornos de misión crítica (Tier 1) como centros de datos ministeriales, sistemas tributarios de alta concurrencia, registros civiles y plataformas de gestión financiera, donde los requisitos de rendimiento, fiabilidad y escalabilidad son máximos.
+Oracle Database (Larry Ellison, 1977), SGBDR más implantados. Entornos donde rendimiento, fiabilidad y escalabilidad son críticos.
 
-Oracle no es una simple herramienta de almacenamiento de datos, sino un ecosistema integral de gestión de la persistencia que integra capacidades avanzadas de procesamiento transaccional (OLTP), análisis de datos (OLAP), seguridad, alta disponibilidad y recuperación ante desastres.
-
-Comprender la arquitectura interna de Oracle exige, como punto de partida fundamental, distinguir con precisión dos conceptos que no son sinónimos: la **Instancia** (componente volátil en memoria) y la **Base de Datos** (componente persistente en disco).
+Ecosistema integral OLTP, OLAP, seguridad, alta disponibilidad y recuperación ante desastres.
 
 ## 2. Dicotomía Fundamental: Instancia vs. Base de Datos
 
 ### 2.1. La Base de Datos (The Database)
 
-La Base de Datos de Oracle es el componente **persistente y no volátil**. Está constituida por un conjunto de archivos almacenados físicamente en el sistema de ficheros del sistema operativo servidor (Linux, AIX, Windows Server). Su función es preservar la información de forma duradera, sobreviviendo a reinicios del sistema, cortes de energía y fallos de hardware.
+La Base de Datos componente **persistente y no volátil**. Archivos. Preservar la información de forma duradera, sobreviviendo a reinicios del sistema, cortes de energía y fallos de hardware.
 
-Los tres tipos de archivos obligatorios que conforman la base de datos física son:
+1.  **Archivos de Datos (Datafiles - `.dbf` o `.ora`):** Datos reales. Cada datafile pertenece a un único Tablespace.
 
-1.  **Archivos de Datos (Datafiles - `.dbf` o `.ora`):** Contienen los datos reales de la base de datos: las filas de las tablas, los índices, los procedimientos almacenados y demás objetos del esquema. Son los archivos de mayor tamaño y pueden alcanzar varios terabytes. Cada datafile pertenece a un único Tablespace.
+2.  **Archivos de Control (Control Files):** Metadatos estructurales: nombre BD, la ubicación datafiles y redo logs, timestamp de creación, secuencia log actual y puntos de control (checkpoints). Sin control files, BD no arranca.
 
-2.  **Archivos de Control (Control Files):** Son archivos pequeños (del orden de kilobytes) pero absolutamente críticos para el funcionamiento de la base de datos. Contienen los metadatos estructurales: el nombre de la base de datos, la ubicación de todos los datafiles y redo logs, la marca de tiempo (timestamp) de creación, el número de secuencia del log actual y los puntos de control (checkpoints). Oracle recomienda mantener al menos dos copias multiplexadas en discos diferentes. Si se pierden todos los control files, la base de datos no podrá arrancar.
-
-3.  **Archivos de Redo Log en línea (Online Redo Log Files):** Funcionan como la "caja negra" del sistema. Registran cronológicamente todos los cambios realizados sobre los datos (cada INSERT, UPDATE y DELETE) **antes** de que estos se escriban definitivamente en los datafiles. Esta técnica, conocida como **Write-Ahead Logging (WAL)**, garantiza que, ante un fallo del sistema, el administrador DBA pueda reconstruir todas las transacciones confirmadas reproduciendo los registros del redo log. Oracle exige un mínimo de dos grupos de redo log que se utilizan de forma circular (cíclica).
+3.  **Archivos de Redo Log en línea (Online Redo Log Files):** Registran cronológicamente todos los cambios sobre datos **antes** de escrirse en datafiles. **Write-Ahead Logging (WAL)**, ante un fallo del sistema, se puede reconstruir.
 
 **Archivos adicionales relevantes:**
-*   **Archived Redo Logs:** Copias archivadas de los redo logs en línea cuando trabajan en modo ARCHIVELOG. Son esenciales para la recuperación ante desastres y para la alimentación de Oracle Data Guard.
-*   **Parameter File (PFILE/SPFILE):** Contiene los parámetros de configuración de la instancia (tamaño de memoria, procesos máximos, rutas de archivos).
-*   **Password File:** Almacena las contraseñas de los usuarios con privilegios de administración (SYSDBA, SYSOPER).
+*   **Archived Redo Logs:** Copias archivadas redo logs. Recuperación ante desastres y Oracle Data Guard.
+*   **Parameter File (PFILE/SPFILE):** Parámetros configuración instancia (tamaño de memoria, procesos máximos, rutas de archivos).
+*   **Password File:** Contraseñas de usuarios con privilegios de administración (SYSDBA, SYSOPER).
 
 ### 2.2. La Instancia de Oracle (The Oracle Instance)
 
-La Instancia es el componente **volátil y dinámico**. Existe exclusivamente en la memoria RAM del servidor y en los procesos del sistema operativo. Cuando el administrador arranca el servicio de Oracle, lo que se crea es la Instancia; la base de datos (los archivos en disco) ya existía previamente.
+La Instancia es el componente **volátil y dinámico**. En memoria RAM del servidor, se crea al arrancar.
 
-La Instancia se compone de dos elementos principales:
+La Instancia compuesta por:
 - **Estructuras de memoria:** SGA (System Global Area) y PGA (Program Global Area).
-- **Procesos de fondo (Background Processes):** Procesos del sistema operativo que realizan tareas de mantenimiento y sincronización.
+- **Procesos de fondo (Background Processes):** Procesos del SO tareas de mantenimiento y sincronización.
 
 **Relación Instancia-Base de Datos:**
-- En una configuración estándar (Single Instance), una Instancia se asocia a una única Base de Datos.
-- En una configuración Oracle RAC (Real Application Clusters), múltiples Instancias acceden simultáneamente a una única Base de Datos compartida.
+- Configuración estándar (Single Instance), una Instancia se asocia a una única BD.
+- Configuración Oracle RAC (Real Application Clusters), múltiples Instancias acceden simultáneamente a una única BD compartida.
 
 ## 3. Estructuras de Memoria: SGA y PGA
 
-Cuando Oracle arranca, reserva una porción significativa de la memoria RAM del servidor. La estrategia fundamental consiste en mantener los datos y las instrucciones más frecuentemente utilizados en memoria RAM, cuyo tiempo de acceso es varios órdenes de magnitud inferior al del disco, minimizando así las costosas operaciones de E/S (Entrada/Salida).
+Oracle reserva memoria RAM del servidor para datos y las instrucciones más utilizados. Más rápido.
 
 ### 3.1. SGA (System Global Area)
 
-Es el área de memoria **compartida** entre todas las sesiones de usuario conectadas a la instancia. Cuando múltiples usuarios consultan simultáneamente la misma tabla, todos acceden a los datos desde la misma región de memoria. La SGA se compone de las siguientes estructuras principales:
+Area de memoria **compartida** entre usuarios. Contiene:
 
 1.  **Database Buffer Cache (Caché de Bloques de Datos):** Es el componente de mayor impacto en el rendimiento. Cuando una consulta necesita leer datos, Oracle busca primero el bloque correspondiente (típicamente de 8 KB) en el Buffer Cache. Si lo encuentra (cache hit), evita la lectura de disco. Si no lo encuentra (cache miss), lee el bloque del datafile, lo almacena en el Buffer Cache y lo sirve al usuario. Los bloques modificados pero aún no escritos en disco se denominan **dirty blocks** (bloques sucios).
 
