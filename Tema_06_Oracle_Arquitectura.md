@@ -2,9 +2,7 @@
 
 ## 1. Introducción
 
-Oracle Database (Larry Ellison, 1977), SGBDR más implantados. Entornos donde rendimiento, fiabilidad y escalabilidad son críticos.
-
-Ecosistema integral OLTP, OLAP, seguridad, alta disponibilidad y recuperación ante desastres.
+Oracle Database (Larry Ellison, 1977) es un SGBDR líder en entornos empresariales de misión crítica (Tier 1). No es un simple almacén, sino un ecosistema integral que soporta cargas OLTP y OLAP, garantizando rendimiento, alta disponibilidad y cumplimiento de las propiedades ACID. Su arquitectura se basa en la separación estricta entre dos conceptos: la Base de Datos (física) y la Instancia (lógica).
 
 ## 2. Dicotomía Fundamental: Instancia vs. Base de Datos
 
@@ -12,11 +10,11 @@ Ecosistema integral OLTP, OLAP, seguridad, alta disponibilidad y recuperación a
 
 La Base de Datos componente **persistente y no volátil**. Archivos. Preservar la información de forma duradera, sobreviviendo a reinicios del sistema, cortes de energía y fallos de hardware.
 
-1.  **Archivos de Datos (Datafiles - `.dbf` o `.ora`):** Datos reales. Cada datafile pertenece a un único Tablespace.
+1.  **Archivos de Datos (Datafiles - `.dbf` o `.ora`):** Datos reales (tablas, índices). Cada datafile pertenece a un único Tablespace.
 
-2.  **Archivos de Control (Control Files):** Metadatos estructurales: nombre BD, la ubicación datafiles y redo logs, timestamp de creación, secuencia log actual y puntos de control (checkpoints). Sin control files, BD no arranca.
+2.  **Archivos de Control (Control Files):** Almacenan metadatos estructurales críticos (estado, ubicaciones, checkpoints). Sin control files, BD no arranca.
 
-3.  **Archivos de Redo Log en línea (Online Redo Log Files):** Registran cronológicamente todos los cambios sobre datos **antes** de escrirse en datafiles. **Write-Ahead Logging (WAL)**, ante un fallo del sistema, se puede reconstruir.
+3.  **Archivos de Redo Log en línea (Online Redo Log Files):** egistran cronológicamente todo cambio antes de escribirse en los datafiles mediante la técnica Write-Ahead Logging (WAL). Permiten reconstruir transacciones ante caídas.
 
 **Archivos adicionales relevantes:**
 *   **Archived Redo Logs:** Copias archivadas redo logs. Recuperación ante desastres y Oracle Data Guard.
@@ -32,8 +30,7 @@ La Instancia compuesta por:
 - **Procesos de fondo (Background Processes):** Procesos del SO tareas de mantenimiento y sincronización.
 
 **Relación Instancia-Base de Datos:**
-- Configuración estándar (Single Instance), una Instancia se asocia a una única BD.
-- Configuración Oracle RAC (Real Application Clusters), múltiples Instancias acceden simultáneamente a una única BD compartida.
+En Single Instance la relación es 1:1 con la BD. En Oracle RAC (alta disponibilidad), múltiples instancias atacan una misma BD compartida.
 
 ## 3. Estructuras de Memoria: SGA y PGA
 
@@ -43,96 +40,81 @@ Oracle reserva memoria RAM del servidor para datos y las instrucciones más util
 
 Area de memoria **compartida** entre usuarios. Contiene:
 
-1.  **Database Buffer Cache (Caché de Bloques de Datos):** Es el componente de mayor impacto en el rendimiento. Cuando una consulta necesita leer datos, Oracle busca primero el bloque correspondiente (típicamente de 8 KB) en el Buffer Cache. Si lo encuentra (cache hit), evita la lectura de disco. Si no lo encuentra (cache miss), lee el bloque del datafile, lo almacena en el Buffer Cache y lo sirve al usuario. Los bloques modificados pero aún no escritos en disco se denominan **dirty blocks** (bloques sucios).
+1.  **Database Buffer Cache (Caché de Bloques de Datos):** Mayor impacto rendimiento. Leer datos -> busca bloque en Buffer Cache. Lo encuentra (cache hit), evita lectura. No encuentra (cache miss), lee bloque del datafile, almacena en Buffer Cache y lo sirve. Los bloques modificados pero no escritos en disco -> **dirty blocks** (bloques sucios)
 
-2.  **Shared Pool (Pool Compartido):** Almacena las estructuras de datos compartidas entre sesiones:
-    *   **Library Cache:** Almacena los planes de ejecución de las sentencias SQL ya parseadas. Si 500 usuarios ejecutan la misma consulta SELECT, Oracle la analiza sintáctica y semánticamente una sola vez, reutilizando el plan de ejecución para todas las sesiones posteriores (concepto de *soft parse* vs. *hard parse*).
-    *   **Data Dictionary Cache (Row Cache):** Almacena en memoria las definiciones de tablas, columnas, usuarios, privilegios y demás metadatos del diccionario de datos, evitando accesos repetidos al disco para resolver estos datos.
+2.  **Shared Pool (Pool Compartido):** Datos compartidas entre sesiones:
+    *   **Library Cache:** Almacena planes de ejecución SQL ya parseadas (c*soft parse* vs. *hard parse*).
+    *   **Data Dictionary Cache (Row Cache):** Metadatos del sistema.
 
-3.  **Redo Log Buffer:** Es un buffer circular de pequeño tamaño en memoria donde se registran temporalmente los cambios antes de ser escritos en los archivos Online Redo Log por el proceso LGWR. Su existencia permite que las operaciones de escritura del redo sean asíncronas respecto a la operación DML del usuario, acelerando significativamente el rendimiento.
+3.  **Redo Log Buffer:** Buffer circular que retiene temporalmente los cambios antes de volcarlos al Redo Log en disco, agilizando transacciones.
 
-4.  **Large Pool (opcional):** Área de memoria adicional utilizada para operaciones de backup/recovery (RMAN), sesiones de servidor compartido (Shared Server) y operaciones de E/S paralelas.
+4.  **Large Pool (opcional):** Memoria para operaciones de backup/recovery (RMAN), sesiones de servidor compartido (Shared Server) y operaciones de E/S paralelas.
 
-5.  **Java Pool (opcional):** Reserva de memoria para la máquina virtual Java integrada en Oracle, utilizada cuando se ejecutan procedimientos almacenados escritos en Java.
+5.  **Java Pool (opcional):** Memoria para la máquina virtual Java.
 
 ### 3.2. PGA (Program Global Area)
 
-A diferencia de la SGA, la PGA es un área de memoria **privada y no compartida**. Oracle asigna una PGA independiente a cada sesión de usuario conectada. Contiene:
+Memoria privada exclusiva de cada sesión de usuario (gestionada por PGA_AGGREGATE_TARGET).
 
-*   **Área de ordenación (Sort Area):** Espacio para operaciones ORDER BY, GROUP BY y operaciones de join que requieran ordenación.
-*   **Área de hash:** Utilizada para hash joins y operaciones de agrupación.
-*   **Variables de sesión:** Estado de la sesión, valores de bind variables y datos de contexto.
-
-El tamaño de la PGA se gestiona mediante el parámetro `PGA_AGGREGATE_TARGET`, que establece un límite global para todas las sesiones.
+*   **Área de ordenación (Sort Area):** Para operaciones ORDER BY y GROUP BY.
+*   **Área de hash:** Para operaciones de join.
+*   **Variables de sesión:** 
 
 ## 4. Procesos de Fondo (Background Processes)
 
-Los procesos de fondo son los componentes que sincronizan las estructuras de memoria (Instancia) con los archivos en disco (Base de Datos), garantizando la integridad, el rendimiento y la recuperabilidad del sistema. Los más relevantes son:
+Sincronizan la Instancia (memoria) con la Base de Datos (disco).
 
-1.  **DBWn (Database Writer):** Responsable de escribir los bloques sucios (dirty blocks) del Database Buffer Cache a los datafiles en disco. No escribe en tiempo real tras cada operación DML, sino que lo hace de forma diferida cuando se cumplen ciertas condiciones: el Buffer Cache se llena, se produce un checkpoint, o transcurre un timeout. Pueden configurarse múltiples procesos DBWn (DBW0, DBW1, ...) para mejorar el rendimiento de escritura.
+1.  **DBWn (Database Writer):** Escribe los dirty blocks del Buffer Cache a los datafiles. Escritura diferida por rendimiento.
 
-2.  **LGWR (Log Writer):** Escribe el contenido del Redo Log Buffer a los archivos Online Redo Log en disco. Es el proceso más crítico en cuanto a rendimiento transaccional, ya que se activa en tres situaciones obligatorias: cuando un usuario ejecuta un COMMIT, cuando el Redo Log Buffer está lleno al tercio de su capacidad, o cada tres segundos. La operación de COMMIT no se confirma al usuario hasta que LGWR haya escrito exitosamente en disco, garantizando así la **Durabilidad** (la "D" de ACID).
+2.  **LGWR (Log Writer):** Vuelca el Redo Log Buffer a los Online Redo Logs. Es crítico: un COMMIT no finaliza hasta que LGWR escribe en disco (garantiza la Durabilidad).
 
-3.  **SMON (System Monitor):** El proceso de recuperación del sistema. Cuando la instancia se reinicia tras un fallo inesperado (crash), SMON es el primer proceso en actuar: examina los Online Redo Logs, re-aplica (roll forward) las transacciones confirmadas que no habían sido escritas en los datafiles, y deshace (roll back) las transacciones no confirmadas. También se encarga de la coalescencia de espacios libres contiguos y la limpieza de segmentos temporales.
+3.  **SMON (System Monitor):** Recupera el sistema tras una caída (crash recovery). Aplica cambios confirmados (roll forward) y deshace los no confirmados (roll back).
 
-4.  **PMON (Process Monitor):** Actúa como vigilante de las sesiones de usuario. Si una conexión se interrumpe abruptamente (por ejemplo, por un corte de red), PMON detecta la sesión abandonada, libera los bloqueos que mantenía, deshace las transacciones no confirmadas de esa sesión y libera los recursos de memoria (PGA) asociados.
+4.  **PMON (Process Monitor):** Limpia sesiones abandonadas, libera recursos (PGA) y elimina bloqueos.
 
-5.  **CKPT (Checkpoint Process):** Señaliza periódicamente al DBWn para que escriba los bloques sucios en disco y actualiza las cabeceras de los datafiles y los control files con la información del último checkpoint. Los checkpoints reducen el tiempo de recuperación tras un fallo, ya que SMON solo necesita re-aplicar los cambios posteriores al último checkpoint.
+5.  **CKPT (Checkpoint Process):** Fuerza la sincronización y actualiza cabeceras de datafiles y control files indicando el punto de consistencia.
 
-6.  **ARCn (Archiver):** Activo únicamente cuando la base de datos opera en modo ARCHIVELOG. Copia los Online Redo Logs completos a una ubicación de archivo antes de que sean reutilizados, preservando el historial completo de cambios para la recuperación temporal (point-in-time recovery) y la alimentación de bases de datos standby (Data Guard).
+6.  **ARCn (Archiver):** (Solo en modo ARCHIVELOG). Copia los Redo Logs a un histórico antes de sobrescribirse.
 
 ## 5. Tablespaces: La Abstracción Lógica del Almacenamiento
 
-Oracle introduce el concepto de **Tablespace** como capa de abstracción entre la estructura lógica de la base de datos y el almacenamiento físico, materializando la independencia física de datos promovida por la arquitectura ANSI/SPARC.
-
-*   **Definición:** Un Tablespace es un contenedor lógico que agrupa uno o más datafiles físicos. Las tablas, índices y demás objetos se crean dentro de un Tablespace, no directamente sobre un datafile.
-*   **Funcionamiento:** El DBA crea un Tablespace (por ejemplo, `TS_USUARIOS`) y le asocia uno o varios datafiles (por ejemplo, `datos01.dbf` en el disco 1 y `datos02.dbf` en el disco 2). Cuando un datafile se llena, Oracle puede expandir automáticamente el Tablespace utilizando los demás datafiles asignados, o el DBA puede añadir nuevos datafiles de forma dinámica. Las aplicaciones y los usuarios nunca interactúan directamente con los datafiles; trabajan únicamente con las tablas alojadas en los Tablespaces.
+**Tablespace** capa de abstracción entre estructura lógica y almacenamiento físico, independencia física arquitectura ANSI/SPARC.
 
 **Tablespaces predefinidos en Oracle:**
 *   **SYSTEM:** Contiene el diccionario de datos (tablas del sistema, vistas de catálogo).
-*   **SYSAUX:** Complemento del Tablespace SYSTEM para componentes auxiliares (AWR, ASH, Enterprise Manager).
-*   **UNDO:** Almacena los datos de deshacer (undo data) necesarios para las operaciones de Rollback y para la consistencia de lectura (Read Consistency mediante MVCC).
-*   **TEMP:** Utilizado para operaciones temporales de ordenación y hash que no caben en la PGA.
-*   **USERS:** Tablespace por defecto para los objetos de los usuarios.
+*   **SYSAUX:** Componentes auxiliares (estadísticas AWR).
+*   **UNDO:** Datos de deshacer (undo data) para Rollback y consistencia de lectura (Read Consistency mediante MVCC).
+*   **TEMP:** Operaciones de ordenación que desbordan la PGA.
+*   **USERS:** Datos y objetos de los usuarios.
 
 ## 6. Modos de Funcionamiento
 
 ### 6.1. Modos de arranque de la instancia
 
-Oracle contempla tres fases progresivas de arranque:
-
-1.  **NOMOUNT:** Se crea la Instancia en memoria (SGA y procesos de fondo), pero aún no se accede a la base de datos. Se utiliza para crear una nueva base de datos o recrear control files.
-2.  **MOUNT:** La Instancia lee los control files e identifica la ubicación de todos los datafiles y redo logs, pero la base de datos no está abierta a los usuarios. Se utiliza para operaciones de mantenimiento como renombrar datafiles o activar/desactivar el modo ARCHIVELOG.
-3.  **OPEN:** La base de datos se abre completamente para las operaciones de los usuarios. Se verifican los datafiles y redo logs, y SMON ejecuta la recuperación automática si fuera necesario.
+1.  **NOMOUNT:** Levanta la Instancia (memoria y procesos). No lee disco. (Para crear BD).
+2.  **MOUNT:** Lee Control Files y localiza Datafiles., no está abierta a usuarios. Uso mantenimiento
+3.  **OPEN:** Se abre a usuarios. 
 
 ### 6.2. Modo ARCHIVELOG vs. NOARCHIVELOG
 
-*   **NOARCHIVELOG:** Los Online Redo Logs se reutilizan cíclicamente, sobrescribiendo los anteriores. Solo permite recuperación hasta el último backup completo. No apto para entornos de producción críticos.
-*   **ARCHIVELOG:** Antes de sobrescribir un Online Redo Log, el proceso ARCn crea una copia de archivo. Permite la recuperación hasta cualquier punto en el tiempo (point-in-time recovery) y es requisito indispensable para Oracle Data Guard y RMAN hot backups.
+*   **NOARCHIVELOG:** Los Redo Logs se sobrescriben cíclicamente. Impide recuperación Point-in-Time. Inviable en producción.
+*   **ARCHIVELOG:** Exige copia histórica del Redo Log antes de sobrescribirlo. Obligatorio para Data Guard y backups en caliente con RMAN.
 
 ## 7. Administración de Oracle Database
 
 ### 7.1. El rol del DBA
 
-El Administrador de Base de Datos (DBA) es el responsable de garantizar la disponibilidad, el rendimiento, la seguridad y la integridad de la base de datos. Sus funciones principales incluyen:
-
-*   Instalación, configuración y actualización del software Oracle.
-*   Diseño e implementación de la arquitectura de almacenamiento (Tablespaces, datafiles).
-*   Gestión de usuarios, roles y privilegios (seguridad y control de acceso).
-*   Monitorización del rendimiento y optimización (tuning) de consultas SQL.
-*   Planificación y ejecución de copias de seguridad (backup) y recuperación (recovery) mediante RMAN.
-*   Aplicación de parches de seguridad y actualizaciones críticas.
-*   Implementación y gestión de soluciones de alta disponibilidad (RAC, Data Guard).
+El DBA garantiza disponibilidad, rendimiento, seguridad e integridad. Tareas clave: despliegue físico, tuning SQL, gestión de usuarios, parches y diseño de backups.
 
 ### 7.2. Herramientas de administración
 
-*   **SQL*Plus:** Interfaz de línea de comandos nativa de Oracle para la ejecución de sentencias SQL, PL/SQL y comandos de administración.
-*   **Oracle Enterprise Manager (OEM):** Consola de administración gráfica basada en web que proporciona monitorización en tiempo real, gestión de alertas, informes de rendimiento y administración centralizada de múltiples bases de datos.
-*   **RMAN (Recovery Manager):** Herramienta integrada para la gestión de backups y recovery. Soporta backups completos, incrementales y acumulativos, compresión, cifrado y verificación de integridad.
-*   **Data Pump (expdp/impdp):** Utilidad de exportación e importación de datos de alto rendimiento que permite la migración de esquemas, tablas o bases de datos completas entre instancias.
+*   **SQL*Plus:** Consola CLI nativa.
+*   **Oracle Enterprise Manager (OEM):** Monitorización gráfica y centralizada.
+*   **RMAN (Recovery Manager):** Herramienta oficial para backups (completos, incrementales) y recuperación
+*   **Data Pump (expdp/impdp):** Exportación/importación lógica de alta velocidad.
 
 ## 8. Conclusión
 
-La arquitectura de Oracle Database representa uno de los diseños más sofisticados y robustos de la industria de los SGBDR. La separación conceptual entre Instancia (componente volátil en memoria) y Base de Datos (componente persistente en disco), junto con el diseño de las estructuras de memoria (SGA/PGA) y los procesos de fondo (DBWn, LGWR, SMON, PMON, CKPT, ARCn), conforman un sistema que garantiza las propiedades ACID incluso en los escenarios más adversos.
+La arquitectura de Oracle Database -> diseños más sofisticados y robustos de los SGBDR. Sistema que garantiza las propiedades ACID.
 
-La abstracción del almacenamiento mediante Tablespaces, los modos de funcionamiento configurables y el completo conjunto de herramientas de administración (SQL*Plus, OEM, RMAN, Data Pump) proporcionan al DBA el control necesario para gestionar bases de datos de cualquier escala, desde pequeñas aplicaciones departamentales hasta los sistemas transaccionales más exigentes de la Administración Pública. El conocimiento profundo de esta arquitectura resulta imprescindible para cualquier profesional que deba garantizar la disponibilidad, el rendimiento y la seguridad de los datos en el ámbito del sector público.
+Herramientas Oracle permiten DBA gestionar BD de cualquier escala. Imprescindible garantizar la disponibilidad, el rendimiento y la seguridad de los datos.
