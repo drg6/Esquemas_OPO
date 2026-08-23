@@ -2,109 +2,72 @@
 
 ## 1. Introducción
 
-Oracle Database, como se analizó en el tema anterior dedicado a su arquitectura, es un potente motor de gestión de la persistencia. Sin embargo, toda esa maquinaria interna resultaría inaccesible sin un lenguaje de interfaz que permita a los administradores (DBA), desarrolladores y aplicaciones operar sobre los datos. Ese lenguaje es **SQL (Structured Query Language)**, el estándar universal de comunicación con bases de datos relacionales, y su extensión procedural propietaria de Oracle: **PL/SQL (Procedural Language for SQL)**.
+**SQL (Structured Query Language)**, estándar universal de comunicación con BD relacionales, Oracle -> **PL/SQL (Procedural Language for SQL)**.
 
-Mientras que SQL es un lenguaje declarativo —el usuario describe *qué* datos quiere obtener, no *cómo* obtenerlos—, PL/SQL añade las capacidades imperativas necesarias para construir lógica de programación completa dentro de la propia base de datos: variables, bucles, condicionales, gestión de excepciones y modularización del código.
-
-Oracle ha adoptado plenamente el estándar ANSI/ISO SQL en sus sucesivas versiones (SQL-92, SQL:1999, SQL:2003, SQL:2016) y lo ha enriquecido con extensiones propietarias que explotan al máximo las capacidades de su motor relacional.
+SQL lenguaje declarativo, PL/SQL añade lógica de programación (variables, bucles, condicionales, gestión de excepciones y modularización del código)
 
 ## 2. Lenguaje SQL en Oracle
 
-Oracle estructura el lenguaje SQL en subconjuntos funcionales claramente diferenciados, cada uno orientado a un tipo de operación específico sobre la base de datos.
+Operaciones sobre BD.
 
 ### 2.1. DDL: Lenguaje de Definición de Datos (Data Definition Language)
 
-El DDL comprende las sentencias destinadas a crear, modificar y eliminar la estructura (esquema) de la base de datos. Son comandos de alto impacto estructural que afectan a los metadatos almacenados en el Diccionario de Datos de Oracle.
+DDL crear, modificar y eliminar la estructura (esquema) de BD -> ejecuta un **COMMIT automático implícito**. Reversibles mediante ROLLBACK.
 
-**Característica fundamental:** Toda sentencia DDL ejecuta un **COMMIT automático implícito**. Cualquier transacción DML pendiente en la sesión se confirma irreversiblemente antes de ejecutar el DDL. Los cambios DDL no son reversibles mediante ROLLBACK.
+*   **`CREATE`:** Crea objetos.
+    *   `CREATE TABLE`
+    *   `CREATE INDEX`
+    *   `CREATE VIEW`
+    *   `CREATE SEQUENCE`
+    *   `CREATE SYNONYM`: Alias
 
-Las sentencias DDL principales son:
-
-*   **`CREATE`:** Crea nuevos objetos en el esquema de la base de datos.
-    *   `CREATE TABLE`: Define una nueva tabla con sus columnas, tipos de datos y restricciones.
-    *   `CREATE INDEX`: Crea estructuras de indexación (B-Tree, Bitmap) para acelerar las consultas.
-    *   `CREATE VIEW`: Define una vista, que es una consulta almacenada que se comporta como una tabla virtual.
-    *   `CREATE SEQUENCE`: Crea un generador de valores numéricos secuenciales, utilizado típicamente para generar claves primarias autoincrementales.
-    *   `CREATE SYNONYM`: Define un alias para un objeto de la base de datos.
-
-*   **`ALTER`:** Modifica la estructura de un objeto existente sin destruirlo ni afectar a sus datos.
-    *   Ejemplo: `ALTER TABLE Ciudadano ADD (email VARCHAR2(100));` — añade una nueva columna a la tabla.
-    *   Otros usos: modificar el tipo de dato de una columna, añadir o eliminar restricciones, habilitar o deshabilitar índices.
-
-*   **`DROP`:** Elimina un objeto del esquema junto con todos sus datos asociados. Libera el espacio de almacenamiento ocupado en el Tablespace correspondiente.
-    *   Ejemplo: `DROP TABLE Temporal_Importacion;`
-    *   La cláusula `CASCADE CONSTRAINTS` elimina también las restricciones de integridad referencial que dependan del objeto eliminado.
-
-*   **`TRUNCATE`:** Elimina todas las filas de una tabla de forma instantánea, liberando el espacio de almacenamiento, pero conservando la estructura de la tabla (columnas, restricciones, índices). A diferencia de `DELETE`, no genera registros individuales en el Redo Log para cada fila eliminada, lo que la convierte en una operación extremadamente rápida. Es una operación DDL (con COMMIT implícito) y, por tanto, **no reversible** mediante ROLLBACK.
+*   **`ALTER`:** Modifica objetos (añade/elimina columnas, restricciones, indices, modifica tipos de datos, etc)
+*   **`DROP`:** Elimina objeto. `CASCADE CONSTRAINTS` elimina también las restricciones de integridad referencial dependientes.
+*   **`TRUNCATE`:** Elimina todas las filas de una tabla conservando la estructura. No genera Redo Log, operación extremadamente rápida. 
 
 ### 2.2. DML: Lenguaje de Manipulación de Datos (Data Manipulation Language)
 
-El DML es el conjunto de sentencias utilizado por los desarrolladores y las aplicaciones para interactuar con los datos almacenados en las tablas. A diferencia del DDL, las operaciones DML son **transaccionales**: no se confirman automáticamente y pueden deshacerse mediante ROLLBACK hasta que se ejecute un COMMIT explícito.
+DML interactuar con los datos. **Transaccionales**: no se confirman automáticamente.
 
-*   **`SELECT`:** Recupera datos de una o más tablas. Es la sentencia más utilizada de SQL y ofrece una amplia gama de cláusulas:
-    *   `WHERE`: Filtra las filas según condiciones lógicas.
-    *   `GROUP BY`: Agrupa filas con valores comunes para aplicar funciones de agregación (COUNT, SUM, AVG, MAX, MIN).
-    *   `HAVING`: Filtra los grupos generados por GROUP BY según condiciones sobre las funciones de agregación.
-    *   `ORDER BY`: Ordena el resultado de forma ascendente (ASC) o descendente (DESC).
-    *   `DISTINCT`: Elimina las filas duplicadas del resultado.
-    *   Funciones analíticas (Window Functions): `ROW_NUMBER()`, `RANK()`, `LAG()`, `LEAD()`, `PARTITION BY`, que permiten cálculos avanzados sobre conjuntos de filas.
+*   **`SELECT`:** Recupera datos:
+    *   `WHERE`: Filtra.
+    *   `GROUP BY`: Agrupa, funciones de agregación (COUNT, SUM, AVG, MAX, MIN).
+    *   `HAVING`: Filtra grupos generados por GROUP BY.
+    *   `ORDER BY`: Ordena (ASC, DESC).
+    *   `DISTINCT`: Elimina duplicados.
+    *   Funciones analíticas (Window Functions): `ROW_NUMBER()`, `RANK()`, `LAG()`, `LEAD()`, `PARTITION BY`.
 
-*   **`INSERT`:** Añade nuevas filas a una tabla, respetando las restricciones de integridad definidas (NOT NULL, UNIQUE, PRIMARY KEY, FOREIGN KEY, CHECK).
-    *   Inserción simple: `INSERT INTO Empleado (id, nombre) VALUES (1, 'García');`
-    *   Inserción masiva desde otra tabla: `INSERT INTO Historico SELECT * FROM Empleado WHERE activo = 'N';`
-
-*   **`UPDATE`:** Modifica los valores de una o más columnas en filas existentes. Es fundamental incluir siempre una cláusula `WHERE` para limitar el alcance de la actualización; de lo contrario, se modificarán **todas** las filas de la tabla.
-    *   Ejemplo: `UPDATE Empleado SET salario = salario * 1.03 WHERE departamento_id = 10;`
-
-*   **`DELETE`:** Elimina filas de una tabla, respetando las restricciones de integridad referencial (no permite eliminar filas referenciadas por claves foráneas de otras tablas, salvo que se defina `ON DELETE CASCADE` o `ON DELETE SET NULL`). Genera registros en el Redo Log para cada fila eliminada y es reversible mediante ROLLBACK.
-
-*   **`MERGE`:** Sentencia avanzada que combina operaciones de INSERT y UPDATE en una sola instrucción, según exista o no una correspondencia entre la tabla origen y la tabla destino. Es especialmente útil en procesos ETL y cargas de datos incrementales.
+*   **`INSERT`:** Añade filas. Inserción simple, Inserción masiva desde otra tabla (SELECT).
+*   **`UPDATE`:** Modifica valores.
+*   **`DELETE`:** Elimina filas.
+*   **`MERGE`:** Combina INSERT y UPDATE.
 
 ### 2.3. DCL: Lenguaje de Control de Datos (Data Control Language)
 
-Gestiona los permisos y la seguridad del acceso a los datos:
+Gestiona permisos:
 
-*   **`GRANT`:** Concede privilegios a usuarios o roles. Puede otorgar privilegios de sistema (CREATE TABLE, CREATE SESSION) o privilegios sobre objetos específicos (SELECT, INSERT, UPDATE sobre una tabla concreta).
-    *   Ejemplo: `GRANT SELECT, INSERT ON Empleado TO rol_rrhh;`
-
-*   **`REVOKE`:** Revoca privilegios previamente concedidos.
-    *   Ejemplo: `REVOKE INSERT ON Empleado FROM rol_rrhh;`
+*   **`GRANT xxx ON xxx TO xxx`:** Concede privilegios a usuarios o roles. 
+*   **`REVOKE xxx ON xxx TO xxx`:** Revoca privilegios previamente concedidos.
 
 ### 2.4. TCL: Lenguaje de Control de Transacciones (Transaction Control Language)
 
 Gobierna el ciclo de vida de las transacciones, implementando las propiedades ACID:
 
-*   **`COMMIT`:** Confirma permanentemente todos los cambios realizados en la transacción actual. Una vez ejecutado, los cambios son durables y visibles para el resto de sesiones. Activa el proceso LGWR para escribir el Redo Log Buffer en disco.
-
-*   **`ROLLBACK`:** Deshace todos los cambios realizados desde el último COMMIT (o desde el inicio de la sesión). Restaura los datos a su estado previo utilizando los datos de UNDO almacenados en el Tablespace UNDO.
-
-*   **`SAVEPOINT`:** Establece un punto intermedio dentro de una transacción al que se puede retroceder parcialmente con `ROLLBACK TO SAVEPOINT nombre;`, sin deshacer toda la transacción.
+*   **`COMMIT`:** Confirma permanentemente todos los cambios transacción actual. 
+*   **`ROLLBACK`:** Deshace todos los cambios realizados desde el último COMMIT.
+*   **`SAVEPOINT`:** Establece un punto intermedio dentro de una transacción. Retroceder parcialmente -> `ROLLBACK TO SAVEPOINT nombre;`.
 
 ### 2.5. Operaciones relacionales avanzadas: JOINs y subconsultas
 
-La potencia de SQL se manifiesta plenamente al combinar datos de múltiples tablas, respetando las relaciones establecidas mediante claves foráneas.
-
 **JOINs (conforme al estándar ANSI SQL-92):**
-
-*   **`INNER JOIN`:** Devuelve solo las filas donde existe correspondencia en ambas tablas. Es el tipo de JOIN más habitual.
-    *   Ejemplo: `SELECT e.nombre, d.nombre_dept FROM Empleado e INNER JOIN Departamento d ON e.dept_id = d.id;`
-
-*   **`LEFT OUTER JOIN`:** Devuelve todas las filas de la tabla izquierda, y las filas correspondientes de la tabla derecha. Si no existe correspondencia, las columnas de la tabla derecha aparecen como NULL.
-
-*   **`RIGHT OUTER JOIN`:** Simétrico al LEFT OUTER JOIN: conserva todas las filas de la tabla derecha.
-
-*   **`FULL OUTER JOIN`:** Combina LEFT y RIGHT: conserva todas las filas de ambas tablas, rellenando con NULL donde no exista correspondencia.
-
-*   **`CROSS JOIN`:** Producto cartesiano de ambas tablas. Cada fila de la primera tabla se combina con todas las filas de la segunda. Rara vez se utiliza intencionadamente debido al volumen exponencial de resultados.
+*   **`INNER JOIN`:** solo las filas con correspondencia en ambas tablas.
+*   **`LEFT OUTER JOIN`:** todas las filas de la izquierda + las coincidentes de la derecha. Si no hay coincidencia → NULL.
+*   **`RIGHT OUTER JOIN`:** todas las filas de la derecha + las coincidentes de la izquierda. Si no hay coincidencia → NULL.
+*   **`FULL OUTER JOIN`:** todas las filas de ambas tablas, coincidan o no.
+*   **`CROSS JOIN`:** Producto cartesiano de ambas tablas. 
 
 **Subconsultas (Subqueries):**
-
-Son consultas SELECT anidadas dentro de otra consulta SQL. Pueden ubicarse en:
-*   La cláusula `WHERE`: como filtro dinámico (`WHERE salario > (SELECT AVG(salario) FROM Empleado)`).
-*   La cláusula `FROM`: como tabla derivada (inline view).
-*   La cláusula `SELECT`: como valor calculado por cada fila.
-
-Las subconsultas pueden ser correlacionadas (dependen de la fila de la consulta externa) o no correlacionadas (se ejecutan una sola vez de forma independiente).
+Son consultas SELECT anidadas dentro de otra consulta SQL (`WHERE`, `FROM`,  `SELECT`).
 
 ## 3. PL/SQL: El Lenguaje Procedural de Oracle
 
