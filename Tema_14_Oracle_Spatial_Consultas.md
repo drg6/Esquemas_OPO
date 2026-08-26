@@ -2,15 +2,13 @@
 
 ## 1. Introducción
 
-Los Temas 12 y 13 han establecido los cimientos del ecosistema Oracle Spatial: el modelo de datos Objeto-Relacional con el tipo `SDO_GEOMETRY`, la indexación R-Tree y las vistas de metadatos. Este tema completa la trilogía abordando dos aspectos operativos esenciales: los **Sistemas de Referencia Espacial (SRS)**, que dotan de significado geográfico real a las coordenadas almacenadas, y el **motor de consultas espaciales**, compuesto por operadores y funciones que permiten responder a preguntas geoespaciales complejas directamente mediante SQL.
-
-Sin un sistema de referencia correctamente asignado, las coordenadas (145.2, 567.8) carecen de significado: no es posible saber si representan metros, grados o unidades arbitrarias, ni a qué punto de la Tierra corresponden. Y sin los operadores y funciones espaciales, la potencia del índice R-Tree y del modelo SDO_GEOMETRY quedaría desaprovechada.
+**Sistemas de Referencia Espacial (SRS)**, dotan de significado geográfico a las coordenadas almacenadas, y el **motor de consultas espaciales**, permiten responder a preguntas geoespaciales complejas mediante SQL.
 
 ## 2. Sistemas de Referencia Espacial (SRS)
 
 ### 2.1. Concepto y necesidad
 
-Un **Sistema de Referencia Espacial (SRS)** define cómo las coordenadas numéricas almacenadas en `SDO_GEOMETRY` se relacionan con posiciones reales sobre la superficie terrestre. El SRS determina:
+Un **Sistema de Referencia Espacial (SRS)** define cómo las coordenadas numéricas `SDO_GEOMETRY` se relacionan con posiciones reales sobre la superficie terrestre. 
 
 *   El **datum** (modelo matemático de la forma de la Tierra): WGS84, ETRS89, ED50.
 *   La **proyección cartográfica** (método para representar la esfera en un plano): UTM, Lambert, Mercator.
@@ -18,14 +16,21 @@ Un **Sistema de Referencia Espacial (SRS)** define cómo las coordenadas numéri
 
 ### 2.2. Sistemas geográficos vs. proyectados
 
-| Característica | Geográfico (esférico) | Proyectado (plano) |
-|----------------|----------------------|-------------------|
-| Coordenadas | Latitud/Longitud (grados) | X/Y (metros) |
-| Superficie | Esférica/elipsoidal | Plana |
-| Distancias | En grados (requiere conversión) | Directamente en metros |
-| Áreas | Distorsionadas en latitudes extremas | Precisas en la zona de proyección |
-| Ejemplo | WGS84 (SRID 4326) | ETRS89/UTM30N (SRID 25830) |
-| Uso típico | GPS, mapas globales | Catastro, urbanismo, topografía |
+*   1. Geográfico → superficie curva 
+**Coordenadas:** Latitud / Longitud → grados
+**Superficie:** Esférica o elipsoidal
+**Distancias:** En grados → hay que convertir
+**Áreas:** Más distorsionadas, especialmente en latitudes extremas
+**Ejemplo:** WGS84 → SRID 4326
+**Uso:** GPS, mapas globales
+
+*   2. Proyectado → superficie plana 
+**Coordenadas:** X / Y → metros
+**Superficie:** Plana
+**Distancias:** Directamente en metros
+**Áreas:** Más precisas dentro de la zona de proyección
+**Ejemplo:** ETRS89/UTM30N → SRID 25830
+**Uso:** Catastro, urbanismo, topografía
 
 ### 2.3. Sistemas más relevantes para España
 
