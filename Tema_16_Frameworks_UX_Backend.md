@@ -61,7 +61,7 @@ Dos paradigmas opuestos para construir la Interfaz de Usuario (UI):
 ### 3.1. Definiciones
 
 *   **UI (User Interface):** Elementos visuales e interactivos que componen la interfaz: botones, menús, formularios, colores, tipografías, iconos. Usuario *ve*.
-*   **UX (User Experience):** La experiencia global del usuario al interactuar con el sistema: facilidad de uso, eficiencia, satisfacción.. Uusuario *siente*. La UX abarca la UI.
+*   **UX (User Experience):** La experiencia global del usuario al interactuar con el sistema: facilidad de uso, eficiencia, satisfacción.. Usuario *siente*. La UX abarca la UI.
 
 ### 3.2. Principios de diseño UX
 

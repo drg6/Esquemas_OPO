@@ -2,86 +2,67 @@
 
 ## 1. Introducción
 
-La transformación digital de las Administraciones Públicas ha trasladado al entorno web un volumen creciente de trámites y servicios que anteriormente requerían presencia física: empadronamiento, liquidación de tributos, solicitud de licencias, consulta de expedientes. Sin embargo, no todos los ciudadanos interactúan con los interfaces digitales en igualdad de condiciones: personas con discapacidad visual, auditiva, motora o cognitiva, personas mayores con escasa experiencia digital, o usuarios que acceden desde dispositivos con capacidades limitadas, necesitan que los servicios digitales estén diseñados para ser universalmente utilizables.
+La transformación digital de las AP ha trasladado al entorno web un volumen creciente de trámites y servicios que anteriormente requerían presencia física: empadronamiento, liquidación de tributos... Ciudadanos discapacidad visual, auditiva, motora o cognitiva, personas mayores necesitan que los servicios digitales estén diseñados para ser universalmente utilizables.
 
-La **usabilidad** y la **accesibilidad web** no son simples recomendaciones de calidad: en el ámbito de la Administración Pública española, constituyen **obligaciones legales** reguladas por un marco normativo específico. Este tema analiza los conceptos de UX/UI, el Diseño Universal, las pautas de accesibilidad del W3C y su marco normativo aplicable.
+La **usabilidad** y la **accesibilidad web** en las AP española, constituyen **obligaciones legales** reguladas por un marco normativo específico. Este tema analiza los conceptos de UX/UI, el Diseño Universal, las pautas de accesibilidad del W3C y su marco normativo aplicable.
 
 ## 2. El W3C y la Gobernanza de los Estándares Web
 
 ### 2.1. El World Wide Web Consortium (W3C)
 
-El **W3C** es el organismo internacional de estandarización fundado en 1994 por Tim Berners-Lee (creador de la World Wide Web) con la misión de desarrollar estándares abiertos que garanticen el crecimiento a largo plazo de la Web. Los estándares más relevantes del W3C incluyen:
+El **W3C** es el organismo internacional de estandarización, 1994 Tim Berners-Lee (creador de la World Wide Web), estándares más relevantes del W3C incluyen:
 
 *   **HTML5:** Lenguaje de marcado para la estructura de las páginas web.
 *   **CSS3:** Hojas de estilo para la presentación visual.
 *   **WAI-ARIA:** Especificación de accesibilidad para aplicaciones web dinámicas.
-*   **WCAG 2.1/2.2:** Pautas de accesibilidad para el contenido web (analizadas en detalle más adelante).
-*   **XML, SVG, MathML:** Estándares complementarios para datos, gráficos vectoriales y notación matemática.
+*   **WCAG 2.1/2.2:** Pautas de accesibilidad para el contenido web.
 
 ### 2.2. WAI (Web Accessibility Initiative)
 
-Dentro del W3C, la **WAI (Web Accessibility Initiative)** es el grupo de trabajo específicamente dedicado a desarrollar normas, directrices y recursos que hagan la Web accesible para personas con discapacidad. La WAI es responsable de las pautas WCAG.
+Dentro del W3C, **WAI (Web Accessibility Initiative)** es el grupo de trabajo dedicado a desarrollar normas que hagan la Web accesible para personas con discapacidad. Responsable de las pautas WCAG.
 
 ## 3. Conceptos de UI (User Interface) y UX (User Experience)
 
 ### 3.1. UI: Interfaz de Usuario
 
-La UI es el conjunto de elementos visuales e interactivos a través de los cuales el usuario interactúa con el sistema: botones, formularios, menús, tablas, iconos, colores, tipografías y disposición de los elementos en pantalla. La UI se preocupa por la estética, la coherencia visual y la claridad de la presentación.
+Elementos visuales e interactivos que componen la interfaz: botones, menús, formularios, colores, tipografías, iconos. Estética, la coherencia visual y la claridad de la presentación. Usuario *ve*.
 
 **Principios de diseño UI:**
-*   **Consistencia:** Los mismos elementos deben verse y comportarse igual en toda la aplicación.
-*   **Jerarquía visual:** Los elementos más importantes deben destacar visualmente (tamaño, color, posición).
-*   **Feedback inmediato:** Toda acción del usuario debe producir una respuesta visual (animación de carga, cambio de color al pasar el cursor, confirmación de envío).
-*   **Affordance:** Los elementos deben sugerir cómo se usan (un botón debe parecer pulsable, un campo de texto debe parecer editable).
+*   **Consistencia:** Misma visualización y comportamiento.
+*   **Jerarquía visual:** Elementos importantes deben destacar.
+*   **Feedback inmediato:** Acción = respuesta visual (Cambio de color de un botón al pulsarle).
+*   **Affordance:** Los elementos deben sugerir cómo se usan (botón debe parecer pulsable).
 
 ### 3.2. UX: Experiencia de Usuario
 
-La UX es la experiencia global que percibe el usuario al interactuar con un producto digital. Abarca la UI pero la trasciende, incluyendo:
-
-*   La facilidad para completar una tarea (eficiencia).
-*   La satisfacción emocional durante y después del uso.
-*   La capacidad de aprendizaje (learnability).
-*   La tolerancia a errores y la capacidad de recuperación.
-*   La confianza y credibilidad que transmite el servicio.
+La experiencia global del usuario al interactuar con el sistema: facilidad de uso, eficiencia, satisfacción, capacidad de aprendizaje.. Usuario *siente*. La UX abarca la UI.
 
 **Metodologías de diseño UX:**
-
-*   **Design Thinking:** Proceso iterativo de cinco fases: Empatizar → Definir → Idear → Prototipar → Testear.
-*   **Diseño Centrado en el Usuario (UCD):** Las decisiones de diseño se basan en la investigación con usuarios reales (entrevistas, encuestas, tests de usabilidad).
-*   **Personas:** Perfiles ficticios que representan a los tipos de usuario objetivo, con sus necesidades, limitaciones y objetivos.
-*   **Customer Journey Map:** Mapa del recorrido del usuario a través de todas las etapas de interacción con el servicio.
+*   **Design Thinking:**  Empatizar → Definir → Idear → Prototipar → Testear (TIPED)
+*   **Diseño Centrado en el Usuario (UCD):** Diseño con usuarios reales.
+*   **Personas:** Usuarios ficticios.
+*   **Customer Journey Map:** Recorrido del usuario en etapas de interacción.
 
 ### 3.3. Herramientas de prototipado
 
-| Herramienta | Uso | Tipo |
-|-------------|-----|------|
-| **Figma** | Diseño de interfaces y prototipos interactivos | Basada en navegador |
-| **Sketch** | Diseño UI para macOS | Nativa |
-| **Adobe XD** | Prototipado y diseño de experiencias | Multiplataforma |
-| **Wireframe.cc** | Wireframes de baja fidelidad | Online |
+*  **Figma:** Diseño de interfaces y prototipos interactivos.
+*  **Sketch:** Diseño UI para macOS.
+*  **Adobe XD** Prototipado y diseño de experiencias.
+*  **Wireframe.cc** Wireframes (esquema estructurales) de baja fidelidad. 
 
 ## 4. Diseño Universal (Design for All)
 
 ### 4.1. Definición
 
-El **Diseño Universal** (también denominado Diseño para Todos o Design for All) es la filosofía de diseño que busca crear productos, entornos y servicios utilizables por **todas las personas**, en la mayor medida posible, sin necesidad de adaptaciones o diseños especializados. Fue formulado por Ronald Mace y se sustenta en siete principios:
+El **Diseño Universal** (Design for All) crear productos / servicios utilizables por **todas las personas** sin necesidad de adaptaciones o diseños especializados. Principios:
 
 1.  **Uso equitativo:** Útil para personas con diversas capacidades.
-2.  **Flexibilidad en el uso:** Adaptable a las preferencias y capacidades individuales.
-3.  **Uso simple e intuitivo:** Fácil de entender independientemente de la experiencia del usuario.
-4.  **Información perceptible:** La información se comunica de forma efectiva independientemente de las condiciones ambientales o las capacidades sensoriales del usuario.
-5.  **Tolerancia al error:** Minimiza las consecuencias de las acciones accidentales.
-6.  **Bajo esfuerzo físico:** Se puede usar de forma eficiente y cómoda.
-7.  **Tamaño y espacio adecuados:** Proporción adecuada para el acceso y manipulación.
-
-### 4.2. Aplicación al diseño web
-
-En el contexto del diseño web para la Administración Pública, el Diseño Universal se traduce en:
-*   Interfaces que funcionen con teclado, ratón, voz y pantalla táctil.
-*   Contenido compatible con lectores de pantalla (screen readers) como NVDA, JAWS o VoiceOver.
-*   Contraste de color suficiente para usuarios con baja visión o daltonismo.
-*   Textos redimensionables sin pérdida de funcionalidad.
-*   Alternativas textuales para contenido multimedia.
+2.  **Flexibilidad en el uso:** Interfaces que funcionen con teclado, ratón, voz y pantalla táctil
+3.  **Uso simple e intuitivo:** 
+4.  **Información perceptible:** Ej. Contraste de color suficiente para usuarios con baja visión o daltonismo, Alternativas textuales para contenido multimedia.
+5.  **Tolerancia al error:** Minimiza consecuencias acciones accidentales, Ej. Confirmación antes de eliminar un archivo
+6.  **Bajo esfuerzo físico:** 
+7.  **Tamaño y espacio adecuados:** Ej. Botones suficientemente grandes
 
 ## 5. Accesibilidad Web: Pautas WCAG
 
