@@ -134,6 +134,13 @@ Modulariza preocupaciones transversales en **aspectos** que se aplican sin modif
 * **Pointcut:** Filtro/expresión de selección (ej. selección de paquetes de servicio).
 * **Weaving:** Vinculación aspecto-código.
 
+### 4.3. Implementación (Proxies dinámicos)
+
+* **Tipos:** **JDK** (interfaces) o **CGLIB** (subclases).
+* **Flujo:** Intercepta llamadas externas `[Proxy → Advice → Método → Advice]`.
+* **Limitación crítica:** Las **llamadas internas** (en la misma clase) eluden el proxy = **El aspecto NO se ejecuta**.
+* **Uso nativo:** `@Transactional`, `@Cacheable`, `@Async`, `@PreAuthorize`.
+
 ## 5. Conclusión
 
 El ecosistema de Spring 3 componentes -> El **ApplicationContext** centraliza la gestión del contenedor y de los beans; la **Inyección de Dependencias** desacopla el diseño estructural de las clases; y la **AOP** aplica comportamientos transversales de forma transparente mediante proxies. 
