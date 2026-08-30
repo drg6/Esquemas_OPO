@@ -2,241 +2,109 @@
 
 ## 1. Introducción
 
-El Tema 19 introdujo Spring Framework y Spring Boot a nivel conceptual. El Tema 20 profundizó en el Contexto de Aplicación, la Inyección de Dependencias y AOP. Este tema completa la trilogía de Spring abordando en detalle tres subproyectos que conforman la columna vertebral del desarrollo backend empresarial moderno: **Spring Boot** (simplificación y autoconfiguración), **Spring Data** (acceso a datos sin código repetitivo) y **Spring Security** (autenticación y autorización).
+Históricamente, configurar una aplicación Spring requería extensos ficheros XML, un despliegue manual en servidores de aplicaciones (como Tomcat o WebLogic) y la escritura de código repetitivo para el acceso a datos y la seguridad. Estos tres módulos nacen para erradicar esa complejidad, permitiendo a los desarrolladores centrarse exclusivamente en la lógica de negocio.
 
 ## 2. Spring Boot: Configuración por Convención
 
+Spring Boot no es un framework distinto, sino una capa que simplifica la creación de aplicaciones listas para producción (*production-ready*)
+
 ### 2.1. Starters: Gestión simplificada de dependencias
 
-Los **Starters** son dependencias preconfiguradas que agrupan todas las bibliotecas necesarias para una funcionalidad específica. En lugar de buscar y configurar manualmente decenas de bibliotecas compatibles, el desarrollador añade un único Starter al fichero `pom.xml` (Maven) o `build.gradle` (Gradle):
+Los **Starters** son dependencias preconfiguradas que agrupan funcionalmente las librerías necesarias. En lugar de buscar y configurar manualmente, el desarrollador añade un único Starter al fichero `pom.xml` (Maven) o `build.gradle` (Gradle):
 
-| Starter | Incluye |
-|---------|---------|
-| `spring-boot-starter-web` | Tomcat embebido, Spring MVC, Jackson (JSON) |
-| `spring-boot-starter-data-jpa` | Hibernate, HikariCP (pool de conexiones), Spring Data JPA |
-| `spring-boot-starter-security` | Spring Security, filtros de autenticación |
-| `spring-boot-starter-test` | JUnit 5, Mockito, Spring Test, MockMvc |
-| `spring-boot-starter-validation` | Bean Validation (Hibernate Validator) |
-| `spring-boot-starter-actuator` | Endpoints de monitorización y gestión |
-| `spring-boot-starter-mail` | JavaMail para envío de correos electrónicos |
+* **`spring-boot-starter-web`:** Importa Spring MVC, JSON y un servidor embebido.
+* **`spring-boot-starter-data-jpa`:** Agrupa Hibernate, Spring Data y el pool HikariCP (pool de conexiones).
+* **`spring-boot-starter-security`:** Despliega el motor de autenticación y protección de endpoints.
+* **`spring-boot-starter-actuator`:** Endpoints de monitorización y gestión.
 
 ### 2.2. Autoconfiguración (@EnableAutoConfiguration)
 
 Spring Boot examina el **classpath** (las bibliotecas presentes en el proyecto) y configura automáticamente los componentes necesarios:
 
-*   Si detecta un driver JDBC de Oracle (`ojdbc`) y JPA en las dependencias → configura automáticamente un `DataSource`, un `EntityManagerFactory` y un `TransactionManager`.
-*   Si detecta Spring Security → configura automáticamente la protección de todos los endpoints con autenticación HTTP Basic.
-*   Si detecta Thymeleaf → configura automáticamente el motor de plantillas.
+*   Si detecta el driver JDBC de Oracle y JPA, autoconfigura un `DataSource`, el `EntityManager` y el control de transacciones.
+*   Si detecta Spring Security, protege por defecto todos los endpoints exigiendo autenticación HTTP Basic.
 
-El desarrollador puede personalizar cualquier autoconfiguración mediante el fichero `application.properties` o `application.yml`.
+Personalizar cualquier autoconfiguración mediante el fichero `application.properties` o `application.yml`.
 
-### 2.3. Servidor embebido
+### 2.3. Servidor embebido (Fat JAR)
 
-Spring Boot integra el servidor web (Tomcat, Jetty o Undertow) dentro del propio ejecutable `.jar`:
-
-```bash
-# Compilar la aplicación
-mvn clean package
-
-# Ejecutar directamente — no requiere servidor externo
-java -jar tributos-municipales-1.0.jar
-
-# O con perfil de configuración específico
-java -jar tributos-municipales-1.0.jar --spring.profiles.active=produccion
-```
+Spring Boot no utiliza archivos `.war` sino que empaqueta el servidor web (Tomcat) directamente dentro del ejecutable. 
+**"Fat JAR"** autónomo que se ejecuta con un simple comando `java -jar aplicacion.jar`, alineandose arquitecturas modernas (microservicios y contenedores Docker/Kubernetes).
 
 ### 2.4. Perfiles de configuración
 
-Spring Boot permite definir configuraciones diferentes para cada entorno:
-
-```yaml
-# application-desarrollo.yml
-spring:
-  datasource:
-    url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
-    username: dev_user
-
-# application-produccion.yml
-spring:
-  datasource:
-    url: jdbc:oracle:thin:@//oracle-prod:1521/ORCL
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
-```
+Spring Boot desacopla la configuración del código fuente `application-produccion.yml` mediante **perfiles** (ej. *desarrollo*, *preproduccion*, *produccion*). 
+Ej. Credenciales de base de datos se inyectan en tiempo de ejecución mediante variables de entorno, garantizando la seguridad.
 
 ### 2.5. Actuator: Monitorización en producción
 
-El módulo **Spring Boot Actuator** expone endpoints HTTP para monitorizar la aplicación en producción:
-
-| Endpoint | Función |
-|----------|---------|
-| `/actuator/health` | Estado de salud (UP/DOWN, conexión a BD, espacio en disco) |
-| `/actuator/metrics` | Métricas de rendimiento (CPU, memoria, peticiones HTTP) |
-| `/actuator/info` | Información de la aplicación (versión, descripción) |
-| `/actuator/loggers` | Consulta y modificación dinámica del nivel de logging |
-| `/actuator/env` | Variables de entorno y propiedades de configuración |
+Actuator expone *endpoints* HTTP nativos para la monitorización de la aplicación en producción. Destacan `/actuator/health` (estado de salud y conexiones), `/actuator/metrics` (consumo de CPU, memoria, tiempos de respuesta) y `/actuator/loggers` (para modificar niveles de traza dinámicamente sin reiniciar el servicio).
 
 ## 3. Spring Data: Acceso a Datos sin Boilerplate
 
 ### 3.1. El problema del código repetitivo
 
-En la programación JEE tradicional, cada tabla de la base de datos requería la implementación manual de un DAO (Data Access Object) con métodos CRUD (Create, Read, Update, Delete), gestión de conexiones, transacciones y mapeo de resultados. Si un ayuntamiento tiene 50 tablas, se necesitan 50 DAOs con código prácticamente idéntico.
+En Java EE (JEE) clásico, DAO (*Data Access Object*) por cada tabla (operaciones CRUD, conexiones y excepciones). Spring Data nace para erradicar este código redundante.
 
 ### 3.2. Repositorios Spring Data
 
-**Spring Data JPA** elimina este código repetitivo mediante el concepto de **Repositorio**: una interfaz Java que extiende de `JpaRepository`. Spring genera automáticamente la implementación en tiempo de ejecución:
-
-```java
-public interface ContribuyenteRepository extends JpaRepository<Contribuyente, String> {
-
-    // Spring genera automáticamente la implementación de estos métodos:
-    // - save(contribuyente)
-    // - findById(dni)
-    // - findAll()
-    // - deleteById(dni)
-    // - count()
-    // - existsById(dni)
-}
-```
+**Spring Data JPA** elimina este código repetitivo mediante **Repositorio** `JpaRepository`.
+Genera automáticamente la implementación en tiempo de ejecución, inyectando métodos funcionales como `save()`, `findById()`, `findAll()` y `deleteById()`, con transaccionalidad automática.
 
 ### 3.3. Query Methods: Consultas derivadas del nombre del método
 
-Spring Data genera consultas SQL automáticamente a partir del nombre del método, siguiendo convenciones de nomenclatura:
-
-```java
-public interface ContribuyenteRepository extends JpaRepository<Contribuyente, String> {
-
-    // SELECT * FROM contribuyente WHERE apellidos = ? AND edad > ?
-    List<Contribuyente> findByApellidosAndEdadGreaterThan(String apellidos, int edad);
-
-    // SELECT * FROM contribuyente WHERE domicilio LIKE ?
-    List<Contribuyente> findByDomicilioContaining(String fragmento);
-
-    // SELECT * FROM contribuyente WHERE activo = true ORDER BY nombre ASC
-    List<Contribuyente> findByActivoTrueOrderByNombreAsc();
-
-    // SELECT COUNT(*) FROM contribuyente WHERE municipio = ?
-    long countByMunicipio(String municipio);
-
-    // SELECT * FROM contribuyente WHERE deuda > ? AND activo = true
-    List<Contribuyente> findByDeudaGreaterThanAndActivoTrue(BigDecimal umbral);
-}
-```
+Spring Data puede inferir consultas SQL a partir del nombre del método, siguiendo una estricta convención de nomenclatura:
+* Un método llamado `findByApellidosAndEdadGreaterThan(String ap, int edad)` es traducido automáticamente por el framework a: `SELECT * FROM tabla WHERE apellidos = ? AND edad > ?`.
+* Soporta operadores lógicos, ordenación (`OrderByNombreAsc`) y conteo (`countByMunicipio`).
 
 ### 3.4. Consultas personalizadas con @Query
 
-Para consultas complejas que no se pueden expresar mediante nombres de métodos:
-
-```java
-@Query("SELECT c FROM Contribuyente c WHERE c.deuda > :umbral AND c.municipio = :municipio")
-List<Contribuyente> buscarDeudoresPorMunicipio(
-    @Param("umbral") BigDecimal umbral,
-    @Param("municipio") String municipio
-);
-
-@Query(value = "SELECT * FROM contribuyente WHERE ROWNUM <= :limite", nativeQuery = true)
-List<Contribuyente> buscarTopContribuyentes(@Param("limite") int limite);
-```
+Anotación **`@Query`** para consultas personalizadas y permite sentencias complejas en JPQL (orientadas a objetos) o en SQL nativo (`nativeQuery = true`), parámetros de entrada con `@Param`.
 
 ### 3.5. Paginación y ordenación
 
-```java
-// Consulta paginada: página 0, 20 resultados, ordenados por nombre
-Page<Contribuyente> pagina = repository.findAll(PageRequest.of(0, 20, Sort.by("nombre")));
+Grandes volúmenes de datos -> objeto `Pageable` (ej. `PageRequest.of(0, 20)`), devuelve registros y calcula además total de registros, páginas disponible.
 
-pagina.getContent();       // Lista de contribuyentes de esta página
-pagina.getTotalPages();     // Número total de páginas
-pagina.getTotalElements();  // Número total de registros
-```
+### 3.6. Ecosistema Multimodelo
 
-### 3.6. Spring Data para otras bases de datos
-
-Spring Data proporciona módulos específicos para bases de datos no relacionales:
-
-| Módulo | Base de datos |
-|--------|---------------|
-| Spring Data MongoDB | MongoDB (documentos JSON) |
-| Spring Data Redis | Redis (clave-valor en memoria) |
-| Spring Data Elasticsearch | Elasticsearch (búsqueda textual) |
-| Spring Data Neo4j | Neo4j (grafos) |
-| Spring Data Cassandra | Apache Cassandra (columnas anchas) |
+Ecosistemas NoSQL: **Spring Data MongoDB** (documentos), **Redis** (caché clave-valor) o **Elasticsearch** (motores de búsqueda).
 
 ## 4. Spring Security: Autenticación y Autorización
 
 ### 4.1. Concepto
 
-**Spring Security** es el framework de seguridad de Spring que proporciona autenticación (verificar la identidad del usuario) y autorización (controlar el acceso a recursos) de forma declarativa e integrada con el ecosistema Spring.
+Gestiona **Autenticación** (verificar la identidad del usuario,quién es) y **Autorización** (controlar el acceso a recursos,qué puede hacer).
+Patrón *Intercepting Filter*: Inyecta una **Security Filter Chain** que intercepta toda petición HTTP *antes* de llegar al controlador `DispatcherServlet`, validando credenciales o tokens.
 
-### 4.2. Cadena de filtros de seguridad (Security Filter Chain)
+### 4.2. Mecanismos de Autenticación
 
-Spring Security intercepta todas las peticiones HTTP mediante una cadena de filtros que se ejecutan antes de que la petición llegue al controlador:
+* **Form-based y HTTP Basic:** Tradicionales para aplicaciones web y APIs internas simples.
+* **JWT (JSON Web Token):** El estándar para APIs REST. Es un mecanismo *stateless* (sin sesión en servidor) donde el cliente envía un token criptográfico firmado en cada cabecera HTTP que se genera tras el login.
+* **OAuth 2.0 / OpenID Connect:** Delegación de la autenticación a un proveedor externo (Google, Cl@ve, Azure AD). El estándar para Single Sign-On (SSO).
+* **X.509 / DNIe:** Autenticación mediante certificados digitales.
+* **LDAP/Active Directory:** Autenticación contra un directorio corporativo (Active Directory).
 
-```
-Petición HTTP → [Filtro CORS] → [Filtro CSRF] → [Filtro de Autenticación] 
-    → [Filtro de Autorización] → Controlador
-```
+### 4.3.  Autorización y Control de Acceso
 
-### 4.3. Autenticación: Mecanismos soportados
+Spring Security permite aplicar políticas de control de acceso a dos niveles:
 
-*   **Formulario de login (Form-based):** Página HTML de login clásica con usuario y contraseña.
-*   **HTTP Basic:** Credenciales en la cabecera `Authorization` de cada petición (solo para APIs internas).
-*   **JWT (JSON Web Token):** Token criptográfico que el servidor genera tras el login y que el cliente envía en cada petición. No requiere sesión en el servidor (stateless). Ideal para APIs REST.
-*   **OAuth 2.0 / OpenID Connect:** Delegación de la autenticación a un proveedor externo (Google, Cl@ve, Azure AD). El estándar para Single Sign-On (SSO).
-*   **Certificado X.509 / DNIe:** Autenticación mediante certificado digital del ciudadano.
-*   **LDAP:** Autenticación contra un directorio corporativo (Active Directory).
+1. **A nivel de ruta (HTTP):** Mediante la configuración `SecurityFilterChain`, definiendo reglas (ej. permitir acceso `/api/public/**` a todos, pero restringir `/api/tributos/**` mediante `hasRole('TECNICO')`).
+2. **A nivel de método (AOP):** Utilizando anotaciones como **`@PreAuthorize("hasRole('ADMIN'))`** .
 
-### 4.4. Autorización: Control de acceso basado en roles
-
-```java
-@Configuration
-@EnableWebSecurity
-public class SecurityConfig {
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/public/**").permitAll()
-                .requestMatchers("/api/tributos/**").hasRole("TECNICO_TRIBUTOS")
-                .requestMatchers("/api/admin/**").hasRole("ADMINISTRADOR")
-                .anyRequest().authenticated()
-            )
-            .oauth2Login();  // Login con OAuth 2.0
-
-        return http.build();
-    }
-}
-```
-
-### 4.5. Seguridad a nivel de método
-
-```java
-@Service
-public class TributoService {
-
-    @PreAuthorize("hasRole('ADMIN_TRIBUTOS')")
-    public void anularRecibo(Long idRecibo) {
-        // Solo usuarios con rol ADMIN_TRIBUTOS pueden ejecutar este método
-    }
-
-    @PreAuthorize("hasRole('TECNICO') or #dni == authentication.principal.username")
-    public Contribuyente consultar(String dni) {
-        // Técnicos o el propio contribuyente pueden consultar
-    }
-}
-```
-
-### 4.6. Protecciones integradas
+###  4.4. Defensas Integradas por Defecto
 
 Spring Security incluye protecciones automáticas contra vulnerabilidades comunes:
-*   **CSRF (Cross-Site Request Forgery):** Token CSRF en formularios.
-*   **XSS (Cross-Site Scripting):** Cabeceras de seguridad HTTP.
-*   **Clickjacking:** Cabecera `X-Frame-Options`.
-*   **Session Fixation:** Regeneración del ID de sesión tras el login.
-*   **CORS (Cross-Origin Resource Sharing):** Control de orígenes permitidos.
+
+* **CSRF (Cross-Site Request Forgery, Falsificación de Petición en Sitios Cruzados):** Exige e inyecta tokens transaccionales en operaciones mutables. *(Se deshabilita habitualmente en APIs REST stateless con JWT).*
+* **Cabeceras de Seguridad:** Inyección automática de `X-Frame-Options` (contra *Clickjacking*, Secuestro de clic) y protecciones **XSS** (*Cross-Site Scripting*).
+* **Gestión CORS:** Control estricto de los orígenes cruzados (*Cross-Origin Resource Sharing*).
 
 ## 5. Conclusión
 
-Spring Boot, Spring Data y Spring Security conforman la trinidad del desarrollo backend empresarial moderno en Java. Spring Boot elimina la complejidad de configuración mediante autoconfiguración y starters, permitiendo arrancar una aplicación con servidor embebido en minutos. Spring Data erradica el código repetitivo de acceso a datos mediante repositorios con consultas derivadas del nombre del método. Spring Security proporciona un sistema de autenticación y autorización completo, con soporte para JWT, OAuth 2.0, roles y protecciones integradas contra las vulnerabilidades web más comunes.
+Esta trinidad tecnológica es el estándar del desarrollo Java moderno:
 
-En el contexto de las Administraciones Públicas, esta trinidad permite construir APIs REST seguras que se integran con los sistemas de identificación ciudadana (Cl@ve, certificados digitales) y con las bases de datos corporativas (Oracle, PostgreSQL), aplicando los niveles de seguridad exigidos por el Esquema Nacional de Seguridad.
+* **Spring Boot:** Elimina configuraciones manuales y despliega aplicaciones autónomas en minutos.
+* **Spring Data:** Suprime el código repetitivo automatizando las consultas a la base de datos.
+* **Spring Security:** Blinda la aplicación gestionando identidades, permisos y defendiendo contra ataques web.
+
+En la **Administración Pública**, dominar estas herramientas es clave para crear servicios robustos, integrables con sistemas estatales (Cl@ve, DNIe) y alineados estrictamente con el **Esquema Nacional de Seguridad (ENS)**
