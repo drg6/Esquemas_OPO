@@ -1,221 +1,216 @@
+# Tema 31.- Interoperabilidad y sistemas de cooperación entre AAPP. Políticas UE, ENI, NTI e Intercambio de datos.
+
+## 1. Introducción
+* **Contexto:** 8.100 AAPP con sistemas heterogéneos y aislados.
+* **Concepto:** Interoperabilidad es la capacidad de intercambiar datos y procesos de forma automática y con valor jurídico.
+* **El Motor Legal:** **Art. 28.2 Ley 39/2015** (Principio *Once Only*). El ciudadano tiene derecho a NO aportar documentos que ya tenga la Administración.
+
+## 2. Política de la UE en Interoperabilidad
+* **2.1. EIF (Marco Europeo de Interoperabilidad):** 47 recomendaciones en 4 capas (Jurídica, Organizativa, Semántica, Técnica).
+* **2.2. Normativa Europea:**
+  * **Reglamento eIDAS (910/2014):** Identidad y servicios de confianza.
+  * **Reglamento Pasarela Digital Única (2018/1724):** *Your Europe* (Sistema Técnico Once Only - OOTS).
+  * **Reglamento Europa Interoperable (2024/903):** Crea el Comité de Europa Interoperable y obliga a realizar *Evaluaciones de Interoperabilidad*.
+  * **Directiva Open Data (2019/1024):** Reutilización de información.
+* **2.3. Programas de financiación:** ISA² → relevado por **Digital Europe**.
+
+## 3. Normativa Nacional (ENI vs ENS)
+* **ENI (RD 4/2010):** Regula el intercambio de datos. (Garantiza que *se puedan* comunicar).
+* **ENS (RD 311/2022):** Regula la seguridad. (Garantiza que se comuniquen *sin riesgos*).
+* Ambos son obligatorios (AGE, CCAA, Entidades Locales).
+
+## 4. Dimensiones de la Interoperabilidad (Las 4 Capas)
+1. **Jurídica:** Leyes, convenios de cesión de datos y RGPD (minimización).
+2. **Organizativa:** Acuerdos de Nivel de Servicio (SLA), procesos de negocio y responsables.
+3. **Semántica (El gran reto):** Que los datos signifiquen lo mismo. 
+   * *Soluciones:* Vocabularios comunes y código unívoco de oficina **DIR3**.
+4. **Técnica:** Conectividad física y lógica (REST, XML, Red SARA).
+
+## 5. Normas Técnicas de Interoperabilidad (NTI)
+Desarrollan técnicamente el ENI mediante especificaciones concretas.
+* *Mnemotecnia:* **C**uando **D**escargas **E**xpedientes **D**igitales **F**irmados, **I**ntenta **M**antener **G**ran **R**igor **C**on **R**esponsabilidad.
+* (Catálogo de estándares, Documento, Expediente, Digitalización, Firma, Intermediación PID/SCSP, Modelos de datos, Gestión documental, Red SARA, Copiado auténtico, Reutilización).
+
+## 6. Intercambio de Datos y Sistemas de Cooperación
+La SGAD provee las infraestructuras que los Ayuntamientos consumen:
+* **6.1. Red SARA:** Intranet cifrada de las AAPP (Tecnología MPLS). 
+* **6.2. PID (Plataforma de Intermediación de Datos):**
+  * Materializa el *Once Only*.
+  * Usa el protocolo **SCSP** (Sustitución de Certificados en Soporte Papel) en formato XML.
+  * *Servicios top:* Identidad (DGP), Padrón (INE), Estar al corriente de AEAT y Seguridad Social.
+* **6.3. Servicios Comunes Habilitadores:**
+  * **Cl@ve:** Identidad (PIN, Permanente, DNIe).
+  * **@firma:** Validación de firmas (XAdES, PAdES) y sellado de tiempo.
+  * **SIR / GEISER:** Interconexión de Registros.
+  * **Notific@ / DEHú:** Notificaciones electrónicas.
+  * **Archive / INSIDE:** Archivo y gestión de expedientes.
+
+## 7. Conclusión
+La interoperabilidad ha destruido la barrera física de la ventanilla. Apoyada por el marco EIF europeo y orquestada en España por el ENI y las NTI, exige que los Ayuntamientos modernicen sus arquitecturas para integrarse en la Red SARA. Consumir servicios como la PID, SIR o Cl@ve no es un lujo técnico, es la única vía legal para garantizar el derecho del ciudadano a no ser el mensajero de sus propios papeles.
+
+-----------------------
+
 # Tema 31.- Interoperabilidad y sistemas de cooperación entre Administraciones Públicas. Política de la Unión Europea y normativa al respecto. El Esquema Nacional de Interoperabilidad. Dimensiones de la interoperabilidad. Las Normas Técnicas de Interoperabilidad. Intercambio de datos entre Administraciones Públicas.
 
 ## 1. Introducción
 
-La Administración Pública española es un ecosistema altamente fragmentado: la Administración General del Estado (AGE), 17 Comunidades Autónomas, 2 Ciudades Autónomas, 50 Diputaciones Provinciales y más de 8.100 Ayuntamientos operan con sistemas de información heterogéneos, desarrollados en diferentes épocas, con tecnologías dispares y modelos de datos incompatibles. Sin embargo, los procedimientos administrativos que afectan al ciudadano no respetan estas fronteras organizativas: una licencia de actividad requiere consultar datos catastrales (Ministerio de Hacienda), urbanísticos (Ayuntamiento), medioambientales (Comunidad Autónoma) y registrales (AGE).
-
-La **interoperabilidad** —la capacidad de los sistemas de información de diferentes administraciones para intercambiar datos y procesos de forma transparente, automática y con pleno valor jurídico— no es una aspiración técnica opcional, sino un **mandato legal** derivado del derecho del ciudadano a no aportar datos que ya obren en poder de cualquier Administración Pública, consagrado en el artículo 28.2 de la Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas.
-
-Este tema analiza el marco normativo europeo y nacional de la interoperabilidad, el Esquema Nacional de Interoperabilidad (ENI), sus dimensiones, las Normas Técnicas de Interoperabilidad (NTI) y las plataformas e infraestructuras que materializan el intercambio efectivo de datos entre administraciones.
+- La Administración Pública española está formada por múltiples administraciones con sistemas de información heterogéneos.
+- **Interoperabilidad:** capacidad de las AAPP para **intercambiar datos y procesos** de forma automática, transparente y con valor jurídico.
+- Es un **mandato legal** → art. 28.2 Ley 39/2015: el ciudadano no debe aportar datos que ya obren en poder de una Administración.
 
 ## 2. Política de la Unión Europea en Materia de Interoperabilidad
 
 ### 2.1. El Marco Europeo de Interoperabilidad (EIF)
 
-La Unión Europea ha impulsado activamente la interoperabilidad entre las administraciones de los Estados miembros como pilar de la estrategia del Mercado Único Digital. El instrumento principal es el **Marco Europeo de Interoperabilidad (European Interoperability Framework - EIF)**, cuya versión vigente (EIF v3) fue aprobada por la Comunicación COM(2017) 134 de la Comisión Europea.
-
-El EIF establece **47 recomendaciones** articuladas en torno a cuatro capas de interoperabilidad (jurídica, organizativa, semántica y técnica) y promueve principios como la reutilización, la apertura, la transparencia y la orientación al ciudadano.
+- **EIF:** marco europeo para la interoperabilidad de las AAPP.
+- **47 recomendaciones** y 4 capas:
+  - Jurídica.
+  - Organizativa.
+  - Semántica.
+  - Técnica.
+- Principios: **reutilización, apertura, transparencia y orientación al ciudadano**.
 
 ### 2.2. Directivas y Reglamentos europeos relevantes
 
-*   **Reglamento (UE) 2018/1724 — Pasarela Digital Única (Single Digital Gateway):** Establece el derecho de los ciudadanos europeos a acceder a información, procedimientos y servicios de asistencia de cualquier Estado miembro a través de un portal único ("Your Europe"). Obliga a los Estados a implementar el principio "once only" (una sola vez) a nivel transfronterizo mediante el **Sistema Técnico Once Only (OOTS)**.
-
-*   **Reglamento (UE) 910/2014 — eIDAS:** Establece el marco jurídico para la identificación electrónica y los servicios de confianza (firma electrónica, sello electrónico, sellado de tiempo) con reconocimiento mutuo entre los Estados miembros.
-
-*   **Directiva 2019/1024 — Datos Abiertos y Reutilización de la Información del Sector Público (Open Data):** Obliga a las administraciones a publicar datos públicos en formatos abiertos, legibles por máquina y reutilizables.
-
-*   **Reglamento (UE) 2024/903 — Europa Interconectada (Interoperable Europe Act):** Aprobado en 2024, establece un marco jurídico vinculante para la cooperación en materia de interoperabilidad del sector público en la UE, creando el Comité de Europa Interoperable y reforzando la obligatoriedad de las evaluaciones de interoperabilidad.
+- **Reglamento 2018/1724** → Pasarela Digital Única / **Your Europe** → principio **once only**.
+- **eIDAS 910/2014** → identificación electrónica y servicios de confianza (Firma electrónica, Sello electrónico, Sellado de tiempo)) entre estados miembros.
+- **Directiva 2019/1024** → datos abiertos y reutilización.
+- **Reglamento 2024/903** → Crea el **Comité de Europa Interoperable**  y obliga a realizar *Evaluaciones de Interoperabilidad*.
 
 ### 2.3. Programa ISA² y su sucesor
 
-El programa **ISA² (Interoperability Solutions for European Public Administrations)** financió el desarrollo de soluciones de interoperabilidad reutilizables, como el **Core Vocabularies** (vocabularios semánticos comunes), el **DCAT-AP** (perfil de aplicación para catálogos de datos) y el **e-Delivery** (infraestructura de intercambio seguro de documentos). Su sucesor es el programa **Digital Europe (2021-2027)**.
+- **ISA²** → soluciones reutilizables de interoperabilidad.
+- Sucesor → **Digital Europe (2021-2027)**.
 
 ## 3. Normativa Nacional sobre Interoperabilidad
 
 ### 3.1. Marco jurídico general
 
-*   **Ley 40/2015, de 1 de octubre, de Régimen Jurídico del Sector Público (LRJSP):** Su artículo 156 establece el **Esquema Nacional de Interoperabilidad (ENI)** como el instrumento que comprende el conjunto de criterios y recomendaciones en materia de seguridad, conservación y normalización de la información, de los formatos y de las aplicaciones que deberán ser tenidos en cuenta por las Administraciones Públicas para la toma de decisiones tecnológicas que garanticen la interoperabilidad.
-
-*   **Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas (LPACAP):** Su artículo 28.2 reconoce el **derecho del ciudadano a no aportar documentos** que ya se encuentren en poder de cualquier administración pública. Este derecho es el motor jurídico fundamental que impulsa la interoperabilidad: si el ciudadano no tiene que aportar un certificado de empadronamiento porque el Ayuntamiento puede obtenerlo electrónicamente del INE, la interoperabilidad entre ambas administraciones es un requisito legal, no una conveniencia técnica.
-
-*   **Real Decreto 4/2010, de 8 de enero, por el que se regula el Esquema Nacional de Interoperabilidad (ENI).** Actualizado por el **Real Decreto 311/2022**, que modifica el ENI y lo alinea con el EIF europeo.
+- **Ley 40/2015, art. 156** → establece el **ENI**.
+- **Ley 39/2015, art. 28.2** → derecho a no aportar documentos ya disponibles.
+- **RD 4/2010** → regula el ENI. Actualizado por el **RD 311/2022**, lo alinea con el EIF europeo.
 
 ### 3.2. Relación con el Esquema Nacional de Seguridad (ENS)
 
-El ENI y el **ENS (Esquema Nacional de Seguridad, Real Decreto 311/2022)** son complementarios: el ENI garantiza que los sistemas puedan intercambiar datos, mientras que el ENS garantiza que ese intercambio se realice de forma segura, protegiendo la confidencialidad, integridad, disponibilidad, autenticidad y trazabilidad de la información.
+- **ENI → interoperabilidad**.
+- **ENS → seguridad** del intercambio (DICAT).
+- Son **complementarios**.
 
 ## 4. El Esquema Nacional de Interoperabilidad (ENI)
 
 ### 4.1. Definición y objeto
 
-El **ENI** es el marco regulatorio que establece los principios, criterios y recomendaciones que deben seguir las Administraciones Públicas españolas para garantizar la interoperabilidad de sus sistemas de información, facilitando el ejercicio de derechos y el cumplimiento de deberes a través de medios electrónicos.
+- Marco que establece **principios, criterios y recomendaciones** para garantizar la interoperabilidad de los sistemas de las AAPP.
 
 ### 4.2. Principios del ENI
 
-El ENI se fundamenta en los siguientes principios:
-
-1.  **La interoperabilidad como cualidad integral:** No se limita a la dimensión técnica; abarca las dimensiones organizativa, semántica y jurídica.
-2.  **Carácter multidimensional:** Las soluciones deben operar simultáneamente en todas las dimensiones de la interoperabilidad.
-3.  **Enfoque de soluciones multilaterales:** Se priorizan las soluciones reutilizables que benefician a múltiples administraciones.
-4.  **Reutilización y transferibilidad:** Las administraciones deben compartir y reutilizar soluciones, aplicaciones y componentes ya desarrollados, evitando desarrollos duplicados.
+- **Interoperabilidad integral** → no solo técnica.
+- **Multidimensional**.
+- **Soluciones multilaterales y reutilizables**.
+- Evitar desarrollos duplicados.
 
 ### 4.3. Ámbito de aplicación
 
-El ENI es de obligado cumplimiento para:
-*   La Administración General del Estado (AGE).
-*   Las Administraciones de las Comunidades Autónomas.
-*   Las Entidades que integran la Administración Local (Ayuntamientos, Diputaciones, Cabildos).
-*   Los Organismos Públicos y Entidades de Derecho Público vinculados.
+- **AGE**.
+- **CCAA**.
+- **Administración Local**.
+- Organismos públicos y entidades de Derecho Público vinculados.
 
 ## 5. Dimensiones de la Interoperabilidad
 
-El ENI, siguiendo el Marco Europeo de Interoperabilidad (EIF), identifica cuatro dimensiones o capas de la interoperabilidad, todas ellas necesarias para lograr un intercambio efectivo:
-
 ### 5.1. Interoperabilidad Jurídica (Legal Interoperability)
 
-Garantiza que el intercambio de datos entre administraciones tenga **pleno valor jurídico y probatorio**. Requiere:
-
-*   Un marco legal que autorice y regule el intercambio (Ley 39/2015, Ley 40/2015, RGPD).
-*   Acuerdos o convenios de cesión de datos entre administraciones que definan las condiciones, finalidades y responsabilidades del intercambio.
-*   Cumplimiento de la normativa de protección de datos personales (RGPD y LOPDGDD), asegurando que el acceso a datos por otras administraciones se realice con base jurídica adecuada y cumpliendo el principio de minimización de datos.
-*   Reconocimiento mutuo de la firma electrónica y los documentos electrónicos entre administraciones (conforme a eIDAS y la Ley 6/2020).
+- Garantiza el **valor jurídico** del intercambio.
+- Base legal + protección de datos + reconocimiento de documentos y firmas.
 
 ### 5.2. Interoperabilidad Organizativa (Organisational Interoperability)
 
-Asegura que los **procesos de negocio** de las diferentes administraciones estén alineados para cooperar eficazmente. Requiere:
-
-*   Definición clara de los procesos de intercambio: qué datos se intercambian, quién los proporciona (cedente), quién los consume (cesionario), en qué plazos y con qué niveles de servicio.
-*   Establecimiento de acuerdos de nivel de servicio (SLA) que garanticen la disponibilidad y los tiempos de respuesta.
-*   Designación de responsables funcionales y técnicos en cada administración participante.
-*   Alineación de los procedimientos administrativos para que el intercambio electrónico sustituya efectivamente al trámite en papel.
+- Coordina **procesos (qué, quién, a quién), responsabilidades, plazos y niveles de servicio (SLA)** entre Administraciones.
 
 ### 5.3. Interoperabilidad Semántica (Semantic Interoperability)
 
-Garantiza que el **significado de los datos intercambiados** sea interpretado de forma unívoca por todos los sistemas participantes. Es la dimensión más compleja y la que frecuentemente causa los mayores problemas:
-
-*   **Ejemplo de conflicto semántico:** El Ayuntamiento A almacena la dirección como un campo de texto libre ("C/ Mayor 15, 3ºA"), mientras que el Ayuntamiento B la estructura en campos separados (tipo_via, nombre_via, numero, planta, puerta). Ambos almacenan "la dirección", pero sus modelos de datos son semánticamente incompatibles.
-
-*   **Soluciones:**
-    *   **Modelos de datos comunes:** Definición de esquemas de datos estandarizados para las entidades más intercambiadas (ciudadanos, direcciones, organizaciones).
-    *   **Vocabularios controlados:** Catálogos normalizados de valores permitidos (listas de provincias, tipos de vía, categorías de procedimiento).
-    *   **Ontologías y taxonomías:** Modelos formales que define las relaciones entre conceptos.
-    *   **Estándar DIR3 (Directorio Común de Unidades Orgánicas y Oficinas):** Codificación unívoca de todas las unidades orgánicas de las administraciones españolas.
+- Garantiza que los datos tengan el **mismo significado** para todos.
+- Modelos de datos, vocabularios comunes y **DIR3**. Ej. dirección vivienda
+- Detalle Local: Los Ayuntamientos utilizan un Nodo de Interoperabilidad Local para traducir sus bases de datos antiguas (legacy) al modelo de datos estándar que exige el Estado.
 
 ### 5.4. Interoperabilidad Técnica (Technical Interoperability)
 
-Garantiza la **conectividad y comunicación** entre los sistemas de información de las diferentes administraciones a nivel de infraestructura, protocolos, formatos y estándares técnicos. Requiere:
-
-*   **Protocolos de comunicación estandarizados:** HTTP/HTTPS, SOAP, REST.
-*   **Formatos de intercambio abiertos:** XML, JSON, CSV, PDF/A.
-*   **Estándares de firma electrónica:** XAdES, CAdES, PAdES.
-*   **Infraestructuras de red compartidas:** Red SARA, que interconecta las redes de todas las administraciones.
-*   **Servicios horizontales comunes:** Plataformas de intermediación, registro electrónico, notificación electrónica.
+- Garantiza la **conectividad y comunicación** entre sistemas.
+- Protocolos (HTTPS, REST), formatos (JSON, CSV), firmas electrónicas, **Red SARA** y servicios (Dehú, PID).
 
 ## 6. Las Normas Técnicas de Interoperabilidad (NTI)
 
 ### 6.1. Concepto
 
-Las **Normas Técnicas de Interoperabilidad (NTI)** son disposiciones que desarrollan aspectos concretos del ENI, estableciendo las especificaciones técnicas detalladas que deben cumplir las administraciones en ámbitos específicos. Son aprobadas por resolución de la Secretaría de Estado de Digitalización e Inteligencia Artificial.
+- Desarrollan técnicamente el **ENI**.
+- Establecen especificaciones concretas para documentos, expedientes, firmas, datos, formatos, etc.
 
 ### 6.2. Catálogo de NTI vigentes
 
-| NTI | Objeto |
-|-----|--------|
-| **Catálogo de estándares** | Define los estándares tecnológicos mínimos que deben soportar las AAPP (formatos documentales, protocolos, codificaciones de caracteres) |
-| **Documento electrónico** | Estructura y metadatos obligatorios del documento electrónico administrativo |
-| **Digitalización de documentos** | Requisitos técnicos para la digitalización de documentos en soporte papel (resolución, formato, metadatos) |
-| **Expediente electrónico** | Estructura del expediente electrónico como agrupación de documentos, índices y metadatos |
-| **Política de firma electrónica y de certificados** | Perfiles de firma electrónica aceptados (XAdES, CAdES, PAdES), políticas de validación y formatos de certificados |
-| **Protocolos de intermediación de datos** | Especificaciones técnicas (SCSP) para el intercambio de datos entre administraciones a través de la PID |
-| **Relación de modelos de datos** | Modelos de datos comunes para las entidades más intercambiadas |
-| **Política de gestión de documentos electrónicos** | Directrices para la gestión documental electrónica (clasificación, acceso, conservación, transferencia, eliminación) |
-| **Requisitos de conexión a la Red SARA** | Especificaciones técnicas para la conexión de las redes de las AAPP a la Red SARA |
-| **Procedimientos de copiado auténtico y conversión** | Requisitos para la obtención de copias auténticas electrónicas y la conversión entre formatos |
-| **Reutilización de recursos de información** | Condiciones para la publicación y reutilización de datos y servicios públicos |
+- **Catálogo de estándares**.
+- **Documento electrónico**.
+- **Expediente electrónico**.
+- **Digitalización de documentos**.
+- **Firma electrónica y certificados**.
+- **Intermediación de datos (PID)** Especificaciones técnicas (SCSP).
+- **Modelos de datos**.
+- **Gestión de documentos electrónicos**.
+- **Red SARA**.
+- **Copiado auténtico y conversión**.
+- **Reutilización de información**.
+
+"Cuando Descargas Expedientes Digitales Firmados, Intenta Mantener Gran Rigor Con Responsabilidad." (C-D-E-D-F-I-M-G-R-C-R)
 
 ## 7. Intercambio de Datos entre Administraciones Públicas
 
 ### 7.1. Red SARA (Sistema de Aplicaciones y Redes para las Administraciones)
 
-La **Red SARA** es la infraestructura de comunicaciones que interconecta las redes de todas las Administraciones Públicas españolas (AGE, CCAA, EELL), proporcionando un canal de comunicación seguro, cifrado y de alta disponibilidad para el intercambio de datos y servicios.
-
-**Características:**
-*   Red privada multiservicio basada en tecnología MPLS.
-*   Más de 11.000 puntos de acceso que conectan organismos de todas las administraciones.
-*   Conexión con la red europea **sTESTA/TESTA-ng** para la comunicación transfronteriza con otros Estados miembros.
-*   Proporciona conectividad a todos los servicios comunes de administración electrónica (Cl@ve, @firma, GEISER, FACE, PID).
+- Red que **interconecta las AAPP**.
+- Proporciona comunicación segura y acceso a servicios comunes (Cl@ve, @firma, GEISER, FACE, PID).
 
 ### 7.2. Plataforma de Intermediación de Datos (PID)
 
-La **PID** es la infraestructura centralizada que permite a las administraciones consultar datos que obran en poder de otras administraciones, evitando que el ciudadano tenga que aportar certificados o documentos que ya existen en formato electrónico en algún organismo público.
-
-**Protocolo SCSP (Sustitución de Certificados en Soporte Papel):**
-
-El intercambio de datos a través de la PID se realiza mediante el protocolo estandarizado **SCSP**, que define:
-
-*   **Servicios de verificación/consulta:** Cada organismo cedente (el que posee los datos) publica servicios estandarizados que permiten a los organismos cesionarios (los que necesitan los datos) realizar consultas automatizadas.
-*   **Estructura de mensajes:** Mensajes XML con estructura estandarizada que incluyen datos de la solicitud, datos del titular consultado, datos del consentimiento y los datos consultados.
-*   **Trazabilidad:** Cada consulta queda registrada con finalidad, procedimiento, funcionario solicitante y consentimiento del interesado.
-
-**Servicios de verificación más utilizados:**
-
-| Servicio | Organismo Cedente | Datos |
-|----------|-------------------|-------|
-| Verificación de identidad | DGP / DGGC | Datos de identidad del DNI/NIE |
-| Consulta de datos de residencia | INE | Datos padronales (municipio, provincia, domicilio) |
-| Estar al corriente de obligaciones tributarias | AEAT | Certificado tributario |
-| Estar al corriente con la Seguridad Social | TGSS | Certificado de deudas |
-| Consulta de datos catastrales | Dirección General del Catastro | Referencia catastral, valor, titularidad |
-| Verificación de títulos universitarios | Ministerio de Universidades | Titulación académica |
-| Consulta de prestaciones por desempleo | SEPE | Situación de prestaciones |
-| Consulta de grado de discapacidad | IMSERSO / CCAA | Grado de discapacidad reconocido |
+- Permite consultar datos de otras Administraciones.
+- Evita que el ciudadano aporte documentos ya disponibles.
+- Utiliza **SCSP (Sustitución de Certificados en Soporte Papel)**.
+- Garantiza la **trazabilidad** de las consultas.
+- Detalle Local: Para no programar XML a mano, el Ayuntamiento despliega un Bus de Integración que conecta automáticamente su Gestor de Expedientes con la PID.
+- Servicios de la PID: verificación de identidad, residencia, obligaciones tributarias y con la Seguridad Social, datos catastrales, títulos universitarios, prestaciones por desempleo y grado de discapacidad.
 
 ### 7.3. Cl@ve: Sistema de Identificación Electrónica
 
-**Cl@ve** es el sistema común de identificación, autenticación y firma electrónica para el acceso a los servicios electrónicos de las Administraciones Públicas. Ofrece varios mecanismos:
-
-*   **Cl@ve PIN:** Código de un solo uso enviado al móvil del ciudadano.
-*   **Cl@ve Permanente:** Contraseña personal complementada con código SMS.
-*   **Certificado electrónico / DNIe:** Autenticación mediante certificado digital.
+- Identificación, autenticación y firma electrónica.
+- **Cl@ve PIN, Cl@ve Permanente y certificado/DNIe**.
 
 ### 7.4. @firma: Plataforma de Validación de Firma Electrónica
 
-**@firma** es la plataforma común de validación y firma electrónica que permite a todas las administraciones:
-*   Validar certificados electrónicos (comprobar su vigencia, revocación y cadena de confianza).
-*   Generar y verificar firmas electrónicas en formatos estándar (XAdES, CAdES, PAdES).
-*   Realizar sellados de tiempo.
+- Valida certificados y firmas electrónicas.
+- Formatos: **XAdES, CAdES y PAdES**.
+- Permite **sellado de tiempo**.
 
 ### 7.5. Otros servicios comunes de interoperabilidad
 
-*   **SIR (Sistema de Interconexión de Registros):** Permite el intercambio electrónico de asientos registrales entre los registros electrónicos de las AAPP, sustituyendo el envío postal de documentos entre registros.
-*   **GEISER/ORVE:** Sistemas de registro electrónico que alimentan y son alimentados por el SIR.
-*   **FACE (FACturación Electrónica):** Punto general de entrada de facturas electrónicas de la Administración.
-*   **INSIDE:** Sistema para la gestión de documentos y expedientes electrónicos conforme a las NTI.
-*   **Archive:** Sistema de archivo definitivo de expedientes electrónicos.
-*   **Notific@:** Plataforma común de notificaciones electrónicas y comunicaciones.
-*   **DIR3:** Directorio Común de Unidades Orgánicas y Oficinas que proporciona un código unívoco para cada unidad administrativa.
-*   **PAe (Portal de Administración Electrónica):** Portal que centraliza la información sobre servicios, soluciones y normativa de administración electrónica.
+- **SIR (Sistema de Interconexión de Registros)** → intercambio de registros.
+- **GEISER/ORVE** → registro electrónico.
+- **FACE** → facturación electrónica.
+- **INSIDE** → documentos y expedientes.
+- **Archive** → archivo electrónico.
+- **Notific@** → notificaciones.
+- **DIR3** → directorio de unidades y oficinas.
+- **PAe** → portal de administración electrónica.
 
-### 7.6. Estándares de formatos documentales
+### 7.6. Estándares de formatos documentales (NTI de Catálogo de Estándares)
 
-El ENI, a través de la NTI de Catálogo de Estándares, establece los formatos documentales interoperables:
-
-| Tipo de contenido | Formatos admitidos |
-|-------------------|--------------------|
-| Texto | PDF/A (ISO 19005), ODF (ISO 26300), OOXML (ISO 29500) |
-| Imagen | JPEG, PNG, TIFF, SVG |
-| Audio | MP3, OGG Vorbis, FLAC |
-| Vídeo | MP4 (H.264), WebM, OGG Theora |
-| Datos estructurados | XML, JSON, CSV |
-| Compresión | ZIP, GZIP |
-| Firma electrónica | XAdES, CAdES, PAdES |
+- **Texto:** PDF/A, ODF, OOXML.
+- **Imagen:** JPEG, PNG, TIFF, SVG.
+- **Datos:** XML, JSON, CSV.
+- **Firma:** XAdES, CAdES, PAdES.
 
 ## 8. Conclusión
 
-La interoperabilidad entre Administraciones Públicas es un requisito legal, técnico y organizativo de primer orden, impulsado tanto por la política de la Unión Europea (Marco Europeo de Interoperabilidad, Reglamento de Europa Interconectada, eIDAS) como por la normativa nacional (Ley 39/2015, Ley 40/2015, ENI).
-
-El Esquema Nacional de Interoperabilidad articula este mandato en sus cuatro dimensiones —jurídica, organizativa, semántica y técnica— y se desarrolla mediante las Normas Técnicas de Interoperabilidad, que establecen las especificaciones concretas para documentos electrónicos, expedientes, firma electrónica, intermediación de datos y formatos.
-
-La materialización práctica del intercambio de datos se sustenta sobre infraestructuras como la Red SARA —que proporciona la conectividad segura—, la Plataforma de Intermediación de Datos —que habilita las consultas automatizadas entre administraciones mediante el protocolo SCSP—, y los servicios horizontales comunes (Cl@ve, @firma, SIR, Notific@, FACE), que proporcionan las capacidades transversales de identificación, firma, registro, notificación y facturación electrónica.
-
-El objetivo último de este ecosistema interoperable es garantizar el derecho del ciudadano contemplado en el artículo 28.2 de la Ley 39/2015: no tener que aportar datos ni documentos que ya obren en poder de cualquier Administración Pública, convirtiendo la interoperabilidad en un instrumento al servicio de la simplificación administrativa y la mejora de la relación entre la Administración y la ciudadanía.
+- **ENI → garantiza la interoperabilidad.**
+- **NTI → concretan cómo aplicarla.**
+- **Red SARA → conecta las Administraciones.**
+- **PID + SCSP → permiten intercambiar datos.**
+- **Servicios comunes → identificación, firma, registro, notificación, etc.**
+- Objetivo final → **simplificar la Administración y evitar que el ciudadano aporte datos que ya posee otra Administración**.
