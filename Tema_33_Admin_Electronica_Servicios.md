@@ -1,3 +1,53 @@
+# Tema 33.- La administración electrónica. Sede, Carpeta, Registro (SIR), Digitalización, Firma y Gestor Documental.
+
+## 1. Introducción
+* **Contexto legal:** Leyes 39/2015 y 40/2015. El canal electrónico no es una alternativa, es el medio nativo y obligatorio para la tramitación administrativa.
+* **El Ecosistema:** Sede → Carpeta → Registro (SIR) → Firma → Digitalización → Archivo.
+
+## 2. Concepto y Arquitectura (El Modelo Dual)
+* **e-Government:** No es escanear papel, es transformar procesos con TIC para ganar eficiencia y transparencia.
+* **Front-Office (Hacia el ciudadano):** Escaparate digital (Sede Electrónica, Carpeta Ciudadana, Registro Electrónico).
+* **Back-Office (Maquinaria interna):** Tramitación oculta (SIR, plataforma @firma, Gestor Documental).
+
+## 3. Sede Electrónica (Front-Office)
+* **3.1. Naturaleza:** URL oficial. Lo publicado aquí tiene **plena validez jurídica** (no es una web informativa normal).
+* **3.2. Requisitos (ENS):** SSL/TLS, disponibilidad 24x7, Accesibilidad WCAG 2.1 AA, hora oficial del ROA.
+* **3.3. Contenido Local Clave:** Carta de servicios, Perfil del Contratante y el **Tablón de Edictos Electrónico** (sustituye al tablón físico del Ayuntamiento).
+* **3.4. Sede Asociada:** Subsede para servicios específicos con requisitos más flexibles.
+
+## 4. Carpeta Ciudadana (Front-Office)
+* **Concepto:** Espacio personal (autenticado con Cl@ve/DNIe) para ver el estado de expedientes y notificaciones.
+* **Integración:** El Ayuntamiento debe conectar su Gestor de Expedientes a la **Carpeta Ciudadana del Estado (PAG)** mediante la Plataforma de Intermediación de Datos (PID).
+
+## 5. Registro e Interconexión (Front/Back-Office)
+* **5.1. Registro General:** Obligatorio (Art. 16 Ley 39/2015), 24x7, emite recibo con fecha y hora oficial que marca los plazos legales.
+* **5.2. SIR y SICRES:** 
+  * **SIR:** La "autopista" que interconecta los registros de todas las AAPP.
+  * **SICRES 4.0:** El "idioma" (Norma Técnica) que define el XML del asiento registral.
+* **5.3. Herramientas (GEISER/ORVE) y OAMR:** El ciudadano sin medios va a la **OAMR (Oficina de Asistencia en Materia de Registros)**, donde el Ayuntamiento usa ORVE para digitalizar y enviar por SIR.
+
+## 6. Firma y Sellado Electrónico (Back-Office)
+* **6.1. Conceptos y eIDAS:** Garantiza Autenticidad, Integridad y No Repudio. Tres niveles eIDAS: Simple, Avanzada y Cualificada (equivalente legal a manuscrita, ej. DNIe).
+* **6.2. PKI y Certificados X.509 v3:** Emitidos por prestadores cualificados (FNMT).
+* **6.3. Sello de Órgano:** Para actuaciones automatizadas (ej. emitir un volante de empadronamiento masivo sin intervención humana).
+* **6.4. Plataforma @firma:** Del Estado, valida formatos XAdES, CAdES, PAdES.
+* **6.5. Sellado de tiempo (Timestamping) y Funcionario Habilitado:** 
+  * El sello de tiempo garantiza validez a largo plazo.
+  * Si el ciudadano no tiene firma, actúa el **Funcionario Habilitado** firmando por él con consentimiento expreso.
+
+## 7. Digitalización Certificada
+* **Concepto:** Pasar de papel a digital con idéntica validez legal (fiel al original, >200ppp).
+* **Proceso OAMR:** Ciudadano entrega papel → Funcionario escanea → Añade metadatos ENI → Firma electrónicamente → **Devuelve el papel original al ciudadano** → Se destruyen copias innecesarias.
+
+## 8. Gestor Documental y Archivo
+* **8.1. Gestor Documental (DMS):** Controla el documento "vivo" (metadatos, versionado, flujos).
+* **8.2. Archivo Electrónico Único (Ley 40/2015):** Destino del expediente cerrado. Garantiza la conservación a largo plazo aplicando resellado criptográfico para mantener las **firmas longevas** (AdES-LTA).
+
+## 9. Conclusión
+El ecosistema de administración electrónica conforma una maquinaria perfecta donde el ciudadano interactúa a través de la Sede y la Carpeta, el Registro captura la entrada, la OAMR digitaliza certificadamente, @firma garantiza el valor legal, SIR transporta el dato y el Gestor Documental asegura su preservación perpetua bajo el paraguas del ENI y el ENS.
+
+--------------------------------------
+
 # Tema 33.- La administración electrónica. Sede electrónica y carpeta ciudadana. Registro electrónico e interconexión de registros. Digitalización certificada. Firma y sellado digital. Gestor documental.
 
 ## 1. Introducción
@@ -48,9 +98,16 @@
 - **Fecha y hora oficial:** sincronización con ROA(Real Instituto y Observatorio de la Armada).
 - Información obligatoria: servicios, normativa, carta de servicios, perfil del contratante, etc.
 
-### 3.3. Sede Electrónica Asociada
+### 3.3. Sede Electrónica Asociada (RD 203/2021):
 
-Portal vinculado a una Sede principal para facilitar el acceso a determinados servicios.
+  * Portal vinculado a la Sede matriz para servicios o departamentos específicos.
+  * ⚠️ *Clave:* Tiene URL propia, pero mantiene **exactamente las mismas garantías jurídicas y de seguridad** que la sede principal.
+
+### 3.4. Servicios y Contenidos Clave (Obligatorios en un Ayuntamiento):
+
+  * **Tablón de Edictos Electrónico:** Sustituye al tablón de corcho físico. Utiliza **sellos de tiempo** para dar fehaciencia legal a los plazos de exposición de bandos y edictos.
+  * **Perfil del Contratante:** Garantiza la transparencia y libre concurrencia en la contratación pública (licitaciones, adjudicaciones).
+  * **Carta de Servicios:** Documento público que fija los compromisos de calidad y los derechos del ciudadano.
 
 ## 4. Carpeta Ciudadana — Mi Carpeta
 
@@ -73,98 +130,98 @@ Portal vinculado a una Sede principal para facilitar el acceso a determinados se
 
 ### 5.1. Registro Electrónico General
 
-La Ley 39/2015 (artículo 16) obliga a cada Administración a disponer de un **Registro Electrónico General** que:
-
-*   Opera las 24 horas del día, los 365 días del año.
-*   Permite la presentación de documentos dirigidos a cualquier órgano de cualquier Administración Pública.
-*   Emite un recibo electrónico que acredita la fecha y hora de presentación, el número de asiento y la relación de documentos presentados.
-*   El cómputo de plazos se rige por la fecha y hora oficial del asiento registral.
+- Obligatorio según **art. 16 Ley 39/2015**.
+- Funciona **24×7**.
+- Permite presentar documentos dirigidos a cualquier AAPP.
+- Emite **recibo electrónico** con fecha, hora, asiento y documentos.
+- Los plazos se calculan según la **fecha y hora oficial**.
 
 ### 5.2. Interconexión de Registros: SIR y SICRES
 
-*   **SIR (Sistema de Interconexión de Registros):** Infraestructura que permite la interconexión de los registros electrónicos de las Administraciones Públicas para el intercambio de asientos registrales. Un ciudadano puede presentar una solicitud dirigida al Ministerio de Hacienda en el registro electrónico de su Ayuntamiento, y este la remite electrónicamente a través del SIR.
+- **SIR (Sistema de Interconexión de Registros):** interconecta registros para intercambiar **asientos registrales**.
+- **SICRES (Sistema de Información Común de Registros de Entrada y Salida):** Norma técnica que define el **formato y estructura** de los asientos intercambiados. Metadatos obligatorios, documentos, firmas, etc.
 
-*   **SICRES (Sistema de Interconexión de Registros):** Norma técnica (actualmente en versión 4.0) que define el formato del asiento registral intercambiado: estructura del XML, metadatos obligatorios, documentos adjuntos, firmas electrónicas.
+### 5.3. Herramientas (GEISER/ORVE) y OAMR
 
-### 5.3. GEISER y ORVE
-
-*   **GEISER:** Solución del MINHAP para la gestión integral del Registro Electrónico General, con integración nativa con SIR.
-*   **ORVE (Oficina de Registro Virtual):** Herramienta web para la digitalización y remisión de documentos en papel a través de SIR, utilizada cuando un ciudadano presenta documentación en papel en una oficina de asistencia en materia de registros.
+- **GEISER:** gestión del Registro Electrónico General + integración con SIR.
+- **ORVE (Oficina de Registro Virtual):** digitalización y remisión de documentos en papel mediante SIR.
+- El ciudadano sin medios va a la **OAMR (Oficina de Asistencia en Materia de Registros)**, donde el Ayuntamiento usa ORVE para digitalizar y enviar por SIR.
 
 ## 6. Firma y Sellado Electrónico
 
 ### 6.1. Firma electrónica: Concepto y tipos
 
-La **firma electrónica** es el mecanismo que garantiza la autenticidad (identificación del firmante), la integridad (el documento no ha sido alterado) y el no repudio (el firmante no puede negar la firma).
-
-El Reglamento eIDAS (UE 910/2014) define tres niveles:
-
-| Tipo | Garantía | Ejemplo |
-|------|----------|---------|
-| **Firma electrónica simple** | Mínima | Nombre escrito en un email |
-| **Firma electrónica avanzada** | Vinculada al firmante, permite detectar alteraciones | Firma con clave privada en dispositivo del usuario |
-| **Firma electrónica cualificada** | Máxima. Equivalente legal a la firma manuscrita | Firma con certificado cualificado en dispositivo cualificado (DNIe, certificado FNMT en tarjeta criptográfica) |
+- Garantiza **autenticidad (identificación del firmante) + integridad (el documento no ha sido alterado) + no repudio (el firmante no puede negar la firma)**.
+- **Simple:** garantía mínima. Ej. Nombre escrito en email
+- **Avanzada:** vinculada al firmante y detecta modificaciones. Ej. Firma con clave privada en dispositivo de usuario
+- **Cualificada:** máxima garantía y equivalente legal a la manuscrita. Ej. Certificado FNMT o DNIe
 
 ### 6.2. Certificado electrónico X.509 v3
 
-La infraestructura de clave pública (PKI) se basa en certificados digitales X.509 v3 emitidos por **Prestadores Cualificados de Servicios de Confianza**:
-*   **FNMT-RCM (Fábrica Nacional de Moneda y Timbre):** Principal prestador en España.
-*   **DNIe (Documento Nacional de Identidad electrónico):** Contiene dos certificados (autenticación y firma) en el chip de la tarjeta.
+- PKI (infraestructura de clave pública) basada en certificados **X.509 v3**.
+- Principales: **FNMT-RCM** y **DNIe** con dos certificados (autenticación y firma).
 
 ### 6.3. Sello electrónico de órgano
 
-A diferencia de la firma electrónica (vinculada a una persona física), el **sello electrónico** identifica a una persona jurídica u órgano administrativo. Permite la firma automatizada y desatendida de actos administrativos masivos (liquidaciones tributarias, certificados de padrón) sin intervención humana en cada acto.
+- Identifica a un **órgano/persona jurídica**, no a una persona física.
+- Permite **firma automatizada** de actos administrativos (liquidaciones tributarias, certificados de padrón).
 
 ### 6.4. Plataforma @firma
 
-**@firma** es la plataforma de validación de firma electrónica y certificados de la Administración General del Estado. Proporciona:
-*   Validación de certificados y firmas electrónicas de múltiples prestadores.
-*   Generación de firmas electrónicas en formatos estándar (XAdES, PAdES, CAdES).
-*   Los Ayuntamientos integran sus aplicaciones con @firma para validar certificados y firmas.
+- Plataforma de la AGE para **validar certificados y firmas**.
+- Soporta **XAdES, PAdES y CAdES**.
 
 ### 6.5. Sellado de tiempo (Timestamp)
 
-El **sello de tiempo** es una evidencia electrónica que acredita que un documento existía en un momento determinado y que no ha sido modificado desde entonces. Se emite por una Autoridad de Sellado de Tiempo (TSA). Es fundamental para garantizar la validez de las firmas electrónicas a largo plazo.
+### 6.5. Sellado de tiempo (Timestamp) y Funcionario Habilitado:** 
+- Acredita que un documento **existía en un momento determinado** y no ha sido modificado.
+- Emitido por una Autoridad de Sellado de Tiempo (TSA)
+- Importante para la **validez a largo plazo**.
+- Si el ciudadano no tiene firma, actúa el **Funcionario Habilitado** firmando por él con consentimiento expreso.
 
 ## 7. Digitalización Certificada
 
 ### 7.1. Concepto
 
-La **digitalización certificada** (o copia auténtica electrónica) es el proceso mediante el cual un documento en papel se transforma en un documento electrónico con la misma validez legal que el original. La NTI de Digitalización de Documentos del ENI establece los requisitos:
-
-*   La imagen debe ser fiel al documento original (resolución mínima de 200 ppp).
-*   Se deben incluir los metadatos obligatorios del documento electrónico (NTI de Documento Electrónico del ENI).
-*   La copia electrónica debe firmarse electrónicamente por el funcionario habilitado o mediante sello electrónico de órgano.
-*   El formato resultante debe ser PDF/A o equivalente de conservación a largo plazo.
+- Convierte papel en documento electrónico con **validez legal equivalente**.
+- Requisitos principales:
+  - Imagen fiel (resolución mínima de 200 ppp).
+  - **Metadatos obligatorios (NTI de Documento Electrónico del ENI)**.
+  - Firma electrónica o sello de órgano.
+  - Formato **PDF/A** o equivalente.
 
 ### 7.2. Proceso
 
-1.  Escaneo del documento original en papel.
-2.  Asignación de metadatos obligatorios.
-3.  Firma electrónica del documento digitalizado (funcionario habilitado o sello de órgano).
-4.  Incorporación al expediente electrónico.
-5.  Destrucción del papel original (si procede, conforme a la política de gestión documental).
+Escanear → Metadatos obligatorios → Firmar/Sellar → Expediente → Destrucción del papel (si procede)
 
 ## 8. Gestor Documental
 
 ### 8.1. Concepto en el contexto de la Administración Electrónica
 
-El **gestor documental** en el ámbito de las AAPP no es solo un repositorio de ficheros (analizado como DMS en el Tema 32). Es el componente del sistema de información que gestiona el ciclo de vida completo del documento electrónico administrativo conforme al ENI:
-
-*   Captura y registro del documento (con metadatos ENI).
-*   Clasificación y vinculación a expedientes.
-*   Firma electrónica y sellado.
-*   Versionado y trazabilidad.
-*   Conservación a largo plazo (archivo electrónico).
-*   Transferencia a archivos históricos.
-*   Eliminación conforme a calendarios de conservación.
+- Gestiona el **ciclo de vida completo** del documento electrónico:
+  - Captura + metadatos.
+  - Clasificación + expediente.
+  - Firma y sellado.
+  - Versionado + trazabilidad.
+  - Conservación a largo plazo (archivo electrónico).
+  - Archivo histórico.
+  - Eliminación según calendarios.
 
 ### 8.2. Archivo Electrónico Único
 
-La Ley 40/2015 establece la obligación de un **Archivo Electrónico Único** que garantice la conservación, recuperación y acceso a los documentos y expedientes electrónicos a lo largo de todo su ciclo de vida, incluyendo la conservación a largo plazo con firmas válidas (firmas longevas — formatos AdES -T, -LT, -LTA).
+- La Ley 40/2015 establece la obligación de un **Archivo Electrónico Único**
+- Garantiza **conservación, recuperación y acceso** a documentos y expedientes durante todo su ciclo de vida.
+- Incluye conservación a largo plazo y **firmas longevas**.
 
 ## 9. Conclusión
 
-La administración electrónica se materializa a través de un ecosistema de instrumentos técnico-jurídicos interconectados: la Sede Electrónica y la Carpeta Ciudadana proporcionan el punto de acceso del ciudadano; el Registro Electrónico y su interconexión mediante SIR/SICRES garantizan la presentación universal de documentos; la firma y el sellado electrónico confieren autenticidad e integridad a los actos administrativos; la digitalización certificada permite la transición del papel al formato digital con plena validez legal; y el gestor documental asegura el ciclo de vida completo del documento electrónico conforme al ENI.
+La administración electrónica se materializa a través de un ecosistema de instrumentos técnico-jurídicos interconectados:
 
-La integración de todos estos componentes con las plataformas comunes del Estado (@firma, Cl@ve, Notific@, SIR) es la piedra angular de la modernización tecnológica de las Administraciones Públicas.
+- **Sede:** acceso jurídico a servicios.
+- **Carpeta:** información y trámites del ciudadano.
+- **Registro + SIR/SICRES:** presentación e intercambio.
+- **Firma/Sello:** autenticidad e integridad.
+- **Digitalización:** papel → electrónico con validez legal.
+- **Gestor documental:** ciclo de vida del documento conforme al ENI.
+
+Piedra angular de la modernización tecnológica de las Administraciones Públicas.
