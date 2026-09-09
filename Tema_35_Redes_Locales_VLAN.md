@@ -1,97 +1,145 @@
 # Tema 35.- Redes. Redes virtuales (VLAN) y Protocolos seguros.
 
 ## 1. Introducción
+* **Problema:** En una LAN tradicional todos los equipos comparten el mismo *Dominio de Broadcast*. Esto genera "tormentas" de red y graves riesgos de seguridad (todos ven todo).
+* **Solución:** **VLAN** para segmentar lógicamente la red, e **IPSec/TLS** para cifrar las comunicaciones.
 
-En una red de área local (LAN) tradicional, todos los dispositivos conectados al mismo switch forman un único **dominio de broadcast**: cualquier trama de difusión (ARP, DHCP Discover) se propaga a todos los puertos del switch. En un Ayuntamiento con cientos de equipos, esta situación degrada el rendimiento (tormentas de broadcast) y compromete la seguridad (el tráfico de Intervención es visible para cualquier equipo conectado al mismo switch).
+## 2. VLANs (Virtual Local Area Networks)
+* **2.1. Concepto:** Redes lógicas dentro de un switch físico. Cada VLAN es un dominio de broadcast aislado a Nivel 2.
+* **2.2. Estándar 802.1Q:** Etiqueta (*Tag*) de 4 bytes insertada en la trama Ethernet. Incluye el **VLAN ID** (12 bits = 4094 VLANs posibles).
+* **2.3. Tipos de Puertos:** 
+  * *Access (Acceso):* Conecta PCs. Pertenece a 1 sola VLAN. Tráfico sin etiqueta.
+  * *Trunk (Troncal):* Conecta switches. Transporta múltiples VLANs etiquetadas.
+* **2.4. Caso de Uso (Aislamiento ENS):** Separar VLAN 10 (Tributos) de VLAN 20 (Policía) y VLAN 99 (Invitados WiFi).
+* **2.5. Inter-VLAN Routing:** Como las VLAN están aisladas, para que se hablen hace falta un Router (Capa 3) que aplique **Listas de Control de Acceso (ACL)**.
 
-Las **VLANs (Virtual Local Area Networks)** resuelven este problema segmentando lógicamente la red, mientras que los **protocolos seguros** (IPSec, TLS) garantizan la confidencialidad e integridad del tráfico.
+## 3. Protocolos Seguros (La Criptografía en Red)
+* **3.1. El problema de IP:** El protocolo IP fue creado para ser rápido, no seguro. Viaja en texto plano.
+* **3.2. IPSec (Internet Protocol Security - Capa 3):**
+  * Protege todo el paquete IP. Transparente para las aplicaciones.
+  * *Protocolos:* **AH** (Autenticación/Integridad) y **ESP** (Cifra el dato completo).
+  * *Modos:* Transporte (Host a Host) y **Túnel** (Encapsula IP dentro de otro IP. Se usa para VPNs *Site-to-Site*, ej. conectar Ayuntamiento con Biblioteca).
+  * *Negociación:* **IKE** (Intercambio de claves).
+* **3.3. TLS (Transport Layer Security - Capas 4 a 6):**
+  * Protege conexiones concretas entre aplicaciones usando certificados **X.509**.
+  * *Versiones:* SSL/TLS 1.0 y 1.1 obsoletas. **TLS 1.2 vigente, TLS 1.3 recomendada**.
+  * *Puertos Seguros:* HTTPS (443), LDAPS (636), IMAPS (993).
+* **3.4. El Escenario VPN Actual en AAPP:**
+  * **IPSec** se usa para enlazar edificios (Site-to-Site).
+  * **TLS** se usa para los portales de **Teletrabajo** (VPN Client-to-Site), porque es más amigable para conectar desde el navegador de casa.
+* **3.5. Otros Protocolos Seguros:**
+  * **SSH (22):** Consola remota cifrada (mata a Telnet).
+  * **WPA3:** El estándar actual para Wi-Fi municipal segura.
+
+## 4. Conclusión
+La arquitectura de red de una Administración Pública no puede basarse en la confianza. La segmentación mediante **VLANs** aisla los departamentos, mientras que la criptografía de **IPSec** y **TLS** protege los datos en tránsito. Esta estrategia de Defensa en Profundidad es obligatoria para certificar la red municipal conforme al **Esquema Nacional de Seguridad (ENS)**.
+
+> 🧠 **Mnemotecnia Táctica:** 
+> **VLAN = Separar el tráfico | IPSec = Proteger la red (VPN) | TLS = Proteger la aplicación (Web/Teletrabajo)**
+
+---------------------------
+
+# Tema 35.- Redes. Redes virtuales (VLAN) y Protocolos seguros.
+
+## 1. Introducción
+
+- LAN tradicional → un único **dominio de broadcast**.
+- Problemas: menor rendimiento (**tormentas de broadcast**) y seguridad.
+- **VLAN** → segmentación lógica de la red.
+- **IPSec/TLS** → protocolos seguros en las comunicaciones.
 
 ## 2. VLANs (Virtual Local Area Networks)
 
 ### 2.1. Concepto
 
-Una **VLAN** es una red lógica independiente creada dentro de un switch físico. Los puertos del switch se agrupan en VLANs, y cada VLAN constituye un **dominio de broadcast separado**: las tramas de difusión de una VLAN no se propagan a las demás.
+- **VLAN** = red lógica independiente dentro de un switch físico.
+- Cada VLAN = **dominio de broadcast independiente**.
+- Las VLAN separan el tráfico a **nivel 2**.
 
 ### 2.2. Estándar IEEE 802.1Q
 
-El estándar **IEEE 802.1Q** define el mecanismo de etiquetado (tagging) de VLANs. Cuando una trama Ethernet viaja entre switches, se inserta una etiqueta de 4 bytes en la cabecera de la trama que contiene, entre otros campos, el **VLAN ID** (VID), un identificador numérico de 12 bits que permite distinguir hasta 4.094 VLANs.
+- **802.1Q** → etiquetado de VLANs (**tagging**).
+- Añade una etiqueta de **4 bytes** a la trama Ethernet.
+- Incluye **VLAN ID (VID)** de 12 bits → hasta **4094 VLANs**.
 
 ### 2.3. Tipos de puertos
 
-*   **Puerto de acceso (Access port):** Pertenece a una única VLAN. Conecta dispositivos finales (PCs, impresoras). Las tramas entran y salen sin etiqueta 802.1Q.
-*   **Puerto troncal (Trunk port):** Transporta tráfico de múltiples VLANs entre switches. Las tramas viajan etiquetadas con el VLAN ID correspondiente.
+- **Access** → pertenece a **una VLAN**; conecta equipos finales; tráfico sin etiqueta.
+- **Trunk** → transporta **varias VLANs**; tráfico etiquetado con 802.1Q (VLAN ID).
 
 ### 2.4. Ejemplo de segmentación en un Ayuntamiento
 
-| VLAN ID | Nombre | Dispositivos |
-|---------|--------|-------------|
-| 10 | Gestión Tributaria | PCs de recaudación, impresoras de tributos |
-| 20 | Urbanismo | PCs de licencias, plóteres |
-| 30 | Policía Local | Terminales de comisaría, cámaras |
-| 40 | Servicios Sociales | PCs de trabajadores sociales |
-| 50 | Gestión TIC | Servidores, PCs de administradores de sistemas |
-| 99 | WiFi invitados | Puntos de acceso de la red de invitados |
+- VLAN 10 → Gestión Tributaria.
+- VLAN 20 → Urbanismo.
+- VLAN 30 → Policía Local.
+- VLAN 40 → Servicios Sociales.
+- VLAN 50 → Gestión TIC.
+- VLAN 99 → WiFi invitados.
 
 ### 2.5. Ventajas de las VLANs
 
-*   **Seguridad:** El tráfico de Tributos (VLAN 10) no es accesible desde Urbanismo (VLAN 20) a nivel de capa 2. Un malware en la VLAN de invitados no puede propagarse a la VLAN de servidores.
-*   **Rendimiento:** Los dominios de broadcast se reducen; las tormentas de broadcast se limitan a la VLAN afectada.
-*   **Flexibilidad:** Un funcionario puede trasladarse físicamente de planta y mantener su VLAN simplemente reconfigurando el puerto de acceso del switch.
-*   **Aislamiento regulatorio:** Los datos de Servicios Sociales (categoría alta en el ENS) se aíslan en su propia VLAN con medidas de seguridad reforzadas.
+*   **Seguridad:** aislamiento entre departamentos.
+*   **Rendimiento:** reducen los dominios de broadcast.
+*   **Flexibilidad:** independencia de la ubicación física (misma VLAN, distinta ubicación)
+*   **Aislamiento regulatorio:** separación de redes con diferentes requisitos de seguridad.
 
 ### 2.6. Inter-VLAN Routing
 
-Las VLANs son dominios de broadcast independientes: los dispositivos de VLANs diferentes no pueden comunicarse entre sí a nivel de capa 2. Para permitir la comunicación entre VLANs es necesario un dispositivo de **capa 3** (router o switch multicapa) que encamine el tráfico entre ellas, aplicando las listas de control de acceso (ACL) que definan qué tráfico inter-VLAN está permitido.
+- VLAN diferentes **no se comunican directamente en Capa 2**.
+- Para comunicar VLANs se necesita un dispositivo **Capa 3**:
+  - Router.
+  - Switch multicapa.
+- Permite aplicar **ACL - listas de control de acceso** para controlar el tráfico entre VLANs.
 
 ## 3. Protocolos Seguros
 
 ### 3.1. El problema de la seguridad en IP
 
-El protocolo IP (Capa 3) fue diseñado sin mecanismos de seguridad: los paquetes viajan en claro, sin cifrado ni autenticación. Cualquier nodo intermedio puede leer, modificar o suplantar el tráfico. Los protocolos seguros añaden cifrado, autenticación e integridad a las comunicaciones.
+- **IP no incorpora seguridad por sí mismo**.
+- Sin protección → riesgo de lectura, modificación o suplantación.
+- Protocolos seguros aportan:
+  - **Confidencialidad**.
+  - **Integridad**.
+  - **Autenticación**.
 
 ### 3.2. IPSec (Internet Protocol Security)
 
-**IPSec** es un conjunto de protocolos que opera en la **Capa 3 (Red)** del modelo OSI, proporcionando seguridad a nivel de paquete IP.
+- Conjunto de protocolos de seguridad en **Capa 3**.
+- Servicios:
+  - **Autenticación**.
+  - **Integridad**.
+  - **Confidencialidad**.
+  - **Anti-replay**.
 
-#### Servicios de seguridad
+**Protocolos:**
+- **AH (Authentication Header)** → autenticación + integridad, **sin cifrado**.
+- **ESP (Encapsulating Security Payload)** → autenticación + integridad + **cifrado**.
 
-*   **Autenticación:** Verificación de la identidad del emisor.
-*   **Integridad:** Garantía de que los datos no han sido alterados en tránsito.
-*   **Confidencialidad:** Cifrado de los datos para impedir su lectura por terceros.
-*   **Anti-replay:** Protección contra la retransmisión maliciosa de paquetes capturados.
+**Modos:**
+- **Transporte** → protege payload, mantiene cabecera; comunicación host-to-host.
+- **Túnel** → protege paquete IP completo; típico de **VPN Site-to-Site**.
 
-#### Protocolos
-
-| Protocolo | Función |
-|-----------|---------|
-| **AH (Authentication Header)** | Autenticación e integridad (sin cifrado) |
-| **ESP (Encapsulating Security Payload)** | Autenticación, integridad y cifrado (AES-256, AES-GCM) |
-
-#### Modos de operación
-
-*   **Modo Transporte:** Solo se cifra/autentica el payload del paquete IP. La cabecera IP original se mantiene. Se usa en comunicación host-to-host.
-*   **Modo Túnel:** Se cifra/autentica el paquete IP completo (cabecera + payload) y se encapsula en un nuevo paquete IP. Se usa en VPNs Site-to-Site.
-
-#### IKE (Internet Key Exchange)
-
-**IKE** (versiones IKEv1 e IKEv2) es el protocolo de negociación de claves que establece las **Asociaciones de Seguridad (SA)** entre los extremos del túnel IPSec. Negocia los algoritmos criptográficos, intercambia claves y autentica a las partes.
+**IKE (Internet Key Exchange)** → protocolo que negocia claves, algoritmos y **Asociaciones de Seguridad (SA)**.
 
 ### 3.3. TLS (Transport Layer Security)
 
-**TLS (Transport Layer Security)** opera en las **Capas 4-6** (Transporte-Presentación). Es el sucesor de SSL (Secure Sockets Layer). Proporciona:
+- Sucesor de **SSL**, opera en **Capas 4-6** (Transporte-Presentación).
+- Protege las comunicaciones mediante:
+  - **Cifrado**.
+  - **Autenticación** mediante certificados X.509.
+  - **Integridad** Códigos HMAC que detectan alteraciones.
 
-*   **Cifrado:** Protege la confidencialidad del tráfico (AES-256-GCM, ChaCha20-Poly1305).
-*   **Autenticación:** Mediante certificados X.509 del servidor (y opcionalmente del cliente).
-*   **Integridad:** Códigos HMAC que detectan alteraciones.
+**Versiones:**
+- SSL 2.0/3.0 → **obsoletas**.
+- TLS 1.0/1.1 → **deprecadas**.
+- TLS 1.2 → **vigente**.
+- TLS 1.3 → **recomendada**.
 
-#### Versiones
-
-| Versión | Estado |
-|---------|--------|
-| SSL 2.0, SSL 3.0 | **Obsoletas y prohibidas** (vulnerabilidades graves: POODLE, DROWN) |
-| TLS 1.0, TLS 1.1 | **Deprecadas** (deshabilitadas por navegadores modernos) |
-| TLS 1.2 | **Vigente** (ampliamente soportada) |
-| TLS 1.3 | **Recomendada** (handshake simplificado, mayor seguridad, menor latencia) |
+**Aplicaciones:**
+- **HTTPS** = HTTP + TLS → 443.
+- **SMTPS** → correo (puerto 465/587)
+- **LDAPS** → LDAP seguro (puerto 636).
+- **IMAPS** → IMAP seguro (puerto 993)
 
 #### Aplicación
 
@@ -103,20 +151,26 @@ TLS se utiliza para securizar protocolos de aplicación:
 
 ### 3.4. IPSec vs. TLS
 
-| Aspecto | IPSec | TLS |
-|---------|-------|-----|
-| Capa OSI | Capa 3 (Red) | Capas 4-6 (Transporte-Presentación) |
-| Ámbito | Todo el tráfico IP entre endpoints | Conexiones específicas de aplicación |
-| Implementación | En el sistema operativo o router | En la aplicación o biblioteca |
-| Uso típico | VPN Site-to-Site | HTTPS, correo seguro |
-| Transparencia | Transparente para las aplicaciones | Requiere soporte en la aplicación |
+- **IPSec → Capa 3 → protege tráfico IP → VPN**.
+- **TLS → Capas 4-6 (Transporte-Presentación) → protege conexiones de aplicaciones → HTTPS/correo**.
+- IPSec es más **transparente para las aplicaciones**.
+- TLS requiere soporte de la **aplicación/protocolo**.
+
+* **IPSec** se usa para enlazar edificios (Site-to-Site).
+ * **TLS** se usa para los portales de **Teletrabajo** (VPN Client-to-Site), porque es más amigable para conectar desde el navegador de casa.
 
 ### 3.5. Otros protocolos seguros relevantes
 
 *   **SSH (Secure Shell):** Acceso remoto seguro a servidores (sustituto de Telnet). Puerto 22.
-*   **DNSSEC:** Extensiones de seguridad para DNS que protegen contra ataques de envenenamiento de caché.
-*   **WPA3 (Wi-Fi Protected Access 3):** Protocolo de seguridad para redes inalámbricas. Sustituto de WPA2 con cifrado más robusto (SAE/Dragonfly).
+*   **DNSSEC:** protege DNS frente a manipulación/envenenamiento.
+*   **WPA3 (Wi-Fi Protected Access 3):** seguridad Wi-Fi; sustituye a WPA2 y utiliza **SAE/Dragonfly**.
 
 ## 4. Conclusión
 
-Las VLANs proporcionan la segmentación lógica de la red que el ENS exige para aislar dominios de seguridad dentro de la infraestructura municipal, mientras que los protocolos seguros (IPSec para VPNs y comunicaciones entre sedes, TLS para servicios web y correo electrónico) garantizan la confidencialidad, integridad y autenticidad del tráfico. La combinación de ambas tecnologías — segmentación de red y cifrado de comunicaciones — constituye la base de la defensa en profundidad de las redes de las Administraciones Públicas.
+- **VLAN → segmentación y aislamiento** de la red.
+- **IPSec → seguridad de tráfico IP/VPN**.
+- **TLS → seguridad de servicios y aplicaciones**.
+- Juntos proporcionan **defensa en profundidad**: segmentación + cifrado + autenticación + integridad.
+- Aplicables a redes de las **AAPP** conforme a los requisitos del **ENS**.
+
+> 🧠 **VLAN = separar | IPSec = proteger IP | TLS = proteger aplicaciones**
