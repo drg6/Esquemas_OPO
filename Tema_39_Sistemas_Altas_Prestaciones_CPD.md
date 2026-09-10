@@ -1,103 +1,138 @@
+# Tema 39.- Altas prestaciones, arquitecturas (escalables/multinúcleo), sistemas y CPD.
+
+## 1. Introducción
+* **Contexto AAPP:** Procesar nóminas masivas, picos de tráfico en pago de IBI y gestionar el Padrón exige infraestructuras HPC (High Performance Computing).
+* **Objetivo:** Garantizar disponibilidad 24x7, rendimiento sostenido y escalabilidad según las exigencias del Esquema Nacional de Seguridad (ENS).
+
+## 2. Arquitecturas Escalables (El reto del crecimiento)
+* **2.1. Escalabilidad Vertical (Scale-Up):**
+  * Más músculo en 1 servidor (más RAM, más CPU).
+  * *Ventajas:* Simple, no hay que tocar el código de la app.
+  * *Inconveniente:* Coste exponencial y punto único de fallo (SPOF).
+* **2.2. Escalabilidad Horizontal (Scale-Out):**
+  * Sumar más servidores *commodity* (baratos) a la granja.
+  * *Ventajas:* Coste lineal, tolerancia a fallos.
+  * *Inconveniente:* Complejidad (requiere que la aplicación soporte distribución).
+* **2.3. Clústeres y Balanceo:** 
+  * Unión lógica de servidores (Nodos). 
+  * Tipos: Alta Disponibilidad (HA - Ej. Oracle RAC) y Balanceo de Carga (HAProxy/F5) usando algoritmos como *Round Robin* o *Least Connections*.
+
+## 3. Arquitecturas Multinúcleo (Multi-Core)
+* **3.1. Evolución:** Al topar con el límite térmico (frecuencia estancada en ~4 GHz), la industria opta por el paralelismo: meter muchos cerebros (cores) en un solo chip.
+* **3.2. Mercado Actual:** Intel Xeon (Sapphire Rapids, 60+ cores) y AMD EPYC (Genoa, 96+ cores).
+* **3.3. Optimizaciones:** **Hyper-Threading / SMT** (2 hilos lógicos por cada core físico) y **NUMA** (arquitectura de memoria segmentada para acceso ultra-rápido).
+
+## 4. Clasificación de Sistemas
+* **Grandes (Mainframes):** Uso masivo (Hacienda, TGSS). Redundancia absoluta.
+* **Medios:** Servidores Rack/Blade, el estándar en el CPD del Ayuntamiento para virtualización corporativa y bases de datos.
+* **Pequeños (Puesto de Usuario):** La microinformática actual huye del PC tradicional hacia portátiles ligeros o *Thin Clients* que se conectan a infraestructuras VDI (Escritorios Virtuales) albergadas en los sistemas medios.
+
+## 5. Servidores de Datos vs. Aplicaciones (La Arquitectura 3 Capas)
+En la AAPP moderna (ej. Portal del Ciudadano), se impone la **Arquitectura en 3 Capas**, aislando funciones por seguridad (ENS) y rendimiento:
+* **5.1. Servidores Web (Capa Presentación):** NGINX o Apache en la DMZ.
+* **5.2. Servidores de Aplicaciones (Capa Negocio):** Optimizados para **CPU y RAM** (Tomcat, Spring Boot, WebLogic). Procesan la lógica y consultan los datos.
+* **5.3. Servidores de Datos / BBDD (Capa Datos):** Optimizados para intensividad **I/O** (Lectura/Escritura). Usan discos NVMe SSD y mucha RAM para caché. (Oracle, SQL Server, PostgreSQL). Protegidos en la LAN más restrictiva.
+
+## 6. Centros de Proceso de Datos (CPD)
+El "santuario" físico de la infraestructura (Art. 73 ENS - Protección de las instalaciones).
+* **6.1. Componentes Físicos:** Racks (19"), falso suelo (para cableado) y pasillos frío/caliente separados.
+* **6.2. Subsistemas Críticos:**
+  * *Energía:* Acometida dual + SAI/UPS + Grupo electrógeno diésel.
+  * *Clima:* CRAC (Precisión, 18-27ºC).
+  * *Fuego:* Detección temprana VESDA y extinción limpia (gas Novec/FM-200, nunca agua).
+* **6.3. Clasificación Uptime Institute (TIER):**
+  * TIER I (Básico, 99.6%) → TIER II → TIER III (Mantenimiento sin parada) → **TIER IV (Tolerante a Fallos, 99.995%)**.
+* **6.4. Recuperación de Desastres (DRP):** 
+  * Necesidad de centro de respaldo: *Cold Site* (días), *Warm Site* (horas), *Hot Site* (minutos/sincronizado).
+  * *Tendencia AAPP:* Migrar el sitio de respaldo a una **Nube Pública certificada en el nivel Alto del ENS** para garantizar la soberanía del dato y ahorrar costes inmobiliarios.
+
+## 7. Conclusión
+El servicio público digital del siglo XXI no admite interrupciones. La respuesta técnica requiere orquestar servidores multinúcleo en arquitecturas de 3 capas con escalabilidad horizontal, todo ello albergado en CPDs diseñados bajo los estándares TIER y respaldados por planes DRP. Solo esta infraestructura HPC (Hardware) asegura la base sobre la que descansan las garantías de disponibilidad del Esquema Nacional de Seguridad (Normativa).
+
+-------------------------------------
+
 # Tema 39.- Sistemas de altas prestaciones. Arquitecturas escalables. Arquitecturas multinúcleo. Sistemas grandes, medios y pequeños. Servidores de datos y de aplicaciones. Centros de Proceso de Datos.
 
 ## 1. Introducción
 
-Las Administraciones Públicas operan sistemas de información que deben atender simultáneamente a miles de usuarios: la Sede Electrónica recibe picos de tráfico durante los periodos de pago voluntario de tributos, el sistema de nóminas procesa masivamente los datos de miles de empleados, y las bases de datos del padrón municipal gestionan millones de registros. Estos escenarios exigen infraestructuras de **altas prestaciones** (High Performance Computing — HPC) que garanticen disponibilidad, rendimiento y escalabilidad.
-
-Este tema analiza las arquitecturas escalables, los procesadores multinúcleo, la clasificación de los sistemas informáticos, los tipos de servidores y los Centros de Proceso de Datos (CPD).
+Sede -> picos de trafico periodos de pago voluntario de tributos
+Nóminas -> procesar datos miles empleados
+Padrón -> gestionar millones de registros
+**Sistemas de altas prestaciones (High Performance Computing — HPC):** infraestructuras orientadas a garantizar **rendimiento, disponibilidad y escalabilidad**.
 
 ## 2. Arquitecturas Escalables
 
 ### 2.1. Escalabilidad vertical (Scale-Up)
 
-Consiste en **aumentar la capacidad de un único servidor** añadiendo más recursos hardware:
-*   Más memoria RAM (de 64 GB a 512 GB).
-*   Procesadores más potentes (de 8 a 64 núcleos).
-*   Discos más rápidos (de HDD a NVMe SSD).
-
-**Ventajas:** Simplicidad de gestión (un solo servidor), no requiere modificar la aplicación.
-**Inconvenientes:** Coste exponencial (cada incremento es desproporcionadamente más caro), techo físico insuperable (un servidor tiene límites de memoria, CPU y slots de expansión), punto único de fallo.
+- Aumentar recursos de **un único servidor**: CPU, RAM, almacenamiento.
+- **Ventajas:** simplicidad, no requiere modificar la aplicación.
+- **Inconvenientes:** Coste exponencial, límite físico y punto único de fallo.
 
 ### 2.2. Escalabilidad horizontal (Scale-Out)
 
-Consiste en **añadir más servidores** al conjunto, distribuyendo la carga entre ellos:
-*   De 1 servidor a un clúster de 10, 50 o cientos de servidores.
-*   Se utilizan servidores commodity (estándar, económicos) en lugar de un único servidor premium.
-
-**Ventajas:** Coste lineal, sin techo teórico, mayor tolerancia a fallos (si un nodo falla, los demás asumen la carga).
-**Inconvenientes:** Mayor complejidad de gestión, requiere que la aplicación soporte distribución.
+- Añadir **más servidores** y distribuir la carga. Cluster. 
+- Varios Servidores commodity vs Servidor premium único
+- **Ventajas:** mayor escalabilidad (coste lineal) y tolerancia a fallos.
+- **Inconvenientes:** mayor complejidad y aplicaciones preparadas para funcionar distribuidamente.
 
 ### 2.3. Clústeres
 
-Un **clúster** es un conjunto de servidores interconectados que trabajan como una unidad lógica. Tipos:
-
-| Tipo | Objetivo | Ejemplo |
-|------|----------|---------|
-| **Alta disponibilidad (HA)** | Garantizar continuidad del servicio | Oracle RAC, Windows Failover Cluster |
-| **Balanceo de carga** | Distribuir peticiones entre servidores | HAProxy, F5, NGINX |
-| **Computación (HPC)** | Procesamiento paralelo masivo | Apache Spark, Hadoop |
+- Conjunto de servidores que funcionan como una **unidad lógica**.
+- Tipos:
+  - **HA:** continuidad del servicio (Oracle RAC, Windows Failover Cluster)
+  - **Balanceo de carga:** distribución de peticiones (HAProxy, F5, NGINX)
+  - **Computación (HPC - High-Performance Computing):** procesamiento paralelo masivo (Apache Spark, Hadoop)
 
 ### 2.4. Balanceo de carga
 
-Un **balanceador de carga** (Load Balancer) distribuye las peticiones de los usuarios entre múltiples servidores de forma transparente:
-
-```
-                        ┌─ Servidor Web 1
-Ciudadano → Internet → [Balanceador] ─┤─ Servidor Web 2
-                        └─ Servidor Web 3
-```
-
-Algoritmos de balanceo: Round Robin, Least Connections, Weighted, IP Hash.
+- Distribuye las peticiones entre varios servidores.
+- Algoritmos: **Round Robin, Least Connections, Weighted e IP Hash**.
 
 ## 3. Arquitecturas Multinúcleo (Multi-Core)
 
 ### 3.1. Evolución
 
-Los procesadores alcanzaron un límite termodinámico en frecuencia de reloj (~4 GHz): aumentar la frecuencia genera calor insostenible. La industria evolucionó hacia el paralelismo: en lugar de un procesador más rápido, se integran múltiples **núcleos (cores)** en un único chip.
+Los procesadores alcanzaron un límite termodinámico en frecuencia de reloj (~4 GHz): aumentar la frecuencia genera calor insostenible.
+Integran múltiples **núcleos (cores)** en un procesador para aumentar el paralelismo y rendimiento.
 
 ### 3.2. Procesadores actuales para servidores
 
-| Procesador | Núcleos máx. | Uso |
-|-----------|-------------|-----|
-| Intel Xeon Scalable (Sapphire Rapids) | Hasta 60 cores | Servidores de propósito general |
-| AMD EPYC (Genoa) | Hasta 96 cores | Servidores de alta densidad |
-| ARM (Ampere Altra) | Hasta 128 cores | Cloud, eficiencia energética |
+- Intel Xeon Scalable (Sapphire Rapids) -> Hasta 60 cores (Servidores de propósito general)
+- AMD EPYC (Genoa) -> Hasta 96 cores (Servidores de alta densidad)
+- ARM (Ampere Altra) -> Hasta 128 cores (Cloud, eficiencia energética)
 
 ### 3.3. Conceptos relacionados
 
-*   **Hyper-Threading / SMT:** Cada núcleo físico se presenta al sistema operativo como dos núcleos lógicos (threads), mejorando el rendimiento en cargas multihilo.
-*   **NUMA (Non-Uniform Memory Access):** Arquitectura de memoria en servidores multinúcleo donde cada procesador tiene acceso rápido a su memoria local y más lento a la memoria de otros procesadores.
+- **Hyper-Threading / SMT:** varios hilos lógicos por núcleo.
+- **NUMA (Non-Uniform Memory Access):** acceso más rápido a la memoria local que a la memoria de otros procesadores.
 
 ## 4. Clasificación de Sistemas: Grandes, Medios y Pequeños
 
-| Categoría | Características | Uso en AAPP |
-|-----------|----------------|-------------|
-| **Grandes (Mainframes / HPC)** | Altísima capacidad de procesamiento, miles de cores, terabytes de RAM, disponibilidad 99,999% | Seguridad Social, Hacienda estatal, procesamiento masivo de datos |
-| **Medios (Servidores departamentales)** | Rack/Blade, decenas de cores, cientos de GB de RAM | Ayuntamientos medianos/grandes, bases de datos Oracle, servidores de aplicaciones |
-| **Pequeños (Workstations / Micro)** | PCs, servidores torre, NAS | Ayuntamientos pequeños, oficinas remotas |
+- **Grandes:** Mainframes/HPC → procesamiento masivo y máxima disponibilidad (Seguridad Social, Hacienda estatal)
+- **Medios:** servidores departamentales → aplicaciones y BBDD corporativas.
+- **Pequeños:** PCs, servidores torre o NAS → pequeñas organizaciones y oficinas.
+La microinformática actual huye del PC tradicional hacia portátiles ligeros o *Thin Clients* que se conectan a infraestructuras VDI (Escritorios Virtuales) albergadas en los sistemas medios.
 
 ## 5. Servidores de Datos y de Aplicaciones
 
-### 5.1. Servidores de datos (BBDD)
+En la AAPP moderna (ej. Portal del Ciudadano), se impone la **Arquitectura en 3 Capas - Datos, Negocio y Presentación**, aislando funciones por seguridad (ENS) y rendimiento.
 
-Optimizados para operaciones intensivas de entrada/salida (I/O):
-*   Almacenamiento en SSD NVMe de alta velocidad.
-*   Gran cantidad de RAM para caché de datos.
-*   Controladoras RAID y conexión a cabinas SAN (Tema 42).
-*   Ejemplos de SGBD: Oracle Database, PostgreSQL, SQL Server.
-*   Hardware especializado: Oracle Exadata (engineered system optimizado para Oracle DB).
+### 5.1. Servidores de datos (BBDD) -> Capa Datos
 
-### 5.2. Servidores de aplicaciones
+- Optimizados para **operaciones I/O**.
+- Características: **SSD/NVMe, gran RAM, RAID/cabinas SAN**.
+- Ejemplos: **Oracle, PostgreSQL, SQL Server**.
 
-Optimizados para procesamiento intensivo de CPU y memoria:
-*   Alta capacidad de procesamiento (muchos cores y threads).
-*   Gran cantidad de RAM para la JVM y la gestión de sesiones.
-*   Ejecutan servidores de aplicaciones Java EE (Tomcat, WildFly, WebLogic) o frameworks (Spring Boot).
-*   No requieren almacenamiento masivo local (los datos residen en los servidores de BBDD).
+### 5.2. Servidores de aplicaciones -> Capa Negocio
+
+- Optimizados para **CPU y memoria**.
+- Ejecutan aplicaciones y lógica de negocio. 
+- No requieren almacenamiento masivo, datos en servidores BBDD
+- Ejemplos: **Tomcat, WildFly, WebLogic, Spring Boot**.
 
 ### 5.3. Otros tipos de servidores
 
-*   **Servidores web:** NGINX, Apache HTTP Server (frontend que recibe las peticiones HTTP).
+*   **Servidores web:** NGINX, Apache -> Capa Presentación
 *   **Servidores de correo:** Microsoft Exchange, Postfix.
 *   **Servidores de ficheros:** Windows File Server, Samba, NAS.
 *   **Servidores de directorio:** Active Directory (Windows Server), OpenLDAP.
@@ -106,42 +141,36 @@ Optimizados para procesamiento intensivo de CPU y memoria:
 
 ### 6.1. Concepto
 
-Un **Centro de Proceso de Datos (CPD o Data Center)** es la instalación física que alberga la infraestructura informática crítica de una organización: servidores, cabinas de almacenamiento, equipos de red, sistemas de comunicaciones y sistemas auxiliares.
+Instalación física que alberga la **infraestructura informática crítica**: servidores, almacenamiento, redes. comunicaciones y sistemas auxiliares.
 
 ### 6.2. Elementos fundamentales
 
-*   **Racks:** Armarios estándar de 19 pulgadas (42U de altura) donde se montan los servidores, switches y patch panels.
-*   **Suministro eléctrico redundante:**
-    *   Dos acometidas eléctricas independientes.
-    *   Sistemas de Alimentación Ininterrumpida (SAI/UPS) para absorber microcortes.
-    *   Generadores diésel de emergencia para cortes prolongados.
-*   **Climatización:**
-    *   Pasillo frío / pasillo caliente: separación de flujos de aire para optimizar la refrigeración.
-    *   Sistemas de aire acondicionado de precisión (CRAC — Computer Room Air Conditioning).
-    *   Temperatura objetivo: 18-27 °C (recomendación ASHRAE).
-*   **Protección contra incendios:** Sistemas de detección VESDA (Very Early Smoke Detection Apparatus) y extinción por gas (Novec 1230, FM-200) que no dañan los equipos.
-*   **Control de acceso físico:** Lectores biométricos, tarjetas de proximidad, videovigilancia, registro de accesos.
-*   **Cableado:** Cableado estructurado de cobre y fibra óptica, canalizaciones separadas para datos y alimentación.
+- **Racks** de 19".
+- **Alimentación redundante:** acometidas eléctricas independientes, Sistemas de Alimentación Ininterrumpida (SAI/UPS) y generadores diesel.
+- **Climatización:** pasillo frío/caliente y Sistemas de aire acondicionado de precisión (CRAC — Computer Room Air Conditioning). 18-27 °C (recomendación ASHRAE)
+- **Protección contra incendios:** detección temprana VESDA (Very Early Smoke Detection Apparatus) y extinción por gas que no dañan los equipos.
+- **Seguridad física:** control de acceso y videovigilancia.
+- **Cableado:** cobre y fibra, separado de la alimentación.
 
 ### 6.3. Clasificación TIER (Uptime Institute)
 
-El Uptime Institute clasifica los CPDs en cuatro niveles según su disponibilidad:
-
-| Tier | Disponibilidad | Horas de caída/año | Características |
-|------|---------------|--------------------|----------------|
-| **Tier I** | 99,671% | 28,8 h | Sin redundancia |
-| **Tier II** | 99,741% | 22,7 h | Componentes redundantes |
-| **Tier III** | 99,982% | 1,6 h | Mantenimiento sin parada (Concurrently Maintainable) |
-| **Tier IV** | 99,995% | 0,4 h | Tolerante a fallos (Fault Tolerant) |
+Según disponibilidad:
+- **Tier I:** sin redundancia (99,671%)
+- **Tier II:** componentes redundantes (99,741%)
+- **Tier III:** mantenimiento sin interrupción (99,982%)
+- **Tier IV:** tolerante a fallos (99,995%)
 
 ### 6.4. CPD de respaldo (DRP Site)
 
 Para garantizar la continuidad del servicio ante desastres (incendio, inundación, terremoto), las organizaciones deben disponer de un **centro de respaldo** geográficamente separado:
+- **Cold Site:** infraestructura básica (electricidad, red) sin servidores → recuperación en días.
+- **Warm Site:** Infraestructura con servidores parcialmente configurados → recuperación en horas.
+- **Hot Site:** réplica sincronizada → recuperación en minutos.
 
-*   **Cold Site:** Infraestructura básica (electricidad, red) sin servidores. Tiempo de recuperación: días.
-*   **Warm Site:** Infraestructura con servidores parcialmente configurados. Tiempo de recuperación: horas.
-*   **Hot Site:** Réplica exacta del CPD principal, con datos sincronizados. Tiempo de recuperación: minutos.
+* *Tendencia AAPP:* Migrar el sitio de respaldo a una **Nube Pública certificada en el nivel Alto del ENS** para garantizar la soberanía del dato y ahorrar costes inmobiliarios.
 
 ## 7. Conclusión
 
-Los sistemas de altas prestaciones, con sus arquitecturas escalables (vertical y horizontal), procesadores multinúcleo y servidores especializados (datos, aplicaciones, web), proporcionan la capacidad de procesamiento que los sistemas de información de las Administraciones Públicas necesitan. Los Centros de Proceso de Datos (CPD), con sus rigurosos requisitos de suministro eléctrico redundante, climatización, protección contra incendios y clasificación TIER, garantizan la infraestructura física necesaria para alcanzar los niveles de disponibilidad que el ENS exige para los sistemas de categoría Media y Alta.
+- Las **arquitecturas escalables y multinúcleo** permiten aumentar la capacidad de procesamiento.
+- Los **servidores especializados** optimizan la ejecución de aplicaciones y el tratamiento de datos.
+- El **CPD**, junto con redundancia y centros de respaldo, garantiza la **disponibilidad y continuidad** de los sistemas que el ENS para sistemas de categoría Media y Alta.
