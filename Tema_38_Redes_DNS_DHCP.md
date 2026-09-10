@@ -1,147 +1,180 @@
+# Tema 38.- Redes. Servicios DNS y DHCP.
+
+## 1. Introducción
+* **Contexto:** En una red municipal con miles de dispositivos, la gestión manual de direcciones IP es inviable y la memorización de IPs por parte de usuarios es impracticable.
+* **Solución:** **DHCP** automatiza la configuración de red y **DNS** traduce los nombres lógicos (`sede.alicante.es`) a IPs numéricas.
+
+## 2. Servicio DNS (Domain Name System)
+* **2.1. Arquitectura Jerárquica:** Árbol invertido: Raíz (.) → Top-Level Domains (.es, .com) → Dominios (alicante.es) → Subdominios (sede).
+* **2.2. Tipos de Registros Clave:**
+  * **A / AAAA:** Nombre → IPv4 / IPv6.
+  * **CNAME:** Alias (un nombre apunta a otro nombre).
+  * **MX:** Servidor de correo.
+  * **PTR:** Resolución inversa (IP → Nombre).
+  * **TXT:** Texto plano (vital para seguridad de correo: SPF, DKIM, DMARC).
+  * **SRV:** Localizador de servicios (ej. indispensable para que los PCs encuentren el Active Directory).
+* **2.3. Proceso de Resolución:** Caché Local → DNS Recursivo interno → DNS Raíz → TLD → DNS Autoritativo.
+* **2.4. DNS Corporativo (Detalle Táctico AAPP):**
+  * **Split DNS (Horizontes divididos):** El DNS interno resuelve `sede.alicante.es` con la IP privada de la DMZ (optimizando tráfico interno), mientras el DNS externo da la IP pública a los ciudadanos.
+  * Integración nativa con **Active Directory** (zonas replicadas entre controladores de dominio).
+* **2.5. Seguridad DNS (ENS):**
+  * **DNSSEC:** Firma criptográfica para evitar *Cache Poisoning*.
+  * **DNS Sinkholing:** El DNS corporativo se usa como filtro de ciberseguridad (ej. herramientas del **CCN-CERT**) para bloquear resoluciones a dominios de malware/ransomware.
+
+## 3. Servicio DHCP (Dynamic Host Configuration Protocol)
+* **3.1. Parámetros asignados:** IP, Máscara, Puerta de Enlace, DNS primario/secundario y *Lease Time* (Tiempo de concesión).
+* **3.2. El Proceso DORA (Transacción de asignación):**
+  1. **D**iscover: Cliente busca servidor (Broadcast).
+  2. **O**ffer: Servidor ofrece una IP.
+  3. **R**equest: Cliente solicita formalmente esa IP.
+  4. **A**ck: Servidor confirma la asignación.
+* **3.3. Conceptos Clave de Administración:**
+  * **Ámbito (Scope):** Rango de IPs asignables.
+  * **Reservas (MAC Binding):** IP fija atada a una MAC concreta (ej. impresoras).
+  * **DHCP Relay (IP Helper):** Agente en el router que permite a los PCs de una VLAN pedir IP a un servidor DHCP ubicado en otra VLAN diferente.
+* **3.4. Seguridad DHCP (Detalle Táctico):**
+  * **Rogue DHCP:** Riesgo crítico cuando un usuario conecta un router doméstico a la red y asigna IPs falsas. 
+  * Se mitiga con **DHCP Snooping** (el switch solo permite ofertas DHCP desde puertos confiables/trusted) y **Dynamic ARP Inspection (DAI)**.
+
+## 4. Integración DNS y DHCP (DDNS)
+* En redes Microsoft, ambos servicios son simbióticos: cuando DHCP asigna una IP, realiza un registro dinámico (**DDNS**) actualizando instantáneamente los registros A y PTR en el DNS del Active Directory.
+
+## 5. Conclusión
+DNS y DHCP conforman la base operativa de cualquier infraestructura TIC municipal. Mientras que DHCP agiliza y centraliza el despliegue de redes (mitigando amenazas internas mediante DHCP Snooping), el DNS se erige no solo como el traductor de la web, sino como una pieza crítica de la arquitectura de seguridad perimetral (DNSSEC y Sinkholing) exigida por el Esquema Nacional de Seguridad.
+
+
+-------------------------------
+
 # Tema 38.- Redes. Servicios DNS, DHCP.
 
 ## 1. Introducción
 
-En una red IP, cada dispositivo necesita dos cosas para comunicarse: una **dirección IP** que lo identifique y un mecanismo para resolver **nombres de dominio** (como `sede.alicante.es`) a direcciones IP numéricas. Gestionar manualmente las direcciones IP de 2.000 puestos de trabajo es inviable, y obligar a los usuarios a memorizar direcciones como `192.168.10.45` es impracticable.
-
-Los servicios **DHCP (Dynamic Host Configuration Protocol)** y **DNS (Domain Name System)** resuelven estos problemas fundamentales: DHCP asigna automáticamente la configuración de red a cada dispositivo, y DNS traduce los nombres de dominio legibles por humanos a las direcciones IP que los equipos necesitan para comunicarse.
+Dispositivo -> IP + nombre de dominio
+- **DHCP (Dynamic Host Configuration Protocol)** → asigna automáticamente la **configuración de red**. Gestionar direcciones IP manualmente es inviable.
+- **DNS (Domain Name System)** → traduce **nombres de dominio a direcciones IP**. Memorizar ips es impracticable.
 
 ## 2. Servicio DNS (Domain Name System)
 
 ### 2.1. Concepto y función
 
-El **DNS** es un sistema de nomenclatura jerárquico y distribuido que actúa como la "guía telefónica" de Internet y las redes internas. Su función principal es la **resolución de nombres**: traducir un nombre de dominio (`www.alicante.es`) a una dirección IP (`83.45.67.12`) y viceversa.
+- Sistema **jerárquico y distribuido**.
+- Función principal → **resolución de nombres**:
+  - Nombre → IP.
+  - IP → nombre.
 
 ### 2.2. Arquitectura jerárquica
 
-El DNS se organiza en una estructura de árbol invertido:
-
-```
-                    . (raíz)
-                   / \
-                .es   .com   .org   .eu   ...
-               /        \
-         alicante.es    google.com
-            /    \
-       sede.     www.
-```
-
-*   **Raíz (root):** Los 13 servidores raíz (A-M) gestionados por organizaciones internacionales (ICANN, RIPE, NASA).
-*   **TLD (Top-Level Domain):** Dominios de nivel superior: genéricos (.com, .org, .net) y geográficos (.es, .fr, .de).
-*   **Dominio de segundo nivel:** `alicante.es`, `hacienda.gob.es`.
-*   **Subdominio:** `sede.alicante.es`, `correo.alicante.es`.
+Estructura de árbol invertido:
+- **Raíz (.)** → Servidores raiz gestionados por ICANN, RIPE, NASA.
+- **TLD (Top-Level Domain)** → Nivel superior `.es`, `.com`, `.org`, etc.
+- **Segundo nivel** → `alicante.es`.
+- **Subdominio** → `sede.alicante.es`.
 
 ### 2.3. Tipos de registros DNS
 
-| Tipo | Función | Ejemplo |
-|------|---------|---------|
-| **A** | Nombre → IPv4 | `sede.alicante.es → 83.45.67.12` |
-| **AAAA** | Nombre → IPv6 | `sede.alicante.es → 2001:db8::1` |
-| **CNAME** | Alias (nombre → nombre) | `www.alicante.es → sede.alicante.es` |
-| **MX** | Servidor de correo | `alicante.es → correo.alicante.es (prioridad 10)` |
-| **NS** | Servidor DNS autoritativo | `alicante.es → ns1.alicante.es` |
-| **PTR** | IPv4 → Nombre (resolución inversa) | `83.45.67.12 → sede.alicante.es` |
-| **SOA** | Inicio de autoridad (zona) | Parámetros de la zona (serial, refresh, TTL) |
-| **TXT** | Texto libre | SPF, DKIM, DMARC (autenticación de correo) |
-| **SRV** | Servicio + puerto | `_ldap._tcp.alicante.es → dc01.alicante.es:389` |
+- **A** → nombre → IPv4.
+- **AAAA** → nombre → IPv6.
+- **CNAME** → alias (www.alicante.es → sede.alicante.es)
+- **MX** → servidor de correo.
+- **NS** → servidor DNS autoritativo.
+- **PTR** → IP → nombre (resolución inversa)
+- **SOA** → autoridad/parámetros de zona (serial, refresh, TTL)
+- **TXT** → texto (SPF, DKIM, DMARC) para autenticación de correo.
+- **SRV** → servicio + puerto (_ldap._tcp.alicante.es → dc01.alicante.es:389)
 
 ### 2.4. Proceso de resolución DNS
 
-Cuando un funcionario escribe `sede.alicante.es` en su navegador:
-
-1.  El PC consulta su **caché DNS local**.
-2.  Si no lo tiene, consulta al **servidor DNS recursivo** configurado (por DHCP): normalmente el servidor DNS interno del Ayuntamiento.
-3.  Si el DNS recursivo no tiene la respuesta en su caché, inicia una **consulta recursiva/iterativa**:
-    *   Pregunta a un **servidor raíz** → le redirige al servidor de `.es`.
-    *   Pregunta al servidor de `.es` → le redirige al servidor de `alicante.es`.
-    *   Pregunta al servidor **autoritativo** de `alicante.es` → responde con la IP `83.45.67.12`.
-4.  El DNS recursivo almacena la respuesta en caché (TTL) y la devuelve al PC.
-5.  El navegador se conecta a `83.45.67.12`.
+1. **Caché local** del PC.
+2. **DNS recursivo** configurado (DNS interno).
+3. Si no tiene respuesta → consulta recursiva/iterativa **raíz → TLD → autoritativo**.
+4. DNS recursivo guarda respuesta en **caché (TTL)** y la devuelve al PC.
+5. El cliente conecta con la IP.
 
 ### 2.5. DNS en entornos corporativos
 
-*   **DNS interno (Split DNS):** El servidor DNS interno del Ayuntamiento resuelve los nombres de la red interna (servidores, impresoras, aplicaciones) y reenvía (forwarding) las consultas externas a los DNS de Internet.
-*   **Active Directory Integrated DNS:** En entornos Windows Server, el DNS se integra con Active Directory. Los registros DNS se almacenan en la base de datos de AD y se replican entre los controladores de dominio.
-*   **Zonas de búsqueda directa e inversa:**
-    *   **Directa:** Nombre → IP (`servidor01.ayto.local → 10.0.1.10`).
-    *   **Inversa:** IP → Nombre (`10.0.1.10 → servidor01.ayto.local`).
+- **DNS interno** → resuelve nombres internos y reenvía consultas externas. 
+- **Split DNS (Horizontes divididos):** El DNS interno resuelve `sede.alicante.es` con la IP privada de la DMZ (optimizando tráfico interno), mientras el DNS externo da la IP pública a los ciudadanos.
+- **AD Integrated DNS** → DNS integrado con **Active Directory** y replicado entre DC.
+- **Zona directa** → nombre → IP.
+- **Zona inversa** → IP → nombre.
 
 ### 2.6. Seguridad DNS
 
-*   **DNS Spoofing / Cache Poisoning:** Ataque que manipula la caché DNS para redirigir tráfico a un servidor malicioso.
-*   **DNSSEC (DNS Security Extensions):** Extensiones que firman criptográficamente los registros DNS para garantizar su autenticidad e integridad. Impide la manipulación de respuestas DNS.
-*   **DNS over HTTPS (DoH) / DNS over TLS (DoT):** Cifran las consultas DNS para proteger la privacidad del usuario.
+- **DNS Spoofing / Cache Poisoning** → manipulación de respuestas/caché para redirigir tráfico a un servidor malicioso
+- **DNSSEC** → firma criptográfica → **autenticidad + integridad**.
+- ***DNS over HTTPS (DoH) / DNS over TLS (DoT)** → cifran las consultas DNS → **privacidad**.
+- **DNS Sinkholing:** El DNS corporativo se usa como filtro de ciberseguridad (ej. herramientas del **CCN-CERT**) para bloquear resoluciones a dominios de malware/ransomware.
 
 ### 2.7. Servidores DNS
 
-| Servidor | Tipo |
-|----------|------|
-| **BIND (Berkeley Internet Name Domain)** | Open source, el más extendido en Internet |
-| **Microsoft DNS Server** | Integrado en Windows Server / Active Directory |
-| **Unbound** | Open source, recursivo, orientado a seguridad |
-| **PowerDNS** | Open source, alto rendimiento |
+- **BIND (Berkeley Internet Name Domain)** → open source, muy extendido.
+- **Microsoft DNS Server** → Windows Server / AD.
+- **Unbound** → recursivo y orientado a seguridad.
+- **PowerDNS** → alto rendimiento.
 
 ## 3. Servicio DHCP (Dynamic Host Configuration Protocol)
 
 ### 3.1. Concepto y función
 
-**DHCP** es un protocolo de red que permite a un servidor asignar **automáticamente** la configuración de red a los dispositivos que se conectan a la LAN. Sin DHCP, cada PC, impresora y dispositivo debería configurarse manualmente con dirección IP, máscara, puerta de enlace y servidores DNS.
+- Asigna **automáticamente** la configuración de red.
+- Evita configurar manualmente cada dispositivo.
 
 ### 3.2. Parámetros asignados por DHCP
 
-| Parámetro | Ejemplo |
-|-----------|---------|
-| Dirección IP | `10.0.10.125` |
-| Máscara de subred | `255.255.255.0 (/24)` |
-| Puerta de enlace (Gateway) | `10.0.10.1` |
-| Servidor DNS primario | `10.0.1.10` |
-| Servidor DNS secundario | `10.0.1.11` |
-| Nombre de dominio | `ayto.local` |
-| Servidor NTP | `10.0.1.5` |
-| Tiempo de concesión (Lease Time) | `8 horas` |
+    - **IP**
+    - **Máscara**
+    - **Gateway**
+    - **DNS primario y secuandario**
+    - **Dominio**
+    - **Servidor NTP**
+    - **Tiempo de concesión (Lease Time)**
 
 ### 3.3. Proceso DORA (Discover, Offer, Request, Acknowledge)
 
 El proceso de asignación de dirección IP sigue cuatro pasos:
 
-1.  **DHCP Discover:** El cliente envía un mensaje de broadcast (`255.255.255.255`) buscando un servidor DHCP en la red.
-2.  **DHCP Offer:** El servidor DHCP responde con una oferta de dirección IP disponible y los parámetros de configuración.
+1.  **DHCP Discover:** El cliente envía mensaje de broadcast (`255.255.255.255`) buscando servidor DHCP.
+2.  **DHCP Offer:** Servidor ofrece IP/configuración.
 3.  **DHCP Request:** El cliente acepta la oferta y solicita formalmente la dirección IP ofrecida.
-4.  **DHCP Acknowledge:** El servidor confirma la asignación y el cliente configura su interfaz de red con los parámetros recibidos.
+4.  **DHCP Acknowledge:** El servidor confirma y el cliente configura su interfaz de red con los parámetros recibidos.
 
 ### 3.4. Conceptos clave
 
-*   **Ámbito (Scope):** Rango de direcciones IP que el servidor DHCP puede asignar (ej. `10.0.10.100` a `10.0.10.254`).
-*   **Exclusiones:** Direcciones dentro del ámbito que se reservan y no se asignan dinámicamente (ej. IPs de servidores, impresoras, switches).
-*   **Reservas (MAC binding):** Asignación fija de una IP específica a una dirección MAC concreta. La impresora `00:1A:2B:3C:4D:5E` siempre recibe la IP `10.0.10.50`.
-*   **Tiempo de concesión (Lease Time):** Duración de la asignación. El cliente debe renovar la concesión antes de que expire. Típico: 8 horas en oficinas, 1 hora en redes Wi-Fi de invitados.
-*   **DHCP Relay Agent:** En redes segmentadas por VLANs, un agente relay (configurado en el router o switch de capa 3) reenvía las solicitudes DHCP broadcast del cliente al servidor DHCP ubicado en otra VLAN.
+- **Scope/Ámbito** → rango de IPs asignables (ej. `10.0.10.100` a `10.0.10.254`).
+- **Exclusiones** → IPs del ámbito que no se asignan.
+- **Reservas (MAC binding)** → IP fija asociada a una **MAC**.
+- **Lease Time** → duración de la concesión antes de renovar
+- **DHCP Relay Agent** → En redes segmentadas por VLANs, un agente relay (configurado en el router o switch de capa 3) reenvía las solicitudes DHCP broadcast del cliente al servidor DHCP ubicado en otra VLAN.
 
 ### 3.5. DHCP en entornos corporativos
 
-*   **Servidor DHCP en Windows Server:** Integrado con Active Directory. Permite autorización del servidor DHCP en AD (solo servidores autorizados pueden asignar IPs).
-*   **DHCP en Linux:** ISC DHCP Server, Kea DHCP.
-*   **DHCP Failover:** Configuración de dos servidores DHCP (principal y secundario) para alta disponibilidad. Si el principal falla, el secundario continúa asignando direcciones.
-*   **Integración DHCP-DNS:** Cuando el servidor DHCP asigna una IP, actualiza dinámicamente el registro DNS del dispositivo (DNS dinámico — DDNS).
+- **Windows Server DHCP** → integración/autorización mediante AD.
+- **Linux** → ISC DHCP / Kea.
+- **DHCP Failover** → Configuración de dos servidores DHCP (principal y secundario) para alta disponibilidad.
+- **DNS dinámico —DDNS** → DHCP actualiza automáticamente DNS (Integración DHCP-DNS).
 
 ### 3.6. Seguridad DHCP
 
-*   **DHCP Snooping:** Función de seguridad en los switches que filtra los mensajes DHCP, permitiendo respuestas DHCP solo desde puertos autorizados (trusted ports). Previene ataques de DHCP spoofing donde un servidor DHCP fraudulento asigna configuraciones maliciosas.
-*   **IP Source Guard:** Complementa el DHCP Snooping filtrando tráfico con IPs de origen no asignadas por el servidor DHCP legítimo.
-*   **Dynamic ARP Inspection (DAI):** Valida los mensajes ARP contra la tabla de DHCP Snooping para prevenir ataques ARP spoofing.
+- **DHCP Snooping** → solo puertos autorizados pueden proporcionar respuestas DHCP.
+- **IP Source Guard** → bloquea IPs de origen no autorizadas.
+- **DAI (Dynamic ARP Inspection)** → valida ARP mediante información de DHCP Snooping.
+
+* **Rogue DHCP:** Riesgo crítico cuando un usuario conecta un router doméstico a la red y asigna IPs falsas. 
+* Se mitiga con **DHCP Snooping** (el switch solo permite ofertas DHCP desde puertos confiables/trusted) y **Dynamic ARP Inspection (DAI)**.
 
 ## 4. Integración DNS y DHCP
 
-En un entorno corporativo, DNS y DHCP trabajan conjuntamente:
-
-1.  Un PC se conecta a la red y obtiene una IP del servidor DHCP (`10.0.10.125`).
-2.  El servidor DHCP actualiza automáticamente el registro DNS del PC (DDNS):
-    *   Zona directa: `pc-tributos01.ayto.local → 10.0.10.125`.
-    *   Zona inversa: `10.0.10.125 → pc-tributos01.ayto.local`.
-3.  Otros dispositivos de la red pueden localizar al PC por su nombre (`pc-tributos01.ayto.local`) sin conocer su IP.
+1. PC obtiene **IP mediante DHCP**.
+2. DHCP actualiza **DNS mediante DDNS**.
+3. Otros equipos pueden localizarlo mediante **nombre**.
 
 ## 5. Conclusión
 
-Los servicios DNS y DHCP son componentes fundamentales de la infraestructura de red de cualquier Administración Pública. DHCP automatiza la asignación de direcciones IP y configuración de red, eliminando la gestión manual y reduciendo errores. DNS proporciona la resolución de nombres que permite a los usuarios y las aplicaciones comunicarse utilizando nombres legibles en lugar de direcciones IP numéricas.
-
-La seguridad de ambos servicios (DNSSEC contra la manipulación de registros DNS, DHCP Snooping contra servidores DHCP fraudulentos) es un requisito del ENS, y su integración con Active Directory y la actualización dinámica DNS (DDNS) garantizan una gestión coherente y centralizada de la red municipal.
+- **DHCP** → configura automáticamente los equipos.
+- **DNS** → resuelve nombres.
+- **DDNS** → integra ambos servicios.
+- Requisito ENS. Seguridad en DNS Y DHCP:
+  - **DNSSEC** → protege DNS. 
+  - **DHCP Snooping** → protege DHCP.
+  - **IP Source Guard + DAI** → refuerzan la seguridad de la LAN.
+- Integración con **Active Directory** → gestión centralizada.
