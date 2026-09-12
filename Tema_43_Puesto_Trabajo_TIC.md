@@ -1,6 +1,62 @@
+# Tema 43.- El puesto de trabajo TIC: normalización, seguridad, distribución, CAU (ITIL) y soporte.
+
+## 1. Introducción
+* **El Reto:** El puesto TIC es la frontera entre el funcionario y los datos del ciudadano. Su gestión en una Administración de 2.000 equipos exige abandonar la administración manual en favor de políticas centralizadas, distribución automatizada y un soporte basado en estándares (ITIL) para garantizar la seguridad (ENS).
+
+## 2. Normalización y Despliegue del Puesto de Trabajo
+* **2.1. Normalización:** Estándar corporativo único (Hardware homologado, SO base como Windows 11 Enterprise LTSC, y software ofimático).
+* **2.2. Despliegue Clásico (Imagen Maestra / Golden Image):** 
+  * Captura de un SO "perfecto" clonado mediante **WDS, MDT o MECM (SCCM)**.
+* **2.3. Despliegue Moderno (Zero-Touch Provisioning):**
+  * Tendencia actual mediante **Windows Autopilot + Intune**. El equipo se entrega de fábrica al usuario; al loguearse con su cuenta corporativa, se autoconfigura sin que el departamento de Microinformática tenga que tocar el hardware físico.
+
+## 3. Políticas de Seguridad del Entorno (Directrices ENS)
+* **3.1. Identidad y Accesos:** Contraseñas de 12 caracteres, caducidad (90 días), bloqueo (5 intentos) y **MFA obligatorio** para administradores TIC y accesos remotos.
+* **3.2. Cifrado y Control:** **BitLocker** obligatorio en portátiles y pendrives corporativos. Deshabilitación de *Autorun* y control de periféricos por lista blanca.
+* **3.3. El blindaje del Administrador (LAPS):** 
+  * Despliegue de **Microsoft LAPS** (Local Administrator Password Solution) para aleatorizar la contraseña del administrador local de cada PC, evitando movimientos laterales de malware/ransomware.
+* **3.4. Actualizaciones (Patch Management):** Objetivo de parcheo < 30 días apoyado en las alertas del CCN-CERT.
+
+## 4. Administración Centralizada y Distribución de Software
+* **4.1. El Eje On-Premise (AD + GPO + MECM):**
+  * **AD:** Organiza las identidades en OUs (desacopladas del hardware).
+  * **GPOs:** Inyectan la configuración (fondo de pantalla, discos de red, LAPS).
+  * **MECM / WSUS:** Distribución pesada de software y parches.
+* **4.2. El Eje Cloud (Entra ID + Intune):** Gestión MDM/UEM y políticas de Acceso Condicional (ej. "no puedes abrir el correo municipal si te conectas desde fuera de España o sin antivirus").
+* **4.3. Automatización Ágil (WinGet):** Uso de gestores de paquetes por línea de comandos (WinGet) combinados con scripts PowerShell para mantener el software de terceros actualizado silenciosamente.
+
+## 5. El Centro de Atención a Usuarios (CAU) y el marco ITIL
+* **5.1. Concepto SPOC:** Punto Único de Contacto entre el usuario y la tecnología.
+* **5.2. Marco ITIL 4 (Prácticas clave):**
+  * *Gestión de Incidencias:* Apagar el fuego rápido.
+  * *Gestión de Peticiones:* Trámites estándar (pedir un ratón, instalar Adobe).
+  * *Gestión de Problemas:* Investigar la causa raíz de incidencias repetitivas.
+* **5.3. El ciclo de la incidencia:** Detección → Registro → Priorización (Impacto × Urgencia) → Diagnóstico → Resolución → Cierre.
+* **5.4. Niveles de Soporte y Estrategia "Shift-Left":**
+  * Potenciar el **Nivel 0 (Portal de Autoservicio / KB)** para que el usuario resuelva sus problemas (Shift-Left), filtrando el volumen que llega al Nivel 1 (CAU), Nivel 2 (Sistemas/Redes) y Nivel 3 (Fabricante).
+* **5.5. KPIs y Herramientas:** Medir el FCR (First Contact Resolution, >70%), usando plataformas ITSM como GLPI (Open Source, muy común en AAPP) o ServiceNow/Jira.
+
+## 6. Herramientas Digitales y Soporte Remoto
+* **6.1. Productividad y Colaboración:** Microsoft 365, LibreOffice (formato estándar ODF/ENI), Teams/Exchange.
+* **6.2. Certificados y Firma:** AutoFirma, middlewares (PKCS#11) y lectores de DNIe configurados por defecto.
+* **6.3. Asistencia Remota:** Herramientas nativas (Asistencia RDP, PowerShell Remoting) o de terceros (AnyDesk/TeamViewer) para aplicar resoluciones en primer contacto sin desplazamiento físico.
+
+## 7. Conclusión
+El puesto de trabajo no se gestiona PC a PC, se gobierna. La transición desde el despliegue manual mediante imágenes maestras hacia el *Zero-Touch* con Autopilot e Intune, sumado al blindaje exigido por el ENS (LAPS, BitLocker, MFA) y el soporte estructurado bajo ITIL, garantiza que el Ayuntamiento preste un servicio digital continuo, ágil y, sobre todo, resiliente ante ciberamenazas.
+
+--------------------------------
+
 # Tema 43.- El puesto de trabajo TIC: normalización, políticas de seguridad, actualización y despliegue. Sistemas de administración de entorno de usuario y estaciones de trabajo. Distribución de software. Centro de Atención a los usuarios. Herramientas digitales, políticas de seguridad y configuración de sistemas. Soporte y resolución de incidencias.
 
 ## 1. Introducción
+
+- El **puesto de trabajo TIC** es el punto de contacto entre el empleado público y los sistemas de información.
+- Objetivos:
+  - Productividad.
+  - Seguridad de la información.
+  - Calidad y continuidad del servicio.
+- En organizaciones grandes se requiere **administración centralizada**, distribución de software, políticas de seguridad y **CAU**.
+
 
 El puesto de trabajo TIC es el punto de contacto directo entre el empleado público y los sistemas de información de la Administración. Su correcta normalización, securización y gestión determinan la productividad de los funcionarios, la seguridad de la información y la calidad del servicio público. Un Ayuntamiento con 2.000 puestos de trabajo necesita mecanismos centralizados de administración, distribución de software, aplicación de políticas de seguridad y un Centro de Atención a Usuarios (CAU) que garantice la resolución eficaz de incidencias.
 
@@ -10,71 +66,77 @@ Este tema analiza la normalización del puesto de trabajo TIC, los sistemas de a
 
 ### 2.1. Concepto
 
-La **normalización** consiste en establecer un estándar corporativo para todos los puestos de trabajo de la organización: hardware homogéneo, software estandarizado, configuración uniforme y políticas de seguridad aplicadas de forma consistente.
+- **Normalización:** establecer un estándar corporativo común:
+  - Hardware homogéneo.
+  - Software estandarizado.
+  - Configuración uniforme.
+  - Políticas de seguridad consistentes.
 
 ### 2.2. Componentes de la normalización
 
-| Componente | Estándar |
-|-----------|----------|
-| **Hardware** | Catálogo de modelos aprobados (PC sobremesa, portátil, thin client, monitor), especificaciones mínimas (CPU, RAM, disco) |
-| **Sistema operativo** | Versión corporativa estándar (ej. Windows 11 Enterprise LTSC), imagen maestra |
-| **Software de base** | Paquete ofimático estándar (Microsoft 365, LibreOffice), navegador (Edge/Chrome), cliente de correo, visor PDF, antivirus |
-| **Software departamental** | Aplicaciones específicas por perfil (gestor de expedientes, SIG para urbanismo, SGBD para informática) |
-| **Configuración de seguridad** | Cifrado de disco (BitLocker), antivirus/EDR, firewall local, restricciones de acceso USB |
-| **Periféricos** | Modelos de impresora, escáner, lector de tarjetas (DNIe/certificados) homologados |
+- **Hardware:** modelos (PC sobremesa, portátil, thin client, monitor) y especificaciones aprobadas.
+- **Sistema operativo:** versión corporativa e imagen maestra.
+- **Software base:** ofimática, navegador, correo, PDF, antivirus.
+- **Software departamental:** aplicaciones específicas según el puesto (gestor de expedientes, GIS, firmadoc)
+- **Seguridad:** BitLocker, antivirus/EDR, firewall, restricciones USB.
+- **Periféricos:** impresoras, escáneres, lectores de tarjetas homologados.
 
 ### 2.3. Imagen maestra (Golden Image)
 
-Se crea una **imagen maestra** del sistema operativo con todo el software de base preinstalado y configurado. Esta imagen se replica en todos los puestos de trabajo mediante herramientas de despliegue (WDS, MDT, SCCM/MECM). Ventajas:
-*   Despliegue rápido de nuevos puestos (minutos en lugar de horas).
-*   Garantía de configuración homogénea.
-*   Facilidad de reinstalación ante incidencias graves.
+- Imagen del SO con software y configuración corporativa.
+- Se despliega mediante herramientas de depliegue **WDS, MDT, SCCM/MECM, KACE**.
+- Ventajas:
+  - Despliegue rápido.
+  - Configuración homogénea.
+  - Reinstalación sencilla ante incidencias graves.
+  
+ **Despliegue Moderno (Zero-Touch Provisioning)** 
+ * Tendencia actual mediante **Windows Autopilot + Intune**. El equipo se entrega de fábrica al usuario; al loguearse con su cuenta corporativa, se autoconfigura sin que el departamento de Microinformática tenga que tocar el hardware físico.
 
 ## 3. Políticas de Seguridad del Puesto de Trabajo
 
-### 3.1. Políticas de contraseñas
+### 3.1. Políticas de contraseñas (ENS)
 
-| Parámetro | Valor recomendado (ENS) |
-|-----------|------------------------|
-| Longitud mínima | 12 caracteres |
-| Complejidad | Mayúsculas + minúsculas + números + caracteres especiales |
-| Caducidad | 90 días (categoría alta: 60 días) |
-| Historial | No reutilizar las últimas 12 contraseñas |
-| Bloqueo | Tras 5 intentos fallidos (desbloqueo tras 30 min o por administrador) |
+- Longitud mínima recomendada: **12 caracteres**.
+- Complejidad: mayúsculas, minúsculas, números y caracteres especiales.
+- Caducidad: **90 días** (60 días en categoría alta).
+- Historial: no reutilizar las últimas **12**.
+- Bloqueo: tras **5 intentos fallidos** (desbloqueo tras 30 min).
+- MFA (Doble Factor de Autenticación): *Obligatorio en Categoría Media* para **administradores de sistemas** y para cualquier **acceso remoto/externo** (ej. VPN de teletrabajo).
 
 ### 3.2. Políticas de cifrado
 
-*   **Cifrado de disco completo:** BitLocker (Windows), LUKS (Linux). Obligatorio para portátiles (riesgo de pérdida/robo).
-*   **Cifrado de dispositivos extraíbles:** Los USB deben cifrarse con BitLocker To Go o VeraCrypt.
-*   **Clave de recuperación:** Almacenada en Active Directory para rescate por el administrador.
+- **Cifrado completo del disco:** BitLocker (Windows), LUKS (Linux).
+- Especialmente obligatorio en **portátiles** (riesgo de pérdida/robo).
+- Cifrado de dispositivos extraíbles: **BitLocker To Go / VeraCrypt**.
+- Clave de recuperación almacenada en **Active Directory**.
 
 ### 3.3. Control de dispositivos
 
-*   **Restricción de puertos USB:** Bloqueo de dispositivos de almacenamiento USB no autorizados. Solo se permiten dispositivos corporativos cifrados.
-*   **Deshabilitación de autorun/autoplay.**
-*   **Control de periféricos:** Lista blanca de dispositivos permitidos (por ID de hardware).
+- Restricción de **USB** no autorizados, solo se permiten cifrados.
+- Deshabilitación de **Autorun/Autoplay**.
+- Lista blanca de periféricos mediante ID de hardware.
 
 ### 3.4. Protección endpoint
 
-*   **Antivirus / EDR (Endpoint Detection and Response):** Detección de malware, análisis de comportamiento, respuesta automatizada. Productos: Microsoft Defender for Endpoint, CrowdStrike Falcon, SentinelOne.
-*   **Firewall local:** Reglas de entrada/salida configuradas por GPO.
-*   **Control de aplicaciones (AppLocker / WDAC):** Solo se permite la ejecución de aplicaciones autorizadas (lista blanca).
+- **Antivirus/EDR:** detección, análisis de comportamiento y respuesta frente a malware.
+- **Firewall local:** reglas gestionadas mediante GPO.
+- **AppLocker / WDAC:** ejecución únicamente de aplicaciones autorizadas (lista blanca).
 
 ### 3.5. Actualizaciones de seguridad
 
-*   **Parcheado de SO:** Windows Update gestionado por WSUS o SCCM/MECM.
-*   **Parcheado de aplicaciones:** Navegadores, Java, Adobe, aplicaciones de terceros.
-*   **Ventana de parcheado:** Despliegue nocturno o en fin de semana para minimizar el impacto.
-*   **Tiempo máximo de aplicación:** 30 días desde la publicación del parche (guías CCN-STIC).
+- **SO:** Windows Update gestionado mediante WSUS/SCCM.
+- **Aplicaciones:** navegadores, Java, Adobe, etc.
+- Despliegue preferentemente fuera del horario laboral.
+- Objetivo de aplicación: **máximo 30 días** desde la publicación del parche.
 
 ## 4. Sistemas de Administración del Entorno de Usuario
 
 ### 4.1. Active Directory (AD) y GPOs
 
-**Active Directory** centraliza la gestión de identidades y la aplicación de políticas:
-
-*   **Unidades Organizativas (OU):** Estructura jerárquica que agrupa usuarios y equipos por departamento, planta o función.
-*   **GPO (Group Policy Objects):** Políticas que se aplican automáticamente a usuarios y equipos vinculados a cada OU:
+- **AD:** gestión centralizada de identidades y políticas. 
+- **OU (Unidades Organizativas):** agrupan usuarios y equipos.
+- **GPO:** aplican automáticamente configuraciones a usuarios y equipos.
     *   Configuración de escritorio, menú inicio, fondo de pantalla corporativo.
     *   Mapeo de unidades de red e impresoras.
     *   Restricción de instalación de software.
@@ -84,122 +146,119 @@ Se crea una **imagen maestra** del sistema operativo con todo el software de bas
 
 ### 4.2. Azure AD / Microsoft Entra ID
 
-Extensión cloud de Active Directory para entornos híbridos:
-*   **Azure AD Connect:** Sincronización de usuarios entre AD on-premise y Azure AD.
-*   **Single Sign-On (SSO):** Un único inicio de sesión para acceder a aplicaciones locales y cloud (Microsoft 365).
-*   **Conditional Access:** Políticas que condicionan el acceso según la ubicación, el dispositivo, el nivel de riesgo y el cumplimiento de las políticas de seguridad.
-*   **MFA (Multi-Factor Authentication):** Segundo factor obligatorio (app, SMS, token).
+- Gestión de identidades en entornos híbridos.
+- **Azure AD Connect:** sincronización AD local (on-premise) y Azure AD.
+- **Single Sign-On (SSO):** acceso único a aplicaciones locales y cloud (Microsoft 365).
+- **Conditional Access:** acceso condicionado por ubicación, dispositivo, riesgo, etc.
+- **MFA:** autenticación mediante segundo factor.
+- **LAPS** (Local Administrator Password Solution): genera una contraseña aleatoria distinta para cada PC y la guarda cifrada en el Active Directory.
 
 ### 4.3. Microsoft Intune / Endpoint Manager
 
-Plataforma de gestión unificada de dispositivos (UEM — Unified Endpoint Management):
-*   Gestión de PCs, portátiles, móviles y tablets desde un único panel cloud.
-*   Políticas de cumplimiento (compliance policies): si el dispositivo no cumple los requisitos (antivirus activo, SO actualizado, cifrado), se bloquea el acceso a recursos corporativos.
-*   Despliegue de aplicaciones y actualizaciones.
-*   Integración con Conditional Access de Azure AD.
+- Plataforma **UEM - Unified Endpoint Management** para administrar dispositivos desde la nube.
+- Gestiona:
+  - PCs y portátiles.
+  - Móviles y tablets.
+  - Aplicaciones y actualizaciones.
+  - Políticas de cumplimiento.
+- Puede bloquear el acceso si el dispositivo no cumple requisitos de seguridad.
+- Integración con **Conditional Access**.
 
 ## 5. Distribución de Software
 
 ### 5.1. Herramientas de distribución
 
-| Herramienta | Tipo | Funcionalidades |
-|-------------|------|----------------|
-| **SCCM/MECM** | On-premise (Microsoft) | Distribución de software, parches, inventario HW/SW, imágenes de SO, informes |
-| **Microsoft Intune** | Cloud (SaaS) | Distribución de apps (Win32, MSI, AppX, iOS, Android), políticas de cumplimiento |
-| **WSUS** | On-premise (gratuito) | Gestión centralizada de Windows Update |
-| **Ansible** | Open source (Red Hat) | Automatización de configuración y despliegue (Linux y Windows) |
-| **Puppet** | Open source | Gestión de configuración declarativa |
-| **PDQ Deploy** | Comercial | Distribución de software silenciosa en redes Windows |
+- **SCCM/MECM:** software, parches, inventario, imágenes de SO e informes.
+- **Microsoft Intune:** distribución de aplicaciones y políticas desde la nube.
+- **WSUS:** gestión centralizada de actualizaciones Windows.
+- **Ansible:** automatización de configuración y despliegue.
+- **Puppet:** gestión declarativa de configuración.
+- **PDQ Deploy:** distribución silenciosa en redes Windows.
+* **WinGet (Windows Package Manager):** La herramienta de línea de comandos nativa de Microsoft. Su uso integrado con scripts es la tendencia actual en Microinformática para **automatizar la instalación y el parcheado ágil de aplicaciones de terceros** sin la sobrecarga operativa que exige MECM.
 
 ### 5.2. Proceso de despliegue
 
-1.  **Empaquetado:** El software se empaqueta en formato MSI, MSIX o script de instalación silenciosa.
-2.  **Pruebas:** Se despliega en un grupo piloto (equipos de prueba) para verificar compatibilidad.
-3.  **Aprobación:** El responsable de TIC aprueba el despliegue masivo.
-4.  **Distribución:** Se distribuye a los puntos de distribución (distribution points) de SCCM o a través de Intune.
-5.  **Instalación:** Se instala de forma silenciosa y desatendida (sin intervención del usuario), normalmente durante la noche o en el siguiente reinicio.
-6.  **Verificación:** Se confirma la instalación exitosa mediante informes de cumplimiento.
+1. **Empaquetado:** MSI, MSIX o script.
+2. **Pruebas:** grupo piloto.
+3. **Aprobación:** autorización del despliegue.
+4. **Distribución:** SCCM/Intune.
+5. **Instalación:** silenciosa y desatendida.
+6. **Verificación:** comprobación mediante informes de cumplimiento.
 
 ### 5.3. Gestión de licencias
 
-*   **Inventario de software:** SCCM/MECM realiza inventario automático del software instalado en cada equipo.
-*   **Sam (Software Asset Management):** Control de licencias para evitar el uso de software sin licencia (auditorías de cumplimiento).
-*   **Modelos de licenciamiento:** Licencia perpetua, suscripción (Microsoft 365), licencia por volumen (VL), acuerdo marco SARA.
+- **Inventario de software:** control de aplicaciones instaladas (SCCM/MECM)
+- **SAM (Software Asset Management):** gestión de licencias.
+- Modelos:
+  - Licencia perpetua.
+  - Suscripción.
+  - Licencia por volumen.
+  - Acuerdos marco SARA.
 
 ## 6. Centro de Atención a Usuarios (CAU)
 
 ### 6.1. Concepto
 
-El **CAU (Centro de Atención a Usuarios)**, también denominado **Service Desk** o **Help Desk**, es el punto único de contacto (SPOC — Single Point of Contact) entre los usuarios de la organización y el servicio de TIC. Su función es recibir, registrar, clasificar, resolver o escalar todas las incidencias y peticiones de los usuarios.
+- **CAU / Service Desk / Help Desk:** punto único de contacto (**SPOC — Single Point of Contact**) entre usuarios y TIC.
+- Funciones:
+  - Recibir incidencias y peticiones.
+  - Registrar y clasificar.
+  - Resolver o escalar.
+  - Realizar seguimiento.
 
-### 6.2. Marco ITIL
+### 6.2. Marco ITIL (Information Technology Infrastructure Library)
 
-El CAU opera conforme a las mejores prácticas de **ITIL (Information Technology Infrastructure Library)**, el estándar de facto para la gestión de servicios TI:
-
-*   **Gestión de Incidencias (Incident Management):** Restaurar el servicio normal lo antes posible minimizando el impacto.
-*   **Gestión de Peticiones de Servicio (Service Request Management):** Solicitudes predefinidas (alta de usuario, cambio de contraseña, instalación de software).
-*   **Gestión de Problemas (Problem Management):** Identificar y eliminar la causa raíz de incidencias recurrentes.
-*   **Gestión de Cambios (Change Management):** Controlar los cambios en la infraestructura TIC para minimizar el riesgo.
-*   **Gestión del Conocimiento (Knowledge Management):** Base de conocimiento con soluciones a incidencias conocidas (FAQ, artículos KB).
+Estándar de facto para la gestión de servicios TI:
+- **Gestión de Incidencias:** restaurar el servicio rápidamente.
+- **Gestión de Peticiones:** solicitudes predefinidas (alta de usuario, cambio de contraseña, instalación de software).
+- **Gestión de Problemas:** Identificar y eliminar la causa raíz de incidencias recurrentes.
+- **Gestión de Cambios:** controlar modificaciones de infraestructura.
+- **Gestión del Conocimiento:** base de conocimiento y soluciones (FAQ, artículos KB).
 
 ### 6.3. Niveles de soporte
 
-| Nivel | Función | Personal |
-|-------|---------|----------|
-| **Nivel 0 (Autoservicio)** | Portal de autoservicio, FAQ, base de conocimiento | Automatizado / Usuario |
-| **Nivel 1 (First Line)** | Registro, clasificación, resolución de incidencias básicas (contraseñas, impresoras, correo) | Técnicos de CAU |
-| **Nivel 2 (Second Line)** | Resolución de incidencias complejas (software, red, sistemas) | Técnicos especializados |
-| **Nivel 3 (Third Line)** | Incidencias que requieren desarrollo, cambio de infraestructura o intervención del fabricante | Ingenieros de sistemas, desarrollo, proveedores |
+- **Nivel 0:** autoservicio, FAQ, base de conocimiento. Shift-Left (Portal Autoservicio), ej. que el usuario resetee su propia contraseña de AD o pida software que se instale solo.
+- **Nivel 1:** incidencias básicas → CAU.
+- **Nivel 2:** incidencias técnicas complejas → especialistas.
+- **Nivel 3:** desarrollo, infraestructura o fabricante → expertos/proveedores.
 
 ### 6.4. Herramientas de gestión de incidencias
 
-| Herramienta | Tipo |
-|-------------|------|
-| **ServiceNow** | Cloud (SaaS), líder en ITSM |
-| **Jira Service Management** | Cloud / On-premise (Atlassian) |
-| **GLPI** | Open source |
-| **OTRS** | Open source / Comercial |
-| **Freshdesk** | Cloud (SaaS) |
+- **ServiceNow:** ITSM cloud.
+- **Jira Service Management:** ITSM.
+- **GLPI:** open source.
+- **OTRS:** open source/comercial.
+- **Freshdesk:** SaaS.
 
 ### 6.5. Indicadores clave (KPIs) del CAU
 
-| KPI | Descripción | Objetivo típico |
-|-----|-------------|----------------|
-| **Tiempo medio de respuesta** | Tiempo desde el registro hasta la primera respuesta | < 15 minutos |
-| **Tiempo medio de resolución** | Tiempo desde el registro hasta la resolución | < 4 horas (Nivel 1), < 8 horas (Nivel 2) |
-| **Tasa de resolución en primer contacto (FCR)** | % de incidencias resueltas en Nivel 1 sin escalar | > 70% |
-| **Satisfacción del usuario** | Encuesta post-resolución | > 4/5 |
-| **Incidencias pendientes (backlog)** | Incidencias abiertas sin resolver | Tendencia decreciente |
+- **Tiempo medio de respuesta.** < 15 minutos
+- **Tiempo medio de resolución.** < 4 horas (Nivel 1), < 8 horas (Nivel 2)
+- **FCR:** porcentaje resuelto en primer contacto. > 70%
+- **Satisfacción del usuario.** > 4/5
+- **Backlog:** incidencias pendientes. Tendencia decreciente
 
 ## 7. Soporte y Resolución de Incidencias
 
 ### 7.1. Ciclo de vida de una incidencia (ITIL)
 
-```
-[Detección] → [Registro] → [Clasificación/Priorización] → [Diagnóstico] → [Resolución] → [Cierre] → [Revisión]
-```
+**Detección → Registro → Clasificación/Priorización → Diagnóstico → Resolución → Cierre → Revisión**
 
-1.  **Detección:** El usuario reporta la incidencia (teléfono, email, portal web) o se detecta por monitorización automática.
-2.  **Registro:** Se crea un ticket en el sistema de gestión (ServiceNow, GLPI) con: fecha, usuario, descripción, categoría, urgencia.
-3.  **Clasificación y priorización:** Se asigna categoría (hardware, software, red, acceso) y prioridad (según impacto × urgencia):
-
-| | Urgencia Alta | Urgencia Media | Urgencia Baja |
-|---|---|---|---|
-| **Impacto Alto** | Crítica (P1) | Alta (P2) | Media (P3) |
-| **Impacto Medio** | Alta (P2) | Media (P3) | Baja (P4) |
-| **Impacto Bajo** | Media (P3) | Baja (P4) | Planificada (P5) |
-
-4.  **Diagnóstico:** El técnico analiza la causa (consulta la base de conocimiento, replica el error, revisa logs).
-5.  **Resolución:** Se aplica la solución (reinicio de servicio, reinstalación de driver, cambio de hardware, ajuste de GPO).
-6.  **Cierre:** Se documenta la solución, se informa al usuario y se cierra el ticket.
-7.  **Revisión:** Las incidencias recurrentes se escalan a Gestión de Problemas para investigar la causa raíz.
+1. **Detección:** usuario o monitorización automática.
+2. **Registro:** creación del ticket (fecha, usuario, descripción, categoría, urgencia)
+3. **Clasificación y priorización:** según **impacto × urgencia**.
+4. **Diagnóstico:** análisis de causa, logs y base de conocimiento.
+5. **Resolución:** aplicación de la solución.
+6. **Cierre:** documentación e información al usuario.
+7. **Revisión:** incidencias recurrentes → Gestión de Problemas.
 
 ### 7.2. Herramientas de soporte remoto
 
-*   **Microsoft Remote Desktop (RDP):** Conexión remota al escritorio del usuario.
-*   **Asistencia remota de Windows:** El técnico visualiza y controla la pantalla del usuario con su consentimiento.
-*   **TeamViewer / AnyDesk:** Herramientas de escritorio remoto multiplataforma.
-*   **PowerShell Remoting:** Ejecución de comandos remotos en servidores y PCs Windows.
+- **RDP:** acceso remoto al escritorio.
+- **Asistencia remota de Windows:** control con consentimiento.
+- **TeamViewer / AnyDesk:** escritorio remoto multiplataforma.
+- **PowerShell Remoting:** ejecución remota de comandos.
+- **VNC** acceso remoto al equipo.
 
 ## 8. Herramientas Digitales del Puesto de Trabajo
 
@@ -211,21 +270,29 @@ El CAU opera conforme a las mejores prácticas de **ITIL (Information Technology
 
 ### 8.2. Herramientas de comunicación
 
-*   **Microsoft Teams:** Chat, videollamadas, canales, integración con SharePoint y OneDrive.
+*   **Microsoft Teams:** chat, videollamadas, canales y colaboración.
 *   **Correo electrónico corporativo:** Microsoft Exchange / Exchange Online.
 
 ### 8.3. Herramientas de firma y certificados
 
-*   **AutoFirma:** Aplicación del Ministerio para la firma electrónica de documentos.
-*   **Lector de tarjetas criptográficas:** Para DNIe y tarjetas FNMT.
+*   **AutoFirma:** firma electrónica.
+*   **Lector de tarjetas criptográficas:** DNIe y tarjetas FNMT.
 *   **Drivers de certificados:** Módulos PKCS#11 para los navegadores.
 
 ### 8.4. Herramientas de seguridad
 
-*   **VPN corporativa:** Acceso remoto seguro (Tema 37).
-*   **Antivirus/EDR:** Microsoft Defender for Endpoint.
+*   **VPN corporativa:** Acceso remoto seguro.
+*   **Antivirus/EDR:** protección del endpoint
 *   **Cifrado:** BitLocker, VeraCrypt.
 
 ## 9. Conclusión
 
-El puesto de trabajo TIC es la interfaz entre el empleado público y los sistemas de información de la Administración. Su normalización (hardware y software estándar, imagen maestra), la aplicación de políticas de seguridad (GPOs, cifrado, control de dispositivos, parcheado), la distribución automatizada de software (SCCM, Intune) y un Centro de Atención a Usuarios (CAU) operando bajo las mejores prácticas ITIL garantizan la productividad, la seguridad y la continuidad del servicio. La gestión eficaz de incidencias — con niveles de soporte escalonados, priorización basada en impacto y urgencia, y herramientas de soporte remoto — asegura que los puestos de trabajo TIC funcionen de forma fiable y conforme a los requisitos del Esquema Nacional de Seguridad.
+- El puesto TIC debe estar **normalizado, securizado y administrado centralmente**.
+- Elementos clave:
+  - **Imagen maestra** → homogeneización.
+  - **AD + GPO** → administración centralizada.
+  - **Intune/SCCM** → gestión y distribución.
+  - **Políticas de seguridad** → protección del puesto.
+  - **CAU + ITIL** → gestión de incidencias y peticiones.
+  - **Soporte remoto** → resolución eficiente.
+- Objetivo final: **productividad + seguridad + continuidad del servicio público** conforme al **ENS**.
