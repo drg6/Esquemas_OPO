@@ -1,96 +1,181 @@
+# Tema 49.- El tratamiento de imágenes y el proceso electrónico de documentos. DMS y CMS.
+
+## 1. Introducción
+* **El reto del "Papel Cero":** Las Leyes 39/2015 y 40/2015 prohíben (salvo excepciones) el archivo físico.
+* **El ecosistema:** Si entra papel, se **digitaliza** (Imagen) → se integra en un **Expediente** (ENI) → se custodia internamente (**DMS**) → y la información se publica al ciudadano (**CMS**).
+
+## 2. El tratamiento de imágenes (Del papel al píxel)
+* **2.1. Captura:** Resolución mínima exigida por el ENI para copias auténticas: **200 DPI** (puntos por pulgada) en B/N o escala de grises (8 bits).
+* **2.2. Formatos:**
+  * *Transitorios:* TIFF (alta calidad sin compresión), JPEG (con pérdida, fotos).
+  * *Final (Archivo):* **PDF/A**, estándar ISO que incrusta fuentes y prohíbe multimedia para garantizar legibilidad a largo plazo.
+* **2.3. Pre-procesamiento:** Binarización (a blanco y negro puro), Deskewing (enderezar) y Despeckling (limpiar motas de polvo).
+* **2.4. Extracción de datos (El cerebro):**
+  * **OCR:** Reconoce texto de imprenta. ⚠️ *Detalle clave:* Obligatorio para cumplir el **RD 1112/2018 de Accesibilidad** (permite que los lectores de pantalla lean el PDF a personas ciegas).
+  * **ICR:** Reconoce caligrafía manual mediante IA.
+  * **OMR:** Reconoce marcas en casillas (ej. exámenes o tributos).
+
+## 3. El proceso electrónico de documentos
+* **3.1. Documento y Expediente (ENI):**
+  * *Documento:* Archivo + Metadatos + Firma.
+  * *Expediente:* Conjunto de documentos + Índice electrónico firmado (garantiza que no se alteran los folios una vez cerrado).
+* **3.2. Digitalización Certificada y OAMR:**
+  * Se realiza en las Oficinas de Registro (SIR). Garantiza que la copia digital es exacta al original en papel mediante un Sello Electrónico de Órgano, permitiendo destruir el papel físico.
+  * *Alternativa "Papel Cero" nativo:* Uso de **tabletas de firma biométrica** en ventanilla para que el ciudadano firme sin llegar a imprimir el papel.
+
+## 4. Gestión Documental (DMS)
+* Norma base: **ISO 15489** (organiza, custodia y expurga).
+* **4.1. Metadatos y el DIR3:** Uso del Esquema **eMGDE** del ENI. Destaca el uso del código **DIR3** para identificar unívocamente al órgano productor o destino en toda la Administración.
+* **4.2. Infraestructura DMS:**
+  * Plataformas como **Alfresco** (Open Source) o SharePoint. Controlan el versionado, las auditorías de acceso y los flujos de trabajo (workflows).
+  * Archivo final: Remisión al **Archivo Electrónico Único** (ej. plataforma ARCHIVE bajo estándar OAIS).
+
+## 5. Gestión de Contenidos (CMS)
+* Separa el diseño visual de los datos, permitiendo publicar sin saber programar.
+* **5.1. Tecnologías clave en AAPP:**
+  * **Portales Institucionales (Ministerios/Sedes críticas):** Soluciones robustas y seguras como **Drupal** (PHP) o **Liferay** (Java).
+  * **Portales Ágiles (Ayuntamientos):** Dominio de **WordPress**. Fácil uso, pero exige parcheo constante de seguridad.
+  * **Tendencia (Headless CMS):** Sistemas "sin cabeza" que solo guardan texto y lo envían por APIs REST simultáneamente a la Web, la App móvil y los Kioscos digitales (**Omnicanalidad**).
+
+## 6. Conclusión
+El tránsito de la burocracia física a la e-Administración requiere una cadena tecnológica ininterrumpida. La correcta aplicación del OCR y los formatos PDF/A garantizan la accesibilidad y preservación; la plataforma **DMS** asegura el rigor jurídico del expediente mediante metadatos ENI y códigos DIR3; y finalmente, el **CMS** democratiza el acceso a esta información, ofreciendo al ciudadano sedes electrónicas transparentes, ágiles y omnicanales.
+
+--------------------
+
 # Tema 49.- El tratamiento de imágenes y el proceso electrónico de documentos. Gestión documental. Gestión de contenidos.
 
 ## 1. Introducción
 
-El paradigma hacia una Administración Pública del "papel cero" ha transformado radicalmente cómo se ingieren, tramitan y custodian los expedientes. Las Leyes 39/2015 y 40/2015 imponen que los procedimientos discurran por canales íntegramente electrónicos, prohibiendo, salvo excepciones, el archivo final en soporte físico.
-
-Para habilitar este reto, cuando el ciudadano o registro aporta un papel físico, es obligatorio un proceso de desmaterialización técnica amparado en el **Esquema Nacional de Interoperabilidad (ENI)**. Este proceso requiere dominar el **tratamiento de imágenes** (para convertir la hoja física en un soporte digital y extraer sus datos), orquestar el **proceso electrónico** mediante plataformas de **gestión documental (DMS)**, y publicarlo en sedes mediante **sistemas de gestión de contenidos (CMS/WCM)**.
-
-Este tema analiza las técnicas de digitalización, el modelo del documento electrónico, y las infraestructuras que conforman el ecosistema de la e-Administración.
+- La Administración Pública avanza hacia el **"papel cero"**.
+- Las Leyes **39/2015 y 40/2015** impulsan la tramitación electrónica.
+- El proceso documental se basa en:
+  - **Digitalización y tratamiento de imágenes**.
+  - **Documento y expediente electrónico**.
+  - **Gestión documental (DMS)**.
+  - **Gestión de contenidos (CMS/WCM)**.
+- Todo ello bajo el **ENI** y sus Normas Técnicas de Interoperabilidad (NTI).
 
 ## 2. El tratamiento de imágenes
 
 ### 2.1. Digitalización y captura
 
-El tratamiento documental comienza con el escaneado (digitalización), un proceso de muestreo para traducir reflectancias lumínicas del papel en una matriz de píxeles inteligibles.
-
-**Parámetros críticos de la captura:**
-*   **Resolución Espacial:** Medida obligatoriamente en puntos por pulgada (DPI - Dots per Inch) o píxeles por pulgada (PPI). Dictamina el grado de detalle óptico con el cual es leída la matriz física (v.g.: si un carácter es nítido o borroso).
-*   **Profundidad de Color:** La amplitud espectral capturada. Puede ser binaria (Blanco y Negro a 1 bit, óptima para texto puro); Escala de Grises (8 bits, revelando 256 niveles de gris para fotografías o sellos entintados); o Color Completo (24 bits TrueColor).
-
-Para copias verificadas, el ENI suele exigir al menos **200 DPI en B/N o Grises** para garantizar que los textos y firmas manuscritas queden fijadas legal y técnicamente irreprochables.
+- Escaneado, conversión del documento físico en imagen digital.
+- Parámetros principales de la captura:
+  - **Resolución:** DPI/PPI → nivel de detalle.
+  - **Profundidad de color:**
+    - B/N → 1 bit.
+    - Escala de grises → 8 bits.
+    - Color Completo → 24 bits.
+- Para copias verificadas: ENI exige de **200 DPI** en B/N o grises.
 
 ### 2.2. Formatos de almacenamiento
 
-Las imágenes capturadas "en crudo" (RAW o BMP) requieren tamaños inmanejables para las bases corporativas; es vital aplicar algoritmos que minimicen su capacidad (Megabytes):
+RAW o BMP tamaño inmanejable, necesario comprimir.
 
-*   **Formatos para imágenes estáticas:** 
-    *   **TIFF:** Estándar de facto para escaneados binarizados en alta calidad empresarial porque emplea compresiones sin pérdidas matemáticas (Lossless, como CCITT G4).
-    *   **JPEG:** Utiliza compresión matemática que suprime drásticamente frecuencias (Lossy). Ideal para fotografías, pero provoca halos borrosos inaceptables en texto de documentos puramente burocráticos.
-    *   **PNG:** Ofrece transparencia y algoritmos sin alteración, más usado en diseño web y portales que para conservación documental masiva que es ineficiente.
-
-*   **Formatos de portabilidad final:**
-    *   **PDF/A:** Esencial en la Administración y normalizado ISO. Obliga a que tipografías y fuentes queden totalmente embebidas en el fichero, prohibiendo contenido multimedia. Así garantiza que cualquier archivo histórico que se abra treinta años después presente idéntico aspecto al original, salvaguardando su valor probatorio.
+- **TIFF:** alta calidad y compresión sin pérdidas → digitalización documental.
+- **JPEG:** compresión con pérdidas → fotografías.
+- **PNG:** compresión sin pérdidas y transparencia → principalmente web.
+- **PDF/A:** formato para **conservación documental a largo plazo**. Normalizado ISO.
 
 ### 2.3. Herramientas técnicas de mejora (Pre-procesamiento)
 
-La imagen bruta suele contener defectos por grapas, manchas o dobleces. Antes de procesarla, se ejecutan operaciones matriciales automáticas:
-*   **Binarización:** Los píxeles fronterizos grises se fuerzan matemáticamente al blanco o negro pleno. Mejora el peso informático y la precisión en la posterior lectura OCR.
-*   **Deskewing (Corrección de inclinación):** Alinea las líneas del texto torcidas al resbalar el papel en la bandeja del escáner.
-*   **Despeckling (Limpieza):** Barrido para eliminar pequeñas motas y polvo oscurecido, evitando que los algoritmos de reconocimiento los tomen como signos de puntuación válidos (puntos o comas).
+Elimina defectos por grapas, manchas o dobleces.
+
+- **Binarización:** convierte píxeles a blanco/negro → mejora OCR.
+- **Deskewing:** corrige la inclinación del documento.
+- **Despeckling:** elimina manchas y ruido.
 
 ### 2.4. Obtención de datos estructurados: OCR, ICR y OMR
 
-Poseer un TIFF perfecto es estéril si el ordenador no "entiende" el contenido. Técnicas específicas transforman píxeles ciegos en textos operables:
-*   **OCR (Reconocimiento Óptico de Caracteres):** Evalúa píxeles para reconocer letras de imprenta, entregando volcados en texto plano estructurado indexable para búsquedas semánticas directas ("buscar un apellido").
-*   **ICR (Reconocimiento Inteligente de Caracteres):** Analiza trazos de caligrafía manuscrita libre, algo imposible para el OCR tradicional. El ICR depende hoy fuertemente de complejas Redes Neuronales y Machine Learning para transcribir documentos rellenados a bolígrafo.
-*   **OMR (Reconocimiento de Marcas Ópticas):** Reconoce marcas de casillas cuadriculadas (ej. sombreados o firmas de cuadrícula). Muy usado en corrección de test o modelos tributarios estándar, ofreciendo una fiabilidad del 100% en microsegundos si el ciudadano no tachó nada erróneamente.
+- **OCR (Reconocimiento Óptico de Caracteres):** reconoce caracteres impresos y los convierte en texto. Obligatorio para cumplir el **RD 1112/2018 de Accesibilidad** (permite que los lectores de pantalla lean el PDF a personas ciegas).
+- **ICR (Reconocimiento Inteligente de Caracteres):** reconoce caracteres manuscritos mediante técnicas avanzadas (Redes neuronales y Machine Learning)
+- **OMR (Reconocimiento de Marcas Ópticas):** reconoce marcas o casillas de formularios.
 
 ## 3. El proceso electrónico de documentos
 
-Transformar el soporte físico en bits marca el inicio. Acto seguido debe instruir el formalismo requerido por el Procedimiento Administrativo bajo el amparo del **ENI**.
+Digitalizar los documentos de papel es el primer paso. Después hay que realizar el Procedimiento Administrativo bajo el amparo del **ENI**.
 
 ### 3.1. Documento Electrónico y Expediente
 
-El concepto e-Administrativo no habla de simples "archivos aislados u obsoletos esparcidos ciegamente o perdidos".
-*   **Documento Electrónico:** Es la unidad atómica mínima regida legalmente. Constituye toda información digital dotada de **Metadatos** irremplazables y sellada inalterablemente bajo una **Firma Electrónica**, dotando al conjunto de un valor probatorio íntegramente asimilable ante jueces a un documento papel físico notariado.
-*   **Expediente Electrónico:** Es la agrupación procedimental. Unifica varios documentos organizativamente con un índice reglado informático. Dicho índice también ostenta su propia huella/firma unívoca global, atestando y certificando que desde su clausura administrativa no faltan, sobran o han mutado expedientes u hojas posteriores internas, consolidando formalmente para archivo el folio probatorio global indivisible.
+- **Documento electrónico:**
+  - Unidad básica de información digital.
+  - Incluye **metadatos**.
+  - Puede incorporar **firma electrónica**.
+- **Expediente electrónico:**
+  - Conjunto ordenado de documentos de un procedimiento.
+  - Incluye un **índice electrónico**.
+  - El índice se firma para garantizar su integridad.
 
 ### 3.2. Fases del proceso y Digitalización Certificada
 
-El circuito arranca en la ventanilla receptora (SIR - Sistema de Interconexión de Registros), originando la **Digitalización Certificada**. Con amparo normativo (NTI de Copiado Auténtico), esta operación certifica jurídicamente ante terceros perennes que la digitalización generada guarda estricta y literal obediencia milimétrica en validez respecto del original físico entrante ajeno presentado sobre mostrador.
-
-Durante este escaneo primario, el sistema del órgano estampa su Sello Electrónico automático y opcionalmente el del sello temporal notarial (TSA/Timestamping). Tras esta vital transformación que crea "el e-documento verificado auténtico nativo", la administración se empodera y legitima procesal y normativamente a destruir el papel originario del particular aportador (salvando documentos con interés histórico puntualísimo), aboliendo los inviables almacenes burocráticos locales históricos atestados.
+- Se realiza en las Oficinas de Registro (SIR)
+- Permite convertir documentos físicos en **copias electrónicas auténticas**.
+- Se apoya en el **ENI y las NTI de copiado auténtico**.
+- Puede incorporar:
+  - **Sello electrónico automático**.
+  - **Sello de tiempo (Timestamp) - opcional**.
+- Permite prescindir del original en papel cuando la normativa lo permite.
 
 ## 4. Gestión Documental
 
-La Gestión Documental inter-AAPP es la rama archivística especializada en clasificar, posibilitar búsquedas, pautar la retención mínima impositiva jurídica y dictaminar los expurgos destructivos legales sobre bases informáticas conformes al estándar internacional **ISO 15489**.
+- Gestiona el ciclo de vida de los documentos:
+  - Clasificación.
+  - Almacenamiento.
+  - Búsqueda.
+  - Control de versiones.
+  - Conservación.
+  - Eliminación.
+- Referencia: **ISO 15489**.
 
 ### 4.1. Esquemas y Metadatos de la Información
 
-Para rastrear y gobernar un corpus archivístico estatal con millones de expedientes deslocalizados informáticamente cruzados en red transeuropea, el ENI prohíbe el volcado de mallas aisladas. Instruye el denominado **Esquema de Metadatos para la Gestión del Documento Electrónico (eMGDE)**.
-Las NTI especifican propiedades atadas en el XML del documento: Órgano origen (OCG), Tipo tipificado de Resolución, Identificador Único inalterable, formato subyacente y categoría vital ENS de confidencialidad y control policial o de salud, para así certificar total interoperabilidad automatizable burocrática ciega de trámites.
+- **Esquema de Metadatos para la Gestión del Documento Electrónico (eMGDE)** 
+- Permite describir y gestionar los documentos de forma normalizada (metadatos obligatorios).
+- Facilita la **interoperabilidad** entre Administraciones.
+- Destaca el uso del código **DIR3** para identificar unívocamente al órgano productor o destino en toda la Administración.
 
 ### 4.2. Sistemas DMS e Infraestructura
 
-Las grandes organizaciones gestionan este circuito vital operando herramientas **DMS (Document Management Systems)** puristas y robustas; destacando referentes nativos Open Source en la administración española como **Alfresco** u OpenKM o propietarios robustísimos (SharePoint, IBM FileNet).
-
-Un motor DMS suple abismalmente frente a meros repositorios ofimáticos redificados. Proveen funcional y rígidamente: Controles de Versionado inalterables (para revisiones en borradores encadenados burócratas), auditorías milimétricas trazables frente intromisiones en cuentas para expedientes en curso de salud (cumplimiento RGPD o tributario), y orquestan transversalmente flujos Business Process Management (BPM/Workflows) empujando de secretarios a alcaldes informáticamente la notificación para firmas al compás de plazos procedimentales legales.
-
-Como hito conclusivo procedimental, este proceso estipulado culmina la andadura viva redirigiéndolo al confinamiento histórico legal del archivo cerrado inalterable (**Archivo Electrónico Único**). Plataformas estructurales impuestas y modélicas como **ARCHIVE** de la Secretaría General (SGAD) bajo directivas OAIS internacionales operan para salvaguardarlo durante siglos advenideros ante posibles enjuiciamientos revisionistas exentos de cualquier límite en capacidad tecnológica.
+- **DMS (Document Management System):** sistemas de gestión documental.
+- Ejemplos:
+  - **Alfresco / Nexus:** Open Source.
+  - **SharePoint / OpenText Documentum:** soluciones propietarias.
+- Funciones:
+  - **Versionado**.
+  - **Auditoría y trazabilidad**.
+  - **Control de acceso**.
+  - **Workflows/BPM**.
+  - Gestión del ciclo de vida documental.
+- El documento puede finalizar en el **Archivo Electrónico Único**.
+- **ARCHIVE (SGAD):** plataforma de archivo electrónico de la AGE.
 
 ## 5. Gestión de Contenidos
 
-Mientras la faceta DMS o gestión documental custodia el expediente y la formalidad jurídica procesalista inalterable estricta "hacia el centro del núcleo administrativo estatal" en canales cerrados; la **Gestión de Contenidos (CMS / WCM)** emerge funcionalmente diametral "hacia el exterior", gobernando y exponiendo la relación de Sedes Electrónicas o portales visuales transaccionales participativos, amoldando comunicación instantánea adaptada al ciudadano sin revelar a las bases internas.
+  - **DMS →** gestiona documentos y expedientes internos (custodiando expedientes legales).
+  - **CMS →** gestiona y publica contenidos en Sedes Electrónicas y portales web ara comunicarse con los ciudadanos.
 
 ### 5.1. Paradigma CMS y tecnologías
 
-Un **Content Management System (CMS)** escinde arquitecturalmente la lógica computacional y del Diseño Visual Web frente al texto contenido original que el propio comunicador o empleado orgánico teclea en un formulario base, suprimiendo abrumadoramente el condicionante informático a los tramitadores directos que ahora generan instantáneamente boletines o avisos normativos sin programar código.
+Un **CMS (Content Management System)** permite a los empleados públicos publicar noticias, normativas o avisos en la web del Ayuntamiento sin necesidad de saber programar. El sistema separa el texto (contenido) del diseño visual de la página.
 
-*   Para Sedes ministeriales puristas y desarrollos portal trasaccionales intra-institucionales, gozan vastísimo predominio y despliegue soluciones PHP ultraseguras como **Drupal** o portales corporativos estructurados Java Enterprise con Single Sign-On nativo unificable (**Liferay**).
-*   En estamentos ágiles locales, predomina de forma casi hegemónica el uso mundial informático **WordPress** por su nula o diminuta curva de aprendizaje de sus reporteros corporativos publicadores municipales frente a eventos en calle e implantaciones genéricas o intranets, aunque exige blindar vulnerabilidades.
-*   En la última vanguardia omnicanal afloran como tendencia arrolladora los denominados sistemas **Headless CMS**, esquemas ciegos escindidos que almacenan únicamente párrafos comunicativos normativos desde el back y carecen de plantilla o frontend HTML incorporado. El organismo genera el texto unificado general y microservicios APIs Rest/GraphQL empujan sirviéndolo puramente estructurado a milímetros simultáneos adaptativos para la propia aplicación nativa App móvil del teléfono móvil ciudadano oficial (Android/iOS), a su quiosco urbano tributario cívico, y al panel web Angular/React de un portal moderno unificado al compás o estricta simultaneidad, con cero costo y duplicidades redundantes corporativas operativamente.
+* **1. Portales Institucionales (Ministerios / Grandes sedes)**
+  * **Requisitos:** Alta seguridad e integración compleja (ej. Single Sign-On).
+  * **Soluciones robustas:** **Drupal** (en PHP) o **Liferay** (en Java).
+
+* **2. Portales ágiles (Ayuntamientos / Nivel local)**
+  * **Requisitos:** Facilidad de uso para personal administrativo (no técnico).
+  * **Solución dominante:** **WordPress**.
+  * **Punto crítico:** Obliga a mantener los componentes de seguridad muy actualizados para evitar ciberataques.
+
+* **3. Tendencia Actual: Headless CMS ("Sin cabeza")**
+  * Separa **contenido y presentación**.
+  * **Funcionamiento:** El contenido se ofrece mediante **APIs REST/GraphQL**.
+  * **Gran ventaja:** **Omnicanalidad**. Permite reutilizarlo en web, apps móviles y otros dispositivos.
 
 ## 6. Conclusión
 
-El tratamiento desde del papel a la matriz digital para acabar frente en flujos de contenidos mundiales telemáticos ciudadanos encadena e involucra un ecosistema informático ineludible o impensable disolver de las interacciones legales vigentes en toda moderna jurisdicción actual en red española eIDAS. Extraer datos con riguroso y óptimo escaneo, aplicar pre filtros correctores matriciales ineludibles ciegos o desciframientos OCR o inteligencia ICR conforma la piedra de roseta base. La consiguiente estructuración imperiosa de empaques bajo esquemas rigurosos estandartes XML, Normas eMGDE ENI, expedientes con firma eIDAS y metadatos garantistas nutren operativamente a Gestores Documentales pesados ciegos DMS, garantizando legalidad impune irrefutable administrativa procedimental frente al órgano interviniente que dirima las resoluciones base. Todo el bagaje informativo remata volcándose con interoperabilidades puras finales publicándose e impactando al tejido y estrato del ciudadano, empresas y sociedad abierta generalizadamente conectada telemática usando y gobernando infraestructuras ágiles e omni presentativas web portables CMS logrando dotar, publicitar en el terminal telefónico ciudadano de su portal público en pro y a la altura e-Gobierno abierto participativo y garantizando constitucionalmente la ley administrativa 39/2015 del moderno Sector Público digital transparente.
+La modernización de la Administración Pública -> ecosistema tecnológico integrado. 
+
+1. **Digitalización:** convierte papel en documento digital.
+2. **DMS:** gestión interna del ciclo de vida documental. Cumpliendo requisitos legales del ENI (firmas, metadatos, expedientes XML)
+3. **CMS:** proyecta actividad administrativa hacia el exterior, creación y publicación de contenidos en sedes electrónicas. Cumpliendo así con los principios de transparencia y servicio público del entorno digital.
