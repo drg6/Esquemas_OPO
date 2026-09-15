@@ -1,142 +1,206 @@
-# Tema 50. Inteligencia Artificial: Conceptos básicos, tecnologías fundamentales y aplicaciones prácticas. Aprendizaje automático (*Machine Learning*). Aprendizaje supervisado, no supervisado y por refuerzo. *Deep Learning*. Aspectos éticos.
+# Tema 50.- Inteligencia Artificial: Conceptos, Machine Learning, Deep Learning y Ética (AI Act).
 
----
+## 1. Introducción
+* **El cambio de paradigma:** La IA permite a la Administración transitar de un modelo *reactivo* (esperar la solicitud) a uno *predictivo* y automatizado.
+* **El reto:** Delegar decisiones en algoritmos exige un control riguroso para evitar sesgos discriminatorios y garantizar el estricto cumplimiento del Esquema Nacional de Seguridad (ENS) y el RGPD.
+
+## 2. Tecnologías Fundamentales y el Puesto de Trabajo TIC
+* **2.1. Enfoques:** 
+  * *IA Simbólica:* Basada en reglas lógicas preprogramadas (Sistemas Expertos clásicos).
+  * *IA Conexionista:* Basada en datos y estadística, que es lo que hoy conocemos como **Machine Learning**.
+* **2.2. Tecnologías clave:** El Procesamiento de Lenguaje Natural (NLP), la Visión Artificial y la RPA Cognitiva para la automatización de tareas burocráticas repetitivas.
+* **2.3. La irrupción de los Copilotos (Reto de Microinformática):** La integración de IA en el puesto de trabajo (como Microsoft 365 Copilot) obliga al departamento de Sistemas a gobernar estrictamente los permisos del *Active Directory*. El objetivo es evitar que la IA indexe y exponga accidentalmente documentos internos confidenciales a usuarios sin privilegios.
+
+## 3. Machine Learning (El motor estadístico)
+En este paradigma, el sistema aprende infiriendo reglas matemáticas a partir de datos históricos, en lugar de ser programado de forma explícita. Se divide en tres enfoques principales:
+
+* **Aprendizaje Supervisado:** El modelo se entrena utilizando datos *etiquetados* que ya contienen la respuesta correcta. En un Ayuntamiento, un caso de uso clásico de clasificación sería predecir si una beca será aprobada o denegada basándose en el histórico de concesiones.
+* **Aprendizaje No Supervisado:** Utiliza datos *sin etiquetar* para que el algoritmo busque patrones ocultos por sí mismo (Clustering). A nivel municipal, es ideal para agrupar perfiles de contribuyentes con el fin de detectar anomalías fiscales o fraude.
+* **Aprendizaje por Refuerzo:** El sistema aprende por *prueba y error* interactuando con un entorno, recibiendo recompensas o penalizaciones. Su aplicación estrella es la optimización, como la sincronización inteligente de la red de semáforos de la ciudad según el tráfico en tiempo real.
+
+## 4. Deep Learning e IA Generativa (GenAI)
+Es el subconjunto de la IA que utiliza **Redes Neuronales Profundas** (con múltiples capas ocultas), capaces de extraer características automáticamente de datos crudos como imágenes o texto.
+
+* **4.1. Arquitecturas principales:** Destacan las Redes Convolucionales (CNN) para visión artificial (como la lectura de matrículas policiales), las Recurrentes (RNN) para series temporales, y los **Transformers**, que son el motor de los grandes modelos de lenguaje (LLMs) modernos.
+* **4.2. El entorno corporativo (RAG vs. Nube Pública):** Un Ayuntamiento *nunca* debe introducir datos ciudadanos en LLMs públicos. La solución táctica actual es desplegar arquitecturas **RAG (Generación Aumentada por Recuperación)** en nubes soberanas. Así, el modelo de IA solo tiene permiso para "leer" y generar respuestas basándose exclusivamente en el repositorio documental del propio Ayuntamiento (como sus normativas u ordenanzas), garantizando la total privacidad.
+
+## 5. Riesgos Éticos y Ciberseguridad en la IA
+* **5.1. Riesgos Éticos:**
+  * **Sesgo algorítmico (Bias):** Si los datos históricos son discriminatorios, la IA perpetuará y amplificará esa discriminación en sus predicciones.
+  * **Caja Negra (Opacidad):** Es la imposibilidad de explicar jurídicamente *por qué* una red neuronal ha tomado una decisión, lo que vulnera el principio de motivación de las resoluciones administrativas.
+  * **Alucinaciones:** Ocurre cuando el modelo de lenguaje inventa normativas o hechos falsos, pero los presenta con total coherencia gramatical.
+* **5.2. Ciberriesgos emergentes (Alertas OWASP / CCN-CERT):**
+  * **Prompt Injection:** Consiste en manipular las instrucciones del Chatbot municipal para que revele información privada o se salte sus reglas de seguridad.
+  * **Data Poisoning:** Ataques donde los ciberdelincuentes "envenenan" los datos de entrenamiento para alterar el comportamiento futuro del modelo.
+
+## 6. Marco Legal: El AI Act (Reglamento UE 2024/1689)
+Es el primer marco mundial que regula la Inteligencia Artificial basándose en niveles de riesgo. En España, su supervisión recae sobre la recién creada **AESIA**. Clasifica los sistemas en cuatro niveles:
+
+* **Riesgo Inaceptable:** Implica la *prohibición total* de sistemas que amenacen los derechos europeos, como el *social scoring* (sistemas de crédito social) o la vigilancia biométrica masiva en tiempo real.
+* **Alto Riesgo:** Están permitidos, pero exigen una evaluación estricta, registro, trazabilidad y, fundamentalmente, la **supervisión humana obligatoria** (*Human-in-the-loop*). En un Ayuntamiento, esto aplica a algoritmos que decidan sobre ayudas sociales o que filtren currículums en procesos selectivos de Recursos Humanos.
+* **Riesgo Limitado:** Su obligación principal es la *transparencia*; es decir, informar obligatoriamente al ciudadano de que está interactuando con una máquina, como ocurre con un Chatbot de la Sede Electrónica.
+* **Riesgo Mínimo:** Engloba herramientas sin obligaciones restrictivas, como los filtros antispam del correo corporativo.
+
+## 7. Conclusión
+La Inteligencia Artificial representa el salto definitivo hacia la Administración proactiva y automatizada. No obstante, para que su adopción técnica —mediante algoritmos de Machine Learning o arquitecturas RAG corporativas— sea viable en el Sector Público, el despliegue debe estar blindado por el Esquema Nacional de Seguridad frente a vulnerabilidades como el *Prompt Injection*. Además, debe supeditarse estrictamente al Reglamento *AI Act*, garantizando que las decisiones críticas mantengan en todo momento la supervisión y la garantía jurídica del empleado público.
+
+------------------------------
+
+# Tema 50. Inteligencia Artificial: Conceptos básicos, tecnologías fundamentales y aplicaciones prácticas. Aprendizaje automático (*Machine Learning*). Aprendizaje supervisado, no supervisado y por refuerzo. *Deep Learning*. Aspectos éticos.
 
 ## 1. Introducción
 
-La Inteligencia Artificial (IA) se ha consolidado como la tecnología más transformadora de nuestra era, con un impacto especialmente significativo en la Administración Pública. Su capacidad de análisis permite transitar desde un modelo estatal reactivo hacia una gestión predictiva y centrada en el ciudadano.
-
-Delegar decisiones en algoritmos conlleva, no obstante, ineludibles retos técnicos, éticos y jurídicos. Este tema examina los fundamentos tecnológicos de la IA, explora el *Machine Learning* y sus metodologías, presenta el salto cualitativo del *Deep Learning* y detalla el marco normativo europeo —el **AI Act**— que rige su despliegue seguro.
-
----
+- La **IA** tecnología más transformadora de nuestra era que permite automatizar tareas, analizar datos y apoyar la toma de decisiones.
+- En la Administración Pública: predicción, automatización y atención al ciudadano.
+- Riesgos: **sesgos, falta de transparencia, errores y problemas jurídicos/éticos**.
+- Marco europeo principal: **AI Act (Reglamento UE 2024/1689)**.
 
 ## 2. Conceptos Básicos y Tecnologías Fundamentales
 
 ### 2.1. Definición y clasificación de la IA
 
-La IA es la disciplina científica que diseña sistemas computacionales capaces de emular capacidades cognitivas humanas: procesar lenguaje, percibir el entorno, extraer conocimiento y aprender para resolver problemas complejos. En el ámbito de la informática, puede definirse como un conjunto de capacidades cognoscitivas e intelectuales expresadas mediante modelos estadísticos o combinaciones de algoritmos, cuya finalidad es la creación de sistemas que imiten la inteligencia humana y que aprendan a medida que recopilan información.
-
-Existen diversas formas de clasificar los sistemas de IA:
-
-- **Por capacidad**: *IA Fuerte o AGI* (modelo teórico aún inexistente, con consciencia e inteligencia polivalente) frente a *IA Débil o Estrecha* (sistemas diseñados para tareas acotadas, como traducir textos o jugar al ajedrez). Toda tecnología actual pertenece a esta segunda categoría.
-- **Por enfoque metodológico**: *IA Simbólica* (reglas lógicas preprogramadas, utilizada en sistemas expertos clásicos) frente a *IA Conexionista/Estadística* o *Machine Learning*, que constituye el paradigma vigente.
-- **Por comportamiento** (según Norvig y Russell): sistemas reactivos, basados en memoria, basados en metas y basados en modelos, con capacidad creciente de razonamiento y planificación.
+- **IA:** sistemas capaces de realizar tareas asociadas a la inteligencia humana.
+- **Clasificación por capacidad:**
+  - **IA Débil o Estrecha:** especializada en tareas concretas. → IA actual.
+  - **IA Fuerte / AGI:** inteligencia general equivalente a la humana. → Teórica.
+- **Clasificación por enfoque:**
+  - **IA Simbólica:** reglas y lógica preprogramadas. Menos recursos
+  - **IA Conexionista/Estadística:** aprendizaje a partir de datos → **Machine Learning**.
 
 ### 2.2. Tecnologías Fundamentales
 
-La IA integra varias ramas interconectadas:
-
-- **Procesamiento de Lenguaje Natural (PLN/NLP)**: Permite a las máquinas comprender, interpretar, manipular y generar texto humano natural. Base de los asistentes virtuales y los Grandes Modelos de Lenguaje (LLM).
-- **Visión Artificial (*Computer Vision*)**: Adquiere, procesa y comprende imágenes y vídeos del mundo real para producir información numérica o simbólica. Aplicada en reconocimiento facial, diagnóstico médico por imagen y control de calidad industrial.
-- **Robótica e IoT Cognitivo**: Integra sensores con capacidades inferenciales autónomas para actuar en el entorno físico en tiempo real.
-- **Sistemas Expertos**: Emulan la toma de decisiones de un experto humano mediante una base de conocimientos, una base de hechos y un motor de inferencia.
-- **Sistemas Recomendadores**: Filtran y personalizan información para el usuario en función de predicciones sobre su historial de comportamiento.
-- **Agentes Inteligentes**: Entidades autónomas con conocimientos propios que interactúan de forma flexible con su entorno y con otros agentes, formando sistemas multiagente.
+- **Procesamiento de Lenguaje Natural (PLN/NLP):** comprensión y generación de lenguaje natural. Base de los asistentes virtuales y los Grandes Modelos de Lenguaje (LLM).
+- **Visión Artificial:** análisis de imágenes y vídeos. Reconocimiento facial, diagnóstico médico por imagen y control de calidad industrial
+- **Robótica e IoT:** sensores + IA para actuar sobre el entorno.
+- **Sistemas Expertos:** conocimientos + hechos + motor de inferencia. Emulan experto humano
+- **Sistemas Recomendadores:** personalización mediante predicciones.
+- **Agentes Inteligentes:** sistemas autónomos que interactúan con su entorno.
 
 ### 2.3. Aplicaciones Prácticas en el Sector Público
 
-La IA converge en tres grandes frentes para la Administración:
+- **Análisis predictivo:** fraude fiscal, demanda de servicios, riesgos.
+- **Chatbots:** atención y orientación al ciudadano.
+- **Automatización inteligente:** clasificación y distribución automática de expedientes.
+- **RPA - Automatización Robótica de Procesos Cognitiva:** automatización de procesos mediante IA. Ej. Procesar facturas.
 
-1. **Análisis Predictivo**: Detección de fraude fiscal mediante anomalías en declaraciones, y estimación de la demanda futura en servicios sociales.
-2. **Sistemas Conversacionales (*Chatbots*)**: Asistentes en la Sede Electrónica que ofrecen orientación normativa las 24 horas.
-3. **Automatización Inteligente (RPA Cognitiva)**: Redirección automatizada de expedientes del registro virtual hacia los técnicos competentes. La AGE cuenta para ello con el **Servicio de Automatización de Procesos (SAI)**, enmarcado en la medida 5 del Plan de Digitalización de las AAPP 2021-2025.
-
----
+**La irrupción de los Copilotos*** La integración de IA en el puesto de trabajo (como Microsoft 365 Copilot) obliga al departamento de Sistemas a gobernar estrictamente los permisos del *Active Directory*. El objetivo es evitar que la IA indexe y exponga accidentalmente documentos internos confidenciales a usuarios sin privilegios.
 
 ## 3. Aprendizaje Automático (*Machine Learning*)
 
-El *Machine Learning* (ML) es el motor basal de la IA moderna. Arthur Samuel lo definió como «el campo que dota a los ordenadores de la capacidad de aprender sin necesidad de ser explícitamente programados».
-
-A diferencia de la programación tradicional —donde un ingeniero codifica reglas estrictas—, el ML aplica un esquema **inductivo**: se proporcionan al sistema grandes volúmenes de datos históricos y sus soluciones asociadas para que el propio software infiera la regla matemática subyacente. La regla descubierta, denominada **modelo predictivo**, se aplica después sobre datos nuevos para deducir resultados futuros.
+- **ML:** sistemas que aprenden patrones a partir de datos sin programar explícitamente todas las reglas.
+- Proceso:
+  - Datos → entrenamiento → modelo predictivo → predicción.
 
 ### 3.1. Componentes clave de un sistema ML
 
-| Componente | Descripción |
-|---|---|
-| **Dataset** | Conjunto de datos dividido en datos de entrenamiento (para construir el modelo) y datos de prueba (para evaluar su fiabilidad). |
-| **Características (*Features*)** | Variables medibles seleccionadas como entrada del modelo (edad, ingresos, cargas familiares, etc.). |
-| **Función de coste (*Loss Function*)** | Mide el error del modelo respecto al resultado esperado. |
-| **Optimizador** | Rutina matemática (p. ej., *Descenso de Gradiente*) que ajusta los parámetros del modelo para minimizar el error. |
-
-El proceso incluye además etapas de **preprocesado** imprescindibles: limpieza de datos, filtrado/transformación, normalización y reducción de la dimensionalidad (técnicas como PCA o SVD).
-
----
+- **Dataset:** conjunto de datos de entrenamiento y prueba.
+- **Features:** variables de entrada del modelo.
+- **Función de coste (Loss Function):** mide el error respecto al resultado esperado.
+- **Optimizador:** ajusta el modelo para reducir el error.
+- **Preprocesado:** limpieza de datos, transformación, normalización y reducción de dimensionalidad.
 
 ## 4. Tipos de Aprendizaje
 
 ### 4.1. Aprendizaje Supervisado
 
-Es la modalidad más empleada en entornos corporativos y administrativos. Entrena el modelo con un volumen histórico de datos **etiquetados**, es decir, con la respuesta correcta ya definida por expertos humanos (p. ej., expedientes de becas marcados como «Estimada» o «Desestimada»).
-
-Se divide en dos vertientes:
-
-- **Clasificación**: Asigna una etiqueta categórica a nuevos datos («Apelable / No apelable»). Algoritmos destacados: Regresión Logística, *Support Vector Machines* (SVM), *Random Forest*, *Naive Bayes* o *Gradient Boosting*.
-- **Regresión**: Predice un valor numérico continuo (p. ej., estimación mensual de ingresos tributarios municipales). La Regresión Lineal Múltiple es el algoritmo de referencia.
+- Utiliza **datos etiquetados** con la respuesta correcta.
+- **Clasificación:** predice categorías.
+  - Ej.: expediente → aprobado/desestimado.
+  - Algoritmos: Regresión Logística, *Support Vector Machines* SVM, Random Forest, Naive Bayes.
+- **Regresión:** predice valores numéricos.
+  - Ej.: ingresos tributarios.
+  - Algoritmo: Regresión Lineal.
 
 ### 4.2. Aprendizaje No Supervisado
 
-Se aplica cuando los datos carecen de etiquetas directrices. El modelo explora autónomamente la información para descubrir estructuras, agrupaciones y correlaciones ocultas.
-
-Sus técnicas principales son:
-
-- **Agrupamiento (*Clustering*)**: Divide la población en grupos internamente homogéneos. El algoritmo K-Means es el más utilizado, junto con variantes como K-Medoids, DBSCAN o el *Clustering* jerárquico (con su representación en dendrograma).
-- **Reducción de Dimensionalidad**: Simplifica variables redundantes manteniendo la representatividad. El Análisis de Componentes Principales (PCA) y la Descomposición en Valores Singulares (SVD) son las técnicas lineales más habituales.
+- Utiliza **datos sin etiquetar**.
+- Busca patrones y estructuras ocultas.
+- **Clustering:** agrupa datos similares.
+  - Algoritmos: K-Means, DBSCAN, clustering jerárquico.
+- **Reducción de dimensionalidad:** reduce variables manteniendo información.
+  - Algoritmos: Análisis de Componentes Principales (PCA), Descomposición en Valores Singulares (SVD).
 
 ### 4.3. Aprendizaje por Refuerzo (*Reinforcement Learning*)
 
-Inspirado en el conductismo, prescinde de bases de datos históricas. Un **agente** autónomo interactúa con un **entorno** simulado mediante prueba y error: cada acción recibe una recompensa positiva o negativa, y el agente optimiza su política de comportamiento para maximizar la recompensa acumulada. Se aplica en conducción autónoma, robótica, juegos y optimización de procesos industriales como la semaforización urbana inteligente.
-
-Existen también modalidades adicionales: el **aprendizaje semisupervisado** (combina datos etiquetados y no etiquetados, útil cuando etiquetar es costoso) y el **aprendizaje multi-tarea** (entrena un único modelo para múltiples tareas aprovechando conocimiento compartido).
-
----
+- Un **agente** interactúa con un **entorno** mediante prueba y error.
+- Recibe **recompensas o penalizaciones**.
+- Objetivo: maximizar la recompensa acumulada.
+- Aplicaciones: robótica, conducción autónoma, juegos y optimización.
+- Otros:
+  - **Semisupervisado:** combina datos etiquetados y no etiquetados.
+  - **Multi-tarea:** un modelo aprende varias tareas.
 
 ## 5. *Deep Learning* (Aprendizaje Profundo)
 
-El *Deep Learning* es el subconjunto del ML que se apoya en **Redes Neuronales Artificiales** de gran profundidad, con decenas o centenares de capas ocultas que procesan datos de forma secuencial y jerarquizada. Su principal atributo diferencial es el **autodescubrimiento de características**: mientras el ML clásico exige que los ingenieros definan manualmente las variables relevantes, las redes profundas aprenden a extraerlas automáticamente de datos en bruto (imágenes, audio, texto).
+- Subconjunto del **Machine Learning** basado en **redes neuronales profundas**.
+- Aprende automáticamente las características relevantes de los datos.
+- Especialmente eficaz con **imágenes, audio y texto**.
 
 ### 5.1. Arquitecturas Fundamentales
 
-| Arquitectura | Aplicación principal |
-|---|---|
-| **Redes Convolucionales (CNN)** | Visión artificial: reconocimiento de matrículas, DNI electrónico, diagnóstico oncológico por imagen, cartografía catastral con dron. |
-| **Redes Recurrentes y LSTM** | Series temporales y secuencias: traducción de habla, predicción meteorológica, análisis de deuda pública. |
-| **Transformadores (LLM)** | Procesamiento y generación de texto: GPT-4, Gemini, Llama. Utilizan el mecanismo de *self-attention* para captar relaciones contextuales en documentos completos. |
+- **CNN:** visión artificial e imágenes. Ej. reconocimiento de matrículas
+- **Redes Recurrentes (RNN) y LSTM:** secuencias y series temporales. Ej. traducción de habla, predicción meteorológica
+- **Transformadores:** procesamiento de lenguaje y **LLM (Large Language Model )**.
+  - Utilizan **self-attention** para analizar el contexto.
 
 ### 5.2. IA Generativa (GenAI)
 
-La IA Generativa facilita la creación de contenido sintético nuevo —texto, imágenes, vídeo, audio— a partir de grandes volúmenes de datos. Los **LLM** se basan en la arquitectura Transformer y procesan el lenguaje mediante *tokens*. Para optimizar su rendimiento sin reentrenamiento completo se utilizan técnicas como la **ingeniería de *prompts*** (diseño cuidadoso de instrucciones, con enfoques *zero-shot*, *one-shot* y *few-shot*) y la **Generación Aumentada por Recuperación (RAG)**, que enriquece la consulta con información recuperada de bases de datos indexadas.
+- Genera contenido nuevo: **texto, imágenes, audio y vídeo**.
+- **LLM:** modelos de lenguaje basados principalmente en Transformers.
+- Trabajan con **tokens**.
+- Técnicas:
+  - **Prompt Engineering:** diseño de instrucciones.
+    - **Zero-shot:** sin ejemplos.
+    - **One-shot:** un ejemplo.
+    - **Few-shot:** varios ejemplos.
+  - **Generación Aumentada por Recuperación (RAG):** combina el modelo con información externa recuperada de bases de datos/documentos.
 
----
+* Un Ayuntamiento *nunca* debe introducir datos ciudadanos en LLMs públicos. La solución táctica actual es desplegar arquitecturas **RAG (Generación Aumentada por Recuperación)** en nubes soberanas. Así, el modelo de IA solo tiene permiso para "leer" y generar respuestas basándose exclusivamente en el repositorio documental del propio Ayuntamiento (como sus normativas u ordenanzas), garantizando la total privacidad.
 
 ## 6. Aspectos Éticos y Marco Legal Europeo
 
 ### 6.1. Riesgos Éticos de la IA en la Administración
 
-La automatización de decisiones administrativas plantea desafíos críticos:
+- **Sesgo algorítmico (*Bias*):** los modelos pueden reproducir o amplificar sesgos de los datos.
+- **Caja negra:** dificultad para explicar determinadas decisiones.
+- **Alucinaciones:** generación de información falsa presentada como verdadera.
 
-- **Sesgos Algorítmicos (*Bias*)**: Los modelos aprenden de datos históricos que pueden contener prejuicios pasados. Si los datos de entrenamiento reflejan denegaciones desproporcionadas a ciertos colectivos, el algoritmo reproducirá y amplificará esa discriminación, vulnerando el principio de igualdad.
-- **Opacidad Algorítmica («Caja Negra»)**: Las redes neuronales profundas no permiten explicar con exactitud el fundamento de una decisión denegatoria, lo que atenta contra la motivación jurídica exigida por el ordenamiento y contra el artículo 22 del RGPD.
-- **Alucinaciones Generativas**: Los LLM pueden generar resoluciones o textos con coherencia sintáctica perfecta pero basados en hechos o normativas inventados, con riesgo de indefensión para el ciudadano.
-- **Ataques de inyección de *prompts***: Manipulación malintencionada de las instrucciones de los LLM para obtener respuestas inseguras (recogido por OWASP como uno de los principales riesgos).
-- **Impacto laboral y ambiental**: La automatización exige reestructuración laboral justa, y el entrenamiento de grandes modelos conlleva un alto coste energético con impacto en el efecto invernadero.
+- **Prompt Injection:** manipulación de las instrucciones de un modelo (recogido por OWASP como uno de los principales riesgos).
+- **Data Poisoning:** Ataques donde los ciberdelincuentes "envenenan" los datos de entrenamiento para alterar el comportamiento futuro del modelo.
+
+- **Impacto laboral:** automatización y transformación de puestos de trabajo.
+- **Impacto ambiental:** elevado consumo energético de algunos modelos.
 
 ### 6.2. El Marco Legal Europeo: AI Act (Reglamento UE 2024/1689)
 
-El **AI Act** es el primer marco normativo mundial que clasifica los sistemas de IA según su nivel de riesgo, imponiendo obligaciones proporcionales:
+- Clasifica los sistemas de IA según su **nivel de riesgo**:
 
-| Nivel de riesgo | Descripción | Ejemplos |
-|---|---|---|
-| **Inaceptable (Prohibición total)** | Amenaza clara a la seguridad o derechos europeos. | *Social scoring*, vigilancia biométrica masiva en tiempo real, manipulación del comportamiento. |
-| **Alto riesgo** | Permitido con obligaciones estrictas: evaluación de conformidad, auditorías de sesgos y supervisión humana obligatoria. | Clasificación de candidatos en oposiciones, asignación de ayudas sociales, priorización policial. |
-| **Riesgo limitado** | Obligación de transparencia: informar al ciudadano de que interactúa con una máquina. | *Chatbots* y asistentes virtuales en Sede Electrónica. |
-| **Riesgo mínimo** | Sin regulación restrictiva. | Filtros de spam, videojuegos. |
+- **Riesgo inaceptable:**
+  - *Prohibición total* de sistemas que amenacen los derechos europeos.
+  - Ej.: *social scoring* (sistemas de crédito social) o la vigilancia biométrica masiva en tiempo real.
 
-En España, la autoridad de supervisión designada es la **Agencia Española de Supervisión de la Inteligencia Artificial (AESIA)**, que representa al país en el Comité Europeo de IA y tiene encomendadas las labores de supervisión, minimización de riesgos y fomento de un ecosistema de investigación e innovación en IA.
+- **Alto riesgo:**
+  - Permitido con fuertes obligaciones.
+  - Exigen evaluación de riesgos, registro, trazabilidad y **supervisión humana obligatoria** (*Human-in-the-loop*)
+  - Ej.: asignación de ayudas sociales
 
----
+- **Riesgo limitado:**
+  - Principalmente obligaciones de **transparencia**.
+  - Ej.: informar al ciudadano de que interactúa con un chatbot.
+
+- **Riesgo mínimo:**
+  - Sin obligaciones específicas relevantes.
+  - Ej.: filtros de spam.
+
+- En España destaca la **AESIA (Agencia Española de Supervisión de la Inteligencia Artificial)** como organismo de supervisión.
 
 ## 7. Conclusión
 
 La adopción de la IA —desde el *Machine Learning* predictivo hasta la revolución del *Deep Learning* generativo— transforma los paradigmas de tramitación estática en el sector público, capacitando a la Administración para predecir, automatizar tareas masivas y ofrecer interacción inmediata al ciudadano.
 
-Sin embargo, esta modernización exige una subordinación ineludible al blindaje ético y legal del AI Act europeo. Solo garantizando la **transparencia**, eliminando los **sesgos discriminatorios** y manteniendo el **control humano** sobre los algoritmos (*human in the loop*), el e-Gobierno podrá construir un Estado digital verdaderamente equitativo, fiable y respetuoso con los derechos fundamentales del ciudadano.
+- Su aplicación debe garantizar:
+  - **Transparencia.**
+  - **Ausencia de discriminación.**
+  - **Seguridad.**
+  - **Supervisión humana.**
+  - **Cumplimiento del AI Act.**
