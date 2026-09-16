@@ -1,4 +1,4 @@
-# Tema 1.- Proyectos TI: Procesos, Fases y Recursos.
+# Tema 1. Diseño, dirección y gestión de proyectos de tecnologías de la información. Procesos de gestión. Fases de los proyectos. Planificación de recursos materiales y humanos.
 
 ## 1. Introducción
 * **Reto:** Proyectos con alta intangibilidad, obsolescencia rápida y volatilidad de requisitos.
@@ -14,23 +14,29 @@
 
 ## 3. Procesos de Gestión (PMBOK / ISO 21500)
 * **1. Inicio:** Acta de Constitución (*Project Charter*) e identificación de interesados.
-* **2. Planificación:** Plan de Proyecto y desglose de tareas en la **EDT / WBS**.
+* **2. Planificación:** Plan de Proyecto y desglose de tareas en la **EDT (Estructura de Desglose del Trabajo) / WBS (Work Breakdown Structure)**.
 * **3. Ejecución:** Coordinación de personas y desarrollo de entregables.
 * **4. Monitoreo y Control:** Seguimiento del rendimiento y control de cambios para evitar el **Scope Creep** (corrupción del alcance).
 * **5. Cierre:** Aceptación formal, lecciones aprendidas y traspaso a Operaciones.
 
-## 4. Fases Técnicas (Ciclo de Vida / SDLC)
-* **1. Requisitos:** Especificación técnica (ERS) o Historias de Usuario.
-* **2. Diseño:**
+## 4. Fases Técnicas (Ciclo de Vida / SDLC) y Métrica v3
+Métrica v3 estructura el ciclo de vida en procesos normalizados que guían el desarrollo en el sector público:
+
+* **4.0. Planificación:** **PSI** (Plan de Sistemas de Información) → Alineación estratégica previa.
+* **4.1. Viabilidad y Requisitos:**
+  * **EVS** (Estudio de Viabilidad del Sistema): Alternativas técnicas y económicas.
+  * **ASI** (Análisis del Sistema de Información): Catálogo de requisitos, casos de uso y modelos conceptuales (Estructurado / OO con UML). Especificación técnica (ERS) o Historias de Usuario.
+* **4.2. Diseño:** **DSI** (Diseño del Sistema de Información): 
   * *Alto nivel (Arquitectura):* Microservicios vs. Monolito, redes y seguridad.
   * *Bajo nivel (Detalle):* Modelo de BD, clases y contratos de APIs.
-* **3. Construcción:** Programación, pruebas unitarias y repositorios Git.
-* **4. Pruebas (Testing):**
-  * *Integración:* Módulos comunicándose.
-  * *Sistema:* Rendimiento, estrés y seguridad (CCN-STIC).
-  * *UAT:* Pruebas de aceptación con los usuarios finales antes de firmar la recepción.
-* **5. Implantación:** Puesta en producción y migración de datos (Big Bang, paralelo o fases).
-* **6. Mantenimiento:** Correctivo (errores), Evolutivo (nuevas funciones), Perfectivo (rendimiento) y Preventivo (seguridad/parcheo).
+* **4.3. Construcción y Pruebas:**
+  * **CSI** (Construcción del Sistema de Información): Codificación, pruebas unitarias y de integración.
+* **4.4. Implantación:** **IAS** (Implantación y Aceptación del Sistema):   
+  * *Pruebas de Sistema:* Rendimiento, estrés y seguridad (CCN-STIC).
+  * *Pruebas UAT:* Aceptación formal con usuarios finales previa a la recepción.
+  * Migración de datos y puesta en producción.
+* **4.5. Mantenimiento:**
+  * **MSI** (Mantenimiento del Sistema de Información): Correctivo (errores), Evolutivo (nuevas funciones), Perfectivo (rendimiento) y Preventivo (seguridad/parcheo).
 
 ## 5. Planificación de Recursos
 * **5.1. Recursos Humanos:**
@@ -40,10 +46,10 @@
 * **5.2. Recursos Materiales:**
   * *Entornos:* Separación estricta de Desarrollo, Preproducción y Producción.
   * *Infraestructura:* On-Premise (CPD local) vs. Cloud corporativo (con ENS nivel Alto).
-  * *Herramientas:* Repositorios de código (GitLab/GitHub), gestión ágil (Jira) e integración continua.
+  * *Herramientas:* Repositorios de código (GitLab/GitHub), gestión ágil (Jira) y automatización CI/CD.
 
 ## 6. Conclusión
-El éxito de un proyecto TI en la Administración radica en unir la técnica con la gestión formal. La disciplina del PMBOK, la metodología Métrica v3 y el marco legal de contratación pública (LCSP) garantizan que el software entregado cumpla con los plazos, no se desvíe en presupuesto y ofrezca un servicio seguro y de calidad al ciudadano.
+El éxito de un proyecto TI en la Administración Pública exige aunar rigor técnico, metodológico y normativo. La combinación de las áreas de conocimiento del PMBOK con la estructura por fases de Métrica v3 y las garantías de la LCSP asegura que el software entregado cumpla los plazos, respete el presupuesto y proporcione un servicio seguro, interoperable y de valor al ciudadano.
 
 ----------------
 
@@ -92,7 +98,7 @@ La gestión de proyectos segun el PMBOK (Project Management Body of Knowledge) +
 
 ### 3.4. Grupo de Procesos de Monitoreo y Control
 Identificar áreas donde plan requiera cambios.
-*   Control integrado de cambios: Evitar "scope creep" (corrupción del alcance).
+*   Control integrado de cambios: Evitar "scope creep" (corrupción del alcance) -> expansión descontrolada de los requisitos o entregables de un proyecto más allá del acuerdo inicial
 *   Validar y controlar el alcance.
 *   Controlar Cronograma y Costes.
 

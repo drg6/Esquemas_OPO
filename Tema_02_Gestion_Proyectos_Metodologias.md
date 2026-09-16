@@ -1,4 +1,4 @@
-# Tema 2.- Metodologías de Gestión: Predictivas (GANTT, PERT), Ágiles (Scrum, Kanban), Lean y Herramientas.
+# Tema 2.- Metodologías predictivas para la gestión de proyectos: GANTT, PERT. Metodologías ágiles para la gestión de proyectos. Metodologías lean. Herramientas digitales de colaboración y productividad. Herramientas de gestión de proyectos.
 
 ## 1. Introducción: El choque de paradigmas en las AAPP
 * **Evolución:** Transición desde modelos industriales y rígidos (Predictivos/Cascada) hacia marcos iterativos y adaptables (Ágiles/Lean).
