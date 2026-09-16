@@ -1,3 +1,48 @@
+# Tema 2.- Metodologías de Gestión: Predictivas (GANTT, PERT), Ágiles (Scrum, Kanban), Lean y Herramientas.
+
+## 1. Introducción: El choque de paradigmas en las AAPP
+* **Evolución:** Transición desde modelos industriales y rígidos (Predictivos/Cascada) hacia marcos iterativos y adaptables (Ágiles/Lean).
+* **El reto público (Detalle de Oro):** Las metodologías ágiles chocan con la Ley de Contratos (LCSP), que exige licitaciones con alcances cerrados y precios fijos. La Administración actual obliga a orquestar enfoques híbridos.
+
+## 2. Metodologías Predictivas (Modelo en Cascada)
+Exigen requisitos estables y planificación exhaustiva antes de ejecutar. El coste de cambiar algo en fases avanzadas es altísimo.
+* **El Diagrama de GANTT:**
+  * Herramienta visual cronológica. Cruza un Eje X (Calendario) con un Eje Y (Tareas/WBS).
+  * Elementos clave: Barras de duración, dependencias lógicas e **Hitos** (eventos de entrega sin duración).
+* **La Técnica PERT / CPM (Ruta Crítica):**
+  * Supera a Gantt en proyectos complejos usando un **Diagrama de Red**.
+  * Utiliza estimación probabilística (Tiempo optimista, pesimista y más probable).
+  * **El Camino Crítico (CPM):** Identifica la secuencia de tareas con "holgura cero". Si una tarea de esta ruta se retrasa un día, todo el proyecto del Ayuntamiento se retrasa un día.
+
+## 3. Metodologías Ágiles (Manifiesto de 2001)
+El software se entrega en ciclos cortos (iterativo e incremental) priorizando el software funcional y la respuesta ante el cambio.
+* **3.1. Scrum (Marco empírico):**
+  * *Roles:* **Product Owner** (representa al ciudadano/negocio), **Scrum Master** (líder que elimina bloqueos) y **Developers** (equipo técnico).
+  * *Artefactos:* **Product Backlog** (lista viva de requisitos) y **Sprint Backlog** (plan táctico actual).
+  * *Eventos:* El **Sprint** (ciclo de 2-4 semanas), **Daily** (reunión de 15 min), **Review** (demo al cliente) y **Retrospective** (mejora interna del equipo).
+* **3.2. Kanban (Flujo visual continuo):**
+  * Sistema *Pull* basado en columnas (Por hacer, En progreso, Hecho). 
+  * *Regla vital:* **Limitar el WIP** (Trabajo en curso) para evitar cuellos de botella y sobrecarga técnica.
+  * **Detalle CAU:** Es la metodología ideal para el soporte de Microinformática, donde no hay *Sprints* programados, sino un flujo continuo e ininterrumpido de incidencias y peticiones.
+
+## 4. Filosofía Lean Software
+* **Origen:** El Sistema de Producción de Toyota (TPS).
+* **Objetivo central:** **Eliminar el Desperdicio (*Muda*)**. Todo código, reunión o burocracia que no aporta valor directo al producto debe suprimirse.
+* **Principios:** Integrar la calidad desde el diseño (ej. TDD), decidir lo más tarde posible (cuando hay más información) y optimizar el sistema de forma holística.
+
+## 5. Herramientas Digitales y PPM (Project Portfolio Management)
+* **Colaboración corporativa:** **Microsoft Teams** (el estándar municipal integrado con Active Directory para VoIP y trabajo concurrente) y Slack.
+* **Gestión Documental:** Confluence o SharePoint (Intranets tipo Wiki).
+* **Herramientas Predictivas:** MS Project (creación de GANTTs) y Oracle Primavera P6 (megaproyectos de obra o infraestructura).
+* **Herramientas Ágiles / DevOps:** 
+  * **Jira Software:** Líder en gestión de Sprints y tableros Kanban.
+  * *Integración CI/CD:* La tendencia es integrar los tickets de Jira con repositorios de código (**GitLab** o **Azure DevOps**) para automatizar despliegues de software público.
+
+## 6. Conclusión
+El área TIC de un Ayuntamiento moderno opera bajo el concepto de **"Bimodal IT"**. Las metodologías Predictivas (GANTT) sobreviven como el estándar óptimo para renovaciones de infraestructura hardware o CPDs, donde el alcance físico es inamovible. Sin embargo, para el desarrollo de la e-Administración, el software municipal exige marcos empíricos (Scrum/Kanban) orquestados digitalmente (Teams/Jira) para adaptarse ágilmente a las cambiantes necesidades legislativas y ciudadanas.
+
+--------------------
+
 # Tema 2.- Metodologías predictivas para la gestión de proyectos: GANTT, PERT. Metodologías ágiles para la gestión de proyectos. Metodologías lean. Herramientas digitales de colaboración y productividad. Herramientas de gestión de proyectos.
 
 ## 1. Introducción a la Dirección de Proyectos Tecnológicos

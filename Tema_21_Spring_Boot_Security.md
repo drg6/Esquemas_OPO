@@ -1,3 +1,61 @@
+# Tema 21.- Spring: Spring Boot, Spring Data, Spring Security.
+
+## 1. Introducción: La Industrialización del Ecosistema Spring
+* **La trinidad del desarrollo corporativo:** Si el contenedor IoC y la AOP constituyen la base teórica de Spring, este tema aborda sus tres módulos de producción más críticos: Spring Boot, Spring Data y Spring Security.
+* **El cambio de paradigma:** Históricamente, el desarrollo en Java empresarial (JEE) exigía configurar complejos ficheros XML, escribir código repetitivo de acceso a datos y desplegar pesados ficheros WAR en servidores de aplicaciones externos.
+* **El objetivo:** Adoptar el principio de **Convención sobre Configuración** para erradicar el código redundante (*boilerplate*) y acelerar la entrega de software listo para producción.
+
+## 2. Spring Boot: Autonomía y Despliegue Moderno
+* **2.1. Starters y la resolución del conflicto de dependencias:**
+  * Resuelven el histórico problema del empaquetado de librerías (*Dependency Hell*).
+  * Son agrupaciones preconfiguradas que importan todas las dependencias compatibles en un único bloque dentro de Maven o Gradle:
+    * `spring-boot-starter-web`: Importa Spring MVC, serialización JSON y un servidor embebido.
+    * `spring-boot-starter-data-jpa`: Incluye Hibernate, Spring Data y el pool de conexiones de alto rendimiento HikariCP.
+    * `spring-boot-starter-security`: Activa el motor de autenticación y autorización.
+* **2.2. Autoconfiguración (`@EnableAutoConfiguration`):**
+  * El framework escanea el *classpath* en el arranque y autoconfigura la infraestructura necesaria. Si detecta el conector de una base de datos, inicializa el *DataSource* y el control transaccional sin intervención manual.
+  * El desarrollador siempre mantiene el control, pudiendo sobrescribir cualquier propiedad mediante `application.properties` o `application.yml`.
+* **2.3. Servidor Embebido (El modelo Fat JAR):**
+  * Rompe con la necesidad de servidores web externos instalados en el sistema operativo.
+  * Integra directamente Tomcat o Undertow dentro de un archivo `.jar` ejecutable. Esto convierte a la aplicación en un componente autónomo, diseñado a medida para su empaquetado en contenedores **Docker** y su orquestación en **Kubernetes**.
+* **2.4. Gestión de entornos mediante Perfiles (`@Profile`):**
+  * Aplica los principios de la metodología *Twelve-Factor App*. Desacopla el código compilado de la configuración sensible, permitiendo inyectar contraseñas de bases de datos mediante variables de entorno en entornos de desarrollo, pruebas o producción.
+* **2.5. Observabilidad con Spring Boot Actuator:**
+  * **Detalle técnico de infraestructura:** Vital para la monitorización municipal. Expone endpoints nativos como `/actuator/health`, utilizado como sonda de comprobación (*liveness* y *readiness*) por Kubernetes, y `/actuator/metrics`, integrable con sistemas corporativos como Prometheus y Grafana.
+
+## 3. Spring Data: La Abstracción Universal del Almacenamiento
+* **3.1. Supresión del código redundante (Boilerplate):**
+  * Elimina la necesidad de implementar manualmente la capa DAO (*Data Access Object*) para cada una de las tablas de una base de datos.
+* **3.2. El Patrón Repository (`JpaRepository`):**
+  * Basta con declarar una interfaz Java que herede de `JpaRepository<Entidad, ID>`. En tiempo de ejecución, Spring genera automáticamente en memoria la implementación completa con operaciones CRUD transaccionales como `save()`, `findById()` o `delete()`.
+* **3.3. Consultas Semánticas (Query Methods):**
+  * El framework infiere la sentencia SQL directamente leyendo el nombre del método. Por ejemplo, `findByDniAndEstado(String dni, String est)` genera internamente el correspondiente `SELECT` con cláusulas `WHERE`, operadores lógicos y ordenaciones automáticas.
+* **3.4. Consultas Avanzadas y Optimización (`@Query`):**
+  * Permite redactar consultas explícitas en JPQL (orientadas a objetos) o SQL nativo mediante el atributo `nativeQuery`.
+  * **Detalle de rendimiento (El problema N+1):** En tramitación de expedientes, consultar una entidad con relaciones (*hijos*) puede provocar decenas de consultas secundarias innecesarias. Un arquitecto de software debe solventarlo utilizando cláusulas `JOIN FETCH` en la anotación `@Query` o definiendo *Entity Graphs*.
+* **3.5. Paginación y modelo políglota:**
+  * Soporte nativo de paginación mediante interfaces `Pageable`, optimizando el tráfico de red en listados masivos.
+  * El mismo patrón de repositorios es reutilizable en motores NoSQL mediante **Spring Data MongoDB** o **Spring Data Redis**.
+
+## 4. Spring Security: El Bastión de Autenticación y Control de Acceso
+* **4.1. Arquitectura basada en filtros (`SecurityFilterChain`):**
+  * Implementa el patrón *Intercepting Filter*. Una cadena de filtros de seguridad intercepta cada petición HTTP antes de llegar a la capa de negocio, comprobando identidades y roles.
+* **4.2. Mecanismos de Autenticación en el Sector Público:**
+  * **JWT (JSON Web Tokens):** Estándar para APIs REST *stateless*, donde el cliente envía un token criptográfico firmado en cada cabecera HTTP sin necesidad de guardar sesión en servidor.
+  * **Integración con Cl@ve y SSO:** Soporte nativo de protocolos estándar como **OAuth 2.0 / OpenID Connect** y **SAML2**, permitiendo delegar la identidad en pasarelas públicas como Cl@ve o directorios corporativos Microsoft Entra ID.
+  * **Certificados Digitales (X.509):** Autenticación mediante tarjeta chip o DNI electrónico para empleados públicos y sedes.
+* **4.3. Niveles de Autorización:**
+  * *A nivel de red (HTTP):* Configuración declarativa en la cadena de filtros para proteger rutas (por ejemplo, restringiendo `/api/admin/**` a determinados perfiles).
+  * *A nivel de método (AOP):* Mediante anotaciones como **`@PreAuthorize`** directamente sobre los métodos de servicio, validando expresiones lógicas de seguridad antes de ejecutar el trámite administrativo.
+* **4.4. Mitigación de vulnerabilidades por diseño:**
+  * Protección activa contra ataques CSRF (Falsificación de Petición en Sitios Cruzados).
+  * Inyección automática de cabeceras de protección web contra *Clickjacking* (`X-Frame-Options`) y Cross-Site Scripting (XSS), garantizando el cumplimiento de las guías de bastionado del **CCN-STIC**.
+
+## 5. Conclusión: Relevancia en la Administración Electrónica
+La madurez combinada de Spring Boot, Spring Data y Spring Security ha transformado la ingeniería del software en el sector público. Spring Boot dota a los servicios municipales de portabilidad y facilidad de despliegue mediante microservicios contenerizados; Spring Data optimiza y acelera la persistencia de expedientes reduciendo errores humanos; y Spring Security blinda los datos de los ciudadanos conforme a las directrices de integridad, autenticidad y trazabilidad que exige el **Esquema Nacional de Seguridad (RD 311/2022)**.
+
+---------------------
+
 # Tema 21.- Spring: Spring Boot, Spring Data, Spring Security
 
 ## 1. Introducción

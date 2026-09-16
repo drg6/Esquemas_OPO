@@ -1,6 +1,57 @@
 # Tema 23.- Cuadros de Mando. Análisis, implantación y explotación.
 
 ## 1. Introducción
+* **Contexto AAPP:** Gran volumen de datos brutos (padrón, tributos).
+* **Objetivo:** Dato bruto → Información → **Conocimiento** (patrones/decisiones).
+* **Herramientas:** Business Intelligence (BI) y Dashboards.
+
+## 2. Business Intelligence (BI): De los Datos al Conocimiento
+* **2.1. Concepto:** Transformar transacciones (OLTP) en análisis (OLAP).
+* **2.2. Arquitectura BI (Pipeline):** 
+  * Fuentes (OLTP) → Proceso ETL (Extract, Transform, Load) → Data Warehouse → Visualización.
+* **2.3. Modelado Dimensional:** 
+  * **Estrella:** Tabla de Hechos (métricas) central + Tablas de Dimensiones (desnormalizadas) alrededor.
+  * **Copo de nieve:** Dimensiones normalizadas (desglosadas).
+* **2.4. OLTP vs OLAP:** 
+  * *OLTP:* Día a día, normalizado (3FN), detallado. 
+  * *OLAP:* Histórico, dimensional, agregado (toma de decisiones).
+
+## 3. El Cuadro de Mando (Dashboard)
+* **3.1. Concepto:** Interfaz visual única que consolida KPIs para detectar tendencias y anomalías.
+* **3.2. Tipología:**
+  * **Operativo (CMO):** Corto plazo, técnicos/jefes servicio (ej. patrullas activas).
+  * **Táctico/Directivo (CMD):** Medio plazo, directores de área.
+  * **Integral (CMI - Balanced Scorecard de Kaplan y Norton, 1992):** Evalúa la estrategia en 4 perspectivas: Financiera, Ciudadano, Procesos Internos, y Aprendizaje/Innovación.
+
+## 4. Elementos Constructivos y Explotación
+* **4.1. KPI (Key Performance Indicator):** Métrica cuantificable + Objetivo estratégico. (Métrica ≠ KPI). SMART (Medible, temporal, accionable).
+* **4.2. Visualización:** Velocímetro (vs objetivo), Semáforo (estado), Barras (comparación), Heatmap (distribución).
+* **4.3. Interactividad (Operaciones OLAP):** 
+  * *Drill-Down* (desglosar al detalle) / *Roll-Up* (agrupar).
+  * *Slice & Dice* (Filtros multidimensionales).
+* **4.4. ⚠️ Seguridad (El detalle AAPP):** Anonimización de datos sensibles (RGPD) y control de acceso basado en roles (ENS).
+
+## 5. Fases de Implantación en Ayuntamientos
+1. **Requisitos:** Objetivos estratégicos.
+2. **Fuentes:** Inventario y calidad del dato.
+3. **Diseño:** Modelo dimensional y KPIs.
+4. **ETL:** Extracción, limpieza y carga.
+5. **Dashboarding:** Construcción visual.
+6. **Validación:** Testing con usuarios finales.
+7. **Despliegue:** Producción, formación y mantenimiento.
+
+## 6. Herramientas del Mercado
+* **Líderes:** Power BI (Microsoft + DAX), Tableau, Qlik Sense (In-memory).
+* **Otras:** Oracle Analytics (nativo base de datos), Grafana (operacional), Superset (Open Source).
+
+## 7. Conclusión
+Transforman el dato atómico en estrategia. Requieren una arquitectura BI robusta (ETL + DWH) y diseño iterativo centrado en el usuario, siempre bajo el paraguas de la privacidad ciudadana.
+
+------------------
+
+# Tema 23.- Cuadros de Mando. Análisis, implantación y explotación.
+
+## 1. Introducción
 
 Las Administraciones Públicas generan gran volumen de datos transaccionales: altas y bajas en el padrón, liquidaciones tributarias, expedientes de licencias, sanciones de tráfico, consumos de agua). Para que los órganos de gobierno municipal tomen decisiones, los datos brutos deben transformarse en **conocimiento** (patrones, tendencias y predicciones). 
 El **Business Intelligence (BI)** y los **Cuadros de Mando (Dashboards)** son las herramientas que materializan esta transformación.

@@ -1,3 +1,52 @@
+# Tema 1.- Proyectos TI: Procesos, Fases y Recursos.
+
+## 1. Introducción
+* **Reto:** Proyectos con alta intangibilidad, obsolescencia rápida y volatilidad de requisitos.
+* **El objetivo:** Equilibrar el *Triángulo de Hierro* (Alcance, Tiempo y Coste).
+* **Marcos:** Estándar internacional (**PMBOK / ISO 21500**) y metodología histórica de las AAPP (**Métrica v3**).
+
+## 2. Concepto, Diseño y Dirección
+* **Proyecto TI:** Esfuerzo temporal para crear un producto o servicio único.
+* **Diseño:** Definir Alcance, Estudio de Viabilidad e Interesados (*Stakeholders*).
+* **Dirección vs. Gestión:**
+  * *Gestión:* Planificación, cronograma, costes y control cuantitativo.
+  * *Dirección:* Liderazgo, motivación, negociación y resolución de bloqueos.
+
+## 3. Procesos de Gestión (PMBOK / ISO 21500)
+* **1. Inicio:** Acta de Constitución (*Project Charter*) e identificación de interesados.
+* **2. Planificación:** Plan de Proyecto y desglose de tareas en la **EDT / WBS**.
+* **3. Ejecución:** Coordinación de personas y desarrollo de entregables.
+* **4. Monitoreo y Control:** Seguimiento del rendimiento y control de cambios para evitar el **Scope Creep** (corrupción del alcance).
+* **5. Cierre:** Aceptación formal, lecciones aprendidas y traspaso a Operaciones.
+
+## 4. Fases Técnicas (Ciclo de Vida / SDLC)
+* **1. Requisitos:** Especificación técnica (ERS) o Historias de Usuario.
+* **2. Diseño:**
+  * *Alto nivel (Arquitectura):* Microservicios vs. Monolito, redes y seguridad.
+  * *Bajo nivel (Detalle):* Modelo de BD, clases y contratos de APIs.
+* **3. Construcción:** Programación, pruebas unitarias y repositorios Git.
+* **4. Pruebas (Testing):**
+  * *Integración:* Módulos comunicándose.
+  * *Sistema:* Rendimiento, estrés y seguridad (CCN-STIC).
+  * *UAT:* Pruebas de aceptación con los usuarios finales antes de firmar la recepción.
+* **5. Implantación:** Puesta en producción y migración de datos (Big Bang, paralelo o fases).
+* **6. Mantenimiento:** Correctivo (errores), Evolutivo (nuevas funciones), Perfectivo (rendimiento) y Preventivo (seguridad/parcheo).
+
+## 5. Planificación de Recursos
+* **5.1. Recursos Humanos:**
+  * Perfiles técnicos: Analistas, Desarrolladores, DBAs, DevOps y CISO.
+  * **Matriz RACI:** Define quién es Responsable (**R**), Aprueba (**A**), es Consultado (**C**) o Informado (**I**).
+  * **Contratación Pública (LCSP - Ley 9/2017):** Redacción de Pliegos Técnicos (PPT) y control riguroso para evitar la *cesión ilegal de trabajadores*.
+* **5.2. Recursos Materiales:**
+  * *Entornos:* Separación estricta de Desarrollo, Preproducción y Producción.
+  * *Infraestructura:* On-Premise (CPD local) vs. Cloud corporativo (con ENS nivel Alto).
+  * *Herramientas:* Repositorios de código (GitLab/GitHub), gestión ágil (Jira) e integración continua.
+
+## 6. Conclusión
+El éxito de un proyecto TI en la Administración radica en unir la técnica con la gestión formal. La disciplina del PMBOK, la metodología Métrica v3 y el marco legal de contratación pública (LCSP) garantizan que el software entregado cumpla con los plazos, no se desvíe en presupuesto y ofrezca un servicio seguro y de calidad al ciudadano.
+
+----------------
+
 # Tema 1. Diseño, dirección y gestión de proyectos de tecnologías de la información. Procesos de gestión. Fases de los proyectos. Planificación de recursos materiales y humanos.
 
 ## 1. Introducción

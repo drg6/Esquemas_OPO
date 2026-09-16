@@ -1,3 +1,52 @@
+# Tema 25.- Protección de datos de carácter personal. Normativa. Adaptación de aplicaciones. La AEPD.
+
+## 1. Introducción
+* **Contexto:** Derecho fundamental (art. 18.4 CE) para limitar el uso de la informática. 
+* **Marco Legal:** RGPD (Europa, 2018) + LOPDGDD (España, LO 3/2018).
+* **Impacto AAPP:** Ayuntamientos manejan datos críticos. Proteger la privacidad es imperativo legal.
+
+## 2. Normativa (RGPD y LOPDGDD)
+* **2.1. RGPD (Novedades):** Enfoque de riesgo, responsabilidad proactiva (*accountability*), notificación brechas (72h), figura del DPO y multas millonarias.
+* **2.2. LOPDGDD (Adaptación española):** Datos de fallecidos, consentimiento menores a los **14 años** y nuevos derechos digitales (desconexión, testamento digital).
+* **2.3. Principios (Art. 5):** Licitud, Limitación de finalidad, Minimización, Exactitud, Conservación (tiempo), Seguridad y Responsabilidad proactiva. *(Regla: Legalmente, para una finalidad, mínimos, exactos, tiempo, seguros y demostrables).*
+* **2.4. Bases de legitimación (Art. 6):** 
+  * Consentimiento, Contrato, Intereses vitales, Interés legítimo.
+  * ⚠️ **AAPP:** Se basan casi exclusivamente en **Obligación Legal** e **Interés Público**, debido al desequilibrio de poder (el ciudadano no consiente, está obligado).
+* **2.5. Derechos SOPLAR (Gratuitos - Plazo 1 mes):**
+  * **S**upresión (Olvido).
+  * **O**posición.
+  * **P**ortabilidad (CSV/JSON).
+  * **L**imitación.
+  * **A**cceso (+2 meses si es complejo).
+  * **R**ectificación.
+* **2.6. Obligaciones Responsables:** DPO (obligatorio en AAPP), EIPD (alto riesgo), Brechas (72h) y Registro de Actividades (RAT).
+* **2.7. Ley 25/2007 (Comunicaciones):** Conservación de *metadatos* (no contenido) máx 12 meses para delitos graves (requiere orden judicial).
+
+## 3. Adaptación de Aplicaciones TIC
+* **3.1. El binomio RGPD-ENS:** Por mandato de la Disp. Adicional 1ª de la LOPDGDD, las AAPP cumplen la seguridad del RGPD implantando el **Esquema Nacional de Seguridad (ENS)**.
+* **3.2. Medidas Técnicas:**
+  * Privacidad desde el diseño y por defecto.
+  * Control de acceso: RBAC (Roles).
+  * Cifrado: Reposo (AES-256, TDE) y Tránsito (TLS).
+  * Seudonimización (reversible) / Anonimización (irreversible).
+  * Trazabilidad total (Auditoría de logs).
+  * Borrado seguro (Derecho al olvido efectivo en BD y backups).
+  * Herramientas de evaluación: PILAR / GESTIONA.
+
+## 4. La Agencia Española de Protección de Datos (AEPD)
+* **4.1. Naturaleza:** Autoridad de control independiente (Ente de derecho público).
+* **4.2. Funciones:** Supervisar, asesorar, resolver reclamaciones, sancionar y gestionar el **Canal prioritario** (contenidos sensibles/violencia digital).
+* **4.3. Régimen sancionador:** 
+  * RGPD: Hasta 10M€ (2%) o 20M€ (4%).
+  * LOPDGDD: Leves (prescriben 1 año), Graves (2 años), Muy Graves (3 años).
+  * ⚠️ **AAPP:** No reciben multas económicas, solo **Apercibimiento** (y posible notificación al Defensor del Pueblo).
+* **4.4. Europa:** La AEPD forma parte del Comité Europeo de Protección de Datos (CEPD / EDPB).
+
+## 5. Conclusión
+El RGPD y la LOPDGDD conforman un escudo jurídico ineludible. En la Administración Local, el cumplimiento no es opcional: exige adaptar la arquitectura de software (privacidad por diseño, RBAC, cifrado) convergiendo obligatoriamente con el ENS, bajo la estricta vigilancia de la AEPD.
+
+-------------------
+
 # Tema 25.- Protección de datos de carácter personal. Normativa. Adaptación de aplicaciones y entornos a los requisitos de la normativa legal. La Agencia Española de Protección de Datos.
 
 ## 1. Introducción: Protección de Datos de Carácter Personal

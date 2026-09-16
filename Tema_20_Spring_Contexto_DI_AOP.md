@@ -1,3 +1,58 @@
+# Tema 20.- Spring: Contexto, Inyección de dependencias, AOP.
+
+## 1. Introducción: La Inversión de Control (IoC)
+* **El estándar corporativo:** Spring es el framework de referencia en el desarrollo Java empresarial para las Administraciones Públicas.
+* **El cambio de paradigma (IoC):** 
+  * En la programación clásica, el código del desarrollador controla la creación de objetos y el flujo de ejecución mediante llamadas explícitas.
+  * Con la Inversión de Control, el framework asume el control absoluto del ciclo de vida y del ensamblado de los componentes, aplicando el denominado *Principio de Hollywood*: "No nos llames, nosotros te llamaremos".
+* **Los tres pilares:** El ecosistema se sustenta en el Contenedor (ApplicationContext), la Inyección de Dependencias (DI) y la Programación Orientada a Aspectos (AOP).
+
+## 2. El Contexto de Aplicación (ApplicationContext)
+* **2.1. Naturaleza y evolución del contenedor:**
+  * Es la interfaz central de Spring y extiende de la primitiva `BeanFactory`. A diferencia de esta última, que utiliza carga perezosa (*lazy*), el `ApplicationContext` pre-instancia los componentes en el arranque (*eager loading*) y añade soporte para eventos, internacionalización y AOP.
+  * Ha evolucionado desde la configuración en pesados ficheros XML (`ClassPathXmlApplicationContext`) hacia la configuración moderna basada en anotaciones Java (`@ComponentScan`), culminando en los ejecutables autocontenidos de Spring Boot con servidor embebido.
+* **2.2. Definición semántica de Beans:**
+  * Un bean es cualquier objeto gestionado por el ciclo de vida del contenedor.
+  * Se definen mediante anotaciones de estereotipo: `@Component` para clases genéricas, `@Service` para lógica de negocio y `@RestController` para endpoints web.
+  * **Detalle técnico de persistencia:** La anotación `@Repository` aplica automáticamente un aspecto AOP que intercepta excepciones nativas de la base de datos (como `SQLException`) y las traduce a la jerarquía de excepciones no comprobadas de Spring (`DataAccessException`), aislando el código de negocio del motor de base de datos.
+* **2.3. Ámbitos (Scopes) y Ciclo de vida:**
+  * **Singleton (por defecto):** Una única instancia compartida en toda la aplicación. Exige que el componente sea *stateless* (sin estado) para garantizar la concurrencia segura en entornos multihilo.
+  * **Prototype:** Genera una instancia nueva cada vez que se inyecta el bean.
+  * **Scopes web:** request, session y application, ligados al ciclo de vida de la petición HTTP.
+  * **Secuencia de vida:** Instanciación → Inyección de dependencias → Métodos de inicialización (`@PostConstruct`) → Estado operativo → Destrucción controlada (`@PreDestroy`).
+* **2.4. Gestión de entornos (`@Profile`):**
+  * Permite desacoplar el código de la infraestructura, activando diferentes configuraciones (por ejemplo, base de datos local en desarrollo frente a un clúster corporativo en producción) mediante variables de entorno.
+
+## 3. Inyección de Dependencias (DI)
+* **3.1. Acoplamiento débil y testabilidad:**
+  * Es la plasmación práctica del principio de Inversión de Control. Elimina la instanciación directa con el operador `new`, programando siempre contra interfaces.
+  * Facilita el cumplimiento de los principios SOLID y permite una **testabilidad unitaria absoluta**, al posibilitar la inyección de dobles de prueba (*mocks*) sin necesidad de levantar el contexto completo del framework.
+* **3.2. Modalidades de inyección (`@Autowired`):**
+  * **Inyección por constructor (El estándar recomendado):** Permite declarar las dependencias como inmutables (`final`), hace explícitos los requisitos de la clase e impide instanciar objetos en estados inconsistentes.
+  * **Inyección por setter:** Queda reservada únicamente para dependencias opcionales.
+  * **Inyección por campo (*Field Injection*):** Consiste en anotar atributos privados directamente con `@Autowired`. Se considera un **antipatrón** grave porque oculta las dependencias de la clase, rompe el encapsulamiento, depende de la reflexión y dificulta la ejecución de tests unitarios aislados.
+* **3.3. Resolución de ambigüedades:**
+  * Si existen múltiples implementaciones para una misma interfaz, el arranque falla por colisión.
+  * Se resuelve mediante `@Qualifier("nombreBean")`, indicando el identificador exacto a inyectar, o declarando una implementación como preferente mediante `@Primary`.
+
+## 4. Programación Orientada a Aspectos (AOP)
+* **4.1. Preocupaciones transversales (*Cross-Cutting Concerns*):**
+  * Requisitos del sistema como la seguridad, las transacciones de base de datos, el cálculo de rendimiento y la auditoría tienden a dispersarse y duplicarse por todo el código de negocio.
+  * La AOP extrae estas responsabilidades comunes hacia módulos independientes denominados **aspectos**.
+* **4.2. Conceptos y tipos de Advice:**
+  * **Join Point:** Punto del flujo del programa susceptible de ser interceptado (en Spring AOP siempre es la ejecución de un método).
+  * **Pointcut:** Expresión que define sobre qué métodos concretos se aplicará la lógica.
+  * **Advice:** La acción que se dispara. Incluye `@Before`, `@AfterReturning`, `@AfterThrowing`, `@After` y el más potente, **`@Around`**, capaz de envolver completamente la ejecución del método y decidir si continúa o modifica el resultado.
+* **4.3. Implementación mediante Proxies dinámicos y la trampa del *Self-Invocation*:**
+  * Spring AOP no modifica el código en compilación, sino que opera en tiempo de ejecución generando un **proxy dinámico** (mediante interfaces JDK o CGLIB para clases concretas) que envuelve al bean original.
+  * **Limitación arquitectónica crítica:** Las llamadas internas dentro de una misma clase eluden el proxy. Si un método invoca internamente a otro método de la misma clase anotado con `@Transactional`, la llamada se ejecuta sobre la referencia directa (`this`) y la transacción **no se abrirá**, provocando errores silenciosos en la persistencia de datos.
+  * Toda la infraestructura declarativa de Spring (`@Transactional`, `@Cacheable`, `@Async`, `@PreAuthorize`) funciona internamente apoyándose en esta arquitectura AOP.
+
+## 5. Conclusión
+El éxito y la vigencia del framework Spring en el sector público residen en la integración armónica de estos tres conceptos: el `ApplicationContext` garantiza un ciclo de vida ordenado y centralizado; la Inyección de Dependencias desacopla el diseño favoreciendo un mantenimiento ágil y código testable; y la Programación Orientada a Aspectos aísla la fontanería de seguridad y persistencia de la lógica de negocio. Este núcleo sigue siendo la base sobre la que descansan las arquitecturas modernas de microservicios y servicios web orientados a la interoperabilidad en la Administración Electrónica.
+
+--------------------
+
 # Tema 20.- Spring: Contexto, Inyección de dependencias, AOP
 
 ## 1. Introducción

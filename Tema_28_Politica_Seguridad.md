@@ -1,6 +1,66 @@
 # Tema 28.- Política de Seguridad. Diseño, aprobación y aplicación.
 
 ## 1. Introducción
+La seguridad no es un problema puramente tecnológico del departamento de informática, sino un instrumento de **gobierno organizacional** que debe emanar de la máxima autoridad de la entidad y vincular a todo su personal.
+
+## 2. Diseño de la Política de Seguridad
+La Política de Seguridad es el documento fundacional de máximo nivel que articula las directrices de protección de los sistemas, exigido por el ENS (RD 311/2022). Define el "qué" y el "por qué", pero no el "cómo".
+
+* **2.1. Contenido obligatorio (Art. 12 ENS y guía CCN-STIC 805):**
+  * Misión y objetivos institucionales.
+  * Marco regulatorio (ENS, RGPD, LOPDGDD, Ley 39/2015, Ley 40/2015).
+  * Gestión de riesgos (MAGERIT).
+  * Directrices de formación y concienciación.
+  * Gestión de incidentes de seguridad.
+  * Proceso de revisión y actualización.
+
+* **2.2. Estructura de Roles (La clave del diseño):**
+  * *Responsable de Información / Responsable del Servicio* (Áreas de Negocio).
+  * *Responsable de Seguridad (CISO)* y *Comité de Seguridad*.
+  * *Responsable del Sistema* (Informática/Sistemas).
+  * *Delegado de Protección de Datos (DPD):* Nexo clave entre seguridad y privacidad.
+  * ⚠️ *Principio de segregación de funciones:* Evitar ser juez y parte (CISO ≠ Responsable del Sistema).
+  
+* **2.3. Proceso de elaboración:** Liderado por el Comité de Seguridad, requiere un análisis de contexto, definición de objetivos e identificación de roles y responsabilidades.
+
+## 3. Aprobación de la Política de Seguridad
+
+* **3.1. Requisito de Aprobación al máximo nivel:** 
+  * Un documento firmado por el Jefe de Informática no tiene validez legal frente a terceros o empleados.
+  * En la Administración Local, debe aprobarse por la máxima autoridad: el **Pleno del Ayuntamiento**, la **Junta de Gobierno Local** o **Alcaldía** (según delegación). En la AGE (Subsecretaría, Secretaría General).
+
+* **3.2. Publicación y Difusión:**
+  * Publicación formal (Boletín Oficial de la Provincia - BOP, Portal de Transparencia).
+  * Comunicación interna obligatoria a empleados públicos y empresas proveedoras (cláusulas contractuales).
+
+* **3.3. Revisión y Actualización:** Ordinaria (anual) o Extraordinaria (cambios normativos, migración tecnológica grave, ciberataque).
+
+## 4. Aplicación: La Pirámide Documental (El SGSI)
+Para que la Política (abstracta) se aplique en el día a día, se despliega un cuerpo documental jerárquico:
+
+* **Nivel 1: La Política de Seguridad.** (Directrices generales aprobadas por el Pleno/Alcaldía).
+* **Nivel 2: Normativas de Seguridad.** Reglas de obligado cumplimiento aprobadas por el CISO. 
+  * *Ejemplos:* Teletrabajo, Uso de Medios Informáticos, Escritorio Limpio, Control de Accesos (Contraseñas).
+* **Nivel 3: Procedimientos (SOPs).** Instrucciones técnicas paso a paso ejecutadas por el personal TIC.
+  * *Ejemplos:* Procedimiento de alta/baja en Active Directory, Políticas de Backups.
+* **Nivel 4: Evidencias y Registros.** Pruebas de cumplimiento auditable (Logs de firewall, actas de formación, contratos).
+
+## 5. Aplicación: Declaración de Aplicabilidad (SoA)
+* **Concepto:** Documento maestro que lista los 73 controles del Anexo II del ENS.
+* **Función:** Define para cada medida si aplica o no aplica (justificándolo) y cómo se implementa. Es el mapa para las auditorías externas y la base para reportar anualmente el **INES (Informe Nacional del Estado de Seguridad)** al CCN.
+
+## 6. Aplicación: Concienciación y Cultura
+* La política fracasa si el usuario (el eslabón más débil) no la conoce.
+* El ENS exige planes de formación continua, campañas de concienciación (phishing ético) y firma de compromisos de confidencialidad de los empleados.
+
+## 7. Conclusión
+El éxito de una Política de Seguridad municipal no se mide por su complejidad técnica, sino por su respaldo institucional. Un **diseño** alineado con el ENS (roles segregados), una **aprobación** formal que garantice su autoridad, y una **aplicación** estructurada mediante la pirámide documental y la concienciación, son los pilares que transforman un papel burocrático en un escudo real para los datos del ciudadano.
+
+------------
+
+# Tema 28.- Política de Seguridad. Diseño, aprobación y aplicación.
+
+## 1. Introducción
 La seguridad no es un problema puramente tecnológico del departamento de informática, sino un instrumento de **gobierno organizacional** que debe emanar de la máxima autoridad (Pleno) de la organización y vincular a todo su personal.
 
 ## 2. Diseño de la Política de Seguridad

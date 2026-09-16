@@ -1,3 +1,47 @@
+# Tema 27.- ENS. Normas CCN-STIC. Estrategia de Ciberseguridad Nacional y entidades actoras.
+
+## 1. Introducción
+* **Contexto:** El ciberespacio es un dominio crítico. Un Ayuntamiento no puede ser un "silo aislado". 
+* **Tríada:** ENS (Marco Normativo) + Guías CCN-STIC (Implementación técnica) + Estrategia Nacional (Coordinación y Gobernanza).
+
+## 2. El Esquema Nacional de Seguridad (ENS)
+* **2.1. Regulación:** RD 311/2022 (Alineado con directivas europeas NIS2). 
+* **2.2. Ámbito:** Sector público (AGE, CCAA, EELL) y proveedores privados conectados.
+* **2.3. Principios:** Proceso integral, Gestión basada en riesgos (MAGERIT), Defensa en profundidad, Vigilancia continua y Segregación de roles.
+* **2.4. Dimensiones (D-I-C-A-T):** Disponibilidad, Integridad, Confidencialidad, Autenticidad y Trazabilidad.
+* **2.5. Categorización:** Básica (Autoevaluación), Media y Alta (Auditoría externa bienal). *Se hereda la dimensión con mayor nivel.*
+* **2.6. Medidas de Seguridad (73 controles):** Divididas en Marcos: Organizativo [org], Operacional [op] y Protección [mp].
+
+## 3. Normas CCN-STIC (El brazo técnico)
+* **3.1. Concepto:** Guías del Centro Criptológico Nacional con instrucciones técnicas de obligado cumplimiento o recomendación.
+* **3.2. Series Clave:**
+  * **Serie 400:** Perfiles de Cumplimiento (PCE-EELL para Ayuntamientos).
+  * **Serie 800:** Core del ENS (Implantación, auditoría, métricas).
+* **3.3. Herramientas del CCN para AAPP:** LUCÍA (gestión incidentes), microCLAUDIA (vacunación ransomware), INES (estado de seguridad).
+
+## 4. Estrategia de Ciberseguridad Nacional (2019)
+* **4.1. Concepto:** Define las líneas de acción del Estado para defender el ciberespacio.
+* **4.2. Gobernanza:**
+  * **CSN (Consejo de Seguridad Nacional):** Asesora al Presidente en crisis.
+  * **DSN (Departamento de Seguridad Nacional):** Apoyo técnico y gestión de crisis.
+  * **Consejo Nacional de Ciberseguridad:** Órgano colegiado de apoyo.
+
+## 5. Principales Entidades Actoras
+* **5.1. Sector Público:**
+  * **CCN-CERT:** Centro de respuesta para AAPP. (Depende del CNI / Defensa).
+  * **MCCE (Mando Conjunto del Ciberespacio):** Ciberdefensa militar.
+  * **CNPIC:** Protección de Infraestructuras Críticas.
+* **5.2. Sector Privado y Ciudadanía:**
+  * **INCIBE / INCIBE-CERT:** Empresas, ciudadanos (Línea 017) e infraestructuras críticas privadas.
+* **5.3. Modelo Federado (El gancho local):** 
+  * Impulso de la **Red Nacional de SOC (RNS)** para que las Diputaciones actúen como SOC Local dando cobertura a municipios pequeños.
+  * **Foro Nacional de Ciberseguridad:** Órgano supremo de colaboración público-privada.
+
+## 6. Conclusión
+El RD 311/2022 dota a las EELL de un blindaje jurídico-técnico irrenunciable. La aplicación del ENS mediante las guías CCN-STIC, orquestado bajo la Estrategia Nacional y el modelo de SOCs federados, es la única vía para garantizar la resiliencia de los servicios públicos municipales frente a amenazas híbridas.
+
+-----------------
+
 # Tema 27.- Esquema Nacional de Seguridad. Normas CCN-STIC. Aspectos básicos de la Estrategia de Ciberseguridad Nacional y principales entidades actoras en relación con el sector público y privado.
 
 ## 1. Introducción

@@ -1,3 +1,39 @@
+# Tema 22.- Big Data. Captura, análisis, transformación, almacenamiento y explotación...
+
+## 1. Introducción y las "V" del Big Data
+* **Contexto:** SGBDR (Oracle, SQL Server) son monolíticos. Fallan ante alta volumetría o desestructuración.
+* **Concepto Big Data:** Tecnologías/arquitecturas para procesar datos que el paradigma relacional no soporta.
+* **Las 5 "V" (Doug Laney):** Volumen (escala), Velocidad (batch vs streaming), Variedad (estructurado, semi, no estructurado), Veracidad (ruido/calidad) y Valor (utilidad final).
+
+## 2. Ciclo de Vida (El Pipeline de Datos)
+* **2.1. Captura (Ingesta):** Recolección. Batch (Apache Sqoop desde SGBDR) o Streaming/Tiempo real (Apache Kafka, Flume para IoT/Logs).
+* **2.2. Almacenamiento:** Guardar el dato bruto. Sistemas distribuidos (HDFS), Data Lakes (Amazon S3) y BD NoSQL.
+* **2.3. Transformación (Procesamiento):** Limpieza, normalización y preparación. Paradigma MapReduce o motores en memoria (Apache Spark).
+* **2.4. Análisis:** Aplicar lógica. Consultas SQL-on-Hadoop (Apache Hive) o Machine Learning (Spark MLlib).
+* **2.5. Explotación:** Consumo del dato final. Dashboards, BI, y cuadros de mando institucionales.
+
+## 3. Bases de Datos NoSQL
+* **3.1. Motivación vs SGBDR:** Sacrificar el modelo rígido ACID por flexibilidad de esquema y escalabilidad horizontal masiva.
+* **3.2. Teorema CAP (Brewer):** Consistencia, Disponibilidad, Tolerancia a Particiones. Solo puedes elegir 2 (CP o AP).
+* **3.3. Modelo BASE:** Disponibilidad básica, Estado flexible, Consistencia Eventual.
+* **3.4. Tipos:** 
+  * Clave-Valor (Redis - cachés).
+  * Documentales (MongoDB - JSON flexible, expedientes).
+  * Columnares (Cassandra - series temporales/IoT).
+  * Grafos (Neo4j - relaciones).
+
+## 4. Entornos Hadoop, Spark y Data Lakes
+* **4.1. Arquitectura Hadoop:** Escalado horizontal (*Scale-Out*). 
+* **4.2. HDFS (Almacenamiento):** Sistema de archivos distribuido en bloques. `NameNode` (maestro/metadatos) y `DataNodes` (esclavos/datos). Factor de replicación 3x.
+* **4.3. MapReduce:** Paradigma clásico. *Map* (procesa localmente) → *Shuffle* (agrupa) → *Reduce* (consolida).
+* **4.4. Apache Spark:** Evolución. Procesamiento en memoria (RAM), 100x más rápido. Soporta Batch, Streaming y ML.
+* **4.5. Data Lake:** Repositorio central de datos brutos sin esquema (*schema-on-read*). Formatos columnares (Parquet).
+
+## 5. Conclusión
+Revolución del almacenamiento/procesamiento. Valor en la AAPP: Smart Cities (sensores), detección de fraude y analítica avanzada, complementando (no sustituyendo) al SGBDR transaccional clásico (ENS, Oracle).
+
+----------------------
+
 # Tema 22.- Big Data. Captura, análisis, transformación, almacenamiento y explotación de conjuntos masivos de datos. Entornos Hadoop o similares. Bases de datos NoSQL.
 
 ## 1. Introducción
