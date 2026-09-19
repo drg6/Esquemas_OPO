@@ -22,25 +22,29 @@
 ## 4. Fases Técnicas (Ciclo de Vida / SDLC) y Métrica v3
 Métrica v3 estructura el ciclo de vida en procesos normalizados que guían el desarrollo en el sector público:
 
-* **4.0. Planificación:** **PSI** (Plan de Sistemas de Información) → Alineación estratégica previa.
-* **4.1. Viabilidad y Requisitos:**
-  * **EVS** (Estudio de Viabilidad del Sistema): Alternativas técnicas y económicas.
-  * **ASI** (Análisis del Sistema de Información): Catálogo de requisitos, casos de uso y modelos conceptuales (Estructurado / OO con UML). Especificación técnica (ERS) o Historias de Usuario.
-* **4.2. Diseño:** **DSI** (Diseño del Sistema de Información): 
-  * *Alto nivel (Arquitectura):* Microservicios vs. Monolito, redes y seguridad.
-  * *Bajo nivel (Detalle):* Modelo de BD, clases y contratos de APIs.
-* **4.3. Construcción y Pruebas:**
-  * **CSI** (Construcción del Sistema de Información): Codificación, pruebas unitarias y de integración.
-* **4.4. Implantación:** **IAS** (Implantación y Aceptación del Sistema):   
-  * *Pruebas de Sistema:* Rendimiento, estrés y seguridad (CCN-STIC).
-  * *Pruebas UAT:* Aceptación formal con usuarios finales previa a la recepción.
-  * Migración de datos y puesta en producción.
-* **4.5. Mantenimiento:**
-  * **MSI** (Mantenimiento del Sistema de Información): Correctivo (errores), Evolutivo (nuevas funciones), Perfectivo (rendimiento) y Preventivo (seguridad/parcheo).
+* **4.0. Marco Previo:** **PSI** (Plan de Sistemas de Información) → Planificación y alineación estratégica.
+* **4.1. Análisis y Viabilidad:**
+  * **EVS (Estudio de Viabilidad del Sistema):** Alternativas técnicas, económicas y legales.
+  * **ASI (Análisis del Sistema de Información):** Elicitación de requisitos, modelado (Casos de Uso / Historias de Usuario) y redacción de la ERS (Especificación de Requisitos Software) (*qué*, no *cómo*).
+* **4.2. Diseño:** **DSI** (Diseño del Sistema de Información):
+  * *Alto nivel (Arquitectura):* Hardware, software base, redes y patrones (MVC, microservicios).
+  * *Bajo nivel (Detalle):* Modelado de BD (E/R), interfaces (UI/UX), algoritmos y APIs.
+* **4.3. Construcción:** **CSI** (Construcción del Sistema de Información):
+  * Generación de código fuente.
+  * Pruebas unitarias (desarrollador / componentes aislados).
+  * Pruebas de integración (interfaces y comunicación entre módulos ensamblados).
+* **4.4. Implantación y Pruebas Finales:** **IAS** (Implantación y Aceptación del Sistema):
+  * *Testing:* Pruebas de sistema (funcionales, carga, ENS / CCN-STIC) y pruebas UAT (validación formal del usuario).
+  * *Despliegue:* Puesta en producción (*Big Bang*, paralelo, por fases), migración de datos y formación.
+* **4.5. Mantenimiento:** **MSI** (Mantenimiento del Sistema de Información):
+  * *Correctivo:* Corrección de errores en explotación.
+  * *Evolutivo:* Nuevas funcionalidades.
+  * *Perfectivo:* Optimización de rendimiento y refactorización.
+  * *Preventivo:* Actualizaciones de seguridad y parches de entorno.
 
 ## 5. Planificación de Recursos
 * **5.1. Recursos Humanos:**
-  * Perfiles técnicos: Analistas, Desarrolladores, DBAs, DevOps y CISO.
+  * Perfiles técnicos: Analistas, Desarrolladores, DBAs, DevOps y CISO (Director de seguridad de la información).
   * **Matriz RACI:** Define quién es Responsable (**R**), Aprueba (**A**), es Consultado (**C**) o Informado (**I**).
   * **Contratación Pública (LCSP - Ley 9/2017):** Redacción de Pliegos Técnicos (PPT) y control riguroso para evitar la *cesión ilegal de trabajadores*.
 * **5.2. Recursos Materiales:**
@@ -70,6 +74,7 @@ Caracteristicas: Intangibilidad, Complejidad, Volatilidad de los requisitos, Inc
 ### 2.2. Diseño del proyecto
 
 Diseño: Definición del Alcance, Estudio de Viabilidad, Identificación de Interesados (Stakeholders).
+Alcance = Descripcion detallada de todo el trabajo, los límites, los requisitos y los entregables necesarios para completar el proyecto con éxito.
 
 ### 2.3. Dirección y Gestión
 
@@ -107,39 +112,29 @@ Identificar áreas donde plan requiera cambios.
 *   Lecciones aprendidas.
 *   Entrega del producto final a operaciones.
 
-## 4. Fases de los proyectos
+## 4. Fases de los Proyectos (SDLC / Métrica v3)
 
 Ciclo de vida técnico del desarrollo del producto. Modelo clásico (Ciclo de Vida en Cascada) y el Ciclo de Vida del Desarrollo de Software (SDLC) establecen:
 
-### 4.1. Análisis de Requisitos
-*   **Recopilación de requisitos:**
-*   **Documentación:** (Requisitos Software (ERS), casos de uso, historias de usuario)
-
-### 4.2. Diseño del Sistema
-*   **Diseño Arquitectónico (Alto Nivel):** (hardware, software, arquitectura de red, patrones de diseño (MVC, Microservicios)).
-*   **Diseño Detallado (Bajo Nivel):** Bases de datos, interfaces, algoritmos y componentes.
-
-### 4.3. Construcción (Programación)
-*   Generación de código fuente.
-*   Pruebas unitarias.
-*   Integración de componentes.
-
-### 4.4. Pruebas (Testing)
-*   **Pruebas de Integración:**: Módulos juntos
-*   **Pruebas de Sistema:** : Funcional/No funcional
-*   **Pruebas de Aceptación de Usuario (UAT):** : Validación usuario
-
-### 4.5. Implantación (Despliegue)
-*   Instalación en servidores de producción.
-*   Migración de datos de sistemas antiguos.
-*   Formación a usuarios.
-*   Estrategias de despliegue: Big Bang, paralelo, por fases.
-
-### 4.6. Mantenimiento
-*   **Correctivo:** Errores no detectados.
-*   **Evolutivo:** Nuevas funcionalidades.
-*   **Perfectivo:** Mejoras rendimiento.
-*   **Preventivo:** Actualizaciones de seguridad y refactorización.
+* **4.0. Marco Previo:** **PSI** (Plan de Sistemas de Información) → Planificación y alineación estratégica.
+* **4.1. Análisis y Viabilidad:**
+  * **EVS (Estudio de Viabilidad del Sistema):** Alternativas técnicas, económicas y legales.
+  * **ASI (Análisis del Sistema de Información):** Elicitación de requisitos, modelado (Casos de Uso / Historias de Usuario) y redacción de la ERS (Especificación de Requisitos Software) (*qué*, no *cómo*).
+* **4.2. Diseño:** **DSI** (Diseño del Sistema de Información):
+  * *Alto nivel (Arquitectura):* Hardware, software base, redes y patrones (MVC, microservicios).
+  * *Bajo nivel (Detalle):* Modelado de BD (E/R), interfaces (UI/UX), algoritmos y APIs.
+* **4.3. Construcción:** **CSI** (Construcción del Sistema de Información):
+  * Generación de código fuente.
+  * Pruebas unitarias (desarrollador / componentes aislados).
+  * Pruebas de integración (interfaces y comunicación entre módulos ensamblados).
+* **4.4. Implantación y Pruebas Finales:** **IAS** (Implantación y Aceptación del Sistema):
+  * *Testing:* Pruebas de sistema (funcionales, carga, ENS / CCN-STIC) y pruebas UAT (validación formal del usuario).
+  * *Despliegue:* Puesta en producción (*Big Bang*, paralelo, por fases), migración de datos y formación.
+* **4.5. Mantenimiento:** **MSI** (Mantenimiento del Sistema de Información):
+  * *Correctivo:* Corrección de errores en explotación.
+  * *Evolutivo:* Nuevas funcionalidades.
+  * *Perfectivo:* Optimización de rendimiento y refactorización.
+  * *Preventivo:* Actualizaciones de seguridad y parches de entorno.
 
 ## 5. Planificación de recursos materiales y humanos
 

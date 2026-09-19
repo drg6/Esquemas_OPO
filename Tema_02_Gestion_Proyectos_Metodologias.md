@@ -21,14 +21,22 @@ El software se entrega en ciclos cortos (iterativo e incremental) priorizando el
   * *Artefactos:* **Product Backlog** (lista viva de requisitos) y **Sprint Backlog** (plan táctico actual).
   * *Eventos:* El **Sprint** (ciclo de 2-4 semanas), **Daily** (reunión de 15 min), **Review** (demo al cliente) y **Retrospective** (mejora interna del equipo).
 * **3.2. Kanban (Flujo visual continuo):**
-  * Sistema *Pull* basado en columnas (Por hacer, En progreso, Hecho). 
+  * Sistema *Pull* basado en columnas (Por hacer, Listo, En progreso / Bloqueado, Validacion, Hecho). 
   * *Regla vital:* **Limitar el WIP** (Trabajo en curso) para evitar cuellos de botella y sobrecarga técnica.
   * **Detalle CAU:** Es la metodología ideal para el soporte de Microinformática, donde no hay *Sprints* programados, sino un flujo continuo e ininterrumpido de incidencias y peticiones.
 
 ## 4. Filosofía Lean Software
-* **Origen:** El Sistema de Producción de Toyota (TPS).
-* **Objetivo central:** **Eliminar el Desperdicio (*Muda*)**. Todo código, reunión o burocracia que no aporta valor directo al producto debe suprimirse.
-* **Principios:** Integrar la calidad desde el diseño (ej. TDD), decidir lo más tarde posible (cuando hay más información) y optimizar el sistema de forma holística.
+* **Origen:** Sistema de Producción de Toyota (TPS) adaptado a TI por **Mary y Tom Poppendieck** (*Lean Software Development*).
+* **Objetivo central:** **Eliminar el Desperdicio (*Muda*)**. Suprimir todo lo que consuma recursos sin aportar valor directo al cliente (código innecesario, esperas, burocracia, defectos).
+* **Los 7 Principios Lean:**
+  1. Eliminar el desperdicio.
+  2. Integrar la calidad (*Built-in Quality*, ej. TDD).
+  3. Amplificar el aprendizaje continuo (iteraciones, refactorización).
+  4. Decidir lo más tarde posible (*último momento responsable*).
+  5. Entregar lo más rápido posible.
+  6. Empoderar y capacitar al equipo.
+  7. Optimizar el todo de forma holística (el flujo completo).
+* **Materialización en TI:** Se implementa de forma operativa mediante el **método Kanban** (visto en 3.2), que aplica estos principios a través de la visualización del flujo, la limitación del *WIP* y los sistemas *pull*.
 
 ## 5. Herramientas Digitales y PPM (Project Portfolio Management)
 * **Colaboración corporativa:** **Microsoft Teams** (el estándar municipal integrado con Active Directory para VoIP y trabajo concurrente) y Slack.
@@ -51,8 +59,11 @@ Evolución desde  Metodologías Predictivas (clásicas): lineales e industriales
 
 ## 2. Metodologías Predictivas para la Gestión de Proyectos
 Las metodologías predictivas o modelo "en cascada" (Waterfall): Requisitos estables, predecibles y y definidos con un costo elevadísimo de cambio.
-
 La planificación exhaustiva antes de programar. Necesario uso herramientas: el diagrama de GANTT y el método PERT.
+
+Uso en: 
+    * Proyectos hardware o infraestructura física donde cambiar lo construido resulta prohibitivo
+    * Proyectos bajo contratación pública con pliegos de prescripciones técnicas y presupuestos cerrados
 
 ### 2.1. El Diagrama de GANTT
 Henry L. Gantt (principios del siglo XX), herramienta gráfica más usada. 
