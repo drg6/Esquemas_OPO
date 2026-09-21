@@ -1,3 +1,68 @@
+# Tema 5.- Modelo Relacional e Interoperabilidad entre SGBDR: Normas y Estándares.
+
+## 1. Introducción
+* **Origen y vigencia:** Formulado por E. F. Codd (1970) bajo teoría matemática de conjuntos y lógica de predicados de primer orden.
+* **El reto en AAPP:** Heterogeneidad histórica de motores (Oracle, PostgreSQL, SQL Server).
+* **Imperativo legal (Detalle de Oro):** La interoperabilidad y la neutralidad tecnológica son mandatos del **Esquema Nacional de Interoperabilidad (ENI - RD 4/2010)** y el **ENS (RD 311/2022)** para evitar el bloqueo de proveedor (*vendor lock-in*).
+
+## 2. Fundamentos Lógicos y Estructura Formal
+* **Correspondencias formales:**
+  * Relación = Tabla.
+  * Tupla = Fila / Registro.
+  * Atributo = Columna / Campo.
+  * Dominio = Conjunto atómico de valores válidos.
+* **Métricas:** **Grado** (n.º de columnas, estático) vs. **Cardinalidad** (n.º de filas, dinámico).
+* **Sistema de Claves:**
+  * *Superclave:* Conjunto de atributos que identifican unívocamente una tupla.
+  * *Clave Candidata:* Superclave mínima (sin redundancias).
+  * *Clave Primaria (PK):* Candidata elegida para indexar e identificar la relación.
+  * *Clave Foránea (FK):* Atributo que referencia la PK de otra relación.
+
+## 3. Manipulación: Álgebra Relacional (Sistema Cerrado)
+Tanto las entradas como las salidas de cualquier operación son siempre relaciones.
+* **Operadores Primitivos:**
+  * $\sigma$ (*Selección*): Filtra tuplas en horizontal (filas).
+  * $\pi$ (*Proyección*): Extrae atributos en vertical (columnas, eliminando duplicados).
+  * $\cup$ (*Unión*), $-$ (*Diferencia*) y $\times$ (*Producto Cartesiano*).
+* **Operadores Derivados:** $\cap$ (*Intersección*) y $\bowtie$ (*Join Natural* / Combinación).
+
+## 4. Reglas de Integridad y Reglas de Codd
+* **Reglas de Integridad Básicas:**
+  * *Entidad:* Ningún componente de la PK puede ser `NULL`.
+  * *Referencial:* Toda FK debe coincidir con una PK existente o ser `NULL`.
+  * *Dominio:* Tipo de dato, longitud y restricciones `CHECK`.
+  * *Usuario:* Triggers y procedimientos para reglas de negocio específicas.
+* **Las 12 Reglas de Codd (1985):** Espíritu formal para evaluar SGBD relacionales puros. Exigen representación única en tablas, acceso exclusivo mediante sublenguaje relacional, tratamiento sistemático de `NULL` e independencia física, lógica y de distribución.
+
+## 5. Normalización (Eliminación de Anomalías)
+Descomposición sistemática para erradicar redundancias y evitar anomalías de inserción, borrado y actualización:
+* **1FN:** Atributos atómicos; ausencia de grupos repetitivos.
+* **2FN:** 1FN + dependencia funcional completa de la PK (sin dependencias parciales).
+* **3FN:** 2FN + eliminación de dependencias transitivas entre campos no clave.
+* **FNBC (Boyce-Codd):** Versión estricta de 3FN donde todo determinante debe ser clave candidata.
+
+## 6. El Estándar SQL (ANSI / ISO)
+Lenguaje declarativo universal estructurado en cuatro sublenguajes:
+* **DDL** (`CREATE`, `ALTER`, `DROP`) | **DML** (`SELECT`, `INSERT`, `UPDATE`, `DELETE`).
+* **DCL** (`GRANT`, `REVOKE`) | **TCL** (`COMMIT`, `ROLLBACK`, `SAVEPOINT`).
+* **Dialectos propietarios:** Extensiones procedimentales de fabricantes: **PL/SQL** (Oracle), **T-SQL** (SQL Server), **PL/pgSQL** (PostgreSQL).
+
+## 7. Estándares y Mecanismos de Interoperabilidad
+* **ODBC (Open Database Connectivity - Microsoft/SQL Access Group):**
+  * API en C/C++ desacoplada mediante un **ODBC Driver Manager** que traduce las llamadas al driver específico de cada motor.
+* **JDBC (Java Database Connectivity):**
+  * API en `java.sql` / `javax.sql` con interfaces estándar (`Connection`, `PreparedStatement`, `ResultSet`).
+  * **Driver Tipo 4 (100% Java puro):** Estándar de facto moderno; convierte llamadas JDBC directamente al protocolo de red nativo del SGBD (sin puentes intermedios ni librerías C cliente).
+* **Otras capas de abstracción:**
+  * *ADO.NET:* Interfaz desacoplada en el ecosistema Microsoft (.NET).
+  * *ORM (Object-Relational Mapping):* Hibernate, JPA, Entity Framework (mapean objetos a tablas, aislando el dialecto SQL).
+  * *SQL/MED (Management of External Data):* Integración de fuentes remotas mediante **Foreign Data Wrappers (FDW)** (estándar nativo en PostgreSQL).
+
+## 8. Conclusión
+El modelo relacional permanece como el pilar transaccional de las Administraciones Públicas por su rigor formal y garantías de consistencia. La adopción de estándares abiertos como SQL ANSI/ISO, drivers universales (ODBC/JDBC) y capas ORM permite desacoplar las aplicaciones de los motores subyacentes, materializando el principio de neutralidad tecnológica exigido por el ENI y garantizando que los datos públicos no queden cautivos de ningún proveedor.
+
+-------------
+
 # Tema 5.- El modelo relacional. Normas y estándares para la interoperabilidad entre gestores de bases de datos relacionales.
 
 ## 1. Introducción

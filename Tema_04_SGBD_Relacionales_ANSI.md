@@ -1,3 +1,71 @@
+# Tema 4.- SGBD Relacionales y el Modelo de Referencia ANSI/SPARC.
+
+## 1. Introducción
+* **Evolución:** Superación de los sistemas de ficheros planos (*Flat Files*), que generaban redundancia, inconsistencia, acoplamiento datos-programas y falta de concurrencia.
+* **El cambio:** Los Sistemas Gestores de Bases de Datos (SGBD) centralizan la administración y desacoplan las aplicaciones del almacenamiento físico.
+* **Marco en AAPP:** Crítico para garantizar integridad, disponibilidad y trazabilidad de datos padronales y tributarios bajo el **ENS** y el **RGPD**.
+
+## 2. Bases de Datos vs. SGBD (DBMS)
+* **Base de Datos (BD):** Colección estructurada y persistente de datos interrelacionados que modela una realidad organizativa.
+* **SGBD:** Capa de software intermediaria para gestionar acceso, seguridad, transacciones y mantenimiento (Oracle, PostgreSQL, SQL Server, MariaDB).
+* **Funciones del SGBD:**
+  * **DDL** (Definición: `CREATE`, `ALTER`, `DROP`).
+  * **DML** (Manipulación: `SELECT`, `INSERT`, `UPDATE`, `DELETE`).
+  * **DCL** (Control: `GRANT`, `REVOKE` de permisos granulares).
+  * **Integridad:** Reglas de negocio (PK, FK, UNIQUE, NOT NULL, CHECK).
+  * **Concurrencia:** Control multiversión (**MVCC**) y bloqueos.
+  * **Recuperación:** Mecanismos de *Write-Ahead Logging* (WAL) y *Rollback*.
+
+## 3. El Modelo Relacional y Garantías ACID
+* **3.1. Fundamentos (E. F. Codd, 1970):**
+  * Ruptura con los modelos jerárquico y en red (sin punteros manuales).
+  * Basado en teoría de conjuntos: **Relación** (Tabla), **Tuplas** (Filas), **Atributos** (Columnas) y **Dominios** (Rangos de valores válidos).
+* **3.2. Reglas de Integridad Básicas:**
+  * *Integridad de Entidad:* La clave primaria (PK) nunca admite valores nulos (`NULL`).
+  * *Integridad Referencial:* Toda clave ajena (FK) debe coincidir con una PK existente o ser nula.
+* **3.3. Propiedades ACID:**
+  * **Atomicidad:** Todo o nada (sin estados intermedios).
+  * **Consistencia:** Transición exclusiva entre estados válidos del esquema.
+  * **Aislamiento:** Transacciones concurrentes sin interferencias (Niveles SQL: *Read Uncommitted*, *Read Committed*, *Repeatable Read*, *Serializable*).
+  * **Durabilidad:** Persistencia garantizada tras `COMMIT` vía ficheros de log (WAL/Redo Logs).
+* **3.4. Normalización (Reducción de Redundancias):**
+  * **1FN:** Atributos atómicos; sin grupos repetitivos.
+  * **2FN:** 1FN + dependencia funcional completa de la PK (claves compuestas).
+  * **3FN:** 2FN + eliminación de dependencias transitivas entre atributos no clave.
+  * **BCNF:** Forma estricta de la 3FN (todo determinante es clave candidata).
+
+## 4. El Modelo de Referencia ANSI/SPARC (1975)
+Arquitectura estándar de tres niveles concebida para alcanzar la **independencia de datos**:
+
+* **4.1. Nivel Interno o Físico (Esquema Interno):**
+  * Define **cómo y dónde** se almacenan los datos en soporte físico.
+  * *Contenido:* Rutas en disco, páginas de datos, índices (Árboles B/B+, Hash, Bitmap), particionamiento, *tablespaces* y ficheros WAL/Redo Logs.
+  * *Gestión:* DBA de infraestructura / sistemas.
+* **4.2. Nivel Conceptual o Lógico (Esquema Conceptual):**
+  * Núcleo central del sistema. Define **qué** datos existen y **qué relaciones** los unen.
+  * *Contenido:* Tablas globales, campos, tipos de datos, PKs, FKs y restricciones de integridad, ignorando el hardware subyacente.
+  * *Gestión:* Diseñadores de BD y DBAs lógicos.
+* **4.3. Nivel Externo o de Vistas (Esquema Externo):**
+  * Nivel más próximo a los usuarios y aplicaciones. Define **vistas parciales**.
+  * *Contenido:* Conjunto de **Vistas** adaptadas a perfiles específicos (ej. Recursos Humanos solo accede a datos laborales; Recaudación a tributos).
+  * *Ventaja:* Refuerza la seguridad y simplifica las consultas para las aplicaciones cliente.
+
+## 5. Independencia de Datos y Transformaciones (Mappings)
+El SGBD traduce las consultas entre niveles mediante correspondencias lógicas automáticas:
+
+* **Independencia Física de Datos (Nivel Conceptual - Interno):**
+  * Permite sustituir discos (ej. migrar a SSD/NVMe), reindexar tablas o reorganizar *tablespaces* sin tocar las tablas lógicas ni recompilar las aplicaciones.
+* **Independencia Lógica de Datos (Nivel Externo - Conceptual):**
+  * Permite añadir tablas o columnas nuevas en el esquema global sin romper las vistas existentes ni el código de las aplicaciones consumidoras.
+* **Correspondencias (*Mappings*):**
+  * *Externa-Conceptual:* Traduce las vistas a las tablas base.
+  * *Conceptual-Interna:* Traduce las tablas lógicas a bloques de disco e índices físicos.
+
+## 6. Conclusión
+El modelo relacional y la arquitectura ANSI/SPARC permanecen como el estándar indiscutible para el núcleo transaccional de las Administraciones Públicas. Mientras los entornos distribuidos NoSQL gestionan datos no estructurados bajo el teorema CAP, las garantías ACID relacionales y la independencia de datos de tres niveles aseguran la continuidad operativa, la trazabilidad del dato público y la adaptación ágil a nuevas normativas sin incurrir en migraciones costosas.
+
+----------------------------------
+
 # Tema 4.- Sistemas de gestión de bases de datos relacionales. El modelo de referencia ANSI.
 
 ## 1. Introducción
