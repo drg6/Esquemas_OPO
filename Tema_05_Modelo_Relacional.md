@@ -1,4 +1,4 @@
-# Tema 5.- Modelo Relacional e Interoperabilidad entre SGBDR: Normas y Estándares.
+# Tema 5.- El modelo relacional. Normas y estándares para la interoperabilidad entre gestores de bases de datos relacionales.
 
 ## 1. Introducción
 * **Origen y vigencia:** Formulado por E. F. Codd (1970) bajo teoría matemática de conjuntos y lógica de predicados de primer orden.
