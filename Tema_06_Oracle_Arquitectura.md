@@ -1,3 +1,73 @@
+# Tema 6.- El SGBDR Oracle: Arquitectura, Modos y Administración.
+
+## 1. Introducción
+* **Relevancia:** Estándar de facto en sistemas transaccionales de misión crítica (Tier 1) de las Administraciones Públicas (padrón, tributos, contabilidad).
+* **Garantía ACID:** Arquitectura diseñada para maximizar concurrencia (OLTP) y análisis masivo (OLAP) con alta disponibilidad y tolerancia a fallos.
+* **Principio rector:** Dicotomía estricta entre elementos volátiles en memoria (Instancia) y elementos persistentes en almacenamiento (Base de Datos).
+
+## 2. Dicotomía Fundamental: Instancia vs. Base de Datos
+* **2.1. Base de Datos (Física / Persistente en Disco):**
+  * **Datafiles (`.dbf`):** Almacenan datos reales (tablas, índices, PL/SQL). Asociados unívocamente a Tablespaces.
+  * **Control Files:** Metadatos críticos (rutas, nombres, checkpoints, números SCN). Obligatorio multiplexar en discos físicos distintos para evitar el punto único de fallo.
+  * **Online Redo Log Files:** Mecanismo Write-Ahead Logging (WAL). Registran cronológicamente todo cambio DML antes de tocar disco. Mínimo 2 grupos circulares.
+  * *Archivos auxiliares:* Parameter File (SPFILE binario dinámico / PFILE texto) y Password File (autenticación remota SYSDBA).
+* **2.2. Instancia (Lógica / Volátil en RAM y Procesos SO):**
+  * Nace al arrancar el servicio y desaparece al apagarlo; manipula la Base de Datos persistente.
+  * *Topologías:* Single Instance (1 Instancia $\leftrightarrow$ 1 BD) vs. **Oracle RAC** (N Instancias concurrentes en clúster $\leftrightarrow$ 1 BD en almacenamiento compartido).
+
+## 3. Estructuras de Memoria
+* **3.1. SGA (System Global Area - Compartida):**
+  * **Database Buffer Cache:** Almacena bloques de datos (8 KB típicos). Mitiga accesos a disco mediante política de bloques limpios y *dirty blocks* (sucios).
+  * **Shared Pool:** 
+    * *Library Cache:* Almacena planes de ejecución parseados (fomenta *soft parse* reutilizando consultas preparadas con bind variables).
+    * *Data Dictionary Cache:* Metadatos de tablas, permisos y usuarios en memoria.
+  * **Redo Log Buffer:** Buffer circular en RAM donde se encolan transacciones antes de su volcado a disco por LGWR.
+  * *Áreas adicionales:* Large Pool (RMAN, I/O paralela) y Java Pool.
+* **3.2. PGA (Program Global Area - Privada):**
+  * Memoria exclusiva por sesión de usuario. Contiene el Sort Area (ORDER BY, GROUP BY), Hash Area (hash joins) y variables de sesión (controlada globalmente por `PGA_AGGREGATE_TARGET`).
+
+## 4. Procesos de Fondo (Background Processes)
+Sincronizan la memoria RAM con el disco garantizando durabilidad y consistencia:
+
+* **DBWn (Database Writer):** Escribe *dirty blocks* del Buffer Cache a los Datafiles de forma asíncrona/diferida (en checkpoints, saturación o timeout).
+* **LGWR (Log Writer):** Escribe el Redo Log Buffer a los Online Redo Logs en disco. **Garantiza la Durabilidad (D de ACID):** el COMMIT no retorna éxito al usuario hasta que LGWR confirma la escritura en disco.
+* **SMON (System Monitor):** Recuperación automática tras caída (*crash recovery*). Aplica *roll forward* (rehace confirmadas desde Redo Logs) y *roll back* (deshace incompletas vía Undo).
+* **PMON (Process Monitor):** Monitoriza sesiones caídas. Libera bloqueos de fila/tabla, cancela transacciones huérfanas y recupera memoria PGA.
+* **CKPT (Checkpoint):** Sincroniza cabeceras de Datafiles y Control Files actualizando el System Change Number (SCN) y avisa a DBWn para acortar tiempos de recuperación de SMON.
+* **ARCn (Archiver):** Copia los Online Redo Logs a almacenamiento seguro cuando se llenan (exclusivo de modo ARCHIVELOG).
+
+## 5. Almacenamiento Lógico: Tablespaces
+Abstracción ANSI/SPARC que aísla las aplicaciones de la estructura física del sistema de ficheros:
+* **Mapeo:** Un Tablespace (lógico) contiene uno o varios Datafiles (físicos). Una tabla pertenece a un Tablespace, nunca directamente a un fichero.
+* **Tablespaces predefinidos:**
+  * **SYSTEM:** Diccionario de datos y catálogo base del motor.
+  * **SYSAUX:** Metadatos auxiliares de monitorización (vistas AWR, métricas ASH).
+  * **UNDO:** Segmentos de deshacer para rollback transaccional y consistencia de lectura (MVCC).
+  * **TEMP:** Segmentos temporales para ordenaciones y agrupaciones que desbordan la PGA.
+  * **USERS:** Contenedor por defecto para los esquemas y datos de aplicación.
+
+## 6. Modos de Funcionamiento
+* **6.1. Fases de Arranque:**
+  * **NOMOUNT:** Asigna SGA y arranca procesos de fondo leyendo el SPFILE (creación de BD o recuperación de control files).
+  * **MOUNT:** Abre y lee los Control Files; conoce la ubicación de Datafiles y Redo Logs pero no permite acceso a usuarios (mantenimiento, backups fríos, cambio a ARCHIVELOG).
+  * **OPEN:** Abre Datafiles y Redo Logs, verifica coherencia SCN y permite conexiones concurrentes.
+* **6.2. Registro de Transacciones:**
+  * **NOARCHIVELOG:** Sobrescritura cíclica de Redo Logs. Solo admite copias completas en frío; pérdida de datos desde el último backup.
+  * **ARCHIVELOG:** ARCn preserva cada Redo Log lleno. Habilita copias en caliente con RMAN, recuperación puntual (*Point-in-Time Recovery*) y replicación con **Oracle Data Guard**.
+
+## 7. Administración y Operación (El rol del DBA)
+* **Responsabilidades:** Gestión del ciclo de vida, tuning de planes de ejecución, seguridad de privilegios, gestión de tablespaces y políticas de continuidad de negocio.
+* **Herramientas de Gestión:**
+  * **SQL\*Plus:** CLI nativo para scripts de administración y compilación PL/SQL.
+  * **Oracle Enterprise Manager (OEM):** Consola centralizada web de observabilidad, alertas y diagnóstico.
+  * **RMAN (Recovery Manager):** Utilidad nativa de backup/recovery a nivel de bloque (soporta backups incrementales, compresión, cifrado y catálogo central).
+  * **Data Pump (`expdp` / `impdp`):** Utilidad de alta velocidad a nivel lógico para migración de esquemas y metadatos.
+
+## 8. Conclusión
+La robustez de Oracle Database en infraestructuras públicas críticas radica en su desacoplamiento arquitectónico: la coordinación entre los procesos de fondo (LGWR/DBWn/SMON) y la memoria SGA/PGA asegura rendimiento transaccional sin comprometer las garantías ACID. Complementado con la abstracción lógica de los Tablespaces y la operatividad de RMAN en modo ARCHIVELOG, proporciona un ecosistema resistente a desastres, auditable y alineado con los requerimientos de continuidad que impone el Esquema Nacional de Seguridad (ENS).
+
+----------------------
+
 # Tema 6.- El SGBDR Oracle. Arquitectura, modos de funcionamiento y administración.
 
 ## 1. Introducción

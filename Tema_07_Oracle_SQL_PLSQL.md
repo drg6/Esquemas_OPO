@@ -1,3 +1,49 @@
+# Tema 7.- El SGBDR Oracle: Lenguajes SQL y PL/SQL.
+
+## 1. Introducción
+* **Dualidad lingüística:** Convivencia entre **SQL** (declarativo, estándar ANSI/ISO para describir *qué* datos obtener) y **PL/SQL** (procedural/imperativo, extensión propietaria de Oracle para definir *cómo* procesarlos).
+* **Eficiencia arquitectónica:** PL/SQL se compila y ejecuta directamente en el motor de la base de datos, suprimiendo la latencia de red entre servidor de aplicaciones y base de datos (*round-trips*).
+
+## 2. Lenguaje SQL en Oracle (Sublenguajes y Operatoria)
+* **2.1. DDL (Data Definition Language):**
+  * Modifica metadatos en el Diccionario de Datos (`CREATE`, `ALTER`, `DROP`, `TRUNCATE`).
+  * **Regla crítica:** Toda sentencia DDL ejecuta un **COMMIT implícito irreversible** (incompatible con ROLLBACK).
+  * *Diferencia clave:* `TRUNCATE` (DDL, instantáneo, desasigna bloques sin generar redo individual) vs. `DELETE` (DML, transaccional, fila a fila con undo/redo).
+* **2.2. DML (Data Manipulation Language):**
+  * Operaciones transaccionales sobre datos: `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `MERGE` (operación atómica Upsert para procesos ETL).
+  * *Cláusulas avanzadas:* Agrupación (`GROUP BY` / `HAVING`) y funciones analíticas de ventana (`OVER (PARTITION BY ... ORDER BY ...)`).
+* **2.3. DCL (Data Control Language):**
+  * Gestión de privilegios del sistema y de objeto mediante `GRANT` y `REVOKE` a usuarios o roles corporativos.
+* **2.4. TCL (Transaction Control Language):**
+  * Control del ciclo transaccional ACID: `COMMIT` (persistencia vía LGWR), `ROLLBACK` (reversión vía Undo) y `SAVEPOINT` (puntos intermedios de retroceso).
+* **2.5. Consultas Relacionales Avanzadas:**
+  * **JOINs (ANSI SQL-92):** `INNER`, `LEFT`/`RIGHT`/`FULL OUTER` y `CROSS JOIN` (cartesiano).
+  * **Subconsultas:** Escalares, de lista (`IN`, `EXISTS`), tablas derivadas (*inline views*) y subconsultas correlacionadas.
+
+## 3. PL/SQL: El Lenguaje Procedural de Oracle
+* **3.1. Estructura de Bloque (DECLARE, BEGIN, EXCEPTION):**
+  * **DECLARE (opcional):** Variables tipadas fuertemente, constantes y tipos dinámicos (`%TYPE` ligado a columna y `%ROWTYPE` ligado a registro completo).
+  * **BEGIN (obligatorio):** Bloque ejecutable con control de flujo (`IF-THEN-ELSE`, `CASE`, bucles `LOOP`/`WHILE`/`FOR`) y SQL embebido (`SELECT INTO`).
+  * **EXCEPTION (opcional):** Captura de errores predefinidos (`NO_DATA_FOUND`, `TOO_MANY_ROWS`, `DUP_VAL_ON_INDEX`) o genéricos (`WHEN OTHERS USING SQLERRM`).
+* **3.2. Subprogramas Almacenados:**
+  * **Procedimientos (`PROCEDURE`):** Ejecutan acciones; devuelven valores mediante parámetros `OUT` o `IN OUT`.
+  * **Funciones (`FUNCTION`):** Deben retornar obligatoriamente un valor (`RETURN`); invocables directamente dentro de sentencias SQL.
+* **3.3. Paquetes (Packages): Modularidad y Rendimiento:**
+  * Estructura dual: **Especificación** (interfaz pública y contratos) y **Cuerpo / Body** (implementación y lógica privada encapsulada).
+  * *Ventaja de ejecución:* Al invocar un elemento del paquete, se carga el cuerpo entero en la SGA, agilizando llamadas posteriores.
+* **3.4. Cursores (Procesamiento Fila a Fila):**
+  * *Implícitos:* Gestionados automáticamente por Oracle (`SQL%ROWCOUNT`, `SQL%FOUND`).
+  * *Explícitos:* Control manual (`OPEN` $\rightarrow$ `FETCH` $\rightarrow$ `EXIT WHEN %NOTFOUND` $\rightarrow$ `CLOSE`) o automatizados con `FOR r IN (SELECT ...) LOOP`.
+* **3.5. Triggers (Disparadores de Eventos):**
+  * Ejecución automática ante eventos DML (`INSERT`, `UPDATE`, `DELETE`), DDL o de sistema (`STARTUP`, `LOGON`).
+  * *Granularidad:* A nivel de sentencia (*Statement*) o de fila (`FOR EACH ROW` con pseudo-registros `:OLD` y `:NEW`).
+  * *Uso en AAPP:* Auditoría estricta de accesos/modificaciones y trazabilidad exigida por el Esquema Nacional de Seguridad (ENS).
+
+## 4. Conclusión
+La integración nativa de SQL y PL/SQL conforma el núcleo operativo de las aplicaciones públicas basadas en Oracle. Mientras SQL estandariza la consulta declarativa y el gobierno transaccional (ACID), PL/SQL traslada la lógica de negocio pesada al propio motor de datos mediante paquetes, triggers y procedimientos almacenados. Este diseño minimiza el tráfico de red, blinda la integridad de los datos frente a accesos externos y garantiza el rendimiento exigido en los sistemas tributarios, registrales y de gestión municipal de alta concurrencia.
+
+-------------------------
+
 # Tema 7.- El SGBDR Oracle. Lenguajes SQL y PL/SQL.
 
 ## 1. Introducción
