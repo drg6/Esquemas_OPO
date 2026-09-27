@@ -1,3 +1,90 @@
+# Tema 8.- El SGBDR Oracle: Alta Disponibilidad (Data Guard y RAC).
+
+## 1. Introducción
+* **Imperativo en AAPP:** Continuidad ininterrumpida en servicios críticos (sede electrónica, recaudación, padrón) alineada con la dimensión de **Disponibilidad** del Esquema Nacional de Seguridad (ENS).
+* **Estrategia de Alta Disponibilidad (HA):** Enmascarar fallos físicos o lógicos mediante redundancia activa: **Oracle RAC** (protección frente a caída de nodo/servidor dentro del mismo CPD) y **Oracle Data Guard** (protección frente a desastres completos de CPD - *Disaster Recovery*).
+
+## 2. Fundamentos y Métricas de Alta Disponibilidad
+* **Métricas clave:**
+  * **MTBF (*Mean Time Between Failures*):** Tiempo medio entre fallos (fiabilidad; se maximiza con hardware redundante).
+  * **MTTR (*Mean Time To Repair/Recovery*):** Tiempo medio de recuperación (se minimiza con *failover* automático).
+  * **Fórmula de Disponibilidad:** $$\text{Disponibilidad} = \frac{\text{MTBF}}{\text{MTBF} + \text{MTTR}}$$
+* **Escala de los "Nueves" (Inactividad anual):**
+  * **99% (2 nueves):** ~3,65 días | **99,9% (3 nueves):** ~8,76 horas.
+  * **99,99% (4 nueves):** ~52,6 minutos | **99,999% (5 nueves):** ~5,26 minutos (objetivo Tier 1 en AAPP).
+
+## 3. Oracle RAC (Real Application Clusters)
+* **3.1. Paradigma Activo-Activo:**
+  * Múltiples nodos procesan carga simultáneamente (**N Instancias en RAM $\leftrightarrow$ 1 única Base de Datos compartida en disco**), evitando tener hardware pasivo ocioso.
+* **3.2. Componentes Arquitectónicos:**
+  * **Almacenamiento compartido:** Red SAN/NAS gestionada mediante **Oracle ASM (*Automatic Storage Management*)**, que automatiza *striping*, espejado y rebalanceo de discos.
+  * **Interconexión Privada (*Interconnect*):** Red dedicada de baja latencia (10/25 GbE o InfiniBand) para latidos (*heartbeats*) y tráfico de memoria entre nodos.
+* **3.3. Cache Fusion y GRD:**
+  * **Cache Fusion:** Transfiere bloques de datos directamente entre las memorias SGA (Buffer Cache) de los nodos por la red privada sin pasar por disco, reduciendo drásticamente la E/S.
+  * **GRD (*Global Resource Directory*):** Directorio distribuido en memoria que coordina la propiedad y bloqueos de cada bloque en el clúster.
+* **3.4. Balanceo, Failover y Acceso:**
+  * **SCAN (*Single Client Access Name*):** Nombre único DNS resuelto en 3 IPs virtuales; desacopla a los clientes de la topología física del clúster.
+  * **Failover transparente:** **TAF** (*Transparent Application Failover*, migra sesiones y cursores SELECT abiertos) y **FAN** (*Fast Application Notification*, alerta inmediata de caída de nodo vía ONS).
+  * **Oracle Clusterware:** Gestiona membresía del clúster y aplica *fencing/eviction* mediante discos de votación (*Voting Disks*) para evitar corrupción por **Split-Brain** (cerebro dividido).
+
+## 4. Oracle Data Guard (Recuperación ante Desastres)
+* **4.1. Arquitectura Primaria - Standby:**
+  * Réplica geográficamente separada sincronizada mediante el envío continuo de **Redo Logs** desde la BD Primaria hacia una o varias BD Standby.
+* **4.2. Tipos de Base de Datos Standby:**
+  * **Physical Standby (Réplica bloque a bloque):** Sincronizada mediante el proceso **MRP (*Managed Recovery Process*)** (*Redo Apply*).Con la opción **Active Data Guard**, permite abrir la réplica en solo lectura mientras aplica cambios en tiempo real (ideal para descargar consultas pesadas de reporting y backups RMAN).
+  * **Logical Standby (Réplica SQL):** Transforma los redo logs en sentencias SQL mediante **SQL Apply**, permitiendo índices o tablas adicionales en destino.
+* **4.3. Modos de Protección (Compromiso Rendimiento vs. RPO):**
+  * **Maximum Performance (Por defecto):** Envío asíncrono de redo; máximo rendimiento en primaria, riesgo mínimo de pérdida de transacciones en vuelo ($RPO > 0$).
+  * **Maximum Availability:** Envío síncrono (COMMIT espera confirmación de la standby); si cae la red o la standby, degrada automáticamente a modo asíncrono sin detener la primaria ($RPO = 0$ en condiciones normales).
+  * **Maximum Protection:** Envío síncrono estricto; si la standby no confirma la recepción, **la BD primaria se detiene** para garantizar pérdida cero absoluta ($RPO = 0$ garantizado).
+* **4.4. Conmutación de Roles y Gestión:**
+  * **Switchover:** Intercambio de roles planificado, reversible y sin pérdida de datos (mantenimientos/parches).
+  * **Failover:** Conmutación de emergencia ante caída destructiva de la primaria (requiere reconstruir o hacer *Flashback* de la antigua primaria).
+  * **Fast-Start Failover (FSFO):** Conmutación automática en segundos gobernada por un proceso **Observer** externo sin intervención del DBA.
+  * **Data Guard Broker:** Administración y monitorización centralizada vía CLI (`DGMGRL`) o Enterprise Manager (control de *transport lag* y *apply lag*).
+
+## 5. Arquitectura Combinada: Oracle MAA
+* **MAA (*Maximum Availability Architecture*):** Marco de referencia de Oracle que combina **RAC en el CPD primario** (tolerancia a fallos de nodo y escalabilidad horizontal) + **Data Guard hacia el CPD de respaldo** (tolerancia a caídas completas del centro de datos), pudiendo desplegar también RAC en el sitio de contingencia.
+
+## 6. Conclusión
+Oracle RAC y Data Guard resuelven de forma integral pero diferenciada el problema de la continuidad de negocio. Mientras RAC opera a nivel local mediante el paradigma Activo-Activo y *Cache Fusion* para eliminar cuellos de botella y caídas de servidor, Data Guard protege la integridad del dato a distancia frente a catástrofes mediante replicación síncrona o asíncrona. Su despliegue conjunto bajo el estándar MAA permite a las Administraciones Públicas alcanzar disponibilidades del 99,999%, cumpliendo con los niveles de seguridad ALTO del ENS en materia de continuidad del servicio.
+
+---------------
+
+RAC	Muchos nodos → 1 BD
+ASM	Gestiona almacenamiento
+Interconnect	Carretera privada entre nodos
+Cache Fusion	Mueve bloques entre memorias
+GRD	Controla/coordina propiedad de bloques
+SCAN	Puerta de entrada
+FAN	Avisa de eventos/fallos
+TAF	Intenta mantener la sesión
+Clusterware	Policía del clúster
+Voting Disk	Decide membresía
+Fencing/Eviction	Expulsa nodo problemático
+Split-Brain	Dos cerebros del clúster
+Data Guard	Primaria ↔ Standby
+Redo	Cambios que se envían
+Physical	Copia física → MRP
+Logical	SQL → SQL Apply
+Performance	Asíncrono → rendimiento
+Availability	Síncrono → puede degradar
+Protection	Síncrono estricto → puede parar
+Switchover	Cambio planificado
+Failover	Cambio por desastre
+FSFO	Failover automático
+Observer	Vigila para FSFO
+Broker	Administra Data Guard
+DGMGRL	CLI del Broker
+
+1. Cache Fusion mueve → GRD coordina.
+2. SCAN entra → FAN avisa → TAF continúa.
+3. Physical = MRP → Logical = SQL Apply.
+4. Performance no espera → Availability puede degradar → Protection se para.
+5. Switchover planificado → Failover desastre → FSFO automático.
+
+-----------------------
+
 # Tema 8.- El SGBDR Oracle. Alta disponibilidad: Data Guard y RAC.
 
 ## 1. Introducción
