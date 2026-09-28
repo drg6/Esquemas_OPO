@@ -1,3 +1,72 @@
+# Tema 11.- Sistema de Información Geográfica (SIG) y Aplicaciones Municipales.
+
+## 1. Introducción y Definición Formal
+* **Limitación del SGBDR tradicional:** Resuelve consultas alfanuméricas (*quién, cuánto, cuándo*), pero carece de capacidad nativa para resolver relaciones topológicas y espaciales (*dónde, adyacencia, rutas, intersección*).
+* **Definición (NCGIA):** Sistema integrado de **hardware, software, datos geográficos, procedimientos y personal** diseñado para capturar, almacenar, analizar, modelizar y visualizar información **georreferenciada** (vinculada a coordenadas terrestres).
+
+## 2. Componentes Arquitectónicos de un SIG
+1. **Hardware:** Servidores CPD de alta capacidad, estaciones gráficas, plotters gran formato (A0/A1), receptores GPS/GNSS submétricos y drones con sensores LIDAR.
+2. **Software (Pila tecnológica en 4 capas):**
+   * **SGBD Espacial:** Oracle Spatial, PostgreSQL/**PostGIS** (libre), SQL Server Spatial.
+   * **GIS de Escritorio (*Desktop*):** **QGIS** y **gvSIG** (libres; origen valenciano), **ArcGIS Pro** (Esri, propietario).
+   * **Servidores de Mapas:** **GeoServer**, **MapServer** (libres) y **ArcGIS Server**.
+   * **Librerías Web (Visores):** **Leaflet**, **OpenLayers**, **MapLibre** y ArcGIS JS API.
+3. **Datos Geográficos (Dualidad inseparable):**
+   * **Componente Espacial (Geometría):** Posición y forma (puntos, líneas, polígonos).
+   * **Componente Alfanumérica (Atributos):** Datos descriptivos asociados (titular, referencia catastral, estado).
+4. **Procedimientos y Personal:** Normas de captura/actualización, control topológico y técnicos especialistas (geomáticos, analistas GIS, DBAs).
+
+## 3. Modelos de Representación Espacial: Vectorial vs. Ráster
+* **3.1. Modelo Vectorial (Objetos discretos mediante coordenadas $X, Y, Z$):**
+  * **Primitivas:** **Punto (0D)** (farola, semáforo, contenedor), **Línea/Polilínea (1D)** (eje viario, tubería, ruta de autobús) y **Polígono (2D)** (parcela catastral, edificio, distrito).
+  * **Ventajas:** Alta precisión geométrica, riqueza de atributos por entidad y soporte de **análisis topológico** (conectividad, adyacencia).
+  * **Formatos:** **Shapefile (`.shp`)**, **GeoPackage (`.gpkg`**, estándar OGC sobre SQLite), **GeoJSON**, **GML** (OGC) y **KML**.
+* **3.2. Modelo Ráster (Malla continua de celdas/píxeles):**
+  * **Estructura:** Matriz regular donde cada píxel almacena un valor numérico (altitud, temperatura, reflectancia). Su nivel de detalle depende de la **resolución espacial** (tamaño de celda en terreno).
+  * **Usos:** Ortofotos (PNOA), Modelos Digitales del Terreno/Elevación (**MDT/MDE**), cálculo de pendientes y cuencas visuales.
+  * **Formatos:** **GeoTIFF**, **ECW**, **JPEG2000**, **MrSID**.
+
+## 4. Sistemas de Referencia Espacial y Coordenadas (CRS)
+* **WGS84 (`EPSG:4326`):** Sistema geodésico global (GPS), coordenadas geográficas en latitud/longitud.
+* **ETRS89 (`EPSG:4258`):** Sistema de referencia geodésico oficial en Europa y España (Real Decreto 1071/2007).
+* **Proyección UTM (Coordenadas planas en metros):** España peninsular abarca los husos 29, 30 y 31.
+  * *Detalle clave municipal:* **Alicante** se ubica en el huso 30 norte bajo el código **`EPSG:25830` (ETRS89 / UTM zone 30N)**. Mezclar capas sin reproyectar a un CRS común provoca desplazamientos métricos graves.
+
+## 5. Carga de Información (ETL Espacial) y Controles de Calidad
+* **5.1. Procesos ETL (*Extract, Transform, Load*) Espacial:**
+  * **Extracción:** Lectura desde CAD (`DWG`/`DXF`), Shapefiles, sensores GPS o servicios WFS.
+  * **Transformación:** Reproyección de coordenadas (ej. de `EPSG:4326` a `EPSG:25830`), limpieza geométrica y cruce alfanumérico.
+  * **Carga:** Inserción masiva en Oracle Spatial o PostGIS.
+  * **Herramientas líderes:** **FME** (*Feature Manipulation Engine*, propietario) y **GDAL/OGR (`ogr2ogr`)** (software libre).
+* **5.2. Controles de Calidad Topológica (Errores críticos a depurar):**
+  * **Overshoots:** Línea que sobrepasa el nodo de intersección (falso tramo).
+  * **Undershoots (Dangles):** Línea que no llega a tocar el eje adyacente (rompe el cálculo de rutas en redes viarias o de agua).
+  * **Polígonos no cerrados (*Gaps*):** El vértice final no cierra con el inicial, impidiendo calcular superficies (crítico en liquidaciones de IBI o plusvalías).
+  * **Overlaps (Solapes):** Superposición ilegal de dos parcelas (doble cómputo de suelo).
+  * **Slivers (Astillas):** Micro-polígonos residuales generados al cruzar capas mal alineadas.
+
+## 6. Geoportales, Estándares OGC e IDE
+* **6.1. Estándares del OGC (*Open Geospatial Consortium*):**
+  * **WMS (*Web Map Service*):** Devuelve una **imagen renderizada** (PNG/JPEG) del mapa; no permite editar geometrías.
+  * **WMTS (*Web Map Tile Service*):** Sirve teselas (*tiles*) pre-generadas en caché para navegación web ultrarrápida.
+  * **WFS (*Web Feature Service*):** Devuelve **datos vectoriales puros** (GML/GeoJSON) permitiendo descarga, consulta espacial y edición (**WFS-T**).
+  * **WCS (*Web Coverage Service*):** Descarga de datos **ráster** brutos (MDT, imágenes).
+  * **CSW (*Catalogue Service for the Web*):** Búsqueda y publicación de **metadatos** (estándar **ISO 19115**).
+* **6.2. Marco Normativo e Infraestructuras de Datos Espaciales (IDE):**
+  * **Normativa:** **Directiva 2007/2/CE (INSPIRE)** transpuesta en España mediante la **Ley 14/2010 (LISIGE)**, que obliga a las AAPP a publicar cartografía interoperable.
+  * **Nodos oficiales:** **IDEE** (Estatal), **IDEV** (*Institut Cartogràfic Valencià* / Generalitat Valenciana), **Sede Electrónica del Catastro** e **IGN (PNOA)**.
+
+## 7. Aplicaciones Municipales Clave
+* **Urbanismo y Hacienda Local:** Planeamiento (PGOU, calificación del suelo), cruce con Catastro para detección de omisiones tributarias (IBI, vados, ocupación de vía pública) y geolocalización de licencias de obra.
+* **Servicios Urbanos e Infraestructuras:** Inventario en red de alumbrado, saneamiento, agua potable y fibra municipal; optimización de rutas de recogida de residuos (RSU).
+* **Seguridad, Movilidad y Emergencias:** Mapas de riesgo de inundación (PATRICOVA) e incendios, cálculo de rutas óptimas para bomberos/policía local y seguimiento de flotas por GPS.
+* **Medio Ambiente y Smart City:** Mapas estratégicos de ruido, sensores de calidad del aire/ZBE y censo georreferenciado del arbolado municipal.
+
+## 8. Conclusión
+Los SIG transforman la gestión municipal al unir la semántica administrativa con la realidad física del territorio. Apoyados en bases de datos espaciales, procesos ETL con validación topológica estricta y estándares abiertos del OGC (WMS/WFS) bajo el paraguas de la Directiva INSPIRE y la LISIGE, los ayuntamientos logran interoperabilidad plena con Catastro y la IDEV, optimizando la recaudación, el urbanismo y los servicios públicos al ciudadano a través de sus Geoportales.
+
+-----------------
+
 # Tema 11.- Sistema de información Geográfica y sus aplicaciones municipales. Funcionalidades y tecnologías aplicables. Procesos de carga de la información y controles de calidad. Geoportales.
 
 ## 1. Introducción
