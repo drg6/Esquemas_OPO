@@ -1,3 +1,57 @@
+# Tema 16.- Frameworks Web, UX, Backend e Interoperabilidad
+
+## 1. Introducción
+* El desarrollo web corporativo exige pasar de la codificación manual a ecosistemas robustos. Los **Frameworks** proporcionan la estructura, la **UX/UI** garantiza que el servicio público sea accesible y usable, y el **Backend** orquesta la lógica, la persistencia en bases de datos y la interconexión segura con otras Administraciones Públicas.
+
+## 2. Frameworks de Desarrollo Web
+* **Concepto e IoC:** Un framework impone la estructura de la aplicación mediante la **Inversión de Control (IoC)**: es el framework quien llama al código del desarrollador, no al revés. Garantiza seguridad (protección XSS/SQLi) y escalabilidad.
+
+### 2.1. Frameworks Frontend (JavaScript/TypeScript)
+* **React (Meta):** Biblioteca declarativa basada en componentes y **Virtual DOM** (actualiza solo las diferencias en pantalla). Ecosistema: Next.js (SSR).
+* **Angular (Google):** Framework *full-stack* muy estricto. Usa TypeScript, Inyección de Dependencias nativa y MVC completo. Ideal para macroproyectos corporativos.
+* **Vue.js:** Framework progresivo, curva de aprendizaje suave, mezcla la reactividad de React con la estructura de Angular.
+
+### 2.2. Frameworks CSS (Maquetación)
+* **Bootstrap (Basado en Componentes):** Proporciona elementos prefabricados (botones, navbars). Ideal para intranets y *backoffices* municipales rápidos.
+* **Tailwind CSS (*Utility-First*):** Clases atómicas de bajo nivel directamente en el HTML. Standard actual junto a React/Next.js para sedes electrónicas orientadas al ciudadano, logrando máxima personalización y archivos CSS ultra-ligeros.
+
+### 2.3. Frameworks Backend (Lógica de Servidor)
+* **Spring Boot (Java):** Dominante en AAPP. Autoconfiguración y servidor embebido.
+* **Express.js (Node.js):** Minimalista, ideal para APIs REST.
+* **Django (Python)** y **Laravel (PHP):** Soluciones *full-stack* con ORM integrado.
+
+## 3. UX (User Experience) y UI (User Interface)
+* **UX (Experiencia) vs. UI (Interfaz):** UI es lo que el usuario ve (botones, colores); UX es lo que siente (fluidez, claridad, arquitectura de la información).
+* **Principios Clave:**
+  * **Diseño Centrado en el Usuario (UCD):** Diseñar para las limitaciones ciudadanas, no para el técnico.
+  * **Heurísticas de Nielsen:** Principios de usabilidad (ej. *feedback* visual al cargar, usar iconos reconocibles del mundo real, prevención de errores mediante confirmación).
+  * **Diseño Responsivo (RWD) y *Mobile First*:** Adaptación fluida a móviles mediante Media Queries y Grid/Flexbox, diseñando primero para smartphone y escalando hacia escritorio.
+
+## 4. Desarrollo Backend: Servidor y Bases de Datos
+* **Servidores de Aplicaciones:** Contenedores que ejecutan la lógica empresarial (Tomcat, JBoss/WildFly, WebLogic).
+* **Conexión a Bases de Datos:**
+  * **Drivers (JDBC/ADO.NET):** Capa estándar de conectividad nativa (ej. `ojdbc` para Oracle).
+  * **Pool de Conexiones (*Connection Pooling*):** Mantiene un lote de conexiones de red pre-abiertas a la BD (ej. HikariCP) para evitar el colapso del SGBDR ante picos de concurrencia ciudadana.
+  * **ORM (*Object-Relational Mapping*):** Herramientas como **Hibernate** (JPA en Java) o Entity Framework abstraen el SQL, mapeando las tablas de la base de datos como clases/objetos en el código.
+* **Patrón MVC (Modelo-Vista-Controlador):**
+  * *Modelo:* Lógica de datos (BD).
+  * *Vista:* Renderizado de la UI.
+  * *Controlador:* Orquesta las peticiones HTTP HTTP entre la Vista y el Modelo.
+
+## 5. Interconexión de Sistemas (Interoperabilidad ENI)
+La modernización municipal requiere que los sistemas hablen entre sí sin intervención humana, apoyándose en la **Red SARA** (Intranet de las AAPP):
+* **Servicios Web Síncronos:**
+  * **APIs REST:** Ligeras, basadas en HTTP, usan **JSON**. Estándar moderno de facto.
+  * **SOAP:** Protocolo formal basado en **XML** y WSDL. Muy presente en integraciones heredadas (AEAT, Seguridad Social).
+* **Mensajería Asíncrona (Colas):**
+  * Uso de **Apache Kafka**, **RabbitMQ** o JMS para procesos pesados en segundo plano (envío masivo de notificaciones) sin bloquear al usuario.
+* **Plataformas de Intermediación del Estado:** Integración obligatoria con herramientas comunes como **@firma** (certificados), **Cl@ve** (identidad), **SIR** (Registro) y la **PID** (Plataforma de Intermediación de Datos).
+
+## 6. Conclusión
+El desarrollo web en la Administración trasciende la simple programación. Requiere orquestar el Frontend (React/Tailwind) aplicando principios estrictos de usabilidad (UX) e integrarlo con un Backend robusto (Spring/Tomcat). La gestión eficiente de la persistencia (ORM/Pools) y la interoperabilidad mediante APIs (REST/SOAP) bajo la Red SARA garantizan servicios digitales ágiles, escalables y centrados en el ciudadano.
+
+------------------
+
 # Tema 16.- Arquitectura de desarrollo en la web. Frameworks. UX. Desarrollo web en servidor, conexión a bases de datos e interconexión con sistemas y servicios.
 
 ## 1. Introducción

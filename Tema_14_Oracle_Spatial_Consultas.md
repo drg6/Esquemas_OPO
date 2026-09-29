@@ -1,3 +1,52 @@
+# Tema 14.- Oracle Spatial: Sistemas de Referencia y Consultas Espaciales
+
+## 1. Introducción
+* **Propósito:** Sin un Sistema de Referencia Espacial (SRS), las coordenadas son números abstractos (X, Y) sin anclaje a la Tierra. Este tema aborda cómo Oracle otorga significado geodésico a las geometrías y expone el motor analítico de operadores y funciones SQL que explotan el índice R-Tree.
+
+## 2. Sistemas de Referencia Espacial (SRS)
+* **Concepto:** Define el datum (modelo de la Tierra), la proyección cartográfica y las unidades de medida aplicadas a las coordenadas almacenadas.
+* **Geográficos vs. Proyectados:**
+  * *Geográficos:* Superficie esférica/elipsoidal, medidos en Grados (Latitud/Longitud). Ejemplo: GPS.
+  * *Proyectados:* Superficie plana, medidos en Metros (X/Y). Distorsión controlada. Ejemplo: Topografía.
+* **Sistemas oficiales en España (Códigos EPSG):**
+  * **WGS84 (`EPSG:4326`):** Geográfico global (grados).
+  * **ETRS89 (`EPSG:4258`):** Geográfico europeo oficial (grados).
+  * **ETRS89 / UTM huso 30N (`EPSG:25830`):** Proyectado en metros. **Estándar en Alicante** y España peninsular para urbanismo y catastro.
+* **Transformación (Reproyección al vuelo):** Función `SDO_CS.TRANSFORM(geometria, SRID_destino)` convierte coordenadas matemáticamente entre sistemas.
+
+## 3. Operadores Espaciales (Spatial Operators)
+* **Concepto:** Predicados para la cláusula `WHERE` que devuelven `TRUE`/`FALSE`.
+* **Regla de Oro:** **Exigen obligatoriamente la existencia de un índice espacial R-Tree**.
+* **Ejecución en 2 fases:** Filtro Primario (cálculo rápido de intersección de MBRs usando el R-Tree) y Filtro Secundario (cálculo topológico exacto vértice a vértice sobre los candidatos resultantes).
+* **Operadores Principales:**
+  * **`SDO_ANYINTERACT`:** El más utilizado. `TRUE` si existe cualquier tipo de cruce, toque o solape.
+  * **`SDO_CONTAINS` / `SDO_INSIDE`:** Verifica si $A$ contiene totalmente a $B$ o si $A$ está dentro de $B$.
+  * **`SDO_WITHIN_DISTANCE`:** Filtra entidades a menos de $N$ metros (ej. edificios a menos de 50m de un río).
+  * **`SDO_NN` (*Nearest Neighbor*):** Devuelve los $N$ vecinos más cercanos (útil para emergencias: buscar los 3 hospitales más próximos).
+  * **`SDO_RELATE`:** Operador genérico que evalúa relaciones topológicas exactas del modelo DE-9IM pasándole una máscara (`mask=TOUCH`, `mask=OVERLAPBDYINTERSECT`).
+
+## 4. Funciones Espaciales (Spatial Functions)
+* **Concepto:** Devuelven un valor matemático (metros, $m^2$) o una nueva geometría calculada.
+* **Importante (Rendimiento):** No exigen índice espacial, por lo que su cálculo secuencial es costoso en CPU. En sentencias `SELECT`, deben usarse junto a un **operador espacial en el `WHERE`** para que el R-Tree prefiltre los registros antes de calcular.
+* **Funciones de Medición (`SDO_GEOM`):**
+  * `SDO_AREA()`: Calcula superficie (ej. `unit=SQ_M` para metros cuadrados).
+  * `SDO_LENGTH()`: Calcula perímetro o longitud lineal.
+  * `SDO_DISTANCE()`: Distancia mínima exacta entre los bordes de dos geometrías.
+* **Funciones de Análisis Geométrico (Devuelven geometrías):**
+  * `SDO_BUFFER()`: Crea un polígono de afección ensanchando la entidad una distancia dada.
+  * `SDO_INTERSECTION()` / `SDO_UNION()` / `SDO_DIFFERENCE()`: Operaciones booleanas entre polígonos.
+* **Función de Agregación:**
+  * `SDO_AGGR_UNION()`: Fusiona múltiples registros geométricos en un único macropolígono (equivalente al `SUM()` clásico).
+
+## 5. El Modelo Topológico DE-9IM
+* Estándar del OGC (*Dimensionally Extended 9-Intersection Model*) que clasifica las relaciones espaciales entre Interior, Frontera y Exterior de dos geometrías.
+* Estados clave: `DISJOINT` (separados), `TOUCH` (tocan bordes), `EQUAL` (idénticos geométricamente), `OVERLAPBDYINTERSECT` (solape parcial), `CONTAINS`/`COVERS` (inclusión).
+
+## 6. Conclusión
+El motor analítico de Oracle Spatial se basa en la combinación simbiótica de **Operadores** (búsqueda ultrarrápida usando el índice R-Tree) y **Funciones** (cálculo matemático de la geometría resultante). Al anclar estos cálculos al SRID adecuado (ETRS89/UTM30N), el ayuntamiento puede resolver consultas espaciales masivas (afecciones urbanísticas, proximidad de servicios) sin necesidad de extraer los datos a un software GIS externo, manteniendo la integridad transaccional de Oracle.
+
+----------------------
+
 # Tema 14.- Oracle Spatial and Graph: Sistemas de referencia espacial y consultas espaciales.
 
 ## 1. Introducción

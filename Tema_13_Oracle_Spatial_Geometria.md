@@ -1,3 +1,64 @@
+# Tema 13.- Oracle Spatial: Tipo SDO_GEOMETRY y Vistas de Metadatos
+
+## 1. Introducción
+* **Propósito:** El objeto nativo **`SDO_GEOMETRY`** es el núcleo de Oracle Spatial and Graph. Permite encapsular la complejidad de la información geográfica (puntos, redes, polígonos) dentro del SGBDR, garantizando rendimiento, integridad e interoperabilidad en Sistemas de Información Geográfica (SIG).
+* **Gestión técnica:** Comprender la estructura de este objeto y el registro obligatorio en las vistas de metadatos es requisito previo para la indexación y el análisis espacial.
+
+## 2. Estructura Interna del Objeto `SDO_GEOMETRY`
+Definido en el esquema `MDSYS`, encapsula toda la geometría en 5 atributos estructurales:
+
+* **2.1. `SDO_GTYPE` (Dimensionalidad y Tipo):**
+  * Entero de 4 dígitos (formato **DLTT**).
+  * **D (Dimensión):** 2 (2D), 3 (3D), 4 (4D con medida).
+  * **L (LRS):** Habitualmente 0.
+  * **TT (Tipo OGC):** `01` (Punto), `02` (Línea), `03` (Polígono), `04` (Colección), `05` (Multipunto), `06` (Multilínea), `07` (Multipolígono).
+  * *Ejemplos:* `2001` (Punto 2D), `2003` (Polígono 2D), `3001` (Punto 3D).
+
+* **2.2. `SDO_SRID` (Sistema de Referencia):**
+  * Código EPSG que georreferencia la geometría. Si es `NULL`, la geometría no tiene referencia espacial.
+  * *Valores clave España:* `4326` (WGS84 lat/lon), `4258` (ETRS89 lat/lon), **`25830`** (ETRS89/UTM Huso 30N, **oficial en Alicante**).
+
+* **2.3. `SDO_POINT` (Optimización para Puntos):**
+  * Si la geometría es un punto simple (ej. farola, semáforo), se guardan sus coordenadas directamente aquí usando el tipo `SDO_POINT_TYPE(X, Y, Z)` para ahorrar memoria y procesamiento. Los atributos `SDO_ELEM_INFO` y `SDO_ORDINATES` quedan obligatoriamente a `NULL`.
+
+* **2.4. `SDO_ELEM_INFO` (Metadatos de la forma):**
+  * Array de tripletes numéricos que indica al motor cómo conectar los vértices.
+  * Define el **Offset** (posición de inicio en el array de coordenadas), el **ETYPE** (ej. 1=punto, 2=línea, 1003=anillo exterior, 2003=hueco interior) y la **Interpretación** (ej. 1=segmentos rectos, 2=arcos).
+
+* **2.5. `SDO_ORDINATES` (Array de Coordenadas):**
+  * Secuencia bruta de vértices ($X_1, Y_1, X_2, Y_2 \dots$). En polígonos, el vértice final debe coincidir matemáticamente con el inicial para cerrar la figura.
+
+## 3. Constructores, Formatos y Métodos
+* **Constructores:** Desde la estructura explícita de 5 atributos hasta constructores simplificados en Oracle 12c (ej. `SDO_GEOMETRY(x, y, srid)`).
+* **Interoperabilidad (Estándares OGC):**
+  * **WKT (*Well-Known Text*):** Representación textual humana (ej. `POINT(724500 4247800)`). Conversión: `SDO_UTIL.TO_WKTGEOMETRY()`.
+  * **WKB (*Well-Known Binary*):** Representación binaria para tráfico de red rápido (`SDO_UTIL.TO_WKBGEOMETRY()`).
+  * **GeoJSON:** Estándar web (`SDO_UTIL.TO_GEOJSON()`).
+* **Métodos integrados:** `geometry.GET_GTYPE()`, `geometry.GET_DIMS()` o la validación directa con `geometry.ST_ISVALID()`.
+
+## 4. Vistas de Metadatos de Geometría
+Para poder crear el índice espacial R-Tree (Tema 12), es **obligatorio** registrar la tabla y la columna espacial en el diccionario de datos:
+
+* **`USER_SDO_GEOM_METADATA`:** Vista crítica de 4 columnas:
+  1. `TABLE_NAME`: Nombre de la tabla espacial (ej. `PARCELAS`).
+  2. `COLUMN_NAME`: Nombre de la columna (ej. `FORMA`).
+  3. `SRID`: Sistema de referencia (ej. `25830`).
+  4. **`DIMINFO` (`SDO_DIM_ARRAY`):** Define los límites del territorio y la **tolerancia**.
+
+* **La Importancia de la Tolerancia en `DIMINFO`:**
+  * Estructura: `SDO_DIM_ELEMENT('X', min_x, max_x, tolerancia)`.
+  * Define la distancia umbral bajo la cual dos vértices se consideran el mismo punto. En España (metros), suele ser **$0.005$** (5 milímetros). *Un error en la tolerancia (ej. poner 1 metro) deforma la geometría al colapsar vértices cercanos al crear el índice.*
+* **Otras vistas:** `ALL_SDO_GEOM_METADATA` (acceso multi-esquema), `USER_SDO_INDEX_METADATA` (info de los índices R-Tree).
+
+## 5. Validación Topológica
+* **Función clave:** `SDO_GEOM.VALIDATE_GEOMETRY_WITH_CONTEXT(geometria, tolerancia)`. Devuelve `'TRUE'` si la forma es correcta, o un código de error si está corrupta.
+* **Errores frecuentes:** ORA-13356 (Polígono no cerrado), ORA-13349 (Autointersección - forma de lazo), ORA-13367 (Orientación incorrecta: el anillo exterior debe girar antihorario y los huecos en sentido horario).
+
+## 6. Conclusión
+El control granular sobre `SDO_GEOMETRY` y sus metadatos es la base técnica de Oracle Spatial. Mientras que `SDO_GTYPE`, `SDO_ELEM_INFO` y `SDO_ORDINATES` codifican la morfología exacta de la entidad según estándares OGC, el registro riguroso de la tolerancia y el SRID en `USER_SDO_GEOM_METADATA` garantiza la fiabilidad geométrica de las operaciones espaciales municipales.
+
+----------------------
+
 # Tema 13.- Oracle Spatial and Graph: Tipo, métodos y constructores del objeto SDO_Geometry y Vistas de metadatos de geometría.
 
 ## 1. Introducción

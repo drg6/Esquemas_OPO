@@ -1,5 +1,46 @@
 # Tema 12.- Oracle Spatial and Graph: Qué es, Modelo de datos e Indexación de datos espaciales.
 
+## 1. Introducción y Concepto
+* **El problema del SGBDR tradicional:** Optimizado para datos alfanuméricos y ordenación unidimensional (índices B-Tree). Incapaz de resolver nativamente consultas espaciales complejas (intersecciones, distancias, cálculo de áreas).
+* **Solución:** **Oracle Spatial and Graph**, una extensión integrada directamente en el kernel de Oracle Database que dota al motor relacional de tipos de datos, funciones geométricas y mecanismos de indexación espacial para procesar la información geográfica.
+
+## 2. Ventajas de la Integración Nativa
+A diferencia de soluciones externas (como PostGIS que se instala sobre PostgreSQL), al operar dentro del núcleo de la base de datos, los datos espaciales heredan todas las capacidades corporativas de Oracle:
+* Cumplimiento estricto de transacciones **ACID**.
+* Soporte nativo para **Alta Disponibilidad** (Oracle RAC, Data Guard).
+* Compatibilidad con estrategias de **Particionamiento** (Range, Hash, List) y **Backup/Recovery** (RMAN).
+* Seguridad granular aplicando privilegios DCL (GRANT/REVOKE) a nivel de tabla/columna.
+* Inclusión de capacidades de análisis de redes complejas mediante Oracle Property Graph.
+
+## 3. Modelo de Datos Espacial: Paradigma Objeto-Relacional
+* **Problema:** Almacenar geometrías de miles de vértices utilizando columnas planas (X1, Y1, X2, Y2) es altamente ineficiente e insostenible.
+* **Solución (`SDO_GEOMETRY`):** Oracle emplea un modelo **Objeto-Relacional** donde la geometría completa (punto, línea o polígono) se encapsula como un único objeto estructurado dentro de una sola celda/columna de tipo `SDO_GEOMETRY`.
+* **Cumplimiento de estándares:** La arquitectura es conforme a la especificación **SFS (*Simple Features Specification*)** del OGC y la normativa **ISO 19125**.
+
+## 4. Los 5 Atributos del Objeto `SDO_GEOMETRY`
+El objeto se compone internamente de cinco atributos estructurales:
+1. **`SDO_GTYPE` (Geometry Type):** Número entero con patrón **DLTT** (Dimensiones, Localización Lineal, Tipo). Ejemplos: `2001` = Punto 2D; `2003` = Polígono 2D.
+2. **`SDO_SRID` (Spatial Reference Identifier):** Código EPSG del sistema de coordenadas asociado a la geometría (ej. `4326` para WGS84 o `25830` para ETRS89/UTM 30N).
+3. **`SDO_POINT`:** Almacena directamente las coordenadas X, Y, Z **únicamente** cuando se trata de un punto simple (se deja en `NULL` para líneas o polígonos).
+4. **`SDO_ELEM_INFO`:** Array de metadatos (tripletes numéricos) que indica cómo interpretar las coordenadas. Especifica el *Offset* (inicio), *Element Type* (tipo, ej. 1003 anillo exterior) e *Interpretation* (ej. 1 segmentos rectos).
+5. **`SDO_ORDINATES`:** Array continuo que almacena la secuencia real de coordenadas (X1, Y1, X2, Y2...) para construir la forma geométrica.
+
+## 5. Indexación Espacial: El Índice R-Tree
+* **Limitación del B-Tree:** Carece de capacidad para ordenar objetos bidimensionales. Sin un índice espacial, Oracle forzaría un *Full Table Scan* para comparar cada geometría.
+* **Concepto MBR (*Minimum Bounding Rectangle*):** Rectángulo envolvente mínimo de lados paralelos a los ejes que contiene completamente la geometría. Reduce cálculos matemáticos complejos a simples comparaciones de cuatro valores numéricos.
+* **Estructura del R-Tree (*Region Tree*):** Árbol jerárquico de MBRs anidados. El nodo raíz engloba todo el territorio, las ramas son subdivisiones zonales, y las hojas contienen los MBRs de cada geometría individual.
+* **Proceso de Consulta en 2 Fases:**
+  1. **Fase 1 (Filtrado Primario):** Cruza el índice R-Tree detectando qué MBRs se intersectan. Es extremadamente rápido pero arroja candidatos y **falsos positivos** (MBRs que se tocan aunque las geometrías interiores no lo hagan).
+  2. **Fase 2 (Refinamiento):** Toma el conjunto de candidatos de la Fase 1 y realiza el cálculo geométrico exacto vértice a vértice para devolver solo los resultados verdaderos.
+* **Implementación:** Para crear un índice `MDSYS.SPATIAL_INDEX`, es obligatorio registrar previamente la tabla, la columna, las tolerancias y el SRID en la vista de metadatos del sistema **`USER_SDO_GEOM_METADATA`**.
+
+## 6. Conclusión
+Oracle Spatial and Graph resuelve el almacenamiento de información territorial encapsulando geometrías complejas bajo el estándar `SDO_GEOMETRY`, integrándolas como un objeto nativo del SGBDR sin sacrificar robustez. Su capacidad de respuesta ante grandes volúmenes de datos espaciales (VLDB) se sustenta en el índice jerárquico R-Tree y su algoritmo de búsqueda en dos fases (MBR + refinamiento), convirtiéndolo en una infraestructura indispensable para la gestión urbanística, catastral y medioambiental en las Administraciones Públicas.
+
+---------------
+
+# Tema 12.- Oracle Spatial and Graph: Qué es, Modelo de datos e Indexación de datos espaciales.
+
 ## 1. Introducción
 
 Gestión territorial AP requiere **Oracle Spatial and Graph**, SGBD espacial completo, capaz de almacenar, indexar y analizar datos geográficos con la misma robustez con la que gestiona datos alfanuméricos.

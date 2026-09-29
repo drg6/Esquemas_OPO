@@ -1,3 +1,50 @@
+# Tema 17.- Accesibilidad, UX/UI, Diseño Universal y Estándares W3C
+
+## 1. Introducción
+* **Propósito en la AP:** La digitalización de trámites (empadronamiento, tributos) exige que las interfaces sean universalmente utilizables, independientemente de la discapacidad (visual, motora, cognitiva) o brecha digital del ciudadano.
+* **Marco:** La usabilidad y accesibilidad no son recomendaciones, son **obligaciones legales** en España.
+
+## 2. El W3C y la Web Accessibility Initiative (WAI)
+* **W3C (*World Wide Web Consortium*):** Organismo fundado por Tim Berners-Lee (1994) que gobierna los estándares abiertos de la Web (HTML5, CSS3, SVG).
+* **WAI:** Grupo interno del W3C dedicado exclusivamente a desarrollar pautas y recursos para hacer la web accesible a personas con discapacidad. Creadores del estándar WCAG.
+
+## 3. UI (Interfaz) y UX (Experiencia de Usuario)
+* **UI (*User Interface*):**
+  * Es lo que el usuario **ve** (botones, menús, colores, tipografía).
+  * *Principios:* Consistencia, Jerarquía visual, *Feedback* inmediato (respuesta a la acción) y *Affordance* (los elementos deben sugerir su uso, ej. un botón debe parecer pulsable).
+* **UX (*User Experience*):**
+  * Es lo que el usuario **siente y experimenta** de forma global (eficiencia, satisfacción, tolerancia a errores, arquitectura de la información).
+  * *Metodologías:* *Design Thinking* (Empatizar $\rightarrow$ Definir $\rightarrow$ Idear $\rightarrow$ Prototipar $\rightarrow$ Testear), Diseño Centrado en el Usuario (UCD) y Mapas de Experiencia (*Customer Journey*).
+  * *Herramientas de prototipado:* Figma, Adobe XD (permiten validar flujos y contraste de color antes de programar).
+
+## 4. Diseño Universal (*Design for All*)
+* **Definición (Ronald Mace):** Filosofía orientada a crear productos y servicios utilizables por **todas las personas** en la mayor medida posible, sin necesidad de adaptaciones especializadas.
+* **Aplicación Web:** Navegación por teclado (sin ratón), compatibilidad con lectores de pantalla (*Screen Readers* como NVDA o JAWS), contraste de colores apto para daltonismo y diseño responsivo.
+
+## 5. Accesibilidad Web: Pautas WCAG y ARIA
+* **WCAG 2.1 / 2.2 (*Web Content Accessibility Guidelines*):** Estándar internacional basado en 4 principios fundamentales (Acrónimo **POUR**):
+  1. **Perceptible:** Textos alternativos (`alt`) en imágenes, subtítulos en vídeo y contraste de color mínimo (4.5:1 para texto normal).
+  2. **Operable:** Navegable enteramente por teclado (sin "trampas"), tiempo suficiente para leer/actuar y control de parpadeos (prevención de convulsiones).
+  3. **Comprensible:** Idioma declarado (`<html lang="es">`), navegación predecible y campos de formulario con etiquetas (`<label>`) y prevención de errores.
+  4. **Robusto:** HTML válido y compatibilidad con tecnologías de asistencia.
+* **Niveles de Conformidad:** **A** (Mínimo), **AA** (Intermedio y **Obligatorio legalmente en España**) y **AAA** (Máximo).
+* **WAI-ARIA (*Accessible Rich Internet Applications*):** Atributos inyectados en el HTML (`role="..."`, `aria-label="..."`, `aria-hidden="..."`) para dar significado a componentes dinámicos de JavaScript (ej. menús desplegables) de cara a los lectores de pantalla. *Regla de oro:* Usar HTML semántico nativo siempre que sea posible antes de recurrir a ARIA.
+
+## 6. Responsive Web Design (RWD) vs. Adaptive (AWD)
+* **RWD (Responsive):** Estándar actual. El servidor envía un único HTML/CSS para todos. Se usan **CSS Media Queries** y diseño *Mobile First* para que el layout fluya y se adapte al ancho de pantalla.
+* **AWD (Adaptive):** El servidor detecta el dispositivo (vía *User-Agent*) y devuelve una versión de la web completamente distinta para móvil o escritorio. Costoso de mantener y en desuso frente al RWD.
+
+## 7. Marco Normativo en España (Crítico para AAPP)
+* **Real Decreto 1112/2018** (Transpone la Directiva UE 2016/2102): Obliga al sector público a cumplir el nivel **WCAG 2.1 AA** en webs y apps móviles.
+* **Obligaciones derivadas del RD:** Publicar una **Declaración de Accesibilidad** y habilitar un mecanismo de comunicación para que el ciudadano reporte barreras.
+* **Norma UNE-EN 301549:** Estándar técnico europeo de accesibilidad TIC.
+* **OBSAE (*Observatorio de Accesibilidad Web*):** Órgano estatal que audita y emite informes periódicos sobre el cumplimiento de los portales públicos.
+
+## 8. Conclusión
+La accesibilidad web dejó de ser una recomendación estética para convertirse en un mandato normativo (RD 1112/2018). El dominio conjunto de la UX/UI centrada en el ciudadano, el Diseño Universal responsivo y la aplicación estricta de las Pautas WCAG (Nivel AA) y WAI-ARIA, garantiza que los servicios públicos digitales sean equitativos y no generen barreras de exclusión tecnológica.
+
+---------------------
+
 # Tema 17.- Accesibilidad y usabilidad de las tecnologías, productos y servicios relacionados con la sociedad de la información: W3C. Diseño universal; conceptos de UX (user experience) y UI (user interface).
 
 ## 1. Introducción

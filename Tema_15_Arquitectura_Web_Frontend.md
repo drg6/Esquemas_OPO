@@ -1,5 +1,55 @@
 # Tema 15.- Arquitectura de desarrollo en la web. Desarrollo web front-end. Scripts de cliente.
 
+## 1. Introducción y Evolución
+* **Paradigma Tradicional (Cliente Pesado / *Fat Client*):** Requería instalación local (`.exe`), atado al SO y con alto coste de mantenimiento y despliegue.
+* **Paradigma Web:** El **navegador web** actúa como cliente universal ligero. La lógica y los datos residen en servidores centralizados.
+* **Ventaja en AAPP:** Despliegue único, mantenimiento centralizado y acceso universal instantáneo (sede electrónica, portales del empleado) sin instalación en equipos de funcionarios o ciudadanos.
+
+## 2. El Protocolo HTTP/HTTPS
+* **Modelo de Comunicación:** Basado en el ciclo **Petición-Respuesta (*Request-Response*)**.
+* **Protocolo Sin Estado (*Stateless*):** Cada petición es independiente. Requiere mecanismos como **Cookies**, **Tokens JWT** o sesiones en servidor para mantener el estado (ej. usuario autenticado).
+* **Métodos HTTP principales:** `GET` (Lectura), `POST` (Creación), `PUT` (Reemplazo total), `PATCH` (Modificación parcial), `DELETE` (Borrado).
+* **Seguridad (HTTPS):** Aplica cifrado **TLS** sobre HTTP. Obligatorio por el **Esquema Nacional de Seguridad (ENS)** y RGPD para confidencialidad e integridad de datos personales.
+
+## 3. Arquitectura de 3 Capas (*Tiers*)
+1. **Capa de Presentación (Frontend):** Se ejecuta en el navegador del cliente mediante HTML, CSS y JavaScript.
+2. **Capa Lógica (Backend):**
+   * *Servidor Web* (Apache, Nginx): Atiende peticiones HTTP, sirve estáticos y actúa como proxy inverso.
+   * *Servidor de Aplicaciones* (Tomcat, WebLogic): Ejecuta la lógica de negocio (Java, Python, C#) y seguridad.
+3. **Capa de Datos (Persistencia):** SGBDR (Oracle, PostgreSQL). Conexión desde el backend vía drivers (JDBC) o frameworks ORM (Hibernate).
+
+## 4. La Tríada Tecnológica del Frontend (Estándares W3C)
+* **4.1. HTML5 (Estructura y Semántica):**
+  * Lenguaje de marcado, no de programación.
+  * **Etiquetas semánticas:** `<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<footer>` (sustituyen el uso abusivo de `<div>`).
+  * **Multimedia nativa:** `<video>`, `<audio>` (sin plugins de terceros).
+  * **Accesibilidad (Detalle de Oro):** Su uso semántico, junto con atributos **WAI-ARIA**, es imperativo legal según el **Real Decreto 1112/2018** para garantizar accesibilidad en sitios web del sector público.
+* **4.2. CSS3 (Presentación Visual):**
+  * Separa el diseño del contenido.
+  * **Modelo de Caja (*Box Model*):** Content, Padding, Border, Margin.
+  * **Selectores:** Etiqueta (`h1`), Clase (`.clase`), ID (`#id`), Pseudo-clases (`:hover`).
+  * **Layouts modernos:** **Flexbox** (unidimensional) y **CSS Grid** (bidimensional).
+  * **Media Queries:** Reglas `@media` para diseño responsivo adaptado a dispositivos móviles.
+* **4.3. JavaScript / JS (Comportamiento e Interactividad):**
+  * Lenguaje interpretado (motor V8/SpiderMonkey), de tipado dinámico y orientado a eventos.
+  * **Manipulación del DOM:** Permite modificar el árbol de nodos HTML en tiempo real.
+  * **Comunicaciones Asíncronas:** **AJAX** y **Fetch API** (permite actualizar datos consumiendo APIs REST sin recargar la página).
+  * **Seguridad Frontend (Detalle de Oro):** Mitigación de ataques **XSS** (*Cross-Site Scripting*) saneando entradas, y correcta configuración de **CORS** en el backend para control de orígenes.
+
+## 5. Topologías Arquitectónicas
+* **5.1. Monolítica:** Toda la aplicación (UI, lógica, datos) empaquetada en un único artefacto (ej. `.war`). Fácil desarrollo inicial, pero difícil de escalar individualmente.
+* **5.2. Microservicios:** Desacoplamiento en servicios pequeños, independientes y autónomos (Padrón, Tributos). Escalado granular y comunicación vía APIs REST o eventos.
+* **5.3. SPA (*Single Page Application*) y SSR:**
+  * **SPA:** Carga una sola página inicial HTML; la navegación y renderizado los hace JS (React, Angular).
+  * **Evolución (SSR - *Server-Side Rendering*):** Frameworks como **Next.js** pre-renderizan el HTML en el servidor para mejorar los tiempos de carga inicial y facilitar la indexación (SEO), crucial en portales públicos.
+
+## 6. Conclusión
+La arquitectura web ha estandarizado el consumo de servicios públicos, erradicando los clientes pesados en favor del navegador. El dominio integrado de las 3 capas arquitectónicas, el protocolo HTTPS y los estándares del frontend (HTML5 semántico y accesible, CSS3 responsivo y JavaScript asíncrono/seguro frente a XSS) es la base para desarrollar sedes electrónicas robustas, seguras (ENS) y universales (RD 1112/2018).
+
+--------------------
+
+# Tema 15.- Arquitectura de desarrollo en la web. Desarrollo web front-end. Scripts de cliente.
+
 ## 1. Introducción
 
 Siglo XX modelo **Cliente-Servidor Pesado (Fat Client)**: instalación ejecutable (.exe) en ordenador local para acceder a los servicios de la organización. Despliegues costosos (instalación PC por PC), problemas de mantenimiento (actualizar cada máquina individualmente) y dependencia del sistema operativo.
