@@ -1,50 +1,49 @@
 # Tema 15.- Arquitectura de desarrollo en la web. Desarrollo web front-end. Scripts de cliente.
 
-## 1. Introducción y Evolución
-* **Paradigma Tradicional (Cliente Pesado / *Fat Client*):** Requería instalación local (`.exe`), atado al SO y con alto coste de mantenimiento y despliegue.
-* **Paradigma Web:** El **navegador web** actúa como cliente universal ligero. La lógica y los datos residen en servidores centralizados.
-* **Ventaja en AAPP:** Despliegue único, mantenimiento centralizado y acceso universal instantáneo (sede electrónica, portales del empleado) sin instalación en equipos de funcionarios o ciudadanos.
+## 1. Introducción
+* **Evolución del paradigma:** Transición del modelo tradicional de "Cliente Pesado" (*Fat Client*, que requería instalación local) al modelo Web, donde el **navegador** actúa como cliente universal ligero.
+* **Ventaja estratégica en AAPP:** Permite un despliegue único, mantenimiento centralizado y acceso universal instantáneo a sedes electrónicas y portales del empleado sin instalación de software de terceros.
 
-## 2. El Protocolo HTTP/HTTPS
-* **Modelo de Comunicación:** Basado en el ciclo **Petición-Respuesta (*Request-Response*)**.
-* **Protocolo Sin Estado (*Stateless*):** Cada petición es independiente. Requiere mecanismos como **Cookies**, **Tokens JWT** o sesiones en servidor para mantener el estado (ej. usuario autenticado).
-* **Métodos HTTP principales:** `GET` (Lectura), `POST` (Creación), `PUT` (Reemplazo total), `PATCH` (Modificación parcial), `DELETE` (Borrado).
-* **Seguridad (HTTPS):** Aplica cifrado **TLS** sobre HTTP. Obligatorio por el **Esquema Nacional de Seguridad (ENS)** y RGPD para confidencialidad e integridad de datos personales.
+## 2. Arquitectura de desarrollo en la web
+Este bloque define cómo se estructuran, comunican y despliegan los componentes a nivel global.
+* **El Protocolo HTTP/HTTPS:** 
+  * Ciclo de **Petición-Respuesta (*Request-Response*)** y métodos principales (`GET`, `POST`, `PUT`, `DELETE`). CRUD
+  * Naturaleza **Sin Estado (*Stateless*)**, que obliga a gestionar sesiones mediante Cookies o Tokens JWT.
+  * Uso obligatorio de **HTTPS (TLS)** por exigencia del Esquema Nacional de Seguridad (ENS) y el RGPD.
+* **Arquitectura Clásica de 3 Capas (*Tiers*):**
+  1. *Capa de Presentación:* Navegador del cliente.
+  2. *Capa Lógica (Servidor):* Servidor Web (Apache, Nginx) proxy e intermediario, y Servidor de Aplicaciones (Tomcat, WebLogic) ejecutando la lógica de negocio.
+  3. *Capa de Datos:* SGBDR (Oracle, PostgreSQL) con conexión vía JDBC/ORM.
+* **Topologías de Despliegue:**
+  * **Monolítica:** Toda la app en un único artefacto desplegable (ej. `.war`).
+  * **Microservicios:** Desacoplamiento en servicios pequeños e independientes comunicados por APIs REST.
 
-## 3. Arquitectura de 3 Capas (*Tiers*)
-1. **Capa de Presentación (Frontend):** Se ejecuta en el navegador del cliente mediante HTML, CSS y JavaScript.
-2. **Capa Lógica (Backend):**
-   * *Servidor Web* (Apache, Nginx): Atiende peticiones HTTP, sirve estáticos y actúa como proxy inverso.
-   * *Servidor de Aplicaciones* (Tomcat, WebLogic): Ejecuta la lógica de negocio (Java, Python, C#) y seguridad.
-3. **Capa de Datos (Persistencia):** SGBDR (Oracle, PostgreSQL). Conexión desde el backend vía drivers (JDBC) o frameworks ORM (Hibernate).
+## 3. Desarrollo web front-end
+Se centra en la construcción de la interfaz visual y la estructura semántica que recibe el navegador.
+* **HTML5 (Estructura y Semántica):**
+  * **Fundamento:** Lenguaje de marcado (no de programación) basado en jerarquía de etiquetas e hipertexto que define el esqueleto del documento (árbol DOM).
+  * **Semántica y capacidades nativas (HTML5):** Aporta etiquetas con significado (`<header>`, `<nav>`, `<main>`) que sustituyen a los `<div>` genéricos. Integra multimedia (`<video>`), APIs y validación de formularios sin depender de software externo.
+  * **Obligación legal (Accesibilidad):** El uso de HTML estructurado y semántico, complementado con atributos **WAI-ARIA**, es un imperativo legal (Real Decreto 1112/2018) para garantizar el acceso mediante lectores de pantalla.
+* **CSS3 (Presentación Visual):**
+  * Separa el diseño del contenido estructurado. Basa su renderizado en el **Modelo de Caja (*Box Model*)**.
+  * Utiliza selectores (clase, ID, pseudo-clases) para aplicar estilos.
+  * **Diseño Responsivo:** Uso de **Flexbox/Grid** y **Media Queries** para adaptar la interfaz a móviles (*Mobile First*).
+* **Paradigmas del Frontend Moderno:**
+  * Transición hacia las **SPA (*Single Page Application*)**, donde la interfaz no recarga la página, sino que se redibuja dinámicamente.
 
-## 4. La Tríada Tecnológica del Frontend (Estándares W3C)
-* **4.1. HTML5 (Estructura y Semántica):**
-  * Lenguaje de marcado, no de programación.
-  * **Etiquetas semánticas:** `<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<footer>` (sustituyen el uso abusivo de `<div>`).
-  * **Multimedia nativa:** `<video>`, `<audio>` (sin plugins de terceros).
-  * **Accesibilidad (Detalle de Oro):** Su uso semántico, junto con atributos **WAI-ARIA**, es imperativo legal según el **Real Decreto 1112/2018** para garantizar accesibilidad en sitios web del sector público.
-* **4.2. CSS3 (Presentación Visual):**
-  * Separa el diseño del contenido.
-  * **Modelo de Caja (*Box Model*):** Content, Padding, Border, Margin.
-  * **Selectores:** Etiqueta (`h1`), Clase (`.clase`), ID (`#id`), Pseudo-clases (`:hover`).
-  * **Layouts modernos:** **Flexbox** (unidimensional) y **CSS Grid** (bidimensional).
-  * **Media Queries:** Reglas `@media` para diseño responsivo adaptado a dispositivos móviles.
-* **4.3. JavaScript / JS (Comportamiento e Interactividad):**
-  * Lenguaje interpretado (motor V8/SpiderMonkey), de tipado dinámico y orientado a eventos.
-  * **Manipulación del DOM:** Permite modificar el árbol de nodos HTML en tiempo real.
-  * **Comunicaciones Asíncronas:** **AJAX** y **Fetch API** (permite actualizar datos consumiendo APIs REST sin recargar la página).
-  * **Seguridad Frontend (Detalle de Oro):** Mitigación de ataques **XSS** (*Cross-Site Scripting*) saneando entradas, y correcta configuración de **CORS** en el backend para control de orígenes.
+## 4. Scripts de cliente
+Comprende la capa de lógica, interactividad y comunicaciones asíncronas que se ejecuta directamente en la máquina del usuario final.
+* **JavaScript (JS):**
+  * Es el lenguaje de programación estándar de la web. Interpretado nativamente por los motores de los navegadores (como V8 en Chrome o SpiderMonkey en Firefox).
+* **Manipulación del DOM (*Document Object Model*):**
+  * JS interactúa con el árbol de nodos de HTML, permitiendo modificar, ocultar o crear elementos de la interfaz en tiempo real sin intervención del servidor.
+* **Comunicaciones Asíncronas (AJAX y Fetch API):**
+  * Mecanismos que permiten al script de cliente lanzar peticiones HTTP (APIs REST) en segundo plano y actualizar partes específicas de la pantalla con los nuevos datos (formato JSON) sin recargar la página completa.
+* **Seguridad en el Cliente:**
+  * Al ejecutarse en un entorno no confiable (el navegador del usuario), los scripts son el vector principal de ataques **XSS (*Cross-Site Scripting*)**. Requiere un saneamiento estricto de entradas y validación por parte del servidor mediante políticas **CORS (*Cross-Origin Resource Sharing*)**.
 
-## 5. Topologías Arquitectónicas
-* **5.1. Monolítica:** Toda la aplicación (UI, lógica, datos) empaquetada en un único artefacto (ej. `.war`). Fácil desarrollo inicial, pero difícil de escalar individualmente.
-* **5.2. Microservicios:** Desacoplamiento en servicios pequeños, independientes y autónomos (Padrón, Tributos). Escalado granular y comunicación vía APIs REST o eventos.
-* **5.3. SPA (*Single Page Application*) y SSR:**
-  * **SPA:** Carga una sola página inicial HTML; la navegación y renderizado los hace JS (React, Angular).
-  * **Evolución (SSR - *Server-Side Rendering*):** Frameworks como **Next.js** pre-renderizan el HTML en el servidor para mejorar los tiempos de carga inicial y facilitar la indexación (SEO), crucial en portales públicos.
-
-## 6. Conclusión
-La arquitectura web ha estandarizado el consumo de servicios públicos, erradicando los clientes pesados en favor del navegador. El dominio integrado de las 3 capas arquitectónicas, el protocolo HTTPS y los estándares del frontend (HTML5 semántico y accesible, CSS3 responsivo y JavaScript asíncrono/seguro frente a XSS) es la base para desarrollar sedes electrónicas robustas, seguras (ENS) y universales (RD 1112/2018).
+## 5. Conclusión
+La arquitectura web ha estandarizado el consumo de servicios públicos, erradicando los clientes pesados. El dominio integrado de su arquitectura global, el diseño front-end (HTML5 semántico, CSS3 responsivo y accesible bajo el RD 1112/2018) y la correcta implementación de scripts de cliente (JavaScript asíncrono y seguro frente a XSS) conforman la base técnica para desarrollar sedes electrónicas robustas, seguras (ENS) y universales.
 
 --------------------
 

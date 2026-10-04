@@ -14,7 +14,10 @@
   * **ETRS89 / UTM huso 30N (`EPSG:25830`):** Proyectado en metros. **Estándar en Alicante** y España peninsular para urbanismo y catastro.
 * **Transformación (Reproyección al vuelo):** Función `SDO_CS.TRANSFORM(geometria, SRID_destino)` convierte coordenadas matemáticamente entre sistemas.
 
-## 3. Operadores Espaciales (Spatial Operators)
+## 3. Consultas Espaciales
+La ejecución de consultas geoespaciales en Oracle se articula en dos grandes mecanismos complementarios: los operadores (basados en índices) y las funciones (basadas en cálculos matemáticos), sustentados por un modelo topológico estandarizado.
+
+### 3.1. Operadores Espaciales (Spatial Operators)
 * **Concepto:** Predicados para la cláusula `WHERE` que devuelven `TRUE`/`FALSE`.
 * **Regla de Oro:** **Exigen obligatoriamente la existencia de un índice espacial R-Tree**.
 * **Ejecución en 2 fases:** Filtro Primario (cálculo rápido de intersección de MBRs usando el R-Tree) y Filtro Secundario (cálculo topológico exacto vértice a vértice sobre los candidatos resultantes).
@@ -25,7 +28,7 @@
   * **`SDO_NN` (*Nearest Neighbor*):** Devuelve los $N$ vecinos más cercanos (útil para emergencias: buscar los 3 hospitales más próximos).
   * **`SDO_RELATE`:** Operador genérico que evalúa relaciones topológicas exactas del modelo DE-9IM pasándole una máscara (`mask=TOUCH`, `mask=OVERLAPBDYINTERSECT`).
 
-## 4. Funciones Espaciales (Spatial Functions)
+### 3.2. Funciones Espaciales (Spatial Functions)
 * **Concepto:** Devuelven un valor matemático (metros, $m^2$) o una nueva geometría calculada.
 * **Importante (Rendimiento):** No exigen índice espacial, por lo que su cálculo secuencial es costoso en CPU. En sentencias `SELECT`, deben usarse junto a un **operador espacial en el `WHERE`** para que el R-Tree prefiltre los registros antes de calcular.
 * **Funciones de Medición (`SDO_GEOM`):**
@@ -38,7 +41,7 @@
 * **Función de Agregación:**
   * `SDO_AGGR_UNION()`: Fusiona múltiples registros geométricos en un único macropolígono (equivalente al `SUM()` clásico).
 
-## 5. El Modelo Topológico DE-9IM
+### 3.3. El Modelo Topológico DE-9IM
 * Estándar del OGC (*Dimensionally Extended 9-Intersection Model*) que clasifica las relaciones espaciales entre Interior, Frontera y Exterior de dos geometrías.
 * Estados clave: `DISJOINT` (separados), `TOUCH` (tocan bordes), `EQUAL` (idénticos geométricamente), `OVERLAPBDYINTERSECT` (solape parcial), `CONTAINS`/`COVERS` (inclusión).
 

@@ -8,7 +8,7 @@
 
 ### 2.1. Frameworks Frontend (JavaScript/TypeScript)
 * **React (Meta):** Biblioteca declarativa basada en componentes y **Virtual DOM** (actualiza solo las diferencias en pantalla). Ecosistema: Next.js (SSR).
-* **Angular (Google):** Framework *full-stack* muy estricto. Usa TypeScript, Inyección de Dependencias nativa y MVC completo. Ideal para macroproyectos corporativos.
+* **Angular (Google):** Framework *full-featured* muy estricto. Usa TypeScript, Inyección de Dependencias nativa y MVC completo. Ideal para macroproyectos corporativos.
 * **Vue.js:** Framework progresivo, curva de aprendizaje suave, mezcla la reactividad de React con la estructura de Angular.
 
 ### 2.2. Frameworks CSS (Maquetación)
@@ -19,6 +19,7 @@
 * **Spring Boot (Java):** Dominante en AAPP. Autoconfiguración y servidor embebido.
 * **Express.js (Node.js):** Minimalista, ideal para APIs REST.
 * **Django (Python)** y **Laravel (PHP):** Soluciones *full-stack* con ORM integrado.
+* **ASP.NET Core:** Framework de Microsoft para .NET. Alto rendimiento, multiplataforma.
 
 ## 3. UX (User Experience) y UI (User Interface)
 * **UX (Experiencia) vs. UI (Interfaz):** UI es lo que el usuario ve (botones, colores); UX es lo que siente (fluidez, claridad, arquitectura de la información).
