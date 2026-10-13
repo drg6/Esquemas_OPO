@@ -5,6 +5,7 @@
 * **El origen:** Creado por **Rod Johnson** (2003) como respuesta a esta complejidad, proponiendo un modelo ligero basado en **POJOs** (*Plain Old Java Objects*) y la **Inversión de Control**. Hoy es el estándar *de facto* para backend corporativo.
 
 ## 2. Filosofía de Diseño y Conceptos Core
+Spring Framework es un entorno de trabajo de código abierto con los siguientes principios:
 * **Inversión de Control (IoC):** El framework asume el control del flujo y del ciclo de vida de los objetos (cuándo se crean y destruyen), liberando al programador de esa gestión.
 * **Inyección de Dependencias (DI):** Es la materialización del IoC. El framework inyecta las dependencias necesarias en tiempo de ejecución (ej. mediante `@Autowired`), eliminando el acoplamiento fuerte (uso de `new`).
 * **Programación Orientada a Aspectos (AOP):** Permite aislar y encapsular la lógica transversal (seguridad, auditoría, logs, transacciones) para no "ensuciar" las clases de negocio principales.
@@ -17,7 +18,7 @@
 
 ## 4. Ventajas de Uso
 * **Ventajas Técnicas:**
-  * **Desacoplamiento:** Facilitado por DI, permite evolucionar el código de forma segura.
+  * **Desacoplamiento:** Facilitado por DI (Inyección de Dependencias), permite evolucionar el código de forma segura.
   * **Transaccionalidad Declarativa:** Uso de `@Transactional` para que el framework gestione los *commits* y *rollbacks* automáticamente.
   * **Alta Testabilidad:** Al basarse en POJOs, facilita la creación de pruebas unitarias aisladas con JUnit y Mockito.
 * **Ventajas de Productividad:**
