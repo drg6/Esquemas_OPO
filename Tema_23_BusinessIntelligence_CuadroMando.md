@@ -1,51 +1,51 @@
 # Tema 23.- Cuadros de Mando. Análisis, implantación y explotación.
 
 ## 1. Introducción
-* **Contexto AAPP:** Gran volumen de datos brutos (padrón, tributos).
-* **Objetivo:** Dato bruto → Información → **Conocimiento** (patrones/decisiones).
-* **Herramientas:** Business Intelligence (BI) y Dashboards.
+- **Contexto AAPP:** Gran volumen de datos brutos (padrón, tributos).
+- **Objetivo:** Dato bruto → Información → **Conocimiento** (patrones/decisiones).
+- **Herramientas:** Pilares: Análisis previo, arquitectura de implantación y explotación en Dashboards.
 
-## 2. Business Intelligence (BI): De los Datos al Conocimiento
-* **2.1. Concepto:** Transformar transacciones (OLTP) en análisis (OLAP).
-* **2.2. Arquitectura BI (Pipeline):** 
-  * Fuentes (OLTP) → Proceso ETL (Extract, Transform, Load) → Data Warehouse → Visualización.
-* **2.3. Modelado Dimensional:** 
-  * **Estrella:** Tabla de Hechos (métricas) central + Tablas de Dimensiones (desnormalizadas) alrededor.
-  * **Copo de nieve:** Dimensiones normalizadas (desglosadas).
-* **2.4. OLTP vs OLAP:** 
-  * *OLTP:* Día a día, normalizado (3FN), detallado. 
-  * *OLAP:* Histórico, dimensional, agregado (toma de decisiones).
-
-## 3. El Cuadro de Mando (Dashboard)
-* **3.1. Concepto:** Interfaz visual única que consolida KPIs para detectar tendencias y anomalías.
-* **3.2. Tipología:**
+## 2. Cuadros de Mando (Dashboards)
+- **2.1. Concepto:** Interfaz visual única que consolida KPIs para detectar tendencias y anomalías de un vistazo.
+- **2.2. Tipología:**
   * **Operativo (CMO):** Corto plazo, técnicos/jefes servicio (ej. patrullas activas).
   * **Táctico/Directivo (CMD):** Medio plazo, directores de área.
   * **Integral (CMI - Balanced Scorecard de Kaplan y Norton, 1992):** Evalúa la estrategia en 4 perspectivas: Financiera, Ciudadano, Procesos Internos, y Aprendizaje/Innovación.
 
-## 4. Elementos Constructivos y Explotación
-* **4.1. KPI (Key Performance Indicator):** Métrica cuantificable + Objetivo estratégico. (Métrica ≠ KPI). SMART (Medible, temporal, accionable).
-* **4.2. Visualización:** Velocímetro (vs objetivo), Semáforo (estado), Barras (comparación), Heatmap (distribución).
-* **4.3. Interactividad (Operaciones OLAP):** 
+## 3. Análisis: Del Dato al Conocimiento
+- **3.1. Business Intelligence (BI):** Transformar transacciones (OLTP) en sistemas para análisis (OLAP).
+- **3.2. OLTP vs OLAP:** 
+  * *OLTP:* Día a día, normalizado (3FN), detallado. 
+  * *OLAP:* Histórico, dimensional, agregado (toma de decisiones).
+- **3.3. KPI (Key Performance Indicator):** La base del análisis. Métrica cuantificable + Objetivo estratégico. (Métrica ≠ KPI). SMART (Medible, temporal, accionable).
+
+## 4. Implantación
+- **4.1. Arquitectura BI (Pipeline):** 
+  * Fuentes (OLTP) → Proceso ETL (Extract, Transform, Load) → Data Warehouse → Visualización.
+- **4.2. Modelado Dimensional:** 
+  * **Estrella:** Tabla de Hechos (métricas) central + Tablas de Dimensiones (desnormalizadas) alrededor.
+  * **Copo de nieve:** Dimensiones normalizadas (desglosadas).
+- **4.3. Fases de Implantación en Ayuntamientos:**
+  1. **Requisitos:** Objetivos estratégicos.
+  2. **Fuentes:** Inventario y calidad del dato.
+  3. **Diseño:** Modelo dimensional y KPIs.
+  4. **ETL:** Extracción, limpieza y carga.
+  5. **Dashboarding:** Construcción visual.
+  6. **Validación:** Testing con usuarios finales.
+  7. **Despliegue:** Producción, formación y mantenimiento.
+- **4.4. Herramientas del Mercado:**
+  * **Líderes:** Power BI (Microsoft + DAX), Tableau, Qlik Sense (In-memory).
+  * **Otras:** Oracle Analytics (nativo base de datos), Grafana (operacional), Superset (Open Source).
+
+## 5. Explotación
+- **5.1. Visualización:** Velocímetro (vs objetivo), Semáforo (estado), Barras (comparación), Heatmap (distribución geográfica).
+- **5.2. Interactividad (Operaciones OLAP):** 
   * *Drill-Down* (desglosar al detalle) / *Roll-Up* (agrupar).
-  * *Slice & Dice* (Filtros multidimensionales).
-* **4.4. ⚠️ Seguridad (El detalle AAPP):** Anonimización de datos sensibles (RGPD) y control de acceso basado en roles (ENS).
+  * *Slice & Dice* (Filtros multidimensionales / Slicers).
+- **5.3. ⚠️ Seguridad (El detalle AAPP):** Anonimización de datos sensibles (RGPD) y control de acceso basado en roles (ENS) para garantizar el cumplimiento normativo en su explotación.
 
-## 5. Fases de Implantación en Ayuntamientos
-1. **Requisitos:** Objetivos estratégicos.
-2. **Fuentes:** Inventario y calidad del dato.
-3. **Diseño:** Modelo dimensional y KPIs.
-4. **ETL:** Extracción, limpieza y carga.
-5. **Dashboarding:** Construcción visual.
-6. **Validación:** Testing con usuarios finales.
-7. **Despliegue:** Producción, formación y mantenimiento.
-
-## 6. Herramientas del Mercado
-* **Líderes:** Power BI (Microsoft + DAX), Tableau, Qlik Sense (In-memory).
-* **Otras:** Oracle Analytics (nativo base de datos), Grafana (operacional), Superset (Open Source).
-
-## 7. Conclusión
-Transforman el dato atómico en estrategia. Requieren una arquitectura BI robusta (ETL + DWH) y diseño iterativo centrado en el usuario, siempre bajo el paraguas de la privacidad ciudadana.
+## 6. Conclusión
+Transforman el dato atómico en estrategia. Su éxito exige abarcar el ciclo completo: análisis riguroso (KPIs), implantación técnica robusta (ETL + DWH) y una explotación iterativa centrada en el usuario, siempre bajo el paraguas de la privacidad ciudadana.
 
 ------------------
 
