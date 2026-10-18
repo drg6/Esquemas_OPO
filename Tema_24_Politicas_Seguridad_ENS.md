@@ -13,17 +13,17 @@ Documento de máximo nivel que establece directrices, principios y compromisos d
 3. **Roles y responsabilidades (Clave del ENS):**
    * *Responsable de la Información:* Define requisitos de la información.
    * *Responsable del Servicio:* Define requisitos del servicio.
-   * *Responsable de la Seguridad (CISO):* Decisiones de seguridad. (Apoyado por el Comité de Seguridad).
+   * *Responsable de la Seguridad (CISO - Chief Information Security Officer):* Decisiones de seguridad. (Apoyado por el Comité de Seguridad).
    * *Responsable del Sistema:* Operación técnica del sistema.
    * ⚠️ *Principio de segregación de funciones:* Responsable de Seguridad ≠ Responsable del Sistema.
    * *Delegado de Protección de Datos (DPO).*
 4. **Categorización de sistemas:** Dimensiones (Confidencialidad, Integridad, Disponibilidad, Autenticidad, Trazabilidad) → Básica, Media, Alta.
-5. **Gestión de riesgos:** Metodología (MAGERIT).
+5. **Gestión de riesgos:** Metodología (MAGERIT - Metodología de Análisis y Gestión de Riesgos de los Sistemas de Información).
 6. **Revisión:** Periodicidad de actualización.
 
 ## 3. Implantación en Administraciones Locales
 ### 3.1. Ciclo PDCA (Deming)
-1. **Plan (Planificar):** Aprobar Política → Categorizar Sistemas → Análisis de Riesgos (PILAR) → Declaración de Aplicabilidad (SoA) → Plan de Adecuación. *(Reporte anual mediante INES).*
+1. **Plan (Planificar):** Aprobar Política → Categorizar Sistemas → Análisis de Riesgos (PILAR) → Declaración de Aplicabilidad (SoA - Statement of Applicability) → Plan de Adecuación. *(Reporte anual mediante INES).*
 2. **Do (Ejecutar):** Implantar medidas técnicas (MFA, cifrado, backups RMAN), organizativas (formación) y físicas (controles de acceso).
 3. **Check (Verificar):** Auditorías (bienales), monitorización (SIEM), pentesting.
 4. **Act (Mejorar):** Acciones correctivas post-auditoría.

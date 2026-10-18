@@ -9,19 +9,24 @@
 
 ## 2. El Contexto de Aplicación (ApplicationContext)
 * **2.1. Naturaleza y evolución del contenedor:**
-  * Es la interfaz central de Spring y extiende de la primitiva `BeanFactory`. A diferencia de esta última, que utiliza carga perezosa (*lazy*), el `ApplicationContext` pre-instancia los componentes en el arranque (*eager loading*) y añade soporte para eventos, internacionalización y AOP.
-  * Ha evolucionado desde la configuración en pesados ficheros XML (`ClassPathXmlApplicationContext`) hacia la configuración moderna basada en anotaciones Java (`@ComponentScan`), culminando en los ejecutables autocontenidos de Spring Boot con servidor embebido.
+  * **Definición:** Interfaz central y cerebro de Spring.
+  * **vs. BeanFactory:** `BeanFactory` es perezosa (*lazy*); `ApplicationContext` carga todo al arrancar (*eager loading*) + eventos, internacionalización y AOP.
+  * **Evolución:** Ficheros XML (`ClassPathXmlApplicationContext`) → Anotaciones Java (`@ComponentScan`) → Spring Boot (ejecutable autocontenido + servidor embebido).
 * **2.2. Definición semántica de Beans:**
-  * Un bean es cualquier objeto gestionado por el ciclo de vida del contenedor.
-  * Se definen mediante anotaciones de estereotipo: `@Component` para clases genéricas, `@Service` para lógica de negocio y `@RestController` para endpoints web.
-  * **Detalle técnico de persistencia:** La anotación `@Repository` aplica automáticamente un aspecto AOP que intercepta excepciones nativas de la base de datos (como `SQLException`) y las traduce a la jerarquía de excepciones no comprobadas de Spring (`DataAccessException`), aislando el código de negocio del motor de base de datos.
+  * **Concepto:** Objeto Java gestionado y creado por el contenedor.
+  * **Anotaciones de Estereotipo:**
+    * `@Component`: Componente genérico.
+    * `@Service`: Lógica de negocio.
+    * `@RestController`: Endpoints/Controladores web.
+    * `@Repository`: Acceso a datos + traducción automática de excepciones (`SQLException` → `DataAccessException` vía AOP).
 * **2.3. Ámbitos (Scopes) y Ciclo de vida:**
-  * **Singleton (por defecto):** Una única instancia compartida en toda la aplicación. Exige que el componente sea *stateless* (sin estado) para garantizar la concurrencia segura en entornos multihilo.
-  * **Prototype:** Genera una instancia nueva cada vez que se inyecta el bean.
-  * **Scopes web:** request, session y application, ligados al ciclo de vida de la petición HTTP.
-  * **Secuencia de vida:** Instanciación → Inyección de dependencias → Métodos de inicialización (`@PostConstruct`) → Estado operativo → Destrucción controlada (`@PreDestroy`).
+  * **Singleton (Defecto):** Instancia única compartida. Exige componentes *stateless* (sin estado) para hilos seguros.
+  * **Prototype:** Instancia nueva en cada inyección.
+  * **Web Scopes:** `request` (petición), `session` (usuario) y `application` (app web).
+  * **Secuencia de vida:** Instanciación → Inyección dependencias → `@PostConstruct` (Inicialización) → Operativo → `@PreDestroy` (Destrucción).
 * **2.4. Gestión de entornos (`@Profile`):**
-  * Permite desacoplar el código de la infraestructura, activando diferentes configuraciones (por ejemplo, base de datos local en desarrollo frente a un clúster corporativo en producción) mediante variables de entorno.
+  * **Función:** Desacopla código de infraestructura activa según entorno.
+  * **Mecanismo:** Activa beans específicos (Ej: BD local en `dev` vs. BD clúster en `prod`) mediante variables de entorno.
 
 ## 3. Inyección de Dependencias (DI)
 * **3.1. Acoplamiento débil y testabilidad:**
