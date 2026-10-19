@@ -1,8 +1,8 @@
-# Tema 25.- Protección de datos de carácter personal. Normativa. Adaptación de aplicaciones. La AEPD.
+# Tema 25.- Protección de datos de carácter personal. Normativa. Adaptación de aplicaciones y entornos a los requisitos de la normativa legal. La Agencia Española de Protección de Datos.
 
 ## 1. Introducción
 * **Contexto:** Derecho fundamental (art. 18.4 CE) para limitar el uso de la informática. 
-* **Marco Legal:** RGPD (Europa, 2018) + LOPDGDD (España, LO 3/2018).
+* **Marco Legal:** RGPD (Europa, 2016) + LOPDGDD (España, LO 3/2018).
 * **Impacto AAPP:** Ayuntamientos manejan datos críticos. Proteger la privacidad es imperativo legal.
 
 ## 2. Normativa (RGPD y LOPDGDD)
@@ -22,7 +22,7 @@
 * **2.6. Obligaciones Responsables:** DPO (obligatorio en AAPP), EIPD (alto riesgo), Brechas (72h) y Registro de Actividades (RAT).
 * **2.7. Ley 25/2007 (Comunicaciones):** Conservación de *metadatos* (no contenido) máx 12 meses para delitos graves (requiere orden judicial).
 
-## 3. Adaptación de Aplicaciones TIC
+## 3. Adaptación de Aplicaciones y Entornos a los Requisitos de la Normativa Legal
 * **3.1. El binomio RGPD-ENS:** Por mandato de la Disp. Adicional 1ª de la LOPDGDD, las AAPP cumplen la seguridad del RGPD implantando el **Esquema Nacional de Seguridad (ENS)**.
 * **3.2. Medidas Técnicas:**
   * Privacidad desde el diseño y por defecto.
