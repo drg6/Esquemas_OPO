@@ -1,4 +1,4 @@
-# Tema 27.- ENS. Normas CCN-STIC. Estrategia de Ciberseguridad Nacional y entidades actoras.
+# Tema 27.- Esquema Nacional de Seguridad. Normas CCN-STIC. Aspectos básicos de la Estrategia de Ciberseguridad Nacional y principales entidades actoras en relación con el sector público y privado.
 
 ## 1. Introducción
 * **Contexto:** El ciberespacio es un dominio crítico. Un Ayuntamiento no puede ser un "silo aislado". 
@@ -9,15 +9,19 @@
 * **2.2. Ámbito:** Sector público (AGE, CCAA, EELL) y proveedores privados conectados.
 * **2.3. Principios:** Proceso integral, Gestión basada en riesgos (MAGERIT), Defensa en profundidad, Vigilancia continua y Segregación de roles.
 * **2.4. Dimensiones (D-I-C-A-T):** Disponibilidad, Integridad, Confidencialidad, Autenticidad y Trazabilidad.
-* **2.5. Categorización:** Básica (Autoevaluación), Media y Alta (Auditoría externa bienal). *Se hereda la dimensión con mayor nivel.*
+* **2.5. Categorización y Certificación:** (Hereda la dimensión de mayor nivel).
+  * **Básica:** Impacto limitado -> Autoevaluación (Herramienta INÉS).
+  * **Media / Alta:** Impacto grave/muy grave -> Auditoría externa ENAC cada 2 años.
+  * *Registro:* Inscripción obligatoria en el Registro del CCN.
 * **2.6. Medidas de Seguridad (73 controles):** Divididas en Marcos: Organizativo [org], Operacional [op] y Protección [mp].
 
 ## 3. Normas CCN-STIC (El brazo técnico)
 * **3.1. Concepto:** Guías del Centro Criptológico Nacional con instrucciones técnicas de obligado cumplimiento o recomendación.
 * **3.2. Series Clave:**
-  * **Serie 400:** Perfiles de Cumplimiento (PCE-EELL para Ayuntamientos).
+  * **Serie 400:** Perfiles de Cumplimiento para Ayuntamientos (PCE-EELL).
+  * **Serie 500:** Entornos Windows (configuración segura, hardening)
   * **Serie 800:** Core del ENS (Implantación, auditoría, métricas).
-* **3.3. Herramientas del CCN para AAPP:** LUCÍA (gestión incidentes), microCLAUDIA (vacunación ransomware), INES (estado de seguridad).
+* **3.3. Herramientas del CCN para AAPP:** LUCÍA (gestión incidentes), microCLAUDIA (vacunación ransomware), INES (estado de seguridad), CARMEN (analisis trafico red), PILAR (Analisis de riesgos), ANA (auditorias).
 
 ## 4. Estrategia de Ciberseguridad Nacional (2019)
 * **4.1. Concepto:** Define las líneas de acción del Estado para defender el ciberespacio.
