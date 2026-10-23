@@ -1,11 +1,16 @@
 # Tema 29.- Análisis y gestión de riesgos. Herramientas.
 
 ## 1. Introducción
-* **Contexto:** La seguridad 100% no existe. Hay que equilibrar el coste de la protección con el riesgo asumido.
-* **Mandato Legal:** Es un principio básico del ENS (Art. 7) y una obligación continua, no un proyecto puntual.
+- **Seguridad de la Información (ENS):** Capacidad de los sistemas para resistir, de manera fiable, acciones que comprometan su Disponibilidad, Autenticidad, Integridad y Confidencialidad.
+- **Propósito:** Frente a la exposición a amenazas y vulnerabilidades, el análisis y gestión de riesgos permite:
+  * Identificar **qué proteger** (Activos).
+  * Identificar **de qué protegerlo** (Amenazas).
+  * Determinar **cuánto invertir** en protección (Equilibrio coste/riesgo).
+- **Mandato Legal:** Es un proceso **continuo** y un principio básico del **ENS (Art. 7)**, no un proyecto puntual.
 
 ## 2. Conceptos Clave (El Glosario del Riesgo)
-* **Activo:** Lo que tiene valor (Información y Servicios).
+**Gestión de Riesgos:** Proceso de identificar, analizar, evaluar y modificar los riesgos para equilibrar el *riesgo asumido* con el *coste de protección*. Se divide en dos fases operativas: *Análisis* y *Tratamiento*.
+* **Activo:** Lo que tiene valor (Información y Servicios). Ej. Bd oracle, padron, etc...
 * **Amenaza:** Lo que puede hacernos daño (Ransomware, inundación, error humano).
 * **Vulnerabilidad:** Debilidad de nuestro sistema (Falta de parches).
 * **Riesgo:** Probabilidad de que la amenaza explote la vulnerabilidad. *(Riesgo = Probabilidad x Impacto)*.
@@ -24,10 +29,13 @@ Metodología oficial del Estado. Fases secuenciales:
 * **Informes resultantes:** Modelo de valor, Mapa de riesgos, Declaración de Aplicabilidad (SoA) e Informe de Insuficiencias.
 
 ## 4. Gestión / Tratamiento del Riesgo (MATE)
-Decidir qué hacer con el riesgo residual. Estrategias **MATE**:
-* **M**itigar (Reducir): Aplicar más salvaguardas (Ej: poner un firewall).
+Objetivo → reducir el riesgo hasta un nivel **aceptable** (riesgo residual). Estrategias **MATE**:
+* **M**itigar (Reducir): Aplicar más salvaguardas (Ej: poner un firewall) para bajar el riesgo. Tipología: 
+  * **Preventivos:** Evitan el incidente (Hardening, cifrado, formación, control de acceso).
+  * **Detectivos:** Alertan del incidente (IDS/IPS, SIEM, auditoría de logs).
+  * **Correctivos:** Recuperan la normalidad (Planes de contingencia, restauración de backups).
 * **A**ceptar: Asumirlo (El coste del firewall es mayor que el daño).
-* **T**ransferir: Pasarlo a un tercero (Ej: contratar un ciberseguro).
+* **T**ransferir: Pasarlo a un tercero (Ej: contratar un ciberseguro o un proveedor con SLA).
 * **E**vitar: Eliminar la causa (Ej: apagar un servidor obsoleto).
 * **Nivel de exigencia ENS [op.pl.1]:** Básica (Informal), Media (Semiformal), Alta (Formal/Matemático).
 

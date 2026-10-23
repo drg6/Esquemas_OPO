@@ -41,7 +41,7 @@ Para que la Política (abstracta) se aplique en el día a día, se despliega un 
 * **Nivel 1: La Política de Seguridad.** (Directrices generales aprobadas por el Pleno/Alcaldía).
 * **Nivel 2: Normativas de Seguridad.** Reglas de obligado cumplimiento aprobadas por el CISO. 
   * *Ejemplos:* Teletrabajo, Uso de Medios Informáticos, Escritorio Limpio, Control de Accesos (Contraseñas).
-* **Nivel 3: Procedimientos (SOPs).** Instrucciones técnicas paso a paso ejecutadas por el personal TIC.
+* **Nivel 3: Procedimientos (SOPs - Standard Operating Procedure).** Instrucciones técnicas paso a paso ejecutadas por el personal TIC.
   * *Ejemplos:* Procedimiento de alta/baja en Active Directory, Políticas de Backups.
 * **Nivel 4: Evidencias y Registros.** Pruebas de cumplimiento auditable (Logs de firewall, actas de formación, contratos).
 
