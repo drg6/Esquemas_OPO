@@ -5,7 +5,7 @@
 * **Contexto:** Es la fase **CHECK (Verificar)** del ciclo PDCA de mejora continua. Sin auditoría, la Declaración de Aplicabilidad (SoA) es solo papel mojado.
 
 ## 2. Fundamento Legal y Obligatoriedad
-* **Base Normativa:** Art. 34 del RD 311/2022.
+* **Base Normativa:** Art. 31 del RD 311/2022.
 * **Periodicidad Ordinaria:**
   * **BÁSICA:** Autoevaluación (vía INES) cada **≤ 2 años**.
   * **MEDIA / ALTA:** Auditoría formal (interna o externa) cada **≤ 2 años**.

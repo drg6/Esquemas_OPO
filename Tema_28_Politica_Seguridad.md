@@ -4,24 +4,21 @@
 La seguridad no es un problema puramente tecnológico del departamento de informática, sino un instrumento de **gobierno organizacional** que debe emanar de la máxima autoridad de la entidad y vincular a todo su personal.
 
 ## 2. Diseño de la Política de Seguridad
-La Política de Seguridad es el documento fundacional de máximo nivel que articula las directrices de protección de los sistemas, exigido por el ENS (RD 311/2022). Define el "qué" y el "por qué", pero no el "cómo".
-
-* **2.1. Contenido obligatorio (Art. 12 ENS y guía CCN-STIC 805):**
-  * Misión y objetivos institucionales.
-  * Marco regulatorio (ENS, RGPD, LOPDGDD, Ley 39/2015, Ley 40/2015).
-  * Gestión de riesgos (MAGERIT).
-  * Directrices de formación y concienciación.
-  * Gestión de incidentes de seguridad.
-  * Proceso de revisión y actualización.
-
-* **2.2. Estructura de Roles (La clave del diseño):**
-  * *Responsable de Información / Responsable del Servicio* (Áreas de Negocio).
-  * *Responsable de Seguridad (CISO)* y *Comité de Seguridad*.
-  * *Responsable del Sistema* (Informática/Sistemas).
-  * *Delegado de Protección de Datos (DPD):* Nexo clave entre seguridad y privacidad.
-  * ⚠️ *Principio de segregación de funciones:* Evitar ser juez y parte (CISO ≠ Responsable del Sistema).
-  
-* **2.3. Proceso de elaboración:** Liderado por el Comité de Seguridad, requiere un análisis de contexto, definición de objetivos e identificación de roles y responsabilidades.
+- **2.1. Naturaleza:** Documento fundacional de máximo nivel que articula las directrices de protección de los sistemas, exigido por el ENS (RD 311/2022). Define el "qué" y el "por qué", pero no el "cómo".
+- **2.2. Contenido obligatorio (Estricto Art. 12.1 ENS):** 
+  1. Misión y objetivos institucionales.
+  2. Marco regulatorio (ENS, RGPD, LOPDGDD, Ley 39/2015, Ley 40/2015).
+  3. Roles de seguridad (deberes, designación y renovación).
+  4. Comités de seguridad (estructura y responsabilidades).
+  5. Documentación (directrices de gestión y acceso).
+  6. Riesgos de datos personales.
+- **2.3. Organización y Roles (Art. 11 y 13):**
+  * *Responsables:* Información, Servicio, Seguridad (CISO) y Sistema.
+  * *Comité de Seguridad:* Órgano colegiado de coordinación directiva.
+  * ⚠️ *Diferenciación de responsabilidades:* CISO ≠ Responsable del Sistema (sin dependencia jerárquica).
+  * *DPD:* Supervisión RGPD (colaborador, no es rol estructural ENS).
+- **2.4. Desarrollo (Art. 12.6 y Guía 805):** Aplicación de gestión de riesgos (MAGERIT), plan de concienciación, gestión de incidentes y revisión periódica.
+- **2.5. Proceso de diseño:** Análisis de contexto → Definición de objetivos → Asignación de roles → Redacción clara → Revisión por el Comité.
 
 ## 3. Aprobación de la Política de Seguridad
 
