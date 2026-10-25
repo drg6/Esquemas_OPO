@@ -9,23 +9,30 @@
 * **2.1. EIF (Marco Europeo de Interoperabilidad):** 47 recomendaciones en 4 capas (Jurídica, Organizativa, Semántica, Técnica).
 * **2.2. Normativa Europea:**
   * **Reglamento eIDAS (910/2014):** Identidad y servicios de confianza.
-  * **Reglamento Pasarela Digital Única (2018/1724):** *Your Europe* (Sistema Técnico Once Only - OOTS).
+  * **Reglamento Pasarela Digital Única (2018/1724):** Portal *Your Europe* (Sistema Técnico Once Only - OOTS).
   * **Reglamento Europa Interoperable (2024/903):** Crea el Comité de Europa Interoperable y obliga a realizar *Evaluaciones de Interoperabilidad*.
-  * **Directiva Open Data (2019/1024):** Reutilización de información.
+  * **Directiva Open Data (2019/1024):** Reutilización de información en AAPP.
 * **2.3. Programas de financiación:** ISA² → relevado por **Digital Europe**.
 
-## 3. Normativa Nacional (ENI vs ENS)
-* **ENI (RD 4/2010):** Regula el intercambio de datos. (Garantiza que *se puedan* comunicar).
-* **ENS (RD 311/2022):** Regula la seguridad. (Garantiza que se comuniquen *sin riesgos*).
-* Ambos son obligatorios (AGE, CCAA, Entidades Locales).
+## 3. El Esquema Nacional de Interoperabilidad (ENI)
+- **Concepto (RD 4/2010):** Criterios y recomendaciones que garantizan el intercambio de datos y servicios entre las AAPP y los ciudadanos.
+- **Marco legal clave:**
+  * **Ley 40/2015 (Art. 156):** Establece conjuntamente el ENI y el ENS para normalizar información, formatos y aplicaciones.
+  * **Ley 39/2015 (Art. 28.2):** Derecho a no aportar documentos (*Once Only*). Es el motor jurídico que obliga a inter-operar.
+  * **RD 203/2021:** Reglamento de actuación electrónica que complementa el ENI y lo alinea con Europa.
+- **Principios del ENI:** Cualidad integral, enfoque multidimensional, soluciones multilaterales y reutilización de componentes.
+- **Ámbito de aplicación:** Obligatorio para todo el sector público (AGE, CCAA, Entidades Locales y Universidades).
+- **ENI vs ENS (Art. 156 LRJSP):** Aplicación conjunta y obligatoria.
+  * El ENI (RD 4/2010) asegura que los sistemas *se puedan comunicar* e inter-operar.
+  * El ENS (RD 311/2022) asegura que lo hagan *sin riesgos*.
 
 ## 4. Dimensiones de la Interoperabilidad (Las 4 Capas)
-1. **Jurídica:** Leyes, convenios de cesión de datos y RGPD (minimización).
-2. **Organizativa:** Acuerdos de Nivel de Servicio (SLA), procesos de negocio y responsables.
-3. **Semántica (El gran reto):** Que los datos signifiquen lo mismo. 
-   * *Soluciones:* Vocabularios comunes y código unívoco de oficina **DIR3**.
-4. **Técnica:** Conectividad física y lógica (REST, XML, Red SARA).
-
+1. **Jurídica:** Leyes, convenios de cesión de datos, validez de la firma electrónica y RGPD (minimización).
+2. **Organizativa:** Acuerdos de Nivel de Servicio (SLA), alineación de procesos de negocio y designación de responsables.
+3. **Semántica (El gran reto):** Que los datos signifiquen lo mismo al intercambiarlos. 
+   * *Soluciones:* Modelos de datos comunes, vocabularios y código unívoco de oficina **DIR3**.
+4. **Técnica:** Conectividad física y lógica, protocolos y formatos (REST, XML), infraestructuras y servicios comunes (Red SARA, PID, SIR).
+  
 ## 5. Normas Técnicas de Interoperabilidad (NTI)
 Desarrollan técnicamente el ENI mediante especificaciones concretas.
 * *Mnemotecnia:* **C**uando **D**escargas **E**xpedientes **D**igitales **F**irmados, **I**ntenta **M**antener **G**ran **R**igor **C**on **R**esponsabilidad.
@@ -42,7 +49,7 @@ La SGAD provee las infraestructuras que los Ayuntamientos consumen:
   * **Cl@ve:** Identidad (PIN, Permanente, DNIe).
   * **@firma:** Validación de firmas (XAdES, PAdES) y sellado de tiempo.
   * **SIR / GEISER:** Interconexión de Registros.
-  * **Notific@ / DEHú:** Notificaciones electrónicas.
+  * **Notific@ (enviar) / DEHú (portal):** Notificaciones electrónicas.
   * **Archive / INSIDE:** Archivo y gestión de expedientes.
 
 ## 7. Conclusión
