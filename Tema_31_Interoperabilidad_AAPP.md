@@ -1,4 +1,4 @@
-# Tema 31.- Interoperabilidad y sistemas de cooperación entre AAPP. Políticas UE, ENI, NTI e Intercambio de datos.
+# Tema 31.- Interoperabilidad y sistemas de cooperación entre Administraciones Públicas. Política de la Unión Europea y normativa al respecto. El Esquema Nacional de Interoperabilidad. Dimensiones de la interoperabilidad. Las Normas Técnicas de Interoperabilidad. Intercambio de datos entre Administraciones Públicas.
 
 ## 1. Introducción
 * **Contexto:** 8.100 AAPP con sistemas heterogéneos y aislados.

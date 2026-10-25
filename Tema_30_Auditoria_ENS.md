@@ -12,7 +12,7 @@
 * **Auditoría Extraordinaria:** Obligatoria si hay cambios sustanciales (migración a *cloud*, rediseño de arquitectura o tras un ciberincidente grave).
 
 ## 3. Tipos de Auditoría y Certificación
-* **3.1. Autoevaluación (Categoría Básica):** La hace la propia entidad. Genera una **Declaración de Conformidad** publicable en la Sede Electrónica.
+* **3.1. Autoevaluación (Categoría Básica):** La hace la propia entidad con la herramienta INES. Genera una **Declaración de Conformidad** publicable en la Sede Electrónica.
 * **3.2. Auditoría Interna:** Personal propio independiente del sistema auditado (Segregación de funciones). Válido para mejorar, pero *no da sello oficial ENS*.
 * **3.3. Auditoría Externa (Certificación):** 
   * Entidad **Independiente** y **Acreditada por ENAC** (Ej: AENOR, BSI).
