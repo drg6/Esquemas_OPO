@@ -1,18 +1,18 @@
-# Tema 32.- Gestión documental y de contenidos (CMS). Formularios. Búsqueda (Crawlers) y SEO. Trabajo colaborativo.
+# Tema 32.- Sistemas de gestión documental y de contenidos. Sistemas CMS: definición y conceptos. Generadores de formularios. Búsqueda de información: robots, spiders, otros. Posicionamiento y buscadores (SEO). Herramientas de trabajo colaborativo.
 
 ## 1. Introducción
-* **Contexto:** Las AAPP generan un volumen masivo de información (bandos, trámites, actas). 
+* **Contexto:** Las AAPP generan un volumen masivo de información (noticias, trámites, actas). 
 * **Necesidad:** Herramientas para que personal no técnico (ej. prensa, funcionarios) publique información localizable por el ciudadano (SEO) y colabore internamente.
 * **El ciclo de la información:** *Se gestiona (DMS) → Se publica (CMS) → Se interactúa (Formularios) → Se posiciona (SEO) → Se trabaja en equipo (Colaboración).*
 
 ## 2. Sistemas de Gestión Documental (SGD / DMS)
-* **2.1. Concepto:** Plataformas para el ciclo de vida del documento vivo. (No confundir con el Archivo definitivo a largo plazo exigido por el ENI).
+* **2.1. Concepto:** Plataformas para el ciclo de vida del documento vivo. 
 * **2.2. Funcionalidades (Mnemotecnia CABORV):** 
   * **C**aptura (Digitalización/OCR).
   * **A**lmacenamiento central.
   * **B**úsqueda (Full-text search y metadatos).
   * **O**rganización (Expedientes).
-  * **R**ecuperación (Control de Versiones y retención).
+  * **R**ecuperación (Control de Versiones, retención y eliminación).
   * **V**alidación (Workflows de aprobación).
 * **2.3. Soluciones:** Alfresco y Nuxeo (Open Source/API-First), OpenText, SharePoint.
 * **2.4. DMS vs. Archivo Electrónico Único (El salto al ENI):**
@@ -20,7 +20,7 @@
   * Cuando el expediente se cierra, sale del DMS y va al **Archivo Definitivo** (Ej: la herramienta **Archive** de la SGAD). Su función vital es aplicar el **resellado criptográfico** periódico para que las firmas electrónicas no caduquen con los años, cumpliendo la NTI de Política de Gestión de Documentos.
 
 ## 3. Sistemas CMS (Content Management System)
-* **3.1. Concepto:** Software que permite crear y publicar contenido web separando el contenido de la presentación visual.
+* **3.1. Concepto:** Software que permite crear y publicar contenido web sin conocimientos de programación, separando el contenido de la presentación visual.
 * **3.2. Arquitectura Clásica:** *Backend* (panel de administración WYSIWYG) + *Frontend* (lo que ve el ciudadano).
 * **3.3. Principales CMS:** WordPress (43% de la web), Drupal (muy robusto, estándar en AAPP grandes), Joomla!, Liferay (Portales de empleado).
 * **3.4. Headless CMS:** Separa totalmente Backend y Frontend. Expone el contenido vía **APIs REST/GraphQL**. 
@@ -29,7 +29,7 @@
 ## 4. Generadores de Formularios
 * **4.1. Concepto:** Herramientas sin código (*no-code*) para capturar datos (citas, quejas, encuestas).
 * **4.2. Funcionalidades:** Diseño *drag-and-drop*, validación de campos, antispam (CAPTCHA), accesibilidad (WCAG 2.1) e integración con gestores de expedientes.
-* **4.3. Soluciones:** Plugins de CMS (Gravity Forms), Independientes (Typeform) o Nativos de plataformas de e-Administración (Gestiona, SIGM).
+* **4.3. Soluciones:** Plugins de CMS (Gravity Forms, Contact Form 7 (WordPress), Webform (Drupal)), Independientes (Typeform, Microsoft Forms) o Nativos de plataformas de e-Administración (Gestiona, SIGM).
 
 ## 5. Búsqueda de Información (Crawlers)
 * **5.1. Concepto:** *Crawlers / Spiders / Robots* son programas automatizados de motores de búsqueda que recorren la web para indexarla.
@@ -54,7 +54,7 @@
 * **7.2. Soluciones AAPP:** 
   * *Suites:* Microsoft 365, **Nextcloud** (Muy implantado en AAPP como alternativa de código abierto y soberana para nube privada).
   * *Comunicación:* Teams, Slack, Jitsi (Videoconferencia Open Source).
-  * *Gestión:* Trello, Jira, Confluence (Wikis de conocimiento).
+  * *Gestión:* Trello, Jira, Planner, Confluence (Wikis de conocimiento).
 * **7.3. Restricciones AAPP:** Cumplimiento estricto del ENS, protección de datos (RGPD) priorizando la **soberanía del dato** (almacenamiento en territorio nacional/UE).
 
 ## 8. Conclusión
