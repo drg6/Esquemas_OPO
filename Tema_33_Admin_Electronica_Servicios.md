@@ -1,10 +1,10 @@
-# Tema 33.- La administración electrónica. Sede, Carpeta, Registro (SIR), Digitalización, Firma y Gestor Documental.
+# Tema 33.- La administración electrónica. Sede electrónica y carpeta ciudadana. Registro electrónico e interconexión de registros. Digitalización certificada. Firma y sellado digital. Gestor documental.
 
 ## 1. Introducción
 * **Contexto legal:** Leyes 39/2015 y 40/2015. El canal electrónico no es una alternativa, es el medio nativo y obligatorio para la tramitación administrativa.
 * **El Ecosistema:** Sede → Carpeta → Registro (SIR) → Firma → Digitalización → Archivo.
 
-## 2. Concepto y Arquitectura (El Modelo Dual)
+## 2. La Administración Electrónica: Concepto y Arquitectura
 * **e-Government:** No es escanear papel, es transformar procesos con TIC para ganar eficiencia y transparencia.
 * **Front-Office (Hacia el ciudadano):** Escaparate digital (Sede Electrónica, Carpeta Ciudadana, Registro Electrónico).
 * **Back-Office (Maquinaria interna):** Tramitación oculta (SIR, plataforma @firma, Gestor Documental).
@@ -22,8 +22,8 @@
 ## 5. Registro e Interconexión (Front/Back-Office)
 * **5.1. Registro General:** Obligatorio (Art. 16 Ley 39/2015), 24x7, emite recibo con fecha y hora oficial que marca los plazos legales.
 * **5.2. SIR y SICRES:** 
-  * **SIR:** La "autopista" que interconecta los registros de todas las AAPP.
-  * **SICRES 4.0:** El "idioma" (Norma Técnica) que define el XML del asiento registral.
+  * **SIR:** La Infraestructura "autopista" que interconecta los registros de todas las AAPP.
+  * **SICRES 4.0:** El "idioma" (Norma Técnica) que define el formato XML del asiento registral.
 * **5.3. Herramientas (GEISER/ORVE) y OAMR:** El ciudadano sin medios va a la **OAMR (Oficina de Asistencia en Materia de Registros)**, donde el Ayuntamiento usa ORVE para digitalizar y enviar por SIR.
 
 ## 6. Firma y Sellado Electrónico (Back-Office)
@@ -32,16 +32,16 @@
 * **6.3. Sello de Órgano:** Para actuaciones automatizadas (ej. emitir un volante de empadronamiento masivo sin intervención humana).
 * **6.4. Plataforma @firma:** Del Estado, valida formatos XAdES, CAdES, PAdES.
 * **6.5. Sellado de tiempo (Timestamping) y Funcionario Habilitado:** 
-  * El sello de tiempo garantiza validez a largo plazo.
+  * El sello de tiempo acredita que un documento existía en un momento determinado y que no ha sido modificado desde entonces y garantiza validez a largo plazo.
   * Si el ciudadano no tiene firma, actúa el **Funcionario Habilitado** firmando por él con consentimiento expreso.
 
 ## 7. Digitalización Certificada
-* **Concepto:** Pasar de papel a digital con idéntica validez legal (fiel al original, >200ppp).
+* **Concepto:** Pasar de papel a digital con idéntica validez legal (fiel al original, >200ppp, metadatos, PDF/A).
 * **Proceso OAMR:** Ciudadano entrega papel → Funcionario escanea → Añade metadatos ENI → Firma electrónicamente → **Devuelve el papel original al ciudadano** → Se destruyen copias innecesarias.
 
 ## 8. Gestor Documental y Archivo
-* **8.1. Gestor Documental (DMS):** Controla el documento "vivo" (metadatos, versionado, flujos).
-* **8.2. Archivo Electrónico Único (Ley 40/2015):** Destino del expediente cerrado. Garantiza la conservación a largo plazo aplicando resellado criptográfico para mantener las **firmas longevas** (AdES-LTA).
+* **8.1. Gestor Documental (DMS):** Gestiona el ciclo de vida completo del documento electrónico (metadatos, firma y sellado, versionado, conservación a largo plazo, archivo histórico, eliminación).
+* **8.2. Archivo Electrónico Único (Ley 40/2015):** Destino del expediente cerrado. Garantiza la conservación a largo plazo aplicando resellado criptográfico para mantener las **firmas longevas** en formato de archivo permanente o archive (AdES-LTA).
 
 ## 9. Conclusión
 El ecosistema de administración electrónica conforma una maquinaria perfecta donde el ciudadano interactúa a través de la Sede y la Carpeta, el Registro captura la entrada, la OAMR digitaliza certificadamente, @firma garantiza el valor legal, SIR transporta el dato y el Gestor Documental asegura su preservación perpetua bajo el paraguas del ENI y el ENS.
