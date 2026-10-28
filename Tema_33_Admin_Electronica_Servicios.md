@@ -1,7 +1,7 @@
 # Tema 33.- La administración electrónica. Sede electrónica y carpeta ciudadana. Registro electrónico e interconexión de registros. Digitalización certificada. Firma y sellado digital. Gestor documental.
 
 ## 1. Introducción
-* **Contexto legal:** Leyes 39/2015 y 40/2015. El canal electrónico no es una alternativa, es el medio nativo y obligatorio para la tramitación administrativa.
+* **Contexto legal:** Leyes 39/2015 y 40/2015. Establecen la obligatoriedad del medio electrónico como canal nativo de la tramitación administrativa.
 * **El Ecosistema:** Sede → Carpeta → Registro (SIR) → Firma → Digitalización → Archivo.
 
 ## 2. La Administración Electrónica: Concepto y Arquitectura
@@ -29,7 +29,7 @@
 ## 6. Firma y Sellado Electrónico (Back-Office)
 * **6.1. Conceptos y eIDAS:** Garantiza Autenticidad, Integridad y No Repudio. Tres niveles eIDAS: Simple, Avanzada y Cualificada (equivalente legal a manuscrita, ej. DNIe).
 * **6.2. PKI y Certificados X.509 v3:** Emitidos por prestadores cualificados (FNMT).
-* **6.3. Sello de Órgano:** Para actuaciones automatizadas (ej. emitir un volante de empadronamiento masivo sin intervención humana).
+* **6.3. Sello de Órgano:** Identifica a una persona jurídica u órgano administrativo, usado para actuaciones automatizadas (ej. emitir un volante de empadronamiento masivo sin intervención humana).
 * **6.4. Plataforma @firma:** Del Estado, valida formatos XAdES, CAdES, PAdES.
 * **6.5. Sellado de tiempo (Timestamping) y Funcionario Habilitado:** 
   * El sello de tiempo acredita que un documento existía en un momento determinado y que no ha sido modificado desde entonces y garantiza validez a largo plazo.
