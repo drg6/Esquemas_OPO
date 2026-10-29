@@ -15,21 +15,21 @@
 ## 3. Las Siete Capas del Modelo OSI y sus Protocolos
 1. **Física (Capa 1):**
    * Transmisión de *bits* (0s y 1s). PDU: Bit.
-   * Medio físico (cobre, fibra, aire). Dispositivos: Hubs. Estándar: IEEE 802.3
+   * Medio físico (Par trenzado, fibra, aire). Dispositivos: Hubs. Estándar: 802.3 (Ethernet)
 2. **Enlace de Datos (Capa 2):**
    * Comunicación fiable local (LAN). Direcciones **MAC** (48 bits). PDU: Trama (*Frame*). Dispositivos: Switches. Subcapas: LLC (Logical Link Control) y MAC (Media Access Control).
    * **Detalle AAPP:** Uso intensivo del estándar **IEEE 802.1Q (VLANs)** para segmentar la red (ej. Policía Local aislada del resto) como exige el **ENS**.
 3. **Red (Capa 3):**
-   * Encaminamiento (*Routing*) entre distintas redes. Direcciones **IP** lógicas (IPv4 32bits, IPv6 128bits). PDU: Paquete. Dispositivos: Routers. Protocolos: IP, ICMP, ARP
+   * Encaminamiento (*Routing*) entre distintas redes. Direcciones **IP** lógicas (IPv4 32bits, IPv6 128bits). PDU: Paquete. Dispositivos: Routers. *Protocolos:* IP, ICMP, ARP
 4. **Transporte (Capa 4):**
-   * Comunicación extremo a extremo (Puertos 0-65535). PDU: Segmento (TCP) o Datagrama (UDP).
+   * Comunicación extremo a extremo (Puertos 0-65535). PDU: Segmento (TCP) o Datagrama (UDP). 
    * **TCP:** Orientado a conexión, fiable (HTTP, SSH).
    * **UDP:** Sin conexión, rápido, no fiable (DNS, streaming, VoIP).
-5. **Sesión (Capa 5):** * Mantiene el diálogo (sincronización) entre aplicaciones.
+5. **Sesión (Capa 5):** * Mantiene el diálogo (sincronización) entre aplicaciones. *Protocolos:* NetBIOS, RPC, PPTP (fase de control)
 6. **Presentación (Capa 6):**
-   * Traducción, compresión y **cifrado** de los datos (SSL/TLS para HTTPS).
+   * Traducción, compresión y **cifrado** de los datos (*protocolos* SSL/TLS para HTTPS).
 7. **Aplicación (Capa 7):**
-   * Interfaz con el usuario. Protocolos: HTTP (80), HTTPS (443), SMTP (25), DNS (53), LDAP (389).
+   * Interfaz con el usuario. *Protocolos:* HTTP (80), HTTPS (443), SMTP (25), DNS (53), LDAP (389).
 
 ## 4. Direccionamiento (Capa 3)
 * **IPv4:** 32 bits (4 octetos). Parte de Red + Parte de Host (separado por la máscara / CIDR).
@@ -37,7 +37,9 @@
 * **IPv6:** 128 bits (8 bloques hex). Soluciona el agotamiento de IPv4. Autoconfiguración y elimina la necesidad de NAT.
 
 ## 5. Encaminamiento (Routing)
-* **Concepto:** Proceso del router para enviar paquetes por la ruta óptima mediante su **Tabla de Enrutamiento**.
+* **Concepto:** Proceso del router para enviar paquetes por la ruta óptima mediante su **Tabla de Enrutamiento**. La tabla se puede construir:
+   * **Estáticamente:** Rutas configuradas manualmente por el administrador. Adecuado para redes pequeñas.
+   * **Dinámicamente:** Rutas aprendidas automáticamente mediante protocolos de enrutamiento.
 * **Protocolos IGP (Interiores):** **OSPF** (Estado de enlace/Algoritmo Dijkstra).
 * **Protocolos EGP (Exteriores):** **BGP** (Para interconectar Internet).
 * **Tendencia actual (El toque pro):** Adopción de **SD-WAN** en AAPP descentralizadas para gestionar el *routing* entre múltiples sedes de forma centralizada por software, optimizando costes y mejorando la seguridad.
