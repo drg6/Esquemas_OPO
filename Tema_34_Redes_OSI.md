@@ -1,17 +1,18 @@
-# Tema 34.- Redes. Modelo OSI de ISO: Arquitectura, capas, interfaces, protocolos, direccionamiento y encaminamiento.
+# Tema 34.- Redes. El modelo de referencia de interconexión de sistemas abiertos (OSI) de ISO: Arquitectura, capas, interfaces, protocolos, direccionamiento y encaminamiento.
 
 ## 1. Introducción
 * **Contexto:** En los años 80, cada fabricante usaba protocolos propietarios e incompatibles (SNA, AppleTalk).
 * **Solución:** La ISO crea el **Modelo OSI** en 1984. Un marco teórico universal para estandarizar la comunicación.
 * *Nota:* TCP/IP es el estándar real (de facto), pero OSI es el mapa conceptual para el diseño y diagnóstico (ej. "Tengo un problema de Capa 3").
 
-## 2. Arquitectura del Modelo (Principios)
-* **Capas (Layers):** 7 niveles funcionales.
-* **Encapsulamiento:** Descenso añadiendo cabeceras (creando **PDUs**).
-* **Desencapsulamiento:** Ascenso retirando cabeceras.
-* **Independencia:** Cambiar el cable de red (Capa 1) no afecta al software de correo (Capa 7).
+## 2. Arquitectura del Modelo e Interfaces
+- **Capas (Layers):** 7 niveles funcionales.
+- **Interfaces y Servicios:** Límites entre capas adyacentes. Permiten que una capa ofrezca servicios a la superior ocultando su implementación técnica.
+- **Encapsulamiento:** Descenso añadiendo cabeceras (creando **PDUs**).
+- **Desencapsulamiento:** Ascenso retirando cabeceras.
+- **Independencia:** Cambiar el cable de red (Capa 1) no afecta al software de correo (Capa 7).
 
-## 3. Las Siete Capas del Modelo OSI
+## 3. Las Siete Capas del Modelo OSI y sus Protocolos
 1. **Física (Capa 1):**
    * Transmisión de *bits* (0s y 1s). PDU: Bit.
    * Medio físico (cobre, fibra, aire). Dispositivos: Hubs.
