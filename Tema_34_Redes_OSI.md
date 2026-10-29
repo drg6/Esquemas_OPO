@@ -15,12 +15,12 @@
 ## 3. Las Siete Capas del Modelo OSI y sus Protocolos
 1. **Física (Capa 1):**
    * Transmisión de *bits* (0s y 1s). PDU: Bit.
-   * Medio físico (cobre, fibra, aire). Dispositivos: Hubs.
+   * Medio físico (cobre, fibra, aire). Dispositivos: Hubs. Estándar: IEEE 802.3
 2. **Enlace de Datos (Capa 2):**
-   * Comunicación local (LAN). Direcciones **MAC** (48 bits). PDU: Trama (*Frame*). Dispositivos: Switches.
+   * Comunicación fiable local (LAN). Direcciones **MAC** (48 bits). PDU: Trama (*Frame*). Dispositivos: Switches. Subcapas: LLC (Logical Link Control) y MAC (Media Access Control).
    * **Detalle AAPP:** Uso intensivo del estándar **IEEE 802.1Q (VLANs)** para segmentar la red (ej. Policía Local aislada del resto) como exige el **ENS**.
 3. **Red (Capa 3):**
-   * Encaminamiento (*Routing*) entre distintas redes. Direcciones **IP** lógicas. PDU: Paquete. Dispositivos: Routers.
+   * Encaminamiento (*Routing*) entre distintas redes. Direcciones **IP** lógicas (IPv4 32bits, IPv6 128bits). PDU: Paquete. Dispositivos: Routers. Protocolos: IP, ICMP, ARP
 4. **Transporte (Capa 4):**
    * Comunicación extremo a extremo (Puertos 0-65535). PDU: Segmento (TCP) o Datagrama (UDP).
    * **TCP:** Orientado a conexión, fiable (HTTP, SSH).
