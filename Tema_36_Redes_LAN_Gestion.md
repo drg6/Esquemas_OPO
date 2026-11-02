@@ -1,4 +1,4 @@
-# Tema 36.- Redes de área local (LAN). Gestión de dispositivos y Administración de redes.
+# Tema 36.- Redes. Redes de área local. Gestión de dispositivos. Administración de redes LAN.
 
 ## 1. Introducción
 * **Concepto:** Las redes LAN conectan dispositivos en un ámbito geográfico limitado (un edificio municipal o campus) con altísima velocidad (1-10 Gbps) y baja latencia.
@@ -8,24 +8,25 @@
 * **2.1. Arquitectura Jerárquica (Estrella extendida):** Es el estándar de diseño actual. Divide la red en tres capas físicas: **Núcleo (Core) → Distribución → Acceso**.
 * **2.2. Ethernet (IEEE 802.3) y Medios:**
   * 1000BASE-T (1 Gbps - Cat5e/6).
-  * 10GBASE-T (10 Gbps - Cat6a).
-  * Enlaces *Backbone* de fibra óptica entre los armarios de planta y el CPD central.
+  * 10GBASE-T (10 Gbps - Cat6a/7).
+  * Enlaces *Backbone* de fibra óptica (25GB/40GB/100GBASE) entre los armarios de planta y el CPD central.
+  * Area de trabajo -> Cableado horizontal -> Armario de telecomunicaciones -> Cableado vertical (backbone) -> Sala de equipos/CPD
 * **2.3. Wi-Fi (IEEE 802.11):** 
   * Estándares: Wi-Fi 5 (802.11ac), Wi-Fi 6/6E (802.11ax).
-  * Seguridad: Implementación obligatoria de **WPA3-Enterprise** (con RADIUS).
+  * Seguridad: Implementación obligatoria de **WPA3-Enterprise** (protocolo 802.1X y servidor RADIUS).
 
 ## 3. Gestión y Monitorización de Dispositivos
 * **3.1. SNMP (Simple Network Management Protocol):** 
   * Opera por UDP (161/162).
-  * *Componentes:* **NMS** (El servidor gestor), **Agente** (en el switch) y **MIB** (el árbol jerárquico de variables con sus OID).
-  * *Versiones:* SNMPv1/v2c (texto claro) vs **SNMPv3 (Autenticación y cifrado, obligatorio ENS)**.
+  * *Componentes:* **NMS** (El servidor gestor), **Agente** (en el switch) y **MIB** (árbol jerárquico de variables con sus OID).
+  * *Versiones:* SNMPv2c (texto sin cifrar, mas usado) vs **SNMPv3 (Autenticación y cifrado, obligatorio ENS)**.
 * **3.2. Herramientas NMS (Network Management System):** Zabbix, Nagios (Open Source), PRTG, SolarWinds (Comerciales). Sirven para hacer *polling* (consultas) y recibir *traps* (alertas).
 * **3.3. Syslog y NetFlow:** 
   * **Syslog:** Envío centralizado de logs a un servidor SIEM para auditoría.
   * **NetFlow/sFlow:** Análisis profundo de tráfico (quién habla con quién y qué volumen) para detectar anomalías o DDoS.
 
 ## 4. Administración de Redes LAN
-* **4.1. Segmentación:** División en VLANs (separación lógica) + Subredes IP + ACLs en los routers inter-VLAN.
+* **4.1. Segmentación:** División en VLANs (separación lógica) + Subredes IP + ACLs en los routers inter-VLAN + Firewalls.
 * **4.2. Control de Acceso a la Red (NAC) e IEEE 802.1X:**
   * Arquitectura que impide el acceso a la red de dispositivos no autorizados en la propia roseta (puerto físico) o Wi-Fi.
   * *Componentes:* **Suplicante** (Equipo), **Autenticador / NAS** (Switch) y **Servidor** (RADIUS).

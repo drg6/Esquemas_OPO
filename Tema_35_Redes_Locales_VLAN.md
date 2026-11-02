@@ -1,34 +1,39 @@
 # Tema 35.- Redes. Redes virtuales (VLAN) y Protocolos seguros.
 
 ## 1. Introducción
-* **Problema:** En una LAN tradicional todos los equipos comparten el mismo *Dominio de Broadcast*. Esto genera "tormentas" de red y graves riesgos de seguridad (todos ven todo).
-* **Solución:** **VLAN** para segmentar lógicamente la red, e **IPSec/TLS** para cifrar las comunicaciones.
+* **Problema:** En una LAN tradicional todos los equipos comparten el mismo *Dominio de Broadcast*. Esto degrada el rendimiento (genera tormentas de broadcast) y tiene graves riesgos de seguridad (todos ven todo).
+* **Solución:** **VLAN** para segmentar lógicamente la red, e **IPSec/TLS** para cifrar las comunicaciones (confidencialidad e integridad).
 
 ## 2. VLANs (Virtual Local Area Networks)
 * **2.1. Concepto:** Redes lógicas dentro de un switch físico. Cada VLAN es un dominio de broadcast aislado a Nivel 2.
 * **2.2. Estándar 802.1Q:** Etiqueta (*Tag*) de 4 bytes insertada en la trama Ethernet. Incluye el **VLAN ID** (12 bits = 4094 VLANs posibles).
 * **2.3. Tipos de Puertos:** 
   * *Access (Acceso):* Conecta PCs. Pertenece a 1 sola VLAN. Tráfico sin etiqueta.
-  * *Trunk (Troncal):* Conecta switches. Transporta múltiples VLANs etiquetadas.
-* **2.4. Caso de Uso (Aislamiento ENS):** Separar VLAN 10 (Tributos) de VLAN 20 (Policía) y VLAN 99 (Invitados WiFi).
-* **2.5. Inter-VLAN Routing:** Como las VLAN están aisladas, para que se hablen hace falta un Router (Capa 3) que aplique **Listas de Control de Acceso (ACL)**.
+  * *Trunk (Troncal):* Conecta switches. Transporta tráfico de múltiples VLANs, tramas etiquetadas.
+* **2.4. Caso de Uso (Aislamiento ENS):** Separar VLAN 10 (Tributos) de VLAN 20 (Policía) y VLAN 99 (Invitados WiFi). ENS [mp.com.1]: Exige el aislamiento estricto del tráfico en VLANs diferenciadas bajo el principio de mínimo privilegio.
+* **2.5. Ventajas**
+  * *Seguridad:* Aislamiento en Capa 2. Evita accesos no autorizados y frena la propagación de malware.
+  * *Rendimiento:** Reduce *broadcast* y tormentas de difusión.
+  * *Flexibilidad:* Gestión lógica. Cambiar de ubicación física sin recablear.
+  * *Cumplimiento ENS:* Segmentación legal. Aísla datos críticos (ej. Servicios Sociales).
+* **2.6. Inter-VLAN Routing:** Como las VLAN están aisladas, para que se hablen hace falta un Router (Capa 3) que aplique **Listas de Control de Acceso (ACL)**.
 
 ## 3. Protocolos Seguros (La Criptografía en Red)
 * **3.1. El problema de IP:** El protocolo IP fue creado para ser rápido, no seguro. Viaja en texto plano.
 * **3.2. IPSec (Internet Protocol Security - Capa 3):**
-  * Protege todo el paquete IP. Transparente para las aplicaciones.
-  * *Protocolos:* **AH** (Autenticación/Integridad) y **ESP** (Cifra el dato completo).
-  * *Modos:* Transporte (Host a Host) y **Túnel** (Encapsula IP dentro de otro IP. Se usa para VPNs *Site-to-Site*, ej. conectar Ayuntamiento con Biblioteca).
+  * Protege todo el paquete IP (Autenticación, Integridad, Confidencialidad, Anti-replay). Transparente para las aplicaciones.
+  * *Protocolos:* **AH** (Autenticación/Integridad/Sin cifrado) y **ESP** (Autenticación, integridad y cifrado AES-256).
+  * *Modos:* Transporte (Host a Host, solo cifra payload) y **Túnel** (Cifra paquete completo y encapsula IP dentro de otro IP. Se usa para VPNs *Site-to-Site*, ej. conectar Ayuntamiento con Biblioteca).
   * *Negociación:* **IKE** (Intercambio de claves).
 * **3.3. TLS (Transport Layer Security - Capas 4 a 6):**
-  * Protege conexiones concretas entre aplicaciones usando certificados **X.509**.
+  * Protege conexiones concretas entre aplicaciones usando certificados **X.509**. Cifrado, Autenticación e Integridad
   * *Versiones:* SSL/TLS 1.0 y 1.1 obsoletas. **TLS 1.2 vigente, TLS 1.3 recomendada**.
-  * *Puertos Seguros:* HTTPS (443), LDAPS (636), IMAPS (993).
+  * *Puertos Seguros:* HTTPS (443), LDAPS (636), SMTPS (465/587).
 * **3.4. El Escenario VPN Actual en AAPP:**
   * **IPSec** se usa para enlazar edificios (Site-to-Site).
-  * **TLS** se usa para los portales de **Teletrabajo** (VPN Client-to-Site), porque es más amigable para conectar desde el navegador de casa.
+  * **TLS** se usa para los portales de **Teletrabajo** (VPN Client-to-Site) o correo seguro, porque es más amigable para conectar desde el navegador de casa.
 * **3.5. Otros Protocolos Seguros:**
-  * **SSH (22):** Consola remota cifrada (mata a Telnet).
+  * **SSH (22):** Consola remota cifrada (sustituto de Telnet). Puerto 22.
   * **WPA3:** El estándar actual para Wi-Fi municipal segura.
 
 ## 4. Conclusión
