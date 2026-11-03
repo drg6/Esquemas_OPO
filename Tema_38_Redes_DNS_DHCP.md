@@ -5,8 +5,9 @@
 * **Solución:** **DHCP** automatiza la configuración de red y **DNS** traduce los nombres lógicos (`sede.alicante.es`) a IPs numéricas.
 
 ## 2. Servicio DNS (Domain Name System)
-* **2.1. Arquitectura Jerárquica:** Árbol invertido: Raíz (.) → Top-Level Domains (.es, .com) → Dominios (alicante.es) → Subdominios (sede).
-* **2.2. Tipos de Registros Clave:**
+Función principal es la **resolución de nombres**: traducir un nombre de dominio a una dirección IP y viceversa.
+* **2.1. Arquitectura Jerárquica:** Árbol invertido: Los 13 servidores Raíz (.) → Top-Level Domains TLD (geograficos .es, genéricos .com) → Dominios de segundo nivel (alicante.es) → Subdominios (sede).
+* **2.2. Tipos de Registros DNS:**
   * **A / AAAA:** Nombre → IPv4 / IPv6.
   * **CNAME:** Alias (un nombre apunta a otro nombre).
   * **MX:** Servidor de correo.
