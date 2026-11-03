@@ -1,4 +1,4 @@
-# Tema 37.- Redes Privadas Virtuales (VPN).
+# Tema 37.- Redes. Redes privadas virtuales (VPN).
 
 ## 1. Introducción y Concepto
 * **Contexto:** Extender la red municipal a sedes remotas o teletrabajadores usando líneas dedicadas es inasumible en costes. 
@@ -27,13 +27,13 @@
   * Seguro y transparente, pero complejo si hay NAT (requiere NAT-T).
 * **4.2. SSL/TLS (Capas 4 a 6 - Estándar Teletrabajo):**
   * *Clientless* (vía web HTTPS) o *Full-Tunnel* (con Agente).
-  * Amigable con firewalls de terceros (usa el puerto 443). Ej: GlobalProtect, AnyConnect.
+  * Amigable con firewalls de terceros (usa el puerto 443). Ej: GlobalProtect, Cisco AnyConnect, OpenVPN.
 * **4.3. WireGuard:** Protocolo de Capa 3 moderno, ligero (integrado en el kernel Linux), altísimo rendimiento (usa Curve25519/ChaCha20).
 * **4.4. Obsoletos:** **PPTP** (Cifrado roto, prohibido explícitamente en el ENS).
 
 ## 5. El Control del Tráfico: Split vs. Full Tunneling
 * **Split Tunneling:** Solo el tráfico corporativo va por la VPN. El tráfico de Internet va directo. (+ Rendimiento, - Seguridad).
-* **Full Tunneling:** TODO el tráfico va por la VPN.
+* **Full Tunneling:** TODO el tráfico va por la VPN. (- Rendimiento, + Seguridad).
   * ⚠️ *Regla ENS:* Recomendado para teletrabajo, ya que obliga al PC doméstico a salir a Internet filtrado por el firewall, proxy y antivirus del Ayuntamiento.
 
 ## 6. Las VPN en la Administración Pública
