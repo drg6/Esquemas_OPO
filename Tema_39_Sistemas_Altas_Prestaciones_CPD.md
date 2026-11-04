@@ -1,4 +1,4 @@
-# Tema 39.- Altas prestaciones, arquitecturas (escalables/multinúcleo), sistemas y CPD.
+# Tema 39.- Sistemas de altas prestaciones. Arquitecturas escalables. Arquitecturas multinúcleo. Sistemas grandes, medios y pequeños. Servidores de datos y de aplicaciones. Centros de Proceso de Datos.
 
 ## 1. Introducción
 * **Contexto AAPP:** Procesar nóminas masivas, picos de tráfico en pago de IBI y gestionar el Padrón exige infraestructuras HPC (High Performance Computing).
@@ -15,7 +15,7 @@
   * *Inconveniente:* Complejidad (requiere que la aplicación soporte distribución).
 * **2.3. Clústeres y Balanceo:** 
   * Unión lógica de servidores (Nodos). 
-  * Tipos: Alta Disponibilidad (HA - Ej. Oracle RAC) y Balanceo de Carga (HAProxy/F5) usando algoritmos como *Round Robin* o *Least Connections*.
+  * Tipos: Alta Disponibilidad (HA - Ej. Oracle RAC), Balanceo de Carga (HAProxy/F5) con algoritmos de balanceo Round Robin o Least Connections y Computación HPC (Apache Spark, Hadoop).
 
 ## 3. Arquitecturas Multinúcleo (Multi-Core)
 * **3.1. Evolución:** Al topar con el límite térmico (frecuencia estancada en ~4 GHz), la industria opta por el paralelismo: meter muchos cerebros (cores) en un solo chip.
@@ -34,16 +34,16 @@ En la AAPP moderna (ej. Portal del Ciudadano), se impone la **Arquitectura en 3 
 * **5.3. Servidores de Datos / BBDD (Capa Datos):** Optimizados para intensividad **I/O** (Lectura/Escritura). Usan discos NVMe SSD y mucha RAM para caché. (Oracle, SQL Server, PostgreSQL). Protegidos en la LAN más restrictiva.
 
 ## 6. Centros de Proceso de Datos (CPD)
-El "santuario" físico de la infraestructura (Art. 73 ENS - Protección de las instalaciones).
-* **6.1. Componentes Físicos:** Racks (19"), falso suelo (para cableado) y pasillos frío/caliente separados.
-* **6.2. Subsistemas Críticos:**
-  * *Energía:* Acometida dual + SAI/UPS + Grupo electrógeno diésel.
-  * *Clima:* CRAC (Precisión, 18-27ºC).
+La instalación física que alberga la infraestructura (Art. 73 ENS - Protección de las instalaciones).
+* **6.1. Componentes Físicos:** Racks (19"), falso suelo (para cableado cobre y fibra óptica) y pasillos frío/caliente separados. Control de acceso (Lectores biométricos o tarjetas, registro de accesos y videovigilancia)
+* **6.2. Subsistemas Críticos (Art. 73 ENS - Protección de las instalaciones):**
+  * *Energía:* Acometida dual eléctrica + SAI/UPS + Grupo electrógeno diésel.
+  * *Clima:* CRAC (AC Precisión, 18-27ºC). 
   * *Fuego:* Detección temprana VESDA y extinción limpia (gas Novec/FM-200, nunca agua).
 * **6.3. Clasificación Uptime Institute (TIER):**
   * TIER I (Básico, 99.6%) → TIER II → TIER III (Mantenimiento sin parada) → **TIER IV (Tolerante a Fallos, 99.995%)**.
-* **6.4. Recuperación de Desastres (DRP):** 
-  * Necesidad de centro de respaldo: *Cold Site* (días), *Warm Site* (horas), *Hot Site* (minutos/sincronizado).
+* **6.4. Recuperación de Desastres (DRP) - Incendio, inundación, terremoto:** 
+  * Necesidad de centro de respaldo: *Cold Site* (días/sin servidores), *Warm Site* (horas/servidores sin sincronizar), *Hot Site* (minutos/sincronizado).
   * *Tendencia AAPP:* Migrar el sitio de respaldo a una **Nube Pública certificada en el nivel Alto del ENS** para garantizar la soberanía del dato y ahorrar costes inmobiliarios.
 
 ## 7. Conclusión

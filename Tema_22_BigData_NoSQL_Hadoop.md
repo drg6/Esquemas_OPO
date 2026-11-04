@@ -1,4 +1,4 @@
-# Tema 22.- Big Data. Captura, análisis, transformación, almacenamiento y explotación...
+# Tema 22.- Big Data. Captura, análisis, transformación, almacenamiento y explotación de conjuntos masivos de datos. Entornos Hadoop o similares. Bases de datos NoSQL.
 
 ## 1. Introducción y las "V" del Big Data
 * **Contexto:** SGBDR (Oracle, SQL Server) son monolíticos. Fallan ante alta volumetría o desestructuración.
