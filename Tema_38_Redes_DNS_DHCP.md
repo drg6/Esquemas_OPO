@@ -35,7 +35,7 @@ Función principal es la **resolución de nombres**: traducir un nombre de domin
   * **DHCP Relay (IP Helper):** Agente en el router que permite a los PCs de una VLAN pedir IP a un servidor DHCP ubicado en otra VLAN diferente.
 * **3.4. Seguridad DHCP (Detalle Táctico):**
   * **Rogue DHCP:** Riesgo crítico cuando un usuario conecta un router doméstico a la red y asigna IPs falsas. 
-  * Se mitiga con **DHCP Snooping** (el switch solo permite ofertas DHCP desde puertos confiables/trusted) y **Dynamic ARP Inspection (DAI)**.
+  * Se mitiga con **DHCP Snooping** (el switch solo permite ofertas DHCP desde puertos confiables/trusted) y **Dynamic ARP Inspection (DAI)** (valida mensajes ARP (que asocian MAC con IP) contra tabla IPs).
 
 ## 4. Integración DNS y DHCP (DDNS)
 * En redes Microsoft, ambos servicios son simbióticos: cuando DHCP asigna una IP, realiza un registro dinámico (**DDNS**) actualizando instantáneamente los registros A y PTR en el DNS del Active Directory.
