@@ -14,13 +14,16 @@
   * *Ventajas:* Coste lineal, tolerancia a fallos.
   * *Inconveniente:* Complejidad (requiere que la aplicación soporte distribución).
 * **2.3. Clústeres y Balanceo:** 
-  * Unión lógica de servidores (Nodos). 
-  * Tipos: Alta Disponibilidad (HA - Ej. Oracle RAC), Balanceo de Carga (HAProxy/F5) con algoritmos de balanceo Round Robin o Least Connections y Computación HPC (Apache Spark, Hadoop).
+  * Conjunto de servidores (Nodos) interconectados que trabajan de forma coordinada y actuan como un único ordenador de gran capacidad. 
+  * Tipos: 
+    - *Alta Disponibilidad* (HA - Ej. Oracle RAC): Garantizar continuidad del servicio
+    - *Balanceo de Carga* (HAProxy/F5): Distribuir peticiones entre servidores, con algoritmos de balanceo Round Robin o Least Connections
+    - *Computación HPC* (Apache Spark, Hadoop): Procesamiento paralelo masivo.
 
 ## 3. Arquitecturas Multinúcleo (Multi-Core)
 * **3.1. Evolución:** Al topar con el límite térmico (frecuencia estancada en ~4 GHz), la industria opta por el paralelismo: meter muchos cerebros (cores) en un solo chip.
 * **3.2. Mercado Actual:** Intel Xeon (Sapphire Rapids, 60+ cores) y AMD EPYC (Genoa, 96+ cores).
-* **3.3. Optimizaciones:** **Hyper-Threading / SMT** (2 hilos lógicos por cada core físico) y **NUMA** (arquitectura de memoria segmentada para acceso ultra-rápido).
+* **3.3. Optimizaciones:** **Hyper-Threading / SMT** (2 hilos lógicos simultaneos por cada core físico) y **NUMA** (arquitectura de memoria local para acceso ultra-rápido de cada procesador).
 
 ## 4. Clasificación de Sistemas
 * **Grandes (Mainframes):** Uso masivo (Hacienda, TGSS). Redundancia absoluta.
@@ -34,15 +37,16 @@ En la AAPP moderna (ej. Portal del Ciudadano), se impone la **Arquitectura en 3 
 * **5.3. Servidores de Datos / BBDD (Capa Datos):** Optimizados para intensividad **I/O** (Lectura/Escritura). Usan discos NVMe SSD y mucha RAM para caché. (Oracle, SQL Server, PostgreSQL). Protegidos en la LAN más restrictiva.
 
 ## 6. Centros de Proceso de Datos (CPD)
-La instalación física que alberga la infraestructura (Art. 73 ENS - Protección de las instalaciones).
-* **6.1. Componentes Físicos:** Racks (19"), falso suelo (para cableado cobre y fibra óptica) y pasillos frío/caliente separados. Control de acceso (Lectores biométricos o tarjetas, registro de accesos y videovigilancia)
-* **6.2. Subsistemas Críticos (Art. 73 ENS - Protección de las instalaciones):**
-  * *Energía:* Acometida dual eléctrica + SAI/UPS + Grupo electrógeno diésel.
-  * *Clima:* CRAC (AC Precisión, 18-27ºC). 
-  * *Fuego:* Detección temprana VESDA y extinción limpia (gas Novec/FM-200, nunca agua).
-* **6.3. Clasificación Uptime Institute (TIER):**
+La instalación física que alberga la infraestructura.
+* **6.1. Elementos y Subsistemas Críticos del CPD (Art. 73 ENS)**
+  - **Infraestructura Física:** Racks estándar de 19" (42U), falso suelo y canalizaciones de cableado separadas (datos vs. energía).
+  - **Control de Accesos:** Lectores biométricos/tarjetas, videovigilancia y registro estricto de entradas.
+  - **Suministro Eléctrico:** Acometida dual, SAI/UPS (para microcortes) y grupo electrógeno diésel (para cortes prolongados).
+  - **Climatización:** Separación física de pasillo frío/caliente y aire de precisión CRAC (18-27ºC, estándar ASHRAE).
+  - **Protección contra Incendios:** Detección temprana VESDA y extinción mediante gas limpio (Novec 1230 o FM-200) para no dañar los equipos.
+* **6.2. Clasificación Uptime Institute (TIER):**
   * TIER I (Básico, 99.6%) → TIER II → TIER III (Mantenimiento sin parada) → **TIER IV (Tolerante a Fallos, 99.995%)**.
-* **6.4. Recuperación de Desastres (DRP) - Incendio, inundación, terremoto:** 
+* **6.3. Recuperación de Desastres (DRP) - Incendio, inundación, terremoto:** 
   * Necesidad de centro de respaldo: *Cold Site* (días/sin servidores), *Warm Site* (horas/servidores sin sincronizar), *Hot Site* (minutos/sincronizado).
   * *Tendencia AAPP:* Migrar el sitio de respaldo a una **Nube Pública certificada en el nivel Alto del ENS** para garantizar la soberanía del dato y ahorrar costes inmobiliarios.
 
