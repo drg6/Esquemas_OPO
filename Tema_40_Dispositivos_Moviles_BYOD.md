@@ -6,16 +6,19 @@
 
 ## 2. Sistemas de Administración del Entorno de Usuario (Puesto de Trabajo Digital) y conectividad
 * **2.1. Estaciones (Hardware):**
-  * *Desktop:* Puestos fijos (Atención al ciudadano).
-  * *Laptop:* Teletrabajo. Exige cifrado de disco (BitLocker).
+  * *Desktop:* Puestos fijos (Atención al ciudadano). Mayor rendimiento y durabilidad
+  * *Laptop:* Movilidad. Teletrabajo (VPN). Exige cifrado de disco (BitLocker).
   * *Thin Client:* Dispositivo que no ejecuta aplicaciones localmente conectado a VDI. Máxima seguridad y bajo consumo.
 * **2.2. Dispositivos Móviles:** Smartphones (correo/apps) y Tablets (inspecciones a pie de calle).
 * **2.3. Conectividad:** LAN (Gigabit), WLAN (WPA3-Enterprise con 802.1X), VPN (acceso remoto) y Redes móviles 4G/5G (SIM corporativa o APN privada).
 
 ## 3. Sistemas de Administración del Entorno de Usuario
 * **3.1. Active Directory (AD On-Premise):**
-  * Centraliza identidades (usuarios/UPN) y las organiza en **OUs (Unidades Organizativas)**, que son contenedores lógicos diseñados para agrupar usuarios y equipos. Permiten delegar permisos a técnicos y aplicar GPOs.
-  * **GPO (Group Policy Objects):** Las políticas de seguridad controlan la configuración de los equipos y las restricciones de los usuarios: políticas de contraseñas, seguridad (bitlocker, USB), mapeo de unidades de red, configuracion de pantalla y restricciones de sofware.
+  * **Usuarios:** Identidades de los empleados (UPN) para autenticarse en la red.
+  * **Equipos:** Máquinas del dominio. Tienen cuenta propia para recibir políticas incluso sin iniciar sesión.
+  * **Grupos:** Base de la seguridad. Los permisos de acceso (carpetas, impresoras) se asignan siempre a grupos, nunca por usuario individual.
+  * **OUs (Unidades Organizativas):** Contenedores lógicos diseñados para agrupar usuarios y/o equipos. Permiten delegar permisos a técnicos y aplicar GPOs.
+  * **GPO (Group Policy Objects):** Las políticas de seguridad controlan la configuración de los equipos y las restricciones de los usuarios (políticas de contraseñas, seguridad (bitlocker, USB), mapeo de unidades de red, configuracion de pantalla y restricciones de sofware).
 * **3.2. Microsoft Entra ID (El salto al Cloud):**
   * Extensión de AD que permite la gestión de identidades en la nube.
   * Proporciona **SSO (Single Sign-On)** y **MFA (Doble factor)**, obligatorio por el ENS para accesos externos.
@@ -23,11 +26,11 @@
 ## 4. Distribución de Software y Parches
 * **4.1. Necesidad:** Gestionar manualmente el ciclo de vida del software en 2.000 PCs es inviable.
   Intalación de software, aplicar parches de seguridad y configuraciones estándar.
-* **4.2. Herramientas (UEM / Config Management):**
-  * **Microsoft MECM (antiguo SCCM) / KACE SDA:** Despliegue de imágenes SO y software estándar.
-  * **Intune:** Gestión de dispositivos moderna basada en nube. Distribucion de apps y politicas.
+* **4.2. Herramientas:**
+  * **Microsoft Endpoint Configuration Manager (MECM) / KACE SDA:** Despliegue de imágenes SO y software estándar.
+  * **Intune:** Gestión de dispositivos moderna basada en nube. Distribucion de imagenes SO, apps y politicas.
   * **WSUS:** Gestión centralizada de actualizaciones de Windows. Gratis.
-  * **Ansible:** Automatización de configuraciones e infraestructura. Open Source.
+  * **Ansible:** Automatización de configuraciones y apps. Open Source.
   * **WinGet (Windows Package Manager):** Herramienta de línea de comandos nativa de Microsoft, que permite automatizar la instalación y el parcheado ágil de aplicaciones de terceros.
 * **4.3. Proceso de Parcheado (El Ciclo):**
   1. *Evaluación:* Priorización de parches críticos de seguridad (CVE) guiada por las alertas del **CCN-CERT**.

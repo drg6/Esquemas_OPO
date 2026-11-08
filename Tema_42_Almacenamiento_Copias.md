@@ -1,45 +1,49 @@
-# Tema 42.- Almacenamiento (DAS, NAS, SAN), Virtualización, Backup y Recuperación (DRP).
+# Tema 42.- Sistemas de almacenamiento para sistemas grandes y departamentales. DAS, SAN, NAS. Virtualización del almacenamiento. Políticas, procedimientos y métodos de copias de seguridad.
 
 ## 1. Introducción
-* Las AAPP generan un volumen masivo de datos (Expedientes ENI, Sede Electrónica, BBDD).
+* Las AAPP generan un volumen masivo de datos (Expedientes, Sede Electrónica, BBDD).
 * El reto es equilibrar **Rendimiento** (para acceso rápido) con **Disponibilidad y Recuperación** estricta conforme dicta el Esquema Nacional de Seguridad (ENS).
 
 ## 2. Tipologías de Almacenamiento
 * **2.1. DAS (Direct Attached Storage):** 
-  * Discos dentro/conectados al servidor (SATA/SAS/NVMe). 
-  * *Ventaja:* Baja latencia. *Inconveniente:* No se comparte, islas de datos, límite físico (SPOF).
+  * Discos directamente conectados al servidor (SATA/SAS/NVMe). 
+  * *Ventaja:* Baja latencia. *Inconveniente:* No se comparte, islas de datos, límite físico (Punto único de fallo).
 * **2.2. NAS (Network Attached Storage):**
   * Acceso por **Red LAN** a nivel de **Ficheros** (NFS en Linux, SMB/CIFS en Windows).
-  * *Uso AAPP:* Carpetas departamentales, repositorios documentales estáticos (Synology, QNAP).
+  * *Uso AAPP:* Carpetas departamentales, repositorios documentales estáticos (Synology, QNAP, Dell).
 * **2.3. SAN (Storage Area Network):**
   * Red de fibra **dedicada** para acceso a nivel de **Bloques**. El servidor lo ve como un disco local "bruto".
   * *Protocolos:* **Fibre Channel (FC)** (rendimiento premium) o **iSCSI** (sobre IP, más barato).
   * *Uso AAPP:* Datastores de virtualización (VMware/Hyper-V) y BBDD pesadas (Oracle, SQL Server).
-  * ⚠️ *Detalle Táctico (Auto-Tiering):* Las cabinas modernas (ej. NetApp, Dell Unity) mueven automáticamente los datos "calientes" a discos NVMe caros y los "fríos" a discos magnéticos baratos.
+  * ⚠️ *(Auto-Tiering):* Las cabinas modernas (ej. NetApp, Dell Unity) mueven automáticamente los datos "calientes" a discos NVMe caros y los "fríos" a discos magnéticos baratos.
 
 ## 3. Virtualización del Almacenamiento
+Abstrae el almacenamiento físico (discos, cabinas, arrays) en un pool lógico unificado, se gestionan volumenes sin saber en que disco fisico residen.
 * **3.1. RAID (Redundancia Física):**
-  * RAID 0 (Striping, suma de velocidad, 0 redundancia).
-  * RAID 1 (Mirror, clon exacto, pérdida de un disco).
-  * RAID 5 (Paridad distribuida, tolerancia a 1 fallo).
-  * RAID 10 (Striping de espejos, velocidad máxima + seguridad).
-* **3.2. Software-Defined Storage (SDS):** VMware vSAN o Ceph. El hardware es *commodity*, la inteligencia está en el software.
+  * RAID 0 (Striping, suma de velocidad, minimo 2 discos, 0 redundancia).
+  * RAID 1 (Mirror, clon exacto, minimo 2 discos, pérdida de un disco).
+  * RAID 5 (Paridad distribuida, minimo 3 discos, tolerancia a 1 fallo).
+  * RAID 10 (Striping de espejos (Combinación de RAID 1 + RAID 0 ), minimo 4 discos, velocidad máxima + seguridad).
+* **3.2. Software-Defined Storage (SDS):** VMware vSAN o Ceph (open source). El hardware es *commodity*, la inteligencia está en el software.
 * **3.3. Thin Provisioning:** El SO cree que tiene un disco de 1TB, pero la cabina solo consume el espacio real que se va escribiendo. Maximiza el ahorro.
 
 ## 4. Copias de Seguridad (El escudo del Ayuntamiento)
+ENS exige *políticas de copias de seguridad* que garanticen la recuperación de los datos y los servicios ante incidentes.
 * **4.1. La Regla 3-2-1-1-0 (Recomendación CCN-CERT contra Ransomware):**
   * **3** copias de los datos.
-  * En **2** soportes diferentes (Disco y Nube/Cinta LTO).
-  * **1** copia Off-Site (fuera del edificio).
+  * En **2** soportes diferentes (Disco y Nube/Cinta LTO para retención a largo plazo).
+  * **1** copia Off-Site (fuera del edificio, ej. Cloud AWS/Azure/Google).
   * ⚠️ **1** copia **INMUTABLE** (WORM): El backup se bloquea por hardware/software durante X días para que ni un administrador comprometido ni un ransomware puedan borrarlo.
   * **0** errores en la restauración (pruebas periódicas obligatorias).
 * **4.2. Tipos de Copia:**
-  * **Full:** Todo. Restaura rapidísimo. Tarda y ocupa mucho.
-  * **Incremental:** Cambios desde el último backup (sea full o no). Ocupa poco. Restaura lento (hay que sumar la Full + todas las incrementales encadenadas).
+  * **Full:** Todo. Restaura rapidísimo. Tarda y ocupa mucho. (Ej: Domingo)
+  * **Incremental:** Cambios desde el último backup (sea full o no). Ocupa poco. Restaura lento (hay que sumar la Full + todas las incrementales encadenadas). (Ej: Lunes a Sábado)
   * **Diferencial:** Cambios desde el último FULL. Término medio.
-* **4.3. Tecnologías de Ahorro y Agilidad:**
-  * **Deduplicación:** Elimina bloques repetidos en la cabina (Target) usando Hash SHA-256. Ahorra hasta un 90% de espacio en máquinas virtuales.
-  * **Snapshots:** Foto instantánea de la VM a nivel de almacenamiento. Ideal para actualizar un servidor y dar marcha atrás en 1 segundo si falla. (*Nota: Un snapshot NO es un backup*).
+* **4.3. Backups de BBDD en caliente:**
+  * Las BBDD exigen copias consistentes sin paradas. Herramientas nativas como **RMAN (Oracle)** o **pg_basebackup (PostgreSQL)**.
+* **4.4. Tecnologías de Ahorro y Agilidad:**
+  * **Deduplicación:** Elimina bloques repetidos (en origen o en destino) usando Hash SHA-256. Ahorra hasta un 90% de espacio.
+  * **Snapshots y CDP:** Foto instantánea de la VM (*Snapshot*) y protección de datos en tiempo real (*CDP (Continuous Data Protection)* para RPO=0). Ideal para actualizar y dar marcha atrás al instante. (*Nota: Un snapshot NO sustituye a un backup off-site*).
 
 ## 5. DRP (Disaster Recovery Plan) y Métricas Vitales
 * El Plan de Continuidad de Negocio municipal exige medir:

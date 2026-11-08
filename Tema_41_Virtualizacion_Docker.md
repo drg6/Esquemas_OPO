@@ -1,32 +1,31 @@
 # Tema 41.- Virtualización de servidores. Infraestructura del puesto de trabajo virtual (VDI). Virtualización de contenedores: Docker. Ventajas, funcionamiento y limitaciones. Plataformas para la organización de contenedores: Kubernetes.
 
-# Tema 41.- Virtualización (Servidores y VDI), Docker (Contenedores) y Kubernetes (Orquestación).
-
 ## 1. Introducción
 * **Problema histórico:** Paradigma 1 servidor físico = 1 SO = 1 App. Genera hardware infrautilizado (15% CPU) y enorme gasto energético (CPD saturado).
 * **Solución:** La virtualización interpone un **Hipervisor** que fragmenta el hardware físico en múltiples Máquinas Virtuales (VM) independientes.
 
 ## 2. Virtualización de Servidores
 * **2.1. El Hipervisor:** Capa de software que asigna recursos (CPU, RAM, Disco) a las VM.
-  * **Tipo 1 (Bare Metal):** Directo al hardware (ESXi, Hyper-V, KVM, Proxmox).
-  * **Tipo 2 (Hosted):** Sobre un SO (VirtualBox). Solo para desarrollo.
+  * **Tipo 1 (Bare Metal):** Directo al hardware (ESXi, Hyper-V, KVM / Proxmox).
+  * **Tipo 2 (Hosted):** Sobre un SO (VirtualBox / VMware Workstation). Solo para desarrollo.
 * **2.2. Ventajas:** Consolidación (Ratio 10:1), aislamiento, *Snapshots*, Aprovisionamiento rápido mediante plantillas y **Portabilidad** (*vMotion* / *Live Migration* para mover VMs sin corte de servicio).
 * **2.3. Gestión Centralizada y Actualidad AAPP:**
-  * vCenter (VMware) y System Center (Hyper-V).
+  * vCenter (VMware) y System Center (Hyper-V). Gestión de hosts. Balanceo de carga (DRS), alta disponibilidad (HA), migración en caliente (vMotion)
   * ⚠️ *Detalle Táctico:* Ante el drástico aumento de costes tras la compra de VMware por Broadcom, soluciones basadas en KVM (como **Proxmox VE**) están liderando la migración en la Administración Local.
 
 ## 3. VDI (Infraestructura de Escritorio Virtual)
 * **3.1. Arquitectura:** El escritorio Windows no corre en el PC, sino en el CPD.
-  `Thin Client → Protocolo (RDP, PCoIP) → Connection Broker → VM en Hipervisor`
+  `Thin Client → Protocolo (RDP, PCoIP) → Connection Broker (VMware Horizon, Microsoft AVD) → VM en Hipervisor (CPD)`
 * **3.2. Ventajas AAPP (El factor Zero Trust / ENS):**
-  * La información (Tributos, Padrón) nunca viaja al equipo físico.
-  * Si un teletrabajador infecta su PC doméstico con ransomware, no afecta a la red porque solo recibe píxeles de pantalla. 
-  * Sustitución de hardware averiado en minutos (el Thin Client es "tonto").
-* **3.3. Inconvenientes:** Alta dependencia de red (latencia) y coste de licencias.
+  * Seguridad -> La información (Tributos, Padrón) nunca viaja al equipo físico. 
+  * Zero Trust -> Si un teletrabajador infecta su PC doméstico con ransomware, no afecta a la red porque solo recibe píxeles de pantalla. 
+  * Teletrabajo -> Escritorio corporativo desde cualquier lugar.
+  * Sustitución de hardware averiado en minutos (el Thin Client no almacena información).
+* **3.3. Inconvenientes:** Alta dependencia de red (latencia), coste de licencias (VmWare Horizon) y aplicaciones gráficos intensivos (CAD, GIS).
 
 ## 4. Virtualización de Contenedores (Docker)
-* **4.1. Concepto:** Empaqueta una app y sus dependencias compartiendo el *kernel* del host. No virtualiza el hardware, virtualiza el SO.
-* **4.2. Elementos:** *Docker Engine*, *Imagen* (Plantilla de solo lectura), *Contenedor* (Instancia viva), *Dockerfile* (Código para crear la imagen).
+* **4.1. Concepto:** Empaqueta una app y sus dependencias en un contenedor compartiendo el *kernel* del host. No arranca un SO completo por instancia.
+* **4.2. Elementos:** *Docker Engine* (gestiona contenedores), *Imagen* (Plantilla de solo lectura de Docker Hub), *Contenedor* (Instancia viva), *Dockerfile* (Código para crear la imagen).
 * **4.3. Comparativa de Oro (VM vs. Docker):**
   * **VM:** Gigabytes de tamaño, arranca en minutos, aislamiento HW completo, penalización de rendimiento (Overhead).
   * **Docker:** Megabytes, arranca en milisegundos, aislamiento de proceso (comparte Kernel), rendimiento cuasi-nativo.
@@ -35,9 +34,9 @@
 ## 5. Orquestación (Kubernetes y alternativas)
 * **5.1. El problema:** Gestionar 5 contenedores a mano es fácil. Gestionar 500 requiere automatización.
 * **5.2. Escala pequeña (Docker Compose):** Orquesta multicontenedores (ej. App + BBDD) en un único host mediante un fichero YAML.
-* **5.3. Escala Enterprise (Kubernetes - K8s):**
-  * **Arquitectura:** *Control Plane* (Cerebro), *Nodes* (Obreros), *Pods* (Unidad mínima, contiene contenedores) y *Kubelet* (Agente).
-  * **Magia operativa:** *Autoescalado* (HPA, sube/baja réplicas por CPU), *Self-Healing* (mata y resucita pods colgados), y *Rolling Updates* (actualizaciones sin caída de servicio).
+* **5.3. Escala Enterprise (Kubernetes - K8s):**: plataforma open source de **orquestación de contenedores**. Automatiza el despliegue, el escalado y la gestión de aplicaciones containerizadas.
+  * **Arquitectura:** *Control Plane* (Centro de mando), *Nodes* (Máquina ejecuta Pods), *Pods* (Unidad mínima, contiene contenedores) y *Kubelet* (Agente de cada Node que ejecuta y monitoriza Pods).
+  * **Funcionalidades:** *Autoescalado* (HPA, sube/baja réplicas pods por CPU), *Self-Healing* (mata y resucita pods colgados), y *Rolling Updates* (actualizaciones sin caída de servicio). *Balanceo de carga* y *Automatiza el despliegue*
 * **5.4. Soluciones Cloud (Managed):** EKS (AWS), AKS (Azure), GKE (Google).
 
 ## 6. Conclusión
