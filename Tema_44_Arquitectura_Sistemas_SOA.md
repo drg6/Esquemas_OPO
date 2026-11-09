@@ -1,4 +1,4 @@
-# Tema 44.- Arquitecturas (Cliente-Servidor, Multicapa), SOA, ESB y Aplicaciones Web (SPA/REST).
+# Tema 44.- Arquitecturas de Sistemas de Información. Arquitectura cliente-servidor. Arquitectura orientada a servicios. Buses de servicio empresarial, principios básicos, características, ventajas y funcionamiento. Arquitectura multicapa y modelo de aplicaciones web.
 
 ## 1. Introducción
 * **Evolución:** De los sistemas centralizados (Mainframe monolítico) a sistemas distribuidos, buscando **Escalabilidad, Reusabilidad y Tolerancia a fallos**.
@@ -20,22 +20,23 @@
   * **SOAP (Web Services clásicos):** Usa XML, contrato estricto WSDL. Típico en AAPP (Plataforma PID/SCSP).
   * **REST (Arquitectura moderna):** Usa HTTP nativo (GET, POST), formatos ligeros (JSON).
 
-## 4. Buses de Servicio Empresarial (ESB)
-* **4.1. Concepto y el "Problema Espagueti":** 
-  * Si Tributos, Policía, Padrón y Urbanismo se conectan todos con todos, se crea una maraña de integraciones punto a punto (Espagueti). El ESB es el *middleware* central que elimina este caos: todos se conectan al ESB, y él reparte el tráfico.
-* **4.2. Funcionalidades Core:**
+  ## 4. Buses de Servicio Empresarial (ESB): principios básicos, características, ventajas y funcionamiento
+- **4.1. Concepto y Principios básicos:** 
+  * Soluciona el "Problema Espagueti" (Si Tributos, Policía, Padrón y Urbanismo se conectan todos con todos, se crea una maraña de integraciones punto a punto). El ESB es el *middleware* central que elimina este caos: todos se conectan al ESB, y él reparte el tráfico.
+- **4.2. Principios:** Desacoplamiento de sistemas, abstracción de protocolos y estandarización como *middleware* central.
+- **4.3. Características y Funcionamiento (Core):**
   * **Enrutamiento:** Manda el mensaje al destino correcto.
-  * **Transformación:** Traduce formatos (ej. recibe JSON y lo envía al legacy en XML).
+  * **Transformación:** Traduce formatos (ej. recibe JSON y lo envía al *legacy* en XML).
   * **Mediación:** Pone de acuerdo protocolos incompatibles (HTTP a JMS).
-  * **Seguridad y Monitorización:** Valida firmas/tokens y audita el tráfico.
-* **4.3. Herramientas del mercado:** Oracle Service Bus, IBM Integration Bus, MuleSoft o Apache Camel (Open Source).
+- **4.4. Ventajas:**
+  * Escalabilidad, seguridad centralizada (valida firmas/tokens), monitorización unificada del tráfico y alta reutilización de servicios.
 
-## 5. El Modelo Web Moderno y Microservicios
-* **5.1. Evolución (Microservicios + API Gateway):**
+  ## 5. Modelo de aplicaciones web (Evolución y Microservicios)
+- **5.1. Evolución (Microservicios + API Gateway):**
   * SOA/ESB tiende a ser pesado (monolítico). La industria migra a **Microservicios** independientes.
   * El ESB se sustituye por un **API Gateway**, que centraliza la seguridad (valida tokens JWT), limita el tráfico y enruta peticiones hacia APIs ligeras.
-* **5.2. El Modelo Web Moderno (SPA + API REST):**
-  * **Frontend (SPA - Single Page Application):** Angular, React, Vue. Se ejecuta en el navegador del ciudadano. Carga dinámicamente sin refrescar la página entera.
+- **5.2. El Modelo Web Moderno (SPA + API REST):**
+  * **Frontend (SPA - Single Page Application):** Angular, React, Vue. Se ejecuta en el navegador. Carga dinámicamente sin refrescar la página entera.
   * **Backend (API REST):** Spring Boot, Node.js. Servidor sin estado que solo escupe datos en JSON (no pinta HTML).
   * *Ventajas:* Experiencia de usuario ultrafluida. La misma API REST sirve a la web del Ayuntamiento y a la App móvil oficial.
 
