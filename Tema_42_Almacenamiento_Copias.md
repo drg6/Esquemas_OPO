@@ -7,25 +7,28 @@
 ## 2. Tipologías de Almacenamiento
 * **2.1. DAS (Direct Attached Storage):** 
   * Discos directamente conectados al servidor (SATA/SAS/NVMe). 
-  * *Ventaja:* Baja latencia. *Inconveniente:* No se comparte, islas de datos, límite físico (Punto único de fallo).
+  * *Ventajas:* Máximo rendimiento, Baja latencia, Bajo coste. *Inconvenientes:* No se comparte -> islas de datos, Escalabilidad limitada, Punto único de fallo.
+  * *Uso AAPP:* Servidores pequeños, estaciones de trabajo
 * **2.2. NAS (Network Attached Storage):**
-  * Acceso por **Red LAN** a nivel de **Ficheros** (NFS en Linux, SMB/CIFS en Windows).
-  * *Uso AAPP:* Carpetas departamentales, repositorios documentales estáticos (Synology, QNAP, Dell).
+  * Acceso por **Red LAN** a nivel de **Ficheros** (NFS en Linux, Samba en Windows).
+  * *Ventajas:* Compartir ficheros entre servidores, escalabilidad. *Inconvenientes:* Ethernet -> latencia mayor
+  * *Uso AAPP:* Carpetas departamentales, documentos de usuario (Synology, QNAP, Dell).
 * **2.3. SAN (Storage Area Network):**
-  * Red de fibra **dedicada** para acceso a nivel de **Bloques**. El servidor lo ve como un disco local "bruto".
+  * Red de fibra **dedicada y separada** de la LAN, para acceso a nivel de **Bloques**. El servidor lo ve como un disco local "bruto".
   * *Protocolos:* **Fibre Channel (FC)** (rendimiento premium) o **iSCSI** (sobre IP, más barato).
+  * *Ventajas:* Máximo rendimiento (I/O intensivo). *Inconvenientes:* Coste elevado (switches FC, HBA — Host Bus Adapters)
   * *Uso AAPP:* Datastores de virtualización (VMware/Hyper-V) y BBDD pesadas (Oracle, SQL Server).
   * ⚠️ *(Auto-Tiering):* Las cabinas modernas (ej. NetApp, Dell Unity) mueven automáticamente los datos "calientes" a discos NVMe caros y los "fríos" a discos magnéticos baratos.
 
 ## 3. Virtualización del Almacenamiento
-Abstrae el almacenamiento físico (discos, cabinas, arrays) en un pool lógico unificado, se gestionan volumenes sin saber en que disco fisico residen.
-* **3.1. RAID (Redundancia Física):**
-  * RAID 0 (Striping, suma de velocidad, minimo 2 discos, 0 redundancia).
-  * RAID 1 (Mirror, clon exacto, minimo 2 discos, pérdida de un disco).
-  * RAID 5 (Paridad distribuida, minimo 3 discos, tolerancia a 1 fallo).
-  * RAID 10 (Striping de espejos (Combinación de RAID 1 + RAID 0 ), minimo 4 discos, velocidad máxima + seguridad).
-* **3.2. Software-Defined Storage (SDS):** VMware vSAN o Ceph (open source). El hardware es *commodity*, la inteligencia está en el software.
-* **3.3. Thin Provisioning:** El SO cree que tiene un disco de 1TB, pero la cabina solo consume el espacio real que se va escribiendo. Maximiza el ahorro.
+Abstrae el almacenamiento físico (discos y cabinas) en un pool lógico unificado, se gestionan volumenes sin saber en que disco fisico residen.
+- **3.1. RAID (Redundancia Física):** Agrupación de discos físicos en una unidad lógica.
+  * **RAID 0 (Striping / Reparto):** Reparte los archivos entre los discos. Máxima velocidad, pero 0 redundancia (si cae uno, se pierde todo). Mínimo 2 discos.
+  * **RAID 1 (Mirror / Espejo):** Clon exacto y simultáneo. Tolerancia a la pérdida de 1 disco. Mínimo 2 discos.
+  * **RAID 5 (Paridad distribuida):** Reparte archivos entre discos y guarda cálculo matemático. Si muere 1 disco, lo reconstruye "adivinando" los datos. Mínimo 3 discos. Habitual en cabinas de almacenamiento.
+  * **RAID 10 (Espejos + Reparto):** Combina RAID 1 y RAID 0. Máxima velocidad y máxima seguridad (ideal para Bases de Datos como Oracle). Mínimo 4 discos.
+* **3.2. Software-Defined Storage (SDS):** VMware vSAN o Ceph (open source). El software une por red los discos locales de decenas de servidores distintos para crear una única "súper cabina" virtual.
+* **3.3. Thin Provisioning:** Técnica que asigna a un volumen lógico más capacidad de la que físicamente existe. El SO cree que tiene un disco de 1TB, pero la cabina solo consume el espacio real que se va escribiendo. Maximiza el ahorro.
 
 ## 4. Copias de Seguridad (El escudo del Ayuntamiento)
 ENS exige *políticas de copias de seguridad* que garanticen la recuperación de los datos y los servicios ante incidentes.
