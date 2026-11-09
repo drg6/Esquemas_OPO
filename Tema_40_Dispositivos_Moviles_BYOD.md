@@ -1,50 +1,54 @@
-# Tema 40.- Puesto de trabajo, Conectividad, Entorno de usuario (AD/GPO), Distribución de software y BYOD.
+# Tema 40.- Sistemas de Administración del Entorno de Usuario. La conectividad de los dispositivos personales. Sistemas de administración de entorno de usuario y estaciones de trabajo. Distribución de software. Gestión de dispositivos externos (BYOD).
 
 ## 1. Introducción
 * **Contexto:** El puesto de trabajo público ha evolucionado del PC fijo aislado a un entorno híbrido (teletrabajo, movilidad).
 * **El reto TIC:** Proporcionar herramientas ágiles al funcionario sin comprometer el cumplimiento del ENS y el RGPD.
 
-## 2. El Puesto de Trabajo Digital
+## 2. Sistemas de Administración del Entorno de Usuario (Puesto de Trabajo Digital) y conectividad
 * **2.1. Estaciones (Hardware):**
-  * *Desktop:* Puestos fijos (Atención al ciudadano).
-  * *Laptop:* Teletrabajo. Exige cifrado de disco (BitLocker).
-  * *Thin Client:* Terminal tonto conectado a VDI. Máxima seguridad y bajo consumo.
+  * *Desktop:* Puestos fijos (Atención al ciudadano). Mayor rendimiento y durabilidad
+  * *Laptop:* Movilidad. Teletrabajo (VPN). Exige cifrado de disco (BitLocker).
+  * *Thin Client:* Dispositivo que no ejecuta aplicaciones localmente conectado a VDI. Máxima seguridad y bajo consumo.
 * **2.2. Dispositivos Móviles:** Smartphones (correo/apps) y Tablets (inspecciones a pie de calle).
-* **2.3. Conectividad:** LAN (Gigabit), WLAN (WPA3-Enterprise con 802.1X), y VPN para acceso remoto.
+* **2.3. Conectividad:** LAN (Gigabit), WLAN (WPA3-Enterprise con 802.1X), VPN (acceso remoto) y Redes móviles 4G/5G (SIM corporativa o APN privada).
 
-## 3. Administración del Entorno de Usuario (El Cerebro)
+## 3. Sistemas de Administración del Entorno de Usuario
 * **3.1. Active Directory (AD On-Premise):**
-  * Centraliza identidades (usuarios/UPN) y estructura organizativa en **OUs (Unidades Organizativas)** por concejalías. La mejor práctica es basándose exclusivamente en los **Usuarios** (departamentos/concejalías) y no en los equipos. Esto desacopla el ciclo de vida del hardware de la identidad del funcionario.
-  * **GPO (Group Policy Objects):** Automatizan políticas de seguridad. 
-  * *Ejemplo Táctico:* Una GPO bloquea los puertos USB en toda la red, pero aplica una excepción a la OU "Policía Local" para descargar cámaras corporales.
+  * **Usuarios:** Identidades de los empleados (UPN) para autenticarse en la red.
+  * **Equipos:** Máquinas del dominio. Tienen cuenta propia para recibir políticas incluso sin iniciar sesión.
+  * **Grupos:** Base de la seguridad. Los permisos de acceso (carpetas, impresoras) se asignan siempre a grupos, nunca por usuario individual.
+  * **OUs (Unidades Organizativas):** Contenedores lógicos diseñados para agrupar usuarios y/o equipos. Permiten delegar permisos a técnicos y aplicar GPOs.
+  * **GPO (Group Policy Objects):** Las políticas de seguridad controlan la configuración de los equipos y las restricciones de los usuarios (políticas de contraseñas, seguridad (bitlocker, USB), mapeo de unidades de red, configuracion de pantalla y restricciones de sofware).
 * **3.2. Microsoft Entra ID (El salto al Cloud):**
-  * Extensión de AD a la nube para entornos híbridos.
+  * Extensión de AD que permite la gestión de identidades en la nube.
   * Proporciona **SSO (Single Sign-On)** y **MFA (Doble factor)**, obligatorio por el ENS para accesos externos.
 
 ## 4. Distribución de Software y Parches
 * **4.1. Necesidad:** Gestionar manualmente el ciclo de vida del software en 2.000 PCs es inviable.
-* **4.2. Herramientas (UEM / Config Management):**
-  * **MECM (antiguo SCCM):** Despliegue de imágenes SO y software pesado.
-  * **Intune:** Gestión moderna basada en nube.
-  * **WSUS:** Centralización de parches Windows.
-  * **Ansible:** Automatización de configuraciones e infraestructura.
-  * **WinGet (Windows Package Manager):** La herramienta de línea de comandos nativa de Microsoft. Su uso integrado con scripts es la tendencia actual en Microinformática para **automatizar la instalación y el parcheado ágil de aplicaciones de terceros** sin la sobrecarga operativa que exige MECM.
+  Intalación de software, aplicar parches de seguridad y configuraciones estándar.
+* **4.2. Herramientas:**
+  * **Microsoft Endpoint Configuration Manager (MECM) / KACE SDA:** Despliegue de imágenes SO y software estándar.
+  * **Intune:** Gestión de dispositivos moderna basada en nube. Distribucion de imagenes SO, apps y politicas.
+  * **WSUS:** Gestión centralizada de actualizaciones de Windows. Gratis.
+  * **Ansible:** Automatización de configuraciones y apps. Open Source.
+  * **WinGet (Windows Package Manager):** Herramienta de línea de comandos nativa de Microsoft, que permite automatizar la instalación y el parcheado ágil de aplicaciones de terceros.
 * **4.3. Proceso de Parcheado (El Ciclo):**
-  1. *Evaluación:* Priorización de CVEs guiada por las alertas del **CCN-CERT**.
+  1. *Evaluación:* Priorización de parches críticos de seguridad (CVE) guiada por las alertas del **CCN-CERT**.
   2. *Piloto:* Pruebas en grupo reducido.
-  3. *Aprobación & Despliegue:* Instalación masiva.
-  4. *Verificación.*
+  3. *Aprobación & Despliegue:* Instalación masiva en tiers.
+  4. *Verificación:* Monitorizar incidencias.
 
-## 5. BYOD (Bring Your Own Device) y Movilidad
+## 5. Gestión de dispositivos externos BYOD (Bring Your Own Device) y movilidad
 * **5.1. Concepto y Riesgos:** Usar el móvil personal del empleado para trabajar. Riesgo altísimo de fuga de datos (Padrón/Tributos) o malware.
 * **5.2. La Solución (MDM - Mobile Device Management):**
-  * Herramientas como **Intune** o **Workspace ONE**.
+  * Gestiona de forma remota los dispositivos móviles. *Microsoft Intune* o *VMware Workspace ONE*.
   * **Contenedorización:** Aísla la parte corporativa de la personal (fotos).
+  * **Cifrado obligatorio y Políticas de seguridad:** PIN/biometría obligatorios
   * **Remote Wipe (Borrado selectivo):** Si roban el móvil, el TIC borra el contenedor corporativo sin tocar lo personal.
 * **5.3. Modelos de Movilidad:**
   * **BYOD:** Dispositivo personal (Control parcial).
-  * **COPE:** Dispositivo corporativo pero con uso personal (Control total).
-  * **COBO:** 100% corporativo (Solo uso laboral).
+  * **COPE (Corporate-Owned, Personally Enabled):** Dispositivo corporativo pero con uso personal (Control total).
+  * **COBO (Corporate-Owned, Business Only):** 100% corporativo (Solo uso laboral).
 * **5.4. BYOD en el Teletrabajo (VDI):** 
   * La mejor forma de hacer BYOD seguro desde el PC personal de casa es mediante **Escritorios Virtuales (VDI)**. Los datos del ciudadano se procesan en el CPD municipal y nunca viajan al disco duro doméstico del empleado.
 
