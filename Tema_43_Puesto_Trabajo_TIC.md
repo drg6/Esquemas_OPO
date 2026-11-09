@@ -1,26 +1,27 @@
-# Tema 43.- El puesto de trabajo TIC: normalización, seguridad, distribución, CAU (ITIL) y soporte.
+# Tema 43.- El puesto de trabajo TIC: normalización, políticas de seguridad, actualización y despliegue. Sistemas de administración de entorno de usuario y estaciones de trabajo. Distribución de software. Centro de Atención a los usuarios. Herramientas digitales, políticas de seguridad y configuración de sistemas. Soporte y resolución de incidencias.
 
 ## 1. Introducción
 * **El Reto:** El puesto TIC es la frontera entre el funcionario y los datos del ciudadano. Su gestión en una Administración de 2.000 equipos exige abandonar la administración manual en favor de políticas centralizadas, distribución automatizada y un soporte basado en estándares (ITIL) para garantizar la seguridad (ENS).
 
-## 2. Normalización y Despliegue del Puesto de Trabajo
-* **2.1. Normalización:** Estándar corporativo único (Hardware homologado, SO base como Windows 11 Enterprise LTSC, y software ofimático).
-* **2.2. Despliegue Clásico (Imagen Maestra / Golden Image):** 
+## 2. Normalización, Despliegue y Actualización del Puesto TIC
+- **2.1. Normalización:** Estándar corporativo único (Hardware homologado, SO base como Windows 11 Enterprise LTSC, y software ofimático).
+- **2.2. Despliegue Clásico (Imagen Maestra / Golden Image):** 
   * Captura de un SO "perfecto" clonado mediante **WDS, MDT o MECM (SCCM)**.
-* **2.3. Despliegue Moderno (Zero-Touch Provisioning):**
-  * Tendencia actual mediante **Windows Autopilot + Intune**. El equipo se entrega de fábrica al usuario; al loguearse con su cuenta corporativa, se autoconfigura sin que el departamento de Microinformática tenga que tocar el hardware físico.
+- **2.3. Despliegue Moderno (Zero-Touch Provisioning):**
+  * Tendencia actual mediante **Windows Autopilot + Intune**. El equipo se entrega al usuario y al loguearse se autoconfigura sin intervención manual de Microinformática.
+- **2.4. Actualización Continua (Lifecycle & Patching):**
+  * El puesto no es estático; requiere mantenimiento constante. Uso de **WSUS/MECM** para inyectar parches críticos del Sistema Operativo (cumpliendo los plazos exigidos por el ENS, <30 días) y herramientas como **WinGet** mediante scripts para actualizar software de terceros de forma silenciosa.
 
 ## 3. Políticas de Seguridad del Entorno (Directrices ENS)
 * **3.1. Identidad y Accesos:** Contraseñas de 12 caracteres, caducidad (90 días), bloqueo (5 intentos) y **MFA obligatorio** para administradores TIC y accesos remotos.
 * **3.2. Cifrado y Control:** **BitLocker** obligatorio en portátiles y pendrives corporativos. Deshabilitación de *Autorun* y control de periféricos por lista blanca.
 * **3.3. El blindaje del Administrador (LAPS):** 
   * Despliegue de **Microsoft LAPS** (Local Administrator Password Solution) para aleatorizar la contraseña del administrador local de cada PC, evitando movimientos laterales de malware/ransomware.
-* **3.4. Actualizaciones (Patch Management):** Objetivo de parcheo < 30 días apoyado en las alertas del CCN-CERT.
 
-## 4. Administración Centralizada y Distribución de Software
+## 4. Sistemas de Administración de Entorno de Usuario y Estaciones de Trabajo. Distribución de software.
 * **4.1. El Eje On-Premise (AD + GPO + MECM):**
   * **AD:** Organiza las identidades en OUs (desacopladas del hardware).
-  * **GPOs:** Inyectan la configuración (fondo de pantalla, discos de red, LAPS).
+  * **GPOs (Configuración de Sistemas):** Inyectan la configuración (fondo de pantalla, discos de red, LAPS).
   * **MECM / WSUS:** Distribución pesada de software y parches.
 * **4.2. El Eje Cloud (Entra ID + Intune):** Gestión MDM/UEM y políticas de Acceso Condicional (ej. "no puedes abrir el correo municipal si te conectas desde fuera de España o sin antivirus").
 * **4.3. Automatización Ágil (WinGet):** Uso de gestores de paquetes por línea de comandos (WinGet) combinados con scripts PowerShell para mantener el software de terceros actualizado silenciosamente.
@@ -36,10 +37,11 @@
   * Potenciar el **Nivel 0 (Portal de Autoservicio / KB)** para que el usuario resuelva sus problemas (Shift-Left), filtrando el volumen que llega al Nivel 1 (CAU), Nivel 2 (Sistemas/Redes) y Nivel 3 (Fabricante).
 * **5.5. KPIs y Herramientas:** Medir el FCR (First Contact Resolution, >70%), usando plataformas ITSM como GLPI (Open Source, muy común en AAPP) o ServiceNow/Jira.
 
-## 6. Herramientas Digitales y Soporte Remoto
-* **6.1. Productividad y Colaboración:** Microsoft 365, LibreOffice (formato estándar ODF/ENI), Teams/Exchange.
-* **6.2. Certificados y Firma:** AutoFirma, middlewares (PKCS#11) y lectores de DNIe configurados por defecto.
-* **6.3. Asistencia Remota:** Herramientas nativas (Asistencia RDP, PowerShell Remoting) o de terceros (AnyDesk/TeamViewer) para aplicar resoluciones en primer contacto sin desplazamiento físico.
+## 6. Herramientas Digitales, Políticas de Seguridad y Configuración de Sistemas. Soporte y resolución de incidencias.
+- **6.1. Productividad y Colaboración:** Microsoft 365, LibreOffice (ODF/ENI) y Teams.
+- **6.2. Políticas de seguridad y Configuración de sistemas**: Bastionado de las herramientas según guías CCN-STIC (bloqueo de macros, restricción de extensiones) y configuración funcional del entorno operativo (asociaciones de archivos por defecto, despliegue de certificados para AutoFirma y ajustes de proxy/firewall).
+- **6.3. Certificados y Firma:** Despliegue y configuración de AutoFirma, middlewares (PKCS#11) y lectores DNIe.
+- **6.4. Asistencia Remota (Soporte y Resolución de incidencias):** Herramientas nativas (RDP, PowerShell Remoting) o de terceros (AnyDesk/TeamViewer) para aplicar resoluciones rápidas en el primer contacto.
 
 ## 7. Conclusión
 El puesto de trabajo no se gestiona PC a PC, se gobierna. La transición desde el despliegue manual mediante imágenes maestras hacia el *Zero-Touch* con Autopilot e Intune, sumado al blindaje exigido por el ENS (LAPS, BitLocker, MFA) y el soporte estructurado bajo ITIL, garantiza que el Ayuntamiento preste un servicio digital continuo, ágil y, sobre todo, resiliente ante ciberamenazas.
