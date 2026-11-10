@@ -35,7 +35,7 @@
 - **4.2. El Eje Cloud y la Gestión Moderna (Entra ID + Intune):**
   * **Microsoft Entra ID (Identidad y Acceso):** 
     - Extensión del AD local para entornos híbridos mediante *Entra/AD Connect*. 
-    - Habilita el *SSO (Single Sign-On)* para entrar a todas las apps (ej. Microsoft 365) con un solo login, 
+    - Habilita el *SSO (Single Sign-On)* para entrar a todas las apps (ej. Microsoft 365) con un solo login
     - Aplica *Acceso Condicional* (ej. "no abres el correo municipal si te conectas fuera de España"). 
     - *MFA (Multi-Factor Authentication)*
   * **Microsoft Intune (UEM - Unified Endpoint Management):** 
@@ -56,7 +56,7 @@
 
 ## 6. Herramientas Digitales, Políticas de Seguridad y Configuración de Sistemas. Soporte y resolución de incidencias.
 - **6.1. Productividad y Colaboración:** Microsoft 365, LibreOffice (ODF/ENI) y Teams.
-- **6.2. Políticas de seguridad y Configuración de sistemas**: Bastionado de las herramientas según guías CCN-STIC (bloqueo de macros, restricción de extensiones) y configuración funcional del entorno operativo (asociaciones de archivos por defecto, Bitlocker y ajustes de proxy/firewall/antivirus).
+- **6.2. Políticas de seguridad y Configuración de sistemas**: Bastionado de las herramientas según guías CCN-STIC (bloqueo de macros, restricción de extensiones) y configuración funcional del entorno operativo (asociaciones de archivos por defecto y ajustes de proxy/firewall).
 - **6.3. Certificados y Firma:** Despliegue y configuración de AutoFirma, certificados (PKCS#11) y lectores DNIe.
 - **6.4. Asistencia Remota (Soporte y Resolución de incidencias):** Herramientas nativas (RDP, Asistencia remota de Windows) o de terceros (AnyDesk/TeamViewer) para aplicar resoluciones rápidas en el primer contacto.
 
