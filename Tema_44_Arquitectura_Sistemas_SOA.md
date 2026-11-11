@@ -1,47 +1,57 @@
 # Tema 44.- Arquitecturas de Sistemas de Información. Arquitectura cliente-servidor. Arquitectura orientada a servicios. Buses de servicio empresarial, principios básicos, características, ventajas y funcionamiento. Arquitectura multicapa y modelo de aplicaciones web.
 
 ## 1. Introducción
-* **Evolución:** De los sistemas centralizados (Mainframe monolítico) a sistemas distribuidos, buscando **Escalabilidad, Reusabilidad y Tolerancia a fallos**.
+- **Evolución:** De los sistemas centralizados (Mainframe monolítico, cuello de botella) a sistemas distribuidos (procesamiento cooperativo).
+- **Objetivos:** Superar las limitaciones del sistema centralizado buscando:
+  * **Escalabilidad:** Crecer en nodos horizontales (evita el techo físico del *escalado vertical*).
+  * **Tolerancia a fallos:** Alta disponibilidad (elimina el *SPOF - Punto Único de Fallo*).
+  * **Reusabilidad:** Lógica dividida e independiente (rompe el *código monolítico* cerrado).
 
-## 2. Arquitectura Cliente-Servidor y Multicapa (N-Tier)
-* **2.1. Concepto:** Un *Cliente* solicita un recurso y un *Servidor* procesa la petición y responde.
-* **2.2. De 2 a 3 Capas (N-Tier):**
-  * *2 Capas:* Cliente pesado (Lógica + Interfaz) y BBDD. (Problema: Mantenimiento imposible al actualizar PCs).
-  * *3 Capas:* **Presentación** (Web/App) + **Lógica de Negocio** (Servidor de Aplicaciones) + **Acceso a Datos** (BBDD).
-  * *Ventajas:* Cliente ligero, escalabilidad independiente por capa y mantenimiento centralizado.
+## 2. Arquitectura Cliente-Servidor 
+- **2.1. Concepto:** Modelo distribuido donde un *Cliente* solicita un recurso/servicio y un *Servidor* procesa la petición y responde.
+- **2.2. Cliente-Servidor Clásico (2 Capas):**
+  * *Estructura:* Cliente pesado (Lógica + Interfaz) atacando directamente a la BBDD. 
+  * *Inconveniente:* Mantenimiento imposible. Cualquier cambio en la lógica obliga a actualizar físicamente todos los PCs cliente.
 
 ## 3. Arquitectura Orientada a Servicios (SOA)
 * **3.1. Concepto:** Paradigma que huye de aplicaciones monolíticas gigantes y diseña el software como un conjunto de **servicios reutilizables**.
-* **3.2. Principios clave:** Bajo acoplamiento, Abstracción, Autonomía, *Stateless* (Sin estado) y Descubrimiento.
+* **3.2. Principios clave:** Bajo acoplamiento (independientes de la tecnología), Abstracción (información mínima), Reusabilidad y *Stateless* .
 * **3.3. Colaboración:**
-  * *Orquestación:* Un proceso central "director de orquesta" dirige el flujo (Ej. estándar BPEL).
-  * *Coreografía:* Reglas públicas de interacción sin un controlador central (como un baile sincronizado).
+  * *Orquestación:* Un proceso central "director de orquesta" dirige el flujo (Ej. estándar BPEL - Business Process Execution Language).
+  * *Coreografía:* Reglas públicas de interacción sin un controlador central.
 * **3.4. Implementación (El "Cómo"):**
-  * **SOAP (Web Services clásicos):** Usa XML, contrato estricto WSDL. Típico en AAPP (Plataforma PID/SCSP).
+  * **SOAP (Web Services clásicos):** Usa XML, contrato estricto WSDL y UDII. Típico en AAPP (Plataforma PID/SCSP o @firma).
   * **REST (Arquitectura moderna):** Usa HTTP nativo (GET, POST), formatos ligeros (JSON).
 
-  ## 4. Buses de Servicio Empresarial (ESB): principios básicos, características, ventajas y funcionamiento
+## 4. Buses de Servicio Empresarial (ESB): principios básicos, características, ventajas y funcionamiento
 - **4.1. Concepto y Principios básicos:** 
-  * Soluciona el "Problema Espagueti" (Si Tributos, Policía, Padrón y Urbanismo se conectan todos con todos, se crea una maraña de integraciones punto a punto). El ESB es el *middleware* central que elimina este caos: todos se conectan al ESB, y él reparte el tráfico.
-- **4.2. Principios:** Desacoplamiento de sistemas, abstracción de protocolos y estandarización como *middleware* central.
-- **4.3. Características y Funcionamiento (Core):**
-  * **Enrutamiento:** Manda el mensaje al destino correcto.
+  * Soluciona el "Problema Espagueti" (maraña de integraciones punto a punto entre Tributos, Padrón, al conectarse todos con todos). El ESB es el *middleware* central que elimina este caos: todos se conectan al ESB, y él reparte el tráfico.
+  * *Principios:* Desacoplamiento de sistemas, virtualización de servicios y estandarización.
+- **4.2. Características y Funcionamiento (Core):**
+  * **Enrutamiento:** Dirige el mensaje al servicio correcto.
   * **Transformación:** Traduce formatos (ej. recibe JSON y lo envía al *legacy* en XML).
-  * **Mediación:** Pone de acuerdo protocolos incompatibles (HTTP a JMS).
-- **4.4. Ventajas:**
-  * Escalabilidad, seguridad centralizada (valida firmas/tokens), monitorización unificada del tráfico y alta reutilización de servicios.
+  * **Mediación:** Pone de acuerdo protocolos incompatibles (HTTP a JMS-Java Message Service).
+- **4.3. Ventajas:**
+  * Integración ágil de sistemas *legacy*, seguridad centralizada (valida firmas/tokens), monitorización unificada del tráfico y alta reutilización de servicios.
 
-  ## 5. Modelo de aplicaciones web (Evolución y Microservicios)
-- **5.1. Evolución (Microservicios + API Gateway):**
-  * SOA/ESB tiende a ser pesado (monolítico). La industria migra a **Microservicios** independientes.
-  * El ESB se sustituye por un **API Gateway**, que centraliza la seguridad (valida tokens JWT), limita el tráfico y enruta peticiones hacia APIs ligeras.
+## 5. Arquitectura Multicapa y Modelo de aplicaciones web
+- **5.1. Arquitectura Multicapa (N-Tier):**
+  * Evolución de las 2 capas para independizar componentes:
+    * **Capa de Presentación:** Interfaz de usuario (HTML/CSS/JavaScript, Angular, React).
+    * **Capa de Lógica de Negocio:** Reglas y validaciones (Spring Boot, Node.js).
+    * **Capa de Datos:** Almacenamiento (Oracle, PostgreSQL).
+  * *Ventajas:* Cliente ligero (*thin client*), cada capa puede escalar de forma independiente y el mantenimiento se centraliza en el servidor.
 - **5.2. El Modelo Web Moderno (SPA + API REST):**
-  * **Frontend (SPA - Single Page Application):** Angular, React, Vue. Se ejecuta en el navegador. Carga dinámicamente sin refrescar la página entera.
-  * **Backend (API REST):** Spring Boot, Node.js. Servidor sin estado que solo escupe datos en JSON (no pinta HTML).
-  * *Ventajas:* Experiencia de usuario ultrafluida. La misma API REST sirve a la web del Ayuntamiento y a la App móvil oficial.
+  * **Frontend (SPA - Single Page Application):** HTML/JS (Next.js, Vue, React). Se ejecuta en el navegador del ciudadano. Carga dinámicamente sin refrescar la página entera mediante AJAX/Fetch.
+  * **Backend (API REST):** Servidor sin estado que solo expone datos en JSON. No pinta HTML.
+  * **Base de datos:** Oracle, PostgreSQL u otra base de datos accesible desde el backend.
+    **Ventajas del modelo SPA + API:** Separación clara de responsabilidades, experiencia de usuario fluida, la misma API puede alimentar web, app móvil y otros consumidores, facilita la reutilización de servicios.
+- **5.3. De SOA a Microservicios:**
+  * SOA/ESB tiende a ser monolítico (punto único de fallo). La industria migra a **Microservicios** independientes.
+  * El ESB se sustituye por un **API Gateway**, que centraliza la seguridad (valida tokens JWT), limita el tráfico y enruta hacia las APIs ligeras.
 
 ## 6. Conclusión
-La arquitectura del software municipal debe garantizar la interoperabilidad (ENI). La convivencia de sistemas *legacy* integrados mediante un robusto **ESB** bajo principios **SOA**, junto con las nuevas plataformas de Sede Electrónica basadas en arquitecturas **SPA** consumiendo **Microservicios** vía **API REST**, conforman el ecosistema tecnológico híbrido de cualquier Administración Pública del siglo XXI.
+La arquitectura del software municipal debe garantizar la interoperabilidad (ENI). La convivencia de sistemas *legacy* integrados mediante un robusto **ESB** bajo principios **SOA**, junto con las nuevas plataformas basadas en arquitecturas multicapa **SPA** que consumen **Microservicios** vía **API REST**, conforman el ecosistema tecnológico híbrido de cualquier Administración Pública del siglo XXI.
 
 ------------------------
 
