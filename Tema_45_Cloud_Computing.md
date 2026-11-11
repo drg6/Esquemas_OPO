@@ -1,48 +1,48 @@
-# Tema 45.- Cloud Computing (IaaS, PaaS, SaaS) y Modelos de Despliegue.
+# Tema 45.- Cloud Computing. IaaS, PaaS, SaaS. Nubes privadas, públicas e híbridas.
 
 ## 1. Introducción al Cloud Computing
-* **Definición NIST:** Acceso bajo demanda, a través de la red, a un conjunto de recursos compartidos (multi-tenant) que se aprovisionan rápidamente con mínima gestión.
-* **5 Características Esenciales:** 
+- **Definición (NIST):** Modelo que permite el acceso bajo demanda, a través de la red, a un conjunto de recursos compartidos que se aprovisionan rápidamente con mínima intervención.
+- **5 Características Esenciales (El ADN del Cloud):** 
   1. Autoservicio bajo demanda.
   2. Amplio acceso por red.
-  3. Pool de recursos compartidos.
-  4. **Elasticidad rápida** (vital para picos de tributos en la Sede Electrónica).
+  3. Pool de recursos compartidos (multi-tenant).
+  4. **Elasticidad rápida** (crecer y decrecer automáticamente ante picos de demanda).
   5. Servicio medido (Pago por uso).
-* **El Cambio Financiero (CAPEX a OPEX):** El Cloud obliga a las AAPP a cambiar su modelo presupuestario, pasando de Inversiones en hardware (CAPEX) a Gasto Corriente variable mensual (OPEX).
+ * **El Cambio Financiero (CAPEX a OPEX):** El Cloud obliga a las AAPP a cambiar su modelo presupuestario, pasando de Inversiones en hardware (CAPEX) a Gasto Corriente variable mensual (OPEX).
 
-## 2. Modelos de Servicio (La pirámide)
-* **2.1. IaaS (Infraestructura):** 
-  * El proveedor da "el hierro virtualizado" (CPU, RAM, Red). El TIC del Ayuntamiento gestiona desde el SO hasta la app. (Ej. AWS EC2).
-* **2.2. PaaS (Plataforma):** 
-  * El proveedor da la plataforma lista para ejecutar código. El TIC solo sube su aplicación. (Ej. Azure SQL, Heroku).
-* **2.3. SaaS (Software):** 
-  * La aplicación completa se consume por web. 
-  * *Caso estrella AAPP:* La migración del viejo correo Exchange local a **Microsoft 365**, liberando al Ayuntamiento de gestionar parches y copias, y delegando la seguridad a Entra ID.
-* **2.4. Tendencias:** FaaS (Serverless) y CaaS (Contenedores/Kubernetes gestionado).
-
-## 3. Modelos de Despliegue
-* **3.1. Nube Pública:** AWS, Azure, Google. Recursos compartidos mundialmente. (Alta elasticidad, riesgo de *vendor lock-in*).
-* **3.2. Nube Privada:** Uso exclusivo. Máximo control, pero requiere gran inversión local.
-* **3.3. Nube Híbrida (El estándar en AAPP):** 
-  * Mantener el Core (Padrón/Tributos) en local o nube privada, y usar la Nube Pública para servicios perimetrales web o desbordamiento de tráfico.
-* **3.4. Nube Comunitaria (GAIA-X):** Iniciativa europea para garantizar la **Soberanía Digital** frente a proveedores de EEUU, basada en interoperabilidad y transparencia.
-* **3.5. NubeSARA (El ecosistema estatal):** 
-  * Nube privada de la SGAD exclusiva para AAPP.
-  * *Ventaja táctica:* **Cumplimiento heredado del ENS**. Al alojar aquí el DRP o copias de seguridad, el Ayuntamiento hereda el Nivel Alto de certificación física de NubeSARA, ahorrando costes de auditoría local.
-
-## 4. Seguridad, Normativa y Contratación en la Nube
-* **4.1. El Modelo de Responsabilidad Compartida:** 
-  * Principio básico del ENS en el Cloud. El proveedor (AWS/Azure) protege *LA* nube (seguridad física y del hipervisor). El Ayuntamiento protege lo que pone *EN LA* nube (parches del SO, MFA, cifrado de datos).
-* **4.2. Cumplimiento Normativo:**
-  * **ENS (RD 311/2022):** Medidas específicas para servicios Cloud. Exige el uso de guías de bastionado CCN-STIC (ej. 887A para AWS).
-  * **ENI:** Exige garantizar la portabilidad (poder sacar los datos si se cambia de proveedor).
-* **4.3. Contratación Pública (Ley 9/2017):**
+## 2. Modelos de Servicio: IaaS, PaaS, SaaS
+*(Se rigen por el **Modelo de Responsabilidad Compartida**, donde el proveedor asegura la infraestructura base (seguridad física y del hipervisor) y el Ayuntamiento protege sus datos y configuraciones según el ENS (parches del SO, MFA, cifrado de datos)).*
+- **2.1. IaaS (Infraestructura como Servicio):** 
+  * El proveedor da "el hierro virtualizado" (CPU, RAM, Almacenamiento, Red).
+  * El TIC del Ayuntamiento gestiona desde el Sistema Operativo (parches) hacia arriba.
+  * *Ejemplo:* Amazon EC2 o Máquinas Virtuales en Azure.
+- **2.2. PaaS (Plataforma como Servicio):** 
+  * El proveedor da el SO y la plataforma lista para ejecutar código (BBDD, entornos de ejecución).
+  * El TIC solo despliega su aplicación y gestiona sus datos.
+  * *Ejemplo:* Azure SQL Database, AWS Elastic Beanstalk.
+- **2.3. SaaS (Software como Servicio):** 
+  * La aplicación completa y acabada se consume directamente por red (navegador web).
+  * *Caso de uso:* Migración del antiguo correo local a **Microsoft 365**, delegando en el proveedor el mantenimiento del software y heredando sus controles de seguridad físicos.
+- **3.3. Contratación Pública (Ley 9/2017):**
   * Si solo es IaaS/Almacenamiento → **Contrato de Suministro**.
   * Si incluye desarrollo/SaaS → **Contrato de Servicios**.
   * Vía ágil de contratación: **Acuerdo Marco 27/2023** de la DGRCC.
 
-## 5. Conclusión
-El Cloud Computing ha dejado de ser una tecnología emergente para convertirse en la plataforma base de la transformación digital municipal. Su éxito no depende únicamente de la elección técnica entre IaaS, PaaS o SaaS, sino de una correcta gestión contractual (Acuerdos Marco), un control presupuestario adaptado (OPEX) y la asunción del Modelo de Responsabilidad Compartida para garantizar la protección de los datos de los ciudadanos conforme dicta el Esquema Nacional de Seguridad.
+## 3. Modelos de Despliegue: Nubes privadas, públicas e híbridas
+- **3.1. Nube Pública:**
+  * Infraestructura compartida a nivel mundial por múltiples organizaciones (AWS, Azure, Google Cloud).
+  * *Pro/Contra:* Máxima elasticidad y pago por uso, frente al riesgo de *vendor lock-in* (dependencia del proveedor).
+- **3.2. Nube Privada:**
+  * Infraestructura de uso exclusivo para una sola organización (on-premise o alojada externamente).
+  * *Pro/Contra:* Máximo control de los datos (soberanía), pero exige alta inversión inicial (hardware).
+  * *Ejemplo en AAPP:* **NubeSARA**, nube privada exclusiva para la Administración. Al alojar servicios aquí, el Ayuntamiento hereda el cumplimiento físico del ENS. 
+    *Ventaja táctica:* **Cumplimiento heredado del ENS**. Al alojar aquí el DRP o copias de seguridad, el Ayuntamiento hereda el Nivel Alto de certificación física de NubeSARA, ahorrando costes de auditoría local.
+- **3.3. Nube Híbrida (El estándar en AAPP):** 
+  * Combina Nube Pública y Privada, orquestadas entre sí.
+  * *Táctica municipal:* Mantener el *Core* sensible (Padrón/Tributos) en local (Privada), y usar la Nube Pública para servicios web perimetrales o desbordamiento de tráfico web temporal (Cloud Bursting).
+
+## 4. Conclusión
+El Cloud Computing ha transformado la arquitectura tecnológica municipal. Su éxito radica en elegir el modelo de servicio adecuado (**IaaS** para control del SO, **PaaS** para agilizar el desarrollo, o **SaaS** para aplicaciones ofimáticas) y en diseñar un despliegue **Híbrido** que combine la elasticidad infinita de la nube pública con la soberanía del dato y el estricto cumplimiento del Esquema Nacional de Seguridad que exige la infraestructura privada.
 
 -----------------------
 
