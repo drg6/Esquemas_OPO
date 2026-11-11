@@ -10,7 +10,7 @@
 ## 2. Arquitectura Cliente-Servidor 
 - **2.1. Concepto:** Modelo distribuido donde un *Cliente* solicita un recurso/servicio y un *Servidor* procesa la petición y responde.
 - **2.2. Cliente-Servidor Clásico (2 Capas):**
-  * *Estructura:* Cliente pesado (Lógica + Interfaz) atacando directamente a la BBDD. 
+  * *Estructura:* Cliente pesado (Lógica + Interfaz) atacando directamente al servidor de BBDD. 
   * *Inconveniente:* Mantenimiento imposible. Cualquier cambio en la lógica obliga a actualizar físicamente todos los PCs cliente.
 
 ## 3. Arquitectura Orientada a Servicios (SOA)
@@ -18,27 +18,32 @@
 * **3.2. Principios clave:** Bajo acoplamiento (independientes de la tecnología), Abstracción (información mínima), Reusabilidad y *Stateless* .
 * **3.3. Colaboración:**
   * *Orquestación:* Un proceso central "director de orquesta" dirige el flujo (Ej. estándar BPEL - Business Process Execution Language).
-  * *Coreografía:* Reglas públicas de interacción sin un controlador central.
+  * *Coreografía:* No hay controlador central, se comunican los servicios entre si.
 * **3.4. Implementación (El "Cómo"):**
   * **SOAP (Web Services clásicos):** Usa XML, contrato estricto WSDL y UDII. Típico en AAPP (Plataforma PID/SCSP o @firma).
-  * **REST (Arquitectura moderna):** Usa HTTP nativo (GET, POST), formatos ligeros (JSON).
+  * **REST (Arquitectura moderna):** Usa HTTP nativo CRUD(*POST*(C), *GET*(R), *PUT*(U), *DELETE*(D)), formatos ligeros (JSON).
 
 ## 4. Buses de Servicio Empresarial (ESB): principios básicos, características, ventajas y funcionamiento
 - **4.1. Concepto y Principios básicos:** 
   * Soluciona el "Problema Espagueti" (maraña de integraciones punto a punto entre Tributos, Padrón, al conectarse todos con todos). El ESB es el *middleware* central que elimina este caos: todos se conectan al ESB, y él reparte el tráfico.
   * *Principios:* Desacoplamiento de sistemas, virtualización de servicios y estandarización.
-- **4.2. Características y Funcionamiento (Core):**
-  * **Enrutamiento:** Dirige el mensaje al servicio correcto.
-  * **Transformación:** Traduce formatos (ej. recibe JSON y lo envía al *legacy* en XML).
-  * **Mediación:** Pone de acuerdo protocolos incompatibles (HTTP a JMS-Java Message Service).
-- **4.3. Ventajas:**
+- **4.2. Características (Las herramientas del ESB):**
+    * **Enrutamiento:** Dirige el mensaje al servicio correcto.
+    * **Transformación:** Traduce formatos (ej. recibe JSON y lo envía al *legacy* en XML).
+    * **Mediación:** Pone de acuerdo protocolos incompatibles (HTTP a JMS - Java Message Service).
+    * **Seguridad y Orquestación**
+- **4.3. Funcionamiento (El ciclo de vida del mensaje):**
+    * **1. Recibe y Valida:** El ESB intercepta la petición del cliente y comprueba la seguridad (tokens, firmas).
+    * **2. Transforma y Enruta:** Adapta el mensaje al formato que espera el servicio destino y se lo envía.
+    * **3. Retorna:** Recibe el procesamiento del servicio, deshace la transformación y entrega la respuesta final al cliente.
+- **4.4. Ventajas:**
   * Integración ágil de sistemas *legacy*, seguridad centralizada (valida firmas/tokens), monitorización unificada del tráfico y alta reutilización de servicios.
 
 ## 5. Arquitectura Multicapa y Modelo de aplicaciones web
 - **5.1. Arquitectura Multicapa (N-Tier):**
   * Evolución de las 2 capas para independizar componentes:
-    * **Capa de Presentación:** Interfaz de usuario (HTML/CSS/JavaScript, Angular, React).
-    * **Capa de Lógica de Negocio:** Reglas y validaciones (Spring Boot, Node.js).
+    * **Capa de Presentación (Frontend):** Interfaz de usuario (HTML/CSS/JavaScript, Angular, React).
+    * **Capa de Lógica de Negocio (Backend):** Reglas y validaciones (Spring Boot, Node.js).
     * **Capa de Datos:** Almacenamiento (Oracle, PostgreSQL).
   * *Ventajas:* Cliente ligero (*thin client*), cada capa puede escalar de forma independiente y el mantenimiento se centraliza en el servidor.
 - **5.2. El Modelo Web Moderno (SPA + API REST):**
