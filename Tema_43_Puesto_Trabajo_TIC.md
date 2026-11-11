@@ -1,47 +1,64 @@
 # Tema 43.- El puesto de trabajo TIC: normalización, políticas de seguridad, actualización y despliegue. Sistemas de administración de entorno de usuario y estaciones de trabajo. Distribución de software. Centro de Atención a los usuarios. Herramientas digitales, políticas de seguridad y configuración de sistemas. Soporte y resolución de incidencias.
 
 ## 1. Introducción
-* **El Reto:** El puesto TIC es la frontera entre el funcionario y los datos del ciudadano. Su gestión en una Administración de 2.000 equipos exige abandonar la administración manual en favor de políticas centralizadas, distribución automatizada y un soporte basado en estándares (ITIL) para garantizar la seguridad (ENS).
+- **El Concepto:** El **puesto de trabajo TIC** es el punto de contacto entre el empleado público y los sistemas de información.
+- **El Reto (La Escala):** Un parque de 2.000 equipos hace inviable la administración manual ("PC a PC"). 
+- **La Solución:** Tres pilares:
+  * **Normalización, actualización y despliegue:** Distribución automatizada de software y sistemas operativos.
+  * **Políticas de seguridad y configuración:** Aplicación centralizada de GPOs (ENS) para proteger el entorno y las herramientas digitales.
+  * **Soporte:** Un Centro de Atención a Usuarios (CAU) para la resolución de incidencias bajo el marco ITIL.
 
-## 2. Normalización, Despliegue y Actualización del Puesto TIC
-- **2.1. Normalización:** Estándar corporativo único (Hardware homologado, SO base como Windows 11 Enterprise LTSC, y software ofimático).
+## 2. Normalización, actualización y despliegue del Puesto TIC
+- **2.1. Normalización:** Estándar corporativo único (Hardware homologado, SO base (Windows 11), software estandarizado y configuracion de seguridad (bitlocker, antivirus/EDR))
 - **2.2. Despliegue Clásico (Imagen Maestra / Golden Image):** 
-  * Captura de un SO "perfecto" clonado mediante **WDS, MDT o MECM (SCCM)**.
+  * Captura de un SO "perfecto" clonado mediante **KACE SDA, Microsoft Deployment Toolkit, Microsoft Configuration Manager**. *Ventajas*: Despliegue rápido, configuración homogenea y reinstalacion ante incidencias graves.
 - **2.3. Despliegue Moderno (Zero-Touch Provisioning):**
   * Tendencia actual mediante **Windows Autopilot + Intune**. El equipo se entrega al usuario y al loguearse se autoconfigura sin intervención manual de Microinformática.
 - **2.4. Actualización Continua (Lifecycle & Patching):**
-  * El puesto no es estático; requiere mantenimiento constante. Uso de **WSUS/MECM** para inyectar parches críticos del Sistema Operativo (cumpliendo los plazos exigidos por el ENS, <30 días) y herramientas como **WinGet** mediante scripts para actualizar software de terceros de forma silenciosa.
+  * El puesto no es estático; requiere mantenimiento constante. Uso de **WSUS/Intune** para inyectar parches críticos del Sistema Operativo (cumpliendo los plazos exigidos por el ENS, <30 días) y herramientas como **WinGet** mediante scripts para actualizar software de terceros de forma silenciosa.
 
-## 3. Políticas de Seguridad del Entorno (Directrices ENS)
-* **3.1. Identidad y Accesos:** Contraseñas de 12 caracteres, caducidad (90 días), bloqueo (5 intentos) y **MFA obligatorio** para administradores TIC y accesos remotos.
-* **3.2. Cifrado y Control:** **BitLocker** obligatorio en portátiles y pendrives corporativos. Deshabilitación de *Autorun* y control de periféricos por lista blanca.
-* **3.3. El blindaje del Administrador (LAPS):** 
-  * Despliegue de **Microsoft LAPS** (Local Administrator Password Solution) para aleatorizar la contraseña del administrador local de cada PC, evitando movimientos laterales de malware/ransomware.
+  ## 3. Políticas de Seguridad del Entorno (Directrices ENS)
+- **3.1. Identidad y Accesos:** Contraseñas de 12 caracteres, caducidad (90 días), bloqueo (5 intentos) y **MFA obligatorio** para administradores TIC y accesos remotos.
+- **3.2. Cifrado y Control:** **BitLocker** obligatorio en portátiles y pendrives corporativos (riesgo de pérdida o robo). Deshabilitación de *Autorun* y control de periféricos por lista blanca.
+- **3.3. Integración de Seguridad en Active Directory (AD):** El AD centraliza y custodia secretos críticos del puesto:
+  * Almacena las claves de recuperación de **BitLocker**.
+  * Despliega **Microsoft LAPS** para aleatorizar y custodiar la contraseña del administrador local, evitando movimientos laterales de ransomware.
+- **3.4. Protección del Endpoint:** 
+  * **Antivirus / EDR:** Detección y respuesta automatizada ante comportamientos anómalos.
+  * **Firewall local:** Reglas centralizadas por GPO.
 
 ## 4. Sistemas de Administración de Entorno de Usuario y Estaciones de Trabajo. Distribución de software.
-* **4.1. El Eje On-Premise (AD + GPO + MECM):**
+* **4.1. El Eje On-Premise (AD + GPO + WSUS):**
   * **AD:** Organiza las identidades en OUs (desacopladas del hardware).
-  * **GPOs (Configuración de Sistemas):** Inyectan la configuración (fondo de pantalla, discos de red, LAPS).
-  * **MECM / WSUS:** Distribución pesada de software y parches.
-* **4.2. El Eje Cloud (Entra ID + Intune):** Gestión MDM/UEM y políticas de Acceso Condicional (ej. "no puedes abrir el correo municipal si te conectas desde fuera de España o sin antivirus").
-* **4.3. Automatización Ágil (WinGet):** Uso de gestores de paquetes por línea de comandos (WinGet) combinados con scripts PowerShell para mantener el software de terceros actualizado silenciosamente.
+  * **GPOs (Configuración de Sistemas):** Inyectan la configuración (menú de inicio, unidades de red, proxy, scripts inicio de sesión, LAPS).
+  * **WSUS/Winget:** Distribución pesada de software y parches.
+- **4.2. El Eje Cloud y la Gestión Moderna (Entra ID + Intune):**
+  * **Microsoft Entra ID (Identidad y Acceso):** 
+    - Extensión del AD local para entornos híbridos mediante *Entra/AD Connect*. 
+    - Habilita el *SSO (Single Sign-On)* para entrar a todas las apps (ej. Microsoft 365) con un solo login
+    - Aplica *Acceso Condicional* (ej. "no abres el correo municipal si te conectas fuera de España"). 
+    - *MFA (Multi-Factor Authentication)*
+  * **Microsoft Intune (UEM - Unified Endpoint Management):** 
+    - Plataforma para gobernar PCs, portátiles, móviles y tablets desde un único panel cloud.
+    - Aplica *Políticas de Cumplimiento*: si Intune detecta que el equipo no cumple las reglas (antivirus activo, SO actualizado, cifrado), Entra ID le bloquea automáticamente el acceso a los recursos. 
+    - *Despliegue de aplicaciones y actualizaciones*
 
 ## 5. El Centro de Atención a Usuarios (CAU) y el marco ITIL
-* **5.1. Concepto SPOC:** Punto Único de Contacto entre el usuario y la tecnología.
-* **5.2. Marco ITIL 4 (Prácticas clave):**
-  * *Gestión de Incidencias:* Apagar el fuego rápido.
-  * *Gestión de Peticiones:* Trámites estándar (pedir un ratón, instalar Adobe).
+* **5.1. Concepto SPOC:** Punto Único de Contacto entre el usuario y el servicio de TIC. Su función es recibir, registrar, clasificar, resolver o escalar todas las incidencias y peticiones de los usuarios.
+* **5.2. Marco ITIL 4 (Estándar de facto para la gestión de servicios TI):**
+  * *Gestión de Incidencias:* Restaurar el servicio normal minimizando el impacto.
+  * *Gestión de Peticiones:* Solicitudes predefinidas (alta de usuario, cambio de contraseña, instalación de software).
   * *Gestión de Problemas:* Investigar la causa raíz de incidencias repetitivas.
 * **5.3. El ciclo de la incidencia:** Detección → Registro → Priorización (Impacto × Urgencia) → Diagnóstico → Resolución → Cierre.
 * **5.4. Niveles de Soporte y Estrategia "Shift-Left":**
-  * Potenciar el **Nivel 0 (Portal de Autoservicio / KB)** para que el usuario resuelva sus problemas (Shift-Left), filtrando el volumen que llega al Nivel 1 (CAU), Nivel 2 (Sistemas/Redes) y Nivel 3 (Fabricante).
-* **5.5. KPIs y Herramientas:** Medir el FCR (First Contact Resolution, >70%), usando plataformas ITSM como GLPI (Open Source, muy común en AAPP) o ServiceNow/Jira.
+  * Potenciar el **Nivel 0 (Portal de Autoservicio / FAQ)** para que el usuario resuelva sus problemas (Shift-Left), filtrando el volumen que llega al Nivel 1 (CAU), Nivel 2 (Sistemas/Redes) y Nivel 3 (Fabricante).
+* **5.5. KPIs y Herramientas:** Medir el tiempo medio de respuesta, de resolución y FCR (First Contact Resolution) -> % Nivel 1 sin escalar >70%, usando plataformas como *GLPI* (Open Source, muy común en AAPP), *ServiceNow* o *Jira*.
 
 ## 6. Herramientas Digitales, Políticas de Seguridad y Configuración de Sistemas. Soporte y resolución de incidencias.
 - **6.1. Productividad y Colaboración:** Microsoft 365, LibreOffice (ODF/ENI) y Teams.
-- **6.2. Políticas de seguridad y Configuración de sistemas**: Bastionado de las herramientas según guías CCN-STIC (bloqueo de macros, restricción de extensiones) y configuración funcional del entorno operativo (asociaciones de archivos por defecto, despliegue de certificados para AutoFirma y ajustes de proxy/firewall).
-- **6.3. Certificados y Firma:** Despliegue y configuración de AutoFirma, middlewares (PKCS#11) y lectores DNIe.
-- **6.4. Asistencia Remota (Soporte y Resolución de incidencias):** Herramientas nativas (RDP, PowerShell Remoting) o de terceros (AnyDesk/TeamViewer) para aplicar resoluciones rápidas en el primer contacto.
+- **6.2. Políticas de seguridad y Configuración de sistemas**: Bastionado de las herramientas según guías CCN-STIC (bloqueo de macros, restricción de extensiones) y configuración funcional del entorno operativo (asociaciones de archivos por defecto y ajustes de proxy/firewall).
+- **6.3. Certificados y Firma:** Despliegue y configuración de AutoFirma, certificados (PKCS#11) y lectores DNIe.
+- **6.4. Asistencia Remota (Soporte y Resolución de incidencias):** Herramientas nativas (RDP, Asistencia remota de Windows) o de terceros (AnyDesk/TeamViewer) para aplicar resoluciones rápidas en el primer contacto.
 
 ## 7. Conclusión
 El puesto de trabajo no se gestiona PC a PC, se gobierna. La transición desde el despliegue manual mediante imágenes maestras hacia el *Zero-Touch* con Autopilot e Intune, sumado al blindaje exigido por el ENS (LAPS, BitLocker, MFA) y el soporte estructurado bajo ITIL, garantiza que el Ayuntamiento preste un servicio digital continuo, ágil y, sobre todo, resiliente ante ciberamenazas.
