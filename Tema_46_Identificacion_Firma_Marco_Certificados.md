@@ -1,58 +1,61 @@
-# Tema 46.- Identidad y Firma (eIDAS), Criptografía, Certificados (X.509) y Formatos.
+# Tema 46.- Identificación y firma electrónica. Marco europeo y nacional. Certificados digitales. Claves privadas, públicas y concertadas. Formatos de firma electrónica.
 
 ## 1. Introducción
-* El papel de la firma electrónica es aportar al mundo digital las **4 garantías jurídicas**:
-  1. Identificación (Quién eres).
-  2. Integridad (No se ha modificado).
-  3. No repudio (No puedes negar haberlo firmado).
-  4. Confidencialidad (Solo lo lee el destino).
+- **Contexto:** La transformación digital municipal exige trasladar la confianza del papel manuscrito al entorno electrónico.
+- **Las 4 Garantías Jurídicas:** El objetivo de la criptografía y la firma es aportar:
+  1. **Identificación:** Certeza absoluta de quién es el autor.
+  2. **Integridad:** El documento no ha sido alterado tras su firma.
+  3. **No repudio:** El autor no puede negar su autoría a posteriori.
+  4. **Confidencialidad:** Solo el destinatario legítimo puede leerlo (mediante cifrado).
 
-## 2. Marco Normativo (La Base Legal)
-* **2.1. Marco Europeo (eIDAS - Reg. UE 910/2014):**
-  * Crea el Mercado Único Digital. Principio clave: La firma electrónica *cualificada* equivale jurídicamente a la manuscrita en toda la UE.
-  * Define los QTSP (Prestadores Cualificados de Servicios de Confianza).
-* **2.2. Marco Nacional:**
-  * **Ley 6/2020:** Regula los servicios electrónicos de confianza en España.
+## 2. Identificación y firma electrónica
+- **2.1. Identificación vs. Firma (Ley 39/2015):** 
+  * *Identificación (Art. 9):* Demostrar quién eres para acceder a un servicio (PIN en Cl@ve).
+  * *Firma (Art. 10):* Expresar voluntad y consentimiento sobre un trámite (Portafirmas, CSV).
+- **2.2. Tipos de Firma (eIDAS):** 
+  * *Simple:* Datos lógicos asociados (Poco valor probatorio).
+  * *Avanzada:* Identifica unívocamente, bajo el control exclusivo del firmante y detecta modificaciones.
+  * *Cualificada:* Avanzada + Dispositivo cualificado (QSCD). Es la única que equivale legalmente a la firma manuscrita.
+- **2.3. Sistemas Admitidos en las AAPP (Aplicación práctica):** 
+  * *Ciudadanos:* DNIe, Certificado cualificado (FNMT,ACCV) y plataforma **Cl@ve**.
+  * *Administración:* **Portafirmas corporativo** (para empleados), Sello Electrónico de Órgano (actuación automatizada) y el **CSV (Código Seguro de Verificación)**, vital porque permite imprimir un PDF firmado y verificar su autenticidad original en la Sede Electrónica.
+
+## 3. Marco europeo y nacional
+- **3.1. Marco Europeo (eIDAS - Reg. UE 910/2014):**
+  * *Objetivo:* Crear el Mercado Único Digital mediante la **interoperabilidad transfronteriza** (que una firma de España valga en Alemania).
+  * *Concepto clave:* Define los Servicios de Confianza y la figura del **QTSP** (Prestador Cualificado de Servicios de Confianza).
+  * *Principio de equivalencia:* Establece por ley que la **firma electrónica cualificada** tiene el mismo efecto jurídico que la firma manuscrita en toda la UE.
+- **3.2. Marco Nacional:**
+  * **Ley 6/2020:** Traspone el eIDAS y regula los prestadores de servicios de confianza cualificados en España.
   * **Ley 39/2015:** Art. 9 (Sistemas de Identificación) y Art. 10 (Sistemas de Firma).
   * **Ley 40/2015:** Art. 42 y 43 (Firma por actuación automatizada y Sello de Órgano).
+  * **Plataforma @firma:** Pasarela del Estado (Red SARA) que usan los Ayuntamientos para validar identidades y firmas.
 
-## 3. La Maquinaria Criptográfica
-* **3.1. Criptografía Simétrica (Clave concertada):** Misma clave (ej. AES-256). Rápida, pero con el problema de cómo enviar la clave de forma segura.
-* **3.2. Criptografía Asimétrica:** Un par de claves (Pública + Privada) basadas en RSA o ECDSA. 
-  * *Privada:* Custodiada (Firma y descifra). *Pública:* Distribuida (Verifica y cifra).
-* **3.3. El proceso de firma (El Hash):**
-  1. El firmante extrae el **Hash SHA-256** (huella digital) del documento.
-  2. Cifra ese Hash con su **Clave Privada** (= Firma electrónica).
-  3. El receptor descifra la firma con la **Clave Pública** (obtiene el Hash 1) y calcula el Hash del documento recibido (Hash 2). Si son idénticos = Firma válida.
+## 4. Certificados digitales
+- **4.1. Concepto y Estructura (X.509 v3):** Fichero electrónico emitido por una Autoridad de Certificación (CA) que vincula matemáticamente a una persona con su Clave Pública.
+- **4.2. Validación (OCSP vs CRL):** Para comprobar si un certificado está revocado hoy, las AAPP usan **OCSP** (verificación online en tiempo real), descartando las pesadas listas CRL.
+- **4.3. Uso en AAPP:** Destacan el Sello de Órgano y los **Certificados de Empleado Público con Seudónimo** (ej. Policía Local, exigido por el ENS para proteger la identidad real).
 
-## 4. Certificados Digitales (X.509 v3)
-* **4.1. Concepto:** Un tercero de confianza (CA) vincula matemáticamente a una persona con su Clave Pública.
-* **4.2. Estructura (X.509 v3):** Emisor (Issuer), Sujeto (Subject), Validez, Clave Pública (RSA 2048) y las extensiones de validación (**OCSP/CRL**).
-* **4.3. Detalle AAPP - Revocación y Seudónimos:**
-  * Para comprobar si la firma es válida hoy, el Ayuntamiento usa el protocolo **OCSP** (verificación online en tiempo real), descartando las pesadas listas CRL.
-  * Por seguridad (ENS), muchos Ayuntamientos expiden **Certificados de Empleado Público con Seudónimo** (ej. para Policía Local), ocultando el nombre real.
+## 5. Claves privadas, públicas y concertadas
+- **5.1. Claves Concertadas (Criptografía Simétrica):** Misma clave cifrar y descifrar (AES-256). Muy rápida, pero con el gran problema logístico de cómo distribuir la clave de forma segura. *Uso:* Bitlocker y TLS / IPSec
+- **5.2. Claves Públicas y Privadas (Criptografía Asimétrica):** par de claves matemáticamente relacionadas (RSA/ECDSA Curvas Elípticas — mayor seguridad con claves más cortas).
+  * *Privada:* Secreta, solo en poder del titular (Firma y descifra).
+  * *Pública:* Distribuida abiertamente en el certificado (Verifica y cifra).
+- **5.3. El proceso de firma (El Hash):**
+  1. El firmante cifra el **Hash SHA-256** del documento usando su Clave Privada.
+  2. El receptor descifra la firma con la Clave Pública y comprueba que el Hash coincida.
 
-## 5. Tipos de Firma y Sistemas Admitidos
-* **5.1. Tipos (eIDAS):** 
-  * *Simple:* Datos asociados (Poco valor probatorio).
-  * *Avanzada:* Identifica, control exclusivo y detecta cambios.
-  * *Cualificada:* Avanzada + Certificado cualificado + Dispositivo cualificado (QSCD, ej. tarjeta chip). Equivale a firma manuscrita.
-* **5.2. AAPP (Sistemas Admitidos):** 
-  * Ciudadanos: DNIe, Certificado cualificado (FNMT) y sistemas Cl@ve.
-  * Administración: Portafirmas corporativo, Sello Electrónico de Órgano y el **CSV (Código Seguro de Verificación)**, que permite imprimir un PDF y verificar su autenticidad en la Sede Electrónica.
-
-## 6. Formatos y Evolución de la Firma
-* **6.1. Formatos Base:**
-  * **XAdES (XML):** Estándar para FacturaE.
-  * **PAdES (PDF):** Firma incrustada visualmente en un PDF.
+## 6. Formatos de firma electrónica
+- **6.1. Formatos Base:**
+  * **XAdES (XML):** Estándar estructurado, obligatorio para la FacturaE.
+  * **PAdES (PDF):** Firma incrustada visualmente en un documento PDF.
   * **CAdES (CMS):** Archivos binarios genéricos.
-  * **JAdES (JSON):** Nuevo estándar para APIs REST.
-* **6.2. La Firma Longeva (Fase de Archivo):**
-  * Para que la firma valga dentro de 20 años (cuando el certificado haya caducado), se requiere el formato **LTA (Long Term Archival)**, que incrusta sellos de tiempo y evidencias OCSP iterativamente.
-* **6.3. Plataforma @firma (Red SARA):** La pasarela del Estado que usan los Ayuntamientos para validar firmas y certificados.
+  * **JAdES (JSON):** Nuevo estándar optimizado para APIs REST modernas.
+- **6.2. La Firma Longeva (Fase de Archivo):**
+  * Para que un expediente valga dentro de 20 años (cuando el certificado haya caducado), se usa el formato **LTA (Long Term Archival)**, incrustando sellos de tiempo (TSA) y evidencias OCSP de forma iterativa.
 
 ## 7. Conclusión
-El acto administrativo digital carece de validez sin el respaldo de la criptografía asimétrica y el estándar X.509 v3. Gracias al reglamento eIDAS y a herramientas nacionales como @firma y Cl@ve, los Ayuntamientos pueden orquestar plataformas (Sede Electrónica y Portafirmas) que garantizan la integridad, confidencialidad y el no repudio, transformando el papel firmado por un sello electrónico plenamente auditable en el tiempo mediante formatos longevos LTA.
+El acto administrativo digital exige robustez criptográfica (X.509 v3, RSA). Gracias al reglamento eIDAS y al marco nacional, los Ayuntamientos pueden orquestar plataformas que garantizan la integridad y el no repudio, transformando el documento electrónico en una evidencia perdurable en el tiempo mediante formatos longevos LTA.
 
 ---------------------------
 
