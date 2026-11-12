@@ -1,44 +1,46 @@
 # Tema 45.- Cloud Computing. IaaS, PaaS, SaaS. Nubes privadas, públicas e híbridas.
 
 ## 1. Introducción al Cloud Computing
-- **Definición (NIST):** Modelo que permite el acceso bajo demanda, a través de la red, a un conjunto de recursos compartidos que se aprovisionan rápidamente con mínima intervención.
+- **Definición (NIST):** Modelo que permite el acceso bajo demanda, a través de la red, a un conjunto de recursos compartidos que se aprovisionan rápidamente con mínima intervención. Pagando solo por lo que se utiliza, sin inversión inicial en hardware y con capacidad de escalar instantáneamente.
 - **5 Características Esenciales (El ADN del Cloud):** 
   1. Autoservicio bajo demanda.
-  2. Amplio acceso por red.
+  2. Acceso por red desde cualquier dispositivo.
   3. Pool de recursos compartidos (multi-tenant).
   4. **Elasticidad rápida** (crecer y decrecer automáticamente ante picos de demanda).
-  5. Servicio medido (Pago por uso).
+  5. Pago por uso según consumo real.
  * **El Cambio Financiero (CAPEX a OPEX):** El Cloud obliga a las AAPP a cambiar su modelo presupuestario, pasando de Inversiones en hardware (CAPEX) a Gasto Corriente variable mensual (OPEX).
 
 ## 2. Modelos de Servicio: IaaS, PaaS, SaaS
 *(Se rigen por el **Modelo de Responsabilidad Compartida**, donde el proveedor asegura la infraestructura base (seguridad física y del hipervisor) y el Ayuntamiento protege sus datos y configuraciones según el ENS (parches del SO, MFA, cifrado de datos)).*
 - **2.1. IaaS (Infraestructura como Servicio):** 
-  * El proveedor da "el hierro virtualizado" (CPU, RAM, Almacenamiento, Red).
+  * El proveedor da un infraestructura virtualizada (CPU, RAM, Almacenamiento, Red).
   * El TIC del Ayuntamiento gestiona desde el Sistema Operativo (parches) hacia arriba.
-  * *Ejemplo:* Amazon EC2 o Máquinas Virtuales en Azure.
+  * *Ejemplo:* Amazon EC2, Azure Virtual Machines, Google Compute Engine
 - **2.2. PaaS (Plataforma como Servicio):** 
   * El proveedor da el SO y la plataforma lista para ejecutar código (BBDD, entornos de ejecución).
   * El TIC solo despliega su aplicación y gestiona sus datos.
-  * *Ejemplo:* Azure SQL Database, AWS Elastic Beanstalk.
+  * *Ejemplo:* AWS Elastic Beanstalk, Azure SQL Database, Google App Engine .
 - **2.3. SaaS (Software como Servicio):** 
   * La aplicación completa y acabada se consume directamente por red (navegador web).
+  * *Ejemplo:* Microsoft 365, Google Workspace, Salesforce, SAP SuccessFactors.
   * *Caso de uso:* Migración del antiguo correo local a **Microsoft 365**, delegando en el proveedor el mantenimiento del software y heredando sus controles de seguridad físicos.
 - **3.3. Contratación Pública (Ley 9/2017):**
   * Si solo es IaaS/Almacenamiento → **Contrato de Suministro**.
   * Si incluye desarrollo/SaaS → **Contrato de Servicios**.
-  * Vía ágil de contratación: **Acuerdo Marco 27/2023** de la DGRCC.
+  * Vía ágil de contratación: **Acuerdo Marco 27/2023** de la DGRCC (Dirección General de Racionalización y Centralización de la Contratación).
 
 ## 3. Modelos de Despliegue: Nubes privadas, públicas e híbridas
 - **3.1. Nube Pública:**
-  * Infraestructura compartida a nivel mundial por múltiples organizaciones (AWS, Azure, Google Cloud).
-  * *Pro/Contra:* Máxima elasticidad y pago por uso, frente al riesgo de *vendor lock-in* (dependencia del proveedor).
+  * Infraestructura global compartida entre distintas organizaciones y gestionada por proveedores como AWS, Azure o Google Cloud.
+  * *Pro/Contra:* Máxima elasticidad y pago por uso, frente al riesgo de *vendor lock-in* (dependencia del proveedor) y la seguridad/privacidad de los datos.
+  * *Cumplimiento (RD 311/2022):* Son viables para AAPP ya que los 3 grandes poseen certificación **ENS Categoría Alta**. Su uso exige aplicar la medida "Protección de servicios en la nube" mediante guías de bastionado **CCN-STIC**.
 - **3.2. Nube Privada:**
   * Infraestructura de uso exclusivo para una sola organización (on-premise o alojada externamente).
-  * *Pro/Contra:* Máximo control de los datos (soberanía), pero exige alta inversión inicial (hardware).
+  * *Pro/Contra:* Máximo control de los datos (soberanía), pero exige alta inversión inicial (hardware) y tiene menor flexibilidad/escalabilidad.
   * *Ejemplo en AAPP:* **NubeSARA**, nube privada exclusiva para la Administración. Al alojar servicios aquí, el Ayuntamiento hereda el cumplimiento físico del ENS. 
     *Ventaja táctica:* **Cumplimiento heredado del ENS**. Al alojar aquí el DRP o copias de seguridad, el Ayuntamiento hereda el Nivel Alto de certificación física de NubeSARA, ahorrando costes de auditoría local.
 - **3.3. Nube Híbrida (El estándar en AAPP):** 
-  * Combina Nube Pública y Privada, orquestadas entre sí.
+  * Combina Nube Pública y Privada conectadas entre sí para permitir el intercambio fluido de datos y aplicaciones entre ambos entornos.
   * *Táctica municipal:* Mantener el *Core* sensible (Padrón/Tributos) en local (Privada), y usar la Nube Pública para servicios web perimetrales o desbordamiento de tráfico web temporal (Cloud Bursting).
 
 ## 4. Conclusión
