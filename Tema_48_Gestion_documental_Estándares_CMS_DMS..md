@@ -1,43 +1,43 @@
-# Tema 48.- Gestión documental (DMS), estándares (OAIS, ENI) y Gestión de contenidos (CMS).
+# Tema 48.- Gestión documental, estándares. Gestión de contenidos. Tecnologías CMS y DMS de alta implantación.
 
-## 1. Introducción
-* **Doble obligación legal (Leyes 39 y 40/2015):** La Administración tramita electrónicamente.
-  * **DMS (Gestor Documental):** Para el "Back-Office" (tramitar expedientes, conservar, archivar).
-  * **CMS (Gestor de Contenidos):** Para el "Front-Office" (Sedes electrónicas, portales de transparencia, comunicación con el ciudadano).
+## 1. Introducción: Contexto y Obligación Legal
+- **El Activo Estratégico:** En las AAPP, el mayor volumen de conocimiento es **información no estructurada** (documentos de texto, imágenes, contenido web), que supera ampliamente a los datos relacionales tradicionales.
+- **La Obligación Legal (Leyes 39 y 40/2015):** La exigencia de una tramitación íntegramente electrónica obliga a gobernar esta información mediante dos motores complementarios:
+  * **DMS (Gestor Documental):** La maquinaria del "Back-Office". Centrado en el valor jurídico, la gestión del expediente, la trazabilidad y el archivo definitivo.
+  * **CMS (Gestor de Contenidos):** El escaparate del "Front-Office". Centrado en la publicación ágil, la transparencia ciudadana y el diseño de la Sede Electrónica.
 
-## 2. Gestión Documental y el ENI (Esquema Nacional de Interoperabilidad)
-* **2.1. El Documento Electrónico (ENI):** No es solo un PDF. Es `Contenido + Firma Electrónica + Metadatos obligatorios (eMGDE)`.
-* **2.2. El Expediente Electrónico (ENI):** Agrupación en XML de documentos electrónicos + un **Índice Electrónico firmado** (el "candado" que impide meter o sacar folios a posteriori).
-* **2.3. El reto operativo (El Expediente Híbrido):** La realidad municipal obliga a integrar papel antiguo con documentos nativos digitales mediante procesos de **digitalización certificada**.
+## 2. Gestión documental, estándares
+- **2.1. Concepto y Ciclo de Vida:**
+  * *Definición:* Normas y prácticas para administrar el flujo de información, garantizando su autenticidad e integridad. 
+  * *Las 5 Fases:* 1. Creación/Captura (digitalización certificada) -> 2. Tramitación (workflows) -> 3. Almacenamiento -> 4. Archivo (preservación) -> 5. Expurgo (destrucción legal dictaminada).
+- **2.2. El Núcleo de la AAPP: Documento y Expediente Electrónico:**
+  * *El Documento Electrónico (ENI):* No es un simple PDF. Es información estructurada formada obligatoriamente por 3 piezas: `Contenido + Firma Electrónica + Metadatos (esquema eMGDE)`. Para mantener su validez legal al imprimirse en papel, incorpora el **CSV (Código Seguro de Verificación)**.
+  * *El Expediente Electrónico (ENI):* Objeto digital complejo (XML) que agrupa documentos. Su pieza vital es el **Índice Electrónico firmado** (el "candado" que garantiza la integridad, impidiendo añadir o extraer folios a posteriori).
+- **2.3. El Marco Normativo (Las NTI del ENI):**
+  * Toda esta gestión se rige por las Normas Técnicas de Interoperabilidad: NTI de Documento, NTI de Expediente, NTI de Digitalización Certificada (para el papel antiguo) y la NTI de Política de Gestión de Documentos (PGDE).
+- **2.4. Estándares Core:**
+  * *Organizativos:* **ISO 15489** (metodología integral) e **ISO 30300** (mejora continua).
+  * *Funcionales (DMS y Archivo):* **MoReq** (requisitos europeos del software, cómo debe clasificar y expurgar el software) y **OAIS / ISO 14721** (archivo a largo plazo mediante paquetes: *SIP ingesta, AIP preservación, DIP difusión*).
+  * *Técnicos (IT):* **CMIS** (API universal multiproveedor), **JCR** (estándar para Java) y **WebDAV** (edición y versionado remoto vía HTTP).
 
-## 3. Estándares Core de la Gestión Documental
-* **3.1. Normas ISO y Funcionales:**
-  * **ISO 15489:** Metodología de gestión documental integral.
-  * **MoReq:** Requisitos funcionales europeos (cómo debe clasificar y expurgar el software).
-* **3.2. Modelo OAIS (Archivo a largo plazo - ISO 14721):**
-  * **SIP (Ingesta):** El paquete original que entra al sistema.
-  * **AIP (Archivo):** El SIP transformado (ej. convertido a PDF/A) para preservación eterna.
-  * **DIP (Difusión):** El paquete que se le entrega al investigador o ciudadano que lo pide.
-* **3.3. CMIS (La API Universal):** Estándar que permite a un gestor de expedientes de Java hablar con un repositorio documental de Microsoft sin importar el fabricante.
+## 3. Gestión de contenidos
+- **3.1. Concepto:** Software que desacopla el diseño visual de los datos, permitiendo a perfiles no técnicos (periodistas, administrativos) publicar mediante flujos de aprobación.
+- **3.2. Arquitecturas:**
+  * *Monolítica:* Backend y Frontend acoplados (el CMS pinta la web entera).
+  * *Headless (Sin cabeza):* Backend puro que expulsa contenido vía API. Fundamental para la **omnicanalidad** (mandar el mismo dato a la Sede web, a la App móvil y a tótems del Ayuntamiento).
 
-## 4. Tecnologías DMS (Document Management Systems)
-* Funcionalidades vitales: Control de versiones, metadatos, workflows, retención y auditoría.
-* **Mercado Propietario:** Microsoft SharePoint (Líder en intranets/Office 365), Documentum (Grandes cuentas), IBM FileNet.
-* **Mercado Open Source:** **Alfresco** (El estándar de facto en Ayuntamientos medianos, basado en Java y CMIS).
-* **Ecosistema AGE (Red SARA):** INSIDE (tramitación), ARCHIVE (archivo definitivo OAIS).
+## 4. Tecnologías CMS y DMS de alta implantación
+- **4.1. Tecnologías DMS (Gestión Documental):**
+  * *Mercado Open Source:* **Alfresco** (Estándar de facto en Ayuntamientos medianos, basado en Java y CMIS).
+  * *Mercado Propietario:* Microsoft SharePoint (líder en Office 365), Documentum.
+  * *Ecosistema AGE (Red SARA):* INSIDE (tramitación viva) y ARCHIVE (archivo definitivo OAIS).
+- **4.2. Tecnologías CMS (Gestión de Contenidos):**
+  * **WordPress (PHP):** Rey por usabilidad (intranets ligeras). ⚠️ *Riesgo AAPP:* Su abuso de *plugins* de terceros sin auditar es un vector crítico de *ransomware*.
+  * **Drupal (PHP):** Modular y robusto. Orientado a *Security by Design*. Es el estándar del PAe (Portal de Administración Electrónica).
+  * **Liferay (Java):** Gestor pesado para portales corporativos e intranets complejas.
 
-## 5. Gestión de Contenidos (CMS)
-* Software que desacopla el diseño visual de los datos, permitiendo a perfiles no técnicos (periodistas, administrativos) publicar en la web mediante flujos de aprobación.
-* **5.1. Arquitecturas:**
-  * *Monolítica:* Backend y Frontend unidos (WordPress).
-  * *Headless (Sin cabeza):* Backend puro que expulsa contenido vía API a apps móviles, tótems municipales o webs (Omnicanalidad).
-* **5.2. Mercado de CMS:**
-  * **WordPress (PHP):** Rey absoluto por usabilidad. ⚠️ *Riesgo en AAPP:* Su exceso de *plugins* de terceros sin auditar es un vector de entrada común para ransomware.
-  * **Drupal (PHP):** Más modular y robusto. Orientado a *Security by Design*. Elegido por el PAe y portales críticos.
-  * **Liferay (Java):** Gestor de portales pesados corporativos e intranets complejas.
-
-## 6. Conclusión (El puente DMS-CMS)
-El éxito de la Administración Electrónica reside en la integración de ambos mundos. El **DMS** (Alfresco/Inside) genera y custodia el expediente jurídico cumpliendo las normas ENI y OAIS. El **CMS** (Liferay/Drupal) publica la Sede Electrónica para el ciudadano. El nexo físico entre ambos mundos es el **Código Seguro de Verificación (CSV)**: permite al ciudadano introducir en el portal web (CMS) un código impreso en papel para recuperar instantáneamente la copia electrónica auténtica custodiada en el repositorio documental (DMS).
+## 5. Conclusión (El puente DMS-CMS)
+El éxito de la Administración Electrónica reside en la perfecta integración de estas herramientas. El **DMS** (ej. Alfresco) genera el expediente jurídico cumpliendo las normas ENI y OAIS, mientras que el **CMS** (ej. Liferay) publica la Sede Electrónica. El nexo físico entre ambos es el **CSV (Código Seguro de Verificación)**, que permite al ciudadano introducir en el CMS web un código impreso para recuperar instantáneamente la evidencia electrónica custodiada en el DMS.
 
 -----------
 
