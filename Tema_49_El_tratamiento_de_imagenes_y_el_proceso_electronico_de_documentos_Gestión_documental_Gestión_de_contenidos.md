@@ -1,4 +1,4 @@
-# Tema 49.- El tratamiento de imágenes y el proceso electrónico de documentos. DMS y CMS.
+# Tema 49.- El tratamiento de imágenes y el proceso electrónico de documentos. Gestión documental. Gestión de contenidos.
 
 ## 1. Introducción
 * **El reto del "Papel Cero":** Las Leyes 39/2015 y 40/2015 prohíben (salvo excepciones) el archivo físico.
