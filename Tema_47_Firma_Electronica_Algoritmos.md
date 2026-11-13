@@ -2,60 +2,54 @@
 
 ## 1. Introducción
 * **El Objetivo Principal:** Trasladar la seguridad y confianza del mundo físico al entorno digital de las AAPP.
-* **El Doble Pilar:** El motor matemático (Criptografía) y la infraestructura (Prestadores de certificación).
-* **La Evolución de la Identidad:** Del "lo que el usuario tiene" (Certificados) al "lo que el usuario es" (Biometría).
+- **El Doble Pilar:** La seguridad digital en las AAPP exige un motor matemático (Criptografía) y una infraestructura legal (Prestadores de certificación).
+- **Evolución:** La autenticación migra de "lo que se tiene" (Certificados) a "lo que se es" (Biometría).
 
-## 2. Algoritmos de Cifrado Simétrico
-### 2.1. Concepto
-* Misma clave secreta para cifrar y descifrar. Rápidos para grandes volúmenes.
-* *Problema:* Distribución segura de la clave.
-### 2.2. Principales algoritmos
-* DES / 3DES → Obsoletos / Deprecados.
-* **AES** → 128/192/256 bits → Estándar vigente.
-* **ChaCha20** → 256 bits → Alternativa ágil en móviles (usado en TLS 1.3, WireGuard).
-### 2.3. AES y sus Modos de Operación (Clave ENS)
-* Estándar NIST (2001). Cifrado por bloques.
-* **GCM (Galois/Counter Mode):** Cifrado + Autenticación. Ideal para túneles de red (IPSec, TLS). **AES-256-GCM** es el estándar para categoría Alta del ENS.
-* ⚠️ **XTS (XEX Tweakable Block Cipher):** Modo especializado en cifrado de almacenamiento. Es el utilizado corporativamente por **Windows BitLocker** (AES-XTS 256) para proteger los portátiles ante robos.
+## 2. Identificación y firma electrónica
+- **Concepto técnico:** 
+  * *Identificación:* Asegura el "quién" (autenticación en la Sede).
+  * *Firma:* Asegura el "qué" (integridad y no repudio del trámite). 
+  * Ambas se sustentan íntegramente en la solidez de la criptografía subyacente.
 
-## 3. Algoritmos de Cifrado Asimétrico
-### 3.1. Concepto
-* Par de claves (Pública/Privada) relacionadas matemáticamente. Resuelve el problema de la distribución de claves.
-### 3.2. RSA vs. ECC (Curvas Elípticas)
-* **RSA:** Factorización de números primos. Claves de 2048/3072 bits. Amplia compatibilidad.
-* **ECC (Ej. ECDSA, ECDH):** Logaritmo discreto en curvas elípticas. Mayor eficiencia con menor longitud de clave (ECDSA 256 bits ≈ RSA 3072 bits). Utilizado por el **DNIe 3.0**.
-### 3.3. Criptografía Post-Cuántica (PQC)
-* Amenaza: La computación cuántica romperá RSA y ECC (Algoritmo de Shor).
-* Futuro: Algoritmos NIST como **ML-KEM** (Kyber) para intercambio y **ML-DSA** (Dilithium) para firma.
+## 3. Algoritmos de cifrado simétricos y asimétricos
+- **3.1. Cifrado Simétrico (Clave compartida):**
+  * Misma clave para cifrar/descifrar. Muy rápido para grandes volúmenes, pero con el problema logístico de distribuir la clave segura.
+  * *Estándares ENS / NIST:* 
+    **AES-256-GCM** (túneles IPSec/TLS)
+    **AES-XTS** (cifrado de discos, ej. BitLocker portatiles corporativos). 
+    **ChaCha20** (alternativa ágil móvil, usado en TLS 1.3, WireGuard).
+- **3.2. Cifrado Asimétrico (Clave Pública / Privada):**
+  * Resuelve la distribución: la Privada firma/descifra; la Pública verifica/cifra.
+  * *RSA:* Factorización de primos (2048/3072 bits). Estándar histórico.
+  * *ECC (Curvas Elípticas):* Logaritmo discreto. Más rápido y con menos bits (usado por el **DNIe 3.0**). 
+  * *ECDHE* -> Diffie-Hellman sobre curvas elípticas
+  * *Futuro (Post-Cuántica):* Algoritmos NIST (ML-KEM) para resistir el ataque de ordenadores cuánticos.
+- **3.3. Cifrado Híbrido (El mundo real):** Protocolos como **TLS 1.3** usan asimétrico (ECDHE) para intercambiar la clave inicial y simétrico (AES-GCM) para el tráfico pesado.
 
-## 4. Cifrado Híbrido (El mundo real)
-* Combina lo mejor de ambos mundos (ej. protocolo **TLS 1.3**):
-  1. *Asimétrica (ECDHE):* Para acordar la clave de sesión de forma segura por Internet.
-  2. *Simétrica (AES-GCM):* Para cifrar el tráfico rápido y pesado de la conexión.
+## 4. Prestación de servicios de certificación públicos y privados
+- **4.1. Marco (eIDAS):** Los **QTSP** (Prestadores Cualificados) actúan como "Terceros de Confianza" emitiendo certificados y manteniendo la TSL (Trusted Service List).
+- **4.2. Prestadores Públicos (AAPP):** 
+  * DGP (Emisor del DNIe).
+  * FNMT-RCM y ACCV (Comunitat Valenciana): Emiten los certificados de empleado público, Sede y Sello de Órgano para el Ayuntamiento.
+- **4.3. Prestadores Privados:** 
+  * Entidades comerciales (ej. Camerfirma, Firmaprofesional, Izenpe) que compiten ofreciendo servicios corporativos de firma en la nube, sellos de tiempo y certificados a empresas.
 
-## 5. Prestadores de Servicios de Certificación
-* **5.1. QTSP (Qualified Trust Service Provider):** Entidad bajo el Reglamento eIDAS que emite certificados y da presunción de veracidad legal.
-* **5.2. Ecosistema en España:** FNMT-RCM (Física, Sede, Sello), DGP (DNIe), ACCV (Comunidad Valenciana) y Camerfirma.
-* **5.3. Supervisión:** Ministerio de Transformación Digital (mantiene la TSL - *Trusted Service List*).
 
-## 6. Identificación basada en X.500
-* **6.1. Directorio X.500 y LDAP:** Estándar de directorio jerárquico. LDAP es el protocolo ligero de facto para su consulta.
-* **6.2. Distinguished Name (DN):** Los certificados X.509 identifican al usuario mapeando atributos X.500 (CN=Nombre, SERIALNUMBER=DNI, OU=Departamento, O=Ayuntamiento).
-* **6.3. Casos de uso (Active Directory):**
-  * *Smart Card Logon:* Iniciar sesión en el PC metiendo el DNIe o tarjeta corporativa en el lector.
   * ⚠️ *Integración Biométrica (Windows Hello):* La huella o la cara desbloquean localmente un certificado mapeado contra el LDAP/Active Directory corporativo, eliminando el uso de contraseñas.
 
-## 7. Identificación Biométrica
-* **7.1. Concepto y Tipos:** Autenticación por características únicas (Huella, Facial 2D/3D, Iris, Voz, Patrón venoso).
-* **7.2. Rendimiento (Las métricas vitales):**
-  * **FAR (Falsa Aceptación):** Cuela un impostor (Grave en seguridad lógica).
-  * **FRR (Falso Rechazo):** Falla el usuario legítimo (Grave en usabilidad).
-  * **EER (Equal Error Rate):** El punto de equilibrio. A menor EER, mejor es el sensor.
-* **7.3. Biometría y Legalidad (El freno del RGPD):**
-  * El dato biométrico es **Categoría Especial** (Art. 9 RGPD). Exige base legal reforzada y EIPD (Evaluación de Impacto).
-  * ⚠️ *Actualidad AAPP:* La AEPD ha restringido drásticamente el uso de biometría para el **control horario (fichaje)** de empleados públicos, obligando a usar alternativas menos intrusivas (tarjetas RFID), limitando la biometría al control de acceso a zonas críticas (ej. el CPD).
+## 5. Mecanismos de identificación y firma basados certificados X.500 y basados en datos biométricos
+- **5.1. Basados en certificados X.500 (y LDAP):**
+  * *Directorio X.500:* Estándar jerárquico (LDAP es su protocolo de consulta).
+  * *Identificación:* El certificado X.509 mapea atributos del *Distinguished Name* (CN=Nombre, O=Ayuntamiento) contra el Active Directory. Ej: *Smart Card Logon* (meter DNIe en el teclado para desbloquear el PC).
+  * *Firma:* Uso del certificado para firmar resoluciones en el Portafirmas.
+- **5.2. Basados en datos biométricos:**
+  * *Identificación (Rendimiento):* Huella, facial, iris. Se mide por el **FAR** (Ratio Falsa Aceptación, grave en seguridad) y el **FRR** (Ratio Falso Rechazo, grave en usabilidad). Su cruce es el **EER** (Equilibrio).
+  * *Firma biométrica:* Tabletas digitalizadoras que capturan la presión, velocidad e inclinación del trazo (datos biométricos dinámicos) y los incrustan cifrados en el PDF.
+  * *Impacto RGPD (AAPP):* El dato biométrico es **Categoría Especial** (Art. 9 RGPD). Exige base legal reforzada y EIPD (Evaluación de Impacto). 
+  La AEPD ha prohibido su uso para el **control horario (fichaje)** de funcionarios (brecha de seguridad expone datos biométricos de toda la plantilla), limitándolo a zonas críticas (ej. acceso al CPD).
+  * *La solución permitida (Windows Hello for Business / FIDO2):* Modelo descentralizado. El patrón biométrico **nunca sale del PC**, custodiándose cifrado en el hardware local (chip **TPM**). Para el ENS, conforma un **Doble Factor (MFA)** transparente: el equipo físico (algo que tienes) + la huella/cara (algo que eres).
 
-## 8. Conclusión
+## 6. Conclusión
 La ciberseguridad administrativa descansa sobre la agilidad de los cifrados simétricos (AES) y la distribución segura de los asimétricos (RSA/ECC). Los prestadores cualificados y los directorios X.500 orquestan las identidades corporativas, mientras que la biometría avanza como método de autenticación robusto, siempre y cuando se equilibre la usabilidad con el estricto cumplimiento del RGPD.
 
 -----------------------------
