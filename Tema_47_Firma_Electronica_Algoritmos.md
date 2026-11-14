@@ -6,17 +6,23 @@
 - **Evolución:** La autenticación migra de "lo que se tiene" (Certificados) a "lo que se es" (Biometría).
 
 ## 2. Identificación y firma electrónica
-- **Concepto técnico:** 
-  * *Identificación:* Asegura el "quién" (autenticación en la Sede).
-  * *Firma:* Asegura el "qué" (integridad y no repudio del trámite). 
-  * Ambas se sustentan íntegramente en la solidez de la criptografía subyacente.
+- **2.1. Identificación vs. Firma (Ley 39/2015):** 
+  * *Identificación (Art. 9):* Demostrar quién eres para acceder a un servicio (Cl@ve PIN / Permanente, Cert. electrónico).
+  * *Firma (Art. 10):* Expresar voluntad y consentimiento sobre un trámite (AutoFirma, Cl@ve Firma, DNI electrónico). Integridad y no repudio del trámite
+- **2.2. Tipos de Firma (eIDAS):** 
+  * *Simple:* Aceptación básica sin garantías técnicas de quién firma ni de si el documento cambia (Poco valor probatorio).
+  * *Avanzada:* Identifica unívocamente, bajo el control exclusivo del firmante y detecta modificaciones.
+  * *Cualificada:* Avanzada + Dispositivo cualificado (QSCD). Es la única que equivale legalmente a la firma manuscrita.
+- **2.3. Sistemas Admitidos en las AAPP (Aplicación práctica):** 
+  * *Ciudadanos:* DNIe, Certificado cualificado (FNMT,ACCV) y plataforma **Cl@ve**.
+  * *Administración:* **Portafirmas corporativo** (para empleados), Sello Electrónico de Órgano (actuación automatizada) y el **CSV (Código Seguro de Verificación)**, vital porque permite imprimir un PDF firmado y verificar su autenticidad original en la Sede Electrónica.
 
 ## 3. Algoritmos de cifrado simétricos y asimétricos
 - **3.1. Cifrado Simétrico (Clave compartida):**
   * Misma clave para cifrar/descifrar. Muy rápido para grandes volúmenes, pero con el problema logístico de distribuir la clave segura.
   * *Estándares ENS / NIST:* 
-    **AES-256-GCM** (túneles IPSec/TLS)
-    **AES-XTS** (cifrado de discos, ej. BitLocker portatiles corporativos). 
+    **AES-256-GCM** (túneles IPSec/TLS) *GuardaCivilMoto*
+    **AES-XTS** (cifrado de discos, ej. BitLocker portatiles corporativos).  *eXTraSeguridad*
     **ChaCha20** (alternativa ágil móvil, usado en TLS 1.3, WireGuard).
 - **3.2. Cifrado Asimétrico (Clave Pública / Privada):**
   * Resuelve la distribución: la Privada firma/descifra; la Pública verifica/cifra.
@@ -29,18 +35,15 @@
 ## 4. Prestación de servicios de certificación públicos y privados
 - **4.1. Marco (eIDAS):** Los **QTSP** (Prestadores Cualificados) actúan como "Terceros de Confianza" emitiendo certificados y manteniendo la TSL (Trusted Service List).
 - **4.2. Prestadores Públicos (AAPP):** 
-  * DGP (Emisor del DNIe).
-  * FNMT-RCM y ACCV (Comunitat Valenciana): Emiten los certificados de empleado público, Sede y Sello de Órgano para el Ayuntamiento.
+  * *DGP* (Dirección General de la Policía): Emisor del DNIe (para ciudadanos).
+  * *FNMT-RCM* (Fábrica Nacional de Moneda y Timbre - Real Casa de la Moneda) y *ACCV* (Comunitat Valenciana): Emiten certificados de persona física / representante como de uso interno para las Administraciones Públicas (empleado público, Sede Electrónica y Sello de Órgano para el Ayuntamiento).
 - **4.3. Prestadores Privados:** 
-  * Entidades comerciales (ej. Camerfirma, Firmaprofesional, Izenpe) que compiten ofreciendo servicios corporativos de firma en la nube, sellos de tiempo y certificados a empresas.
-
-
-  * ⚠️ *Integración Biométrica (Windows Hello):* La huella o la cara desbloquean localmente un certificado mapeado contra el LDAP/Active Directory corporativo, eliminando el uso de contraseñas.
+  * Entidades comerciales (ej. Camerfirma, Firmaprofesional) que compiten ofreciendo servicios corporativos de firma en la nube, sellos de tiempo y certificados cualificados a empresas y particulares
 
 ## 5. Mecanismos de identificación y firma basados certificados X.500 y basados en datos biométricos
 - **5.1. Basados en certificados X.500 (y LDAP):**
   * *Directorio X.500:* Estándar jerárquico (LDAP es su protocolo de consulta).
-  * *Identificación:* El certificado X.509 mapea atributos del *Distinguished Name* (CN=Nombre, O=Ayuntamiento) contra el Active Directory. Ej: *Smart Card Logon* (meter DNIe en el teclado para desbloquear el PC).
+  * *Identificación:* El certificado X.509 identifica al titular mediante un *Distinguished Name* (CN=Nombre, O=Ayuntamiento) contra el Active Directory. Ej: *Smart Card Logon* (meter DNIe y PIN para desbloquear el PC).
   * *Firma:* Uso del certificado para firmar resoluciones en el Portafirmas.
 - **5.2. Basados en datos biométricos:**
   * *Identificación (Rendimiento):* Huella, facial, iris. Se mide por el **FAR** (Ratio Falsa Aceptación, grave en seguridad) y el **FRR** (Ratio Falso Rechazo, grave en usabilidad). Su cruce es el **EER** (Equilibrio).

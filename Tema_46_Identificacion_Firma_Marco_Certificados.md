@@ -10,10 +10,10 @@
 
 ## 2. Identificación y firma electrónica
 - **2.1. Identificación vs. Firma (Ley 39/2015):** 
-  * *Identificación (Art. 9):* Demostrar quién eres para acceder a un servicio (PIN en Cl@ve).
-  * *Firma (Art. 10):* Expresar voluntad y consentimiento sobre un trámite (Portafirmas, CSV).
+  * *Identificación (Art. 9):* Demostrar quién eres para acceder a un servicio (Cl@ve PIN / Permanente, Cert. electrónico).
+  * *Firma (Art. 10):* Expresar voluntad y consentimiento sobre un trámite (AutoFirma, Cl@ve Firma, DNI electrónico).Integridad y no repudio del trámite
 - **2.2. Tipos de Firma (eIDAS):** 
-  * *Simple:* Datos lógicos asociados (Poco valor probatorio).
+  * *Simple:* Aceptación básica sin garantías técnicas de quién firma ni de si el documento cambia (Poco valor probatorio).
   * *Avanzada:* Identifica unívocamente, bajo el control exclusivo del firmante y detecta modificaciones.
   * *Cualificada:* Avanzada + Dispositivo cualificado (QSCD). Es la única que equivale legalmente a la firma manuscrita.
 - **2.3. Sistemas Admitidos en las AAPP (Aplicación práctica):** 
