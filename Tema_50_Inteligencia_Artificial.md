@@ -1,48 +1,45 @@
-# Tema 50.- Inteligencia Artificial: Conceptos, Machine Learning, Deep Learning y Ética (AI Act).
+# Tema 50. Inteligencia Artificial: Conceptos básicos, tecnologías fundamentales y aplicaciones prácticas. Aprendizaje automático (*Machine Learning*). Aprendizaje supervisado, no supervisado y por refuerzo. *Deep Learning*. Aspectos éticos.
 
 ## 1. Introducción
-* **El cambio de paradigma:** La IA permite a la Administración transitar de un modelo *reactivo* (esperar la solicitud) a uno *predictivo* y automatizado.
-* **El reto:** Delegar decisiones en algoritmos exige un control riguroso para evitar sesgos discriminatorios y garantizar el estricto cumplimiento del Esquema Nacional de Seguridad (ENS) y el RGPD.
+- **El cambio de paradigma:** La IA permite a la Administración transitar de un modelo *reactivo* a uno *predictivo* y automatizado.
+- **El reto:** Delegar decisiones en algoritmos exige un control riguroso para evitar sesgos discriminatorios y garantizar el estricto cumplimiento del Esquema Nacional de Seguridad (ENS) y el RGPD.
 
-## 2. Tecnologías Fundamentales y el Puesto de Trabajo TIC
-* **2.1. Enfoques:** 
+## 2. IA: Conceptos básicos, tecnologías fundamentales y aplicaciones prácticas
+- **2.1. Conceptos básicos (Enfoques):** 
   * *IA Simbólica:* Basada en reglas lógicas preprogramadas (Sistemas Expertos clásicos).
-  * *IA Conexionista:* Basada en datos y estadística, que es lo que hoy conocemos como **Machine Learning**.
-* **2.2. Tecnologías clave:** El Procesamiento de Lenguaje Natural (NLP), la Visión Artificial y la RPA Cognitiva para la automatización de tareas burocráticas repetitivas.
-* **2.3. La irrupción de los Copilotos (Reto de Microinformática):** La integración de IA en el puesto de trabajo (como Microsoft 365 Copilot) obliga al departamento de Sistemas a gobernar estrictamente los permisos del *Active Directory*. El objetivo es evitar que la IA indexe y exponga accidentalmente documentos internos confidenciales a usuarios sin privilegios.
+  * *IA Conexionista:* Basada en datos y estadística (origen del **Machine Learning**).
+- **2.2. Tecnologías fundamentales:** Procesamiento de Lenguaje Natural (NLP), Visión Artificial y RPA Cognitiva para la automatización burocrática.
+- **2.3. Aplicaciones prácticas en el puesto TIC Municipal:** 
+  * *Copilotos y Gobernanza:* Integrar IA (ej. M365 Copilot) obliga a auditar los permisos del *Active Directory* para evitar que la IA exponga documentos internos a usuarios sin privilegios.
+  * *Asistentes Virtuales Seguros:* Uso de arquitecturas **RAG (Generación Aumentada por Recuperación)** en nubes soberanas. El modelo solo "lee" normativa del Ayuntamiento, sin enviar datos ciudadanos a LLMs públicos, garantizando la total privacidad.
 
-## 3. Machine Learning (El motor estadístico)
-En este paradigma, el sistema aprende infiriendo reglas matemáticas a partir de datos históricos, en lugar de ser programado de forma explícita. Se divide en tres enfoques principales:
+## 3. Aprendizaje automático (Machine Learning). Aprendizaje supervisado, no supervisado y por refuerzo.
+El sistema aprende infiriendo reglas matemáticas a partir de datos históricos, en lugar de ser programado de forma explícita. Se divide en tres enfoques principales:
+- **3.1. Aprendizaje Supervisado:** Entrenado con datos *etiquetados* (respuesta conocida). *Uso local:* Predecir si una beca será aprobada o denegada basándose en el histórico de concesiones.
+- **3.2. Aprendizaje No Supervisado:** Usa datos *sin etiquetar* para buscar patrones ocultos (Clustering). *Uso local:* Agrupar perfiles de contribuyentes para detectar anomalías o fraude fiscal.
+- **3.3. Aprendizaje por Refuerzo:** Aprende por *prueba y error* (recibiendo recompensas/penalizaciones). *Uso local:* Optimización y sincronización inteligente de la red de semáforos de la ciudad según el tráfico en tiempo real.
 
-* **Aprendizaje Supervisado:** El modelo se entrena utilizando datos *etiquetados* que ya contienen la respuesta correcta. En un Ayuntamiento, un caso de uso clásico de clasificación sería predecir si una beca será aprobada o denegada basándose en el histórico de concesiones.
-* **Aprendizaje No Supervisado:** Utiliza datos *sin etiquetar* para que el algoritmo busque patrones ocultos por sí mismo (Clustering). A nivel municipal, es ideal para agrupar perfiles de contribuyentes con el fin de detectar anomalías fiscales o fraude.
-* **Aprendizaje por Refuerzo:** El sistema aprende por *prueba y error* interactuando con un entorno, recibiendo recompensas o penalizaciones. Su aplicación estrella es la optimización, como la sincronización inteligente de la red de semáforos de la ciudad según el tráfico en tiempo real.
+## 4. Deep Learning
+Subconjunto del ML que utiliza **Redes Neuronales Profundas** (múltiples capas ocultas) para extraer características automáticamente de datos crudos (imágenes, audios).
+- **4.1. Arquitecturas principales:**
+  * *Redes Convolucionales (CNN):* Para visión artificial (ej. lectura de matrículas policiales).
+  * *Redes Recurrentes (RNN):* Para análisis de series temporales.
+  * *Transformers:* El motor de los grandes modelos de lenguaje (LLMs) y la IA Generativa (GenAI).
 
-## 4. Deep Learning e IA Generativa (GenAI)
-Es el subconjunto de la IA que utiliza **Redes Neuronales Profundas** (con múltiples capas ocultas), capaces de extraer características automáticamente de datos crudos como imágenes o texto.
+## 5. Aspectos éticos (Riesgos y Regulación AI Act)
+La implementación de la IA plantea dilemas éticos y de seguridad que el marco normativo actual debe resolver.
+- **5.1. Riesgos Éticos y Técnicos:**
+  * *Caja Negra (Opacidad):* Imposibilidad de explicar jurídicamente *por qué* la red neuronal tomó una decisión (vulnera la motivación del acto administrativo).
+  * *Sesgo (Bias):* Si los datos históricos son discriminatorios, la IA perpetuará y amplificará esa discriminación en sus predicciones.
+  * *Alucinaciones (Fiabilidad):* Generación de respuestas gramaticalmente perfectas pero con hechos o normativas inventadas, lo que supone un riesgo jurídico inaceptable en la información al ciudadano si no se mitiga mediante arquitecturas RAG.
+  * *Ciberseguridad OWASP:* Vulnerabilidades como el *Prompt Injection* (manipular el chatbot municipal para que revele información privada) o el *Data Poisoning* (envenenar los datos de entrenamiento para alterar el comportamiento futuro del modelo).
+- **5.2. El Marco Legal (AI Act - Rgto UE 2024/1689):** Es la respuesta legal a los riesgos éticos, supervisada en España por la **AESIA**. Clasifica el riesgo en:
+  * *Inaceptable:* Prohibición total de sistemas que amenacen los derechos europeos, como el *social scoring* (sistemas de crédito social) o la vigilancia biométrica masiva en tiempo real
+  * *Alto Riesgo:* Exige **supervisión humana** (*Human-in-the-loop*). Aplica a algoritmos municipales de RRHH (decidan entre curriculums en procesos selectivos) o ayudas sociales.
+  * *Limitado / Mínimo:* Obligación de transparencia (informar de que hablas con un bot) y filtros de antispam.
 
-* **4.1. Arquitecturas principales:** Destacan las Redes Convolucionales (CNN) para visión artificial (como la lectura de matrículas policiales), las Recurrentes (RNN) para series temporales, y los **Transformers**, que son el motor de los grandes modelos de lenguaje (LLMs) modernos.
-* **4.2. El entorno corporativo (RAG vs. Nube Pública):** Un Ayuntamiento *nunca* debe introducir datos ciudadanos en LLMs públicos. La solución táctica actual es desplegar arquitecturas **RAG (Generación Aumentada por Recuperación)** en nubes soberanas. Así, el modelo de IA solo tiene permiso para "leer" y generar respuestas basándose exclusivamente en el repositorio documental del propio Ayuntamiento (como sus normativas u ordenanzas), garantizando la total privacidad.
-
-## 5. Riesgos Éticos y Ciberseguridad en la IA
-* **5.1. Riesgos Éticos:**
-  * **Sesgo algorítmico (Bias):** Si los datos históricos son discriminatorios, la IA perpetuará y amplificará esa discriminación en sus predicciones.
-  * **Caja Negra (Opacidad):** Es la imposibilidad de explicar jurídicamente *por qué* una red neuronal ha tomado una decisión, lo que vulnera el principio de motivación de las resoluciones administrativas.
-  * **Alucinaciones:** Ocurre cuando el modelo de lenguaje inventa normativas o hechos falsos, pero los presenta con total coherencia gramatical.
-* **5.2. Ciberriesgos emergentes (Alertas OWASP / CCN-CERT):**
-  * **Prompt Injection:** Consiste en manipular las instrucciones del Chatbot municipal para que revele información privada o se salte sus reglas de seguridad.
-  * **Data Poisoning:** Ataques donde los ciberdelincuentes "envenenan" los datos de entrenamiento para alterar el comportamiento futuro del modelo.
-
-## 6. Marco Legal: El AI Act (Reglamento UE 2024/1689)
-Es el primer marco mundial que regula la Inteligencia Artificial basándose en niveles de riesgo. En España, su supervisión recae sobre la recién creada **AESIA**. Clasifica los sistemas en cuatro niveles:
-
-* **Riesgo Inaceptable:** Implica la *prohibición total* de sistemas que amenacen los derechos europeos, como el *social scoring* (sistemas de crédito social) o la vigilancia biométrica masiva en tiempo real.
-* **Alto Riesgo:** Están permitidos, pero exigen una evaluación estricta, registro, trazabilidad y, fundamentalmente, la **supervisión humana obligatoria** (*Human-in-the-loop*). En un Ayuntamiento, esto aplica a algoritmos que decidan sobre ayudas sociales o que filtren currículums en procesos selectivos de Recursos Humanos.
-* **Riesgo Limitado:** Su obligación principal es la *transparencia*; es decir, informar obligatoriamente al ciudadano de que está interactuando con una máquina, como ocurre con un Chatbot de la Sede Electrónica.
-* **Riesgo Mínimo:** Engloba herramientas sin obligaciones restrictivas, como los filtros antispam del correo corporativo.
-
-## 7. Conclusión
-La Inteligencia Artificial representa el salto definitivo hacia la Administración proactiva y automatizada. No obstante, para que su adopción técnica —mediante algoritmos de Machine Learning o arquitecturas RAG corporativas— sea viable en el Sector Público, el despliegue debe estar blindado por el Esquema Nacional de Seguridad frente a vulnerabilidades como el *Prompt Injection*. Además, debe supeditarse estrictamente al Reglamento *AI Act*, garantizando que las decisiones críticas mantengan en todo momento la supervisión y la garantía jurídica del empleado público.
+## 6. Conclusión
+La IA representa el salto definitivo hacia la Administración proactiva. Su despliegue técnico en Ayuntamientos (mediante Machine Learning o arquitecturas RAG) debe estar blindado por el ENS frente a ataques como el *Prompt Injection*, y supeditarse al *AI Act* para asegurar que los aspectos éticos y la garantía jurídica del ciudadano permanezcan siempre bajo supervisión del empleado público.
 
 ------------------------------
 

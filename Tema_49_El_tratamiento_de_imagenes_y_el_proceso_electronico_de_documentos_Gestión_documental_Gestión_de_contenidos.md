@@ -1,39 +1,39 @@
 # Tema 49.- El tratamiento de imágenes y el proceso electrónico de documentos. Gestión documental. Gestión de contenidos.
 
 ## 1. Introducción
-* **El reto del "Papel Cero":** Las Leyes 39/2015 y 40/2015 prohíben (salvo excepciones) el archivo físico.
-* **El ecosistema:** Si entra papel, se **digitaliza** (Imagen) → se integra en un **Expediente** (ENI) → se custodia internamente (**DMS**) → y la información se publica al ciudadano (**CMS**).
+* Las Leyes 39/2015 y 40/2015 obligan a que los procedimientos sean íntegramente electrónicos, prohíben (salvo excepciones) el documento en papel.
+* **El ecosistema:** Entra documento en papel, se **digitaliza** (Imagen) → se integra en un **Expediente** (ENI) → se custodia internamente (**DMS**) → y la información se publica al ciudadano (**CMS**).
 
 ## 2. El tratamiento de imágenes (Del papel al píxel)
 * **2.1. Captura:** Resolución mínima exigida por el ENI para copias auténticas: **200 DPI** (puntos por pulgada) en B/N o escala de grises (8 bits).
 * **2.2. Formatos:**
-  * *Transitorios:* TIFF (alta calidad sin compresión), JPEG (con pérdida, fotos).
+  * *Transitorios:* TIFF (estándar, alta calidad, compresión sin pérdidas), JPEG (con pérdida, fotos), PNG (diseño web).
   * *Final (Archivo):* **PDF/A**, estándar ISO que incrusta fuentes y prohíbe multimedia para garantizar legibilidad a largo plazo.
-* **2.3. Pre-procesamiento:** Binarización (a blanco y negro puro), Deskewing (enderezar) y Despeckling (limpiar motas de polvo).
-* **2.4. Extracción de datos (El cerebro):**
+* **2.3. Pre-procesamiento:** 3 pasos para limpiar la imagen: binariza (la pasa a blanco y negro), endereza la hoja si entró torcida (deskewing) y limpia las motas de polvo (despeckling).
+* **2.4. Extracción de datos (El cerebro):** Para poder buscar texto o copiar datos
   * **OCR:** Reconoce texto de imprenta. ⚠️ *Detalle clave:* Obligatorio para cumplir el **RD 1112/2018 de Accesibilidad** (permite que los lectores de pantalla lean el PDF a personas ciegas).
   * **ICR:** Reconoce caligrafía manual mediante IA.
-  * **OMR:** Reconoce marcas en casillas (ej. exámenes o tributos).
+  * **OMR:** Reconoce marcas en casillas (ej. exámenes o formularios de tributos).
 
 ## 3. El proceso electrónico de documentos
 * **3.1. Documento y Expediente (ENI):**
-  * *Documento:* Archivo + Metadatos + Firma.
-  * *Expediente:* Conjunto de documentos + Índice electrónico firmado (garantiza que no se alteran los folios una vez cerrado).
-* **3.2. Digitalización Certificada y OAMR:**
-  * Se realiza en las Oficinas de Registro (SIR). Garantiza que la copia digital es exacta al original en papel mediante un Sello Electrónico de Órgano, permitiendo destruir el papel físico.
+  * *Documento:* Archivo + Metadatos + Firma. Mismo valor legal que un documento original en papel
+  * *Expediente:* Conjunto de documentos + Índice electrónico firmado (garantiza que no se han añadido ni quitado documentos del expediente una vez cerrado, asegurando su integridad).
+* **3.2. Digitalización Certificada y OAMR (Oficina de Asistencia en Materia de Registro):**
+  * Se realiza en las Oficinas de Registro (SIR). Garantiza que la copia digital es exacta al original en papel mediante un Sello Electrónico de Órgano, permitiendo destruir (por norma general) el papel físico.
   * *Alternativa "Papel Cero" nativo:* Uso de **tabletas de firma biométrica** en ventanilla para que el ciudadano firme sin llegar a imprimir el papel.
 
 ## 4. Gestión Documental (DMS)
 * Norma base: **ISO 15489** (organiza, custodia y expurga).
-* **4.1. Metadatos y el DIR3:** Uso del Esquema **eMGDE** del ENI. Destaca el uso del código **DIR3** para identificar unívocamente al órgano productor o destino en toda la Administración.
+* **4.1. Metadatos y el DIR3:** Uso del Esquema **eMGDE** del ENI para intercambio de documentos entre AAPP. Destaca el uso del código **DIR3** para identificar unívocamente al órgano productor o destino en toda la Administración.
 * **4.2. Infraestructura DMS:**
-  * Plataformas como **Alfresco** (Open Source) o SharePoint. Controlan el versionado, las auditorías de acceso y los flujos de trabajo (workflows).
+  * Plataformas como **Alfresco** (Open Source) o SharePoint. Controlan el versionado, las auditorías de acceso y los flujos de trabajo (workflows) y avisan cuando se ha de firmar un documento. Usa el protcolo CMIS.
   * Archivo final: Remisión al **Archivo Electrónico Único** (ej. plataforma ARCHIVE bajo estándar OAIS).
 
 ## 5. Gestión de Contenidos (CMS)
 * Separa el diseño visual de los datos, permitiendo publicar sin saber programar.
 * **5.1. Tecnologías clave en AAPP:**
-  * **Portales Institucionales (Ministerios/Sedes críticas):** Soluciones robustas y seguras como **Drupal** (PHP) o **Liferay** (Java).
+  * **Portales Institucionales (Ministerios/Sedes críticas):** Soluciones robustas y seguras como *Drupal* (PHP, estándar del PAe - Portal de Administración Electrónica) o *Liferay* (Java).
   * **Portales Ágiles (Ayuntamientos):** Dominio de **WordPress**. Fácil uso, pero exige parcheo constante de seguridad.
   * **Tendencia (Headless CMS):** Sistemas "sin cabeza" que solo guardan texto y lo envían por APIs REST simultáneamente a la Web, la App móvil y los Kioscos digitales (**Omnicanalidad**).
 

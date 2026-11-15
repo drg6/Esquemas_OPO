@@ -2,9 +2,9 @@
 
 ## 1. Introducción: Contexto y Obligación Legal
 - **El Activo Estratégico:** En las AAPP, el mayor volumen de conocimiento es **información no estructurada** (documentos de texto, imágenes, contenido web), que supera ampliamente a los datos relacionales tradicionales.
-- **La Obligación Legal (Leyes 39 y 40/2015):** La exigencia de una tramitación íntegramente electrónica obliga a gobernar esta información mediante dos motores complementarios:
-  * **DMS (Gestor Documental):** La maquinaria del "Back-Office". Centrado en el valor jurídico, la gestión del expediente, la trazabilidad y el archivo definitivo.
-  * **CMS (Gestor de Contenidos):** El escaparate del "Front-Office". Centrado en la publicación ágil, la transparencia ciudadana y el diseño de la Sede Electrónica.
+- **La Obligación Legal (Leyes 39 y 40/2015):** Se exige que la administración electrónica gestione la información con dos pilares:
+  * **DMS (Gestor Documental):** Uso interno "Back-Office". Gestiona los expedientes administrativos, asegura su validez legal, controla el historial de cambios (trazabilidad) y los guarda en el archivo definitivo.
+  * **CMS (Gestor de Contenidos):** Cara al público "Front-Office". Gestiona la web y la Sede Electrónica para publicar información de forma rápida, visual y transparente para el ciudadano.
 
 ## 2. Gestión documental, estándares
 - **2.1. Concepto y Ciclo de Vida:**
@@ -17,7 +17,7 @@
   * Toda esta gestión se rige por las Normas Técnicas de Interoperabilidad: NTI de Documento, NTI de Expediente, NTI de Digitalización Certificada (para el papel antiguo) y la NTI de Política de Gestión de Documentos (PGDE).
 - **2.4. Estándares Core:**
   * *Organizativos:* **ISO 15489** (metodología integral) e **ISO 30300** (mejora continua).
-  * *Funcionales (DMS y Archivo):* **MoReq** (requisitos europeos del software, cómo debe clasificar y expurgar el software) y **OAIS / ISO 14721** (archivo a largo plazo mediante paquetes: *SIP ingesta, AIP preservación, DIP difusión*).
+  * *Funcionales (DMS y Archivo):* **MoReq** (requisitos europeos del software, qué funciones debe tener el software) y **OAIS / ISO 14721** (archivo a largo plazo mediante paquetes: *SIP ingesta (Subir), AIP preservación (almacenar), DIP difusión*).
   * *Técnicos (IT):* **CMIS** (API universal multiproveedor), **JCR** (estándar para Java) y **WebDAV** (edición y versionado remoto vía HTTP).
 
 ## 3. Gestión de contenidos
