@@ -22,15 +22,17 @@
 ## 3. Aprendizaje automático (Machine Learning). Aprendizaje supervisado, no supervisado y por refuerzo.
 El sistema aprende infiriendo reglas matemáticas a partir de datos históricos, en lugar de ser programado de forma explícita. Se divide en tres enfoques principales:
 - **3.1. Aprendizaje Supervisado:** Entrenado con datos *etiquetados* (respuesta conocida). *Uso local:* Predecir si una beca será aprobada o denegada basándose en el histórico de concesiones.
-- **3.2. Aprendizaje No Supervisado:** Usa datos *sin etiquetar* para buscar patrones ocultos (Clustering). *Uso local:* Agrupar perfiles de contribuyentes para detectar anomalías o fraude fiscal.
-- **3.3. Aprendizaje por Refuerzo:** Aprende por *prueba y error* (recibiendo recompensas/penalizaciones). *Uso local:* Optimización y sincronización inteligente de la red de semáforos de la ciudad según el tráfico en tiempo real.
+- **3.2. Aprendizaje No Supervisado:** Usa datos *sin etiquetar* para buscar patrones ocultos (Agrupamiento o Clustering - divide en grupos). *Uso local:* Agrupar perfiles de contribuyentes para detectar anomalías o fraude fiscal.
+- **3.3. Aprendizaje por Refuerzo:** Aprende por *prueba y error* (recibiendo recompensas/penalizaciones). *Uso local:* Optimización y sincronización inteligente de la red de semáforos de la ciudad según el tráfico en tiempo real, menos cola de coches 10 puntos y atasco -50 puntos.
 
 ## 4. Deep Learning
 Subconjunto del ML que utiliza **Redes Neuronales Profundas** (múltiples capas ocultas) para extraer características automáticamente de datos crudos (imágenes, audios).
 - **4.1. Arquitecturas principales:**
   * *Redes Convolucionales (CNN):* Para visión artificial (ej. lectura de matrículas policiales).
-  * *Redes Recurrentes (RNN):* Para análisis de series temporales.
-  * *Transformers:* El motor de los grandes modelos de lenguaje (LLMs) y la IA Generativa (GenAI).
+  * *Redes Recurrentes (RNN):* Para análisis de series temporales (ej. predicción meteorológica).
+  * *Transformers:* Arquitectura base de la IA Generativa y los LLMs.
+    * *Ejemplos LLMs (Texto/Código):* ChatGPT, Gemini, Claude.
+    * *Ejemplos GenAI (Multimedia):* Midjourney, DALL-E (generación de imágenes).
 
 ## 5. Aspectos éticos (Riesgos y Regulación AI Act)
 La implementación de la IA plantea dilemas éticos y de seguridad que el marco normativo actual debe resolver.
@@ -40,7 +42,7 @@ La implementación de la IA plantea dilemas éticos y de seguridad que el marco 
   * *Alucinaciones (Fiabilidad):* Generación de respuestas gramaticalmente perfectas pero con hechos o normativas inventadas, lo que supone un riesgo jurídico inaceptable en la información al ciudadano si no se mitiga mediante arquitecturas RAG.
   * *Ciberseguridad OWASP:* Vulnerabilidades como el *Prompt Injection* (manipular el chatbot municipal para que revele información privada) o el *Data Poisoning* (envenenar los datos de entrenamiento para alterar el comportamiento futuro del modelo).
 - **5.2. El Marco Legal (AI Act - Rgto UE 2024/1689):** Es la respuesta legal a los riesgos éticos, supervisada en España por la **AESIA**. Clasifica el riesgo en:
-  * *Inaceptable:* Prohibición total de sistemas que amenacen los derechos europeos, como el *social scoring* (sistemas de crédito social) o la vigilancia biométrica masiva en tiempo real
+  * *Inaceptable:* Prohibición total de sistemas que amenacen los derechos europeos, como el *social scoring* (Puntuación ciudadana según comportamiento para denegar servicios) o la vigilancia biométrica masiva en tiempo real
   * *Alto Riesgo:* Exige **supervisión humana** (*Human-in-the-loop*). Aplica a algoritmos municipales de RRHH (decidan entre curriculums en procesos selectivos) o ayudas sociales.
   * *Limitado / Mínimo:* Obligación de transparencia (informar de que hablas con un bot) y filtros de antispam.
 
