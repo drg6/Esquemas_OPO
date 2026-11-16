@@ -5,13 +5,19 @@
 - **El reto:** Delegar decisiones en algoritmos exige un control riguroso para evitar sesgos discriminatorios y garantizar el estricto cumplimiento del Esquema Nacional de Seguridad (ENS) y el RGPD.
 
 ## 2. IA: Conceptos básicos, tecnologías fundamentales y aplicaciones prácticas
-- **2.1. Conceptos básicos (Enfoques):** 
-  * *IA Simbólica:* Basada en reglas lógicas preprogramadas (Sistemas Expertos clásicos).
-  * *IA Conexionista:* Basada en datos y estadística (origen del **Machine Learning**).
-- **2.2. Tecnologías fundamentales:** Procesamiento de Lenguaje Natural (NLP), Visión Artificial y RPA Cognitiva para la automatización burocrática.
-- **2.3. Aplicaciones prácticas en el puesto TIC Municipal:** 
-  * *Copilotos y Gobernanza:* Integrar IA (ej. M365 Copilot) obliga a auditar los permisos del *Active Directory* para evitar que la IA exponga documentos internos a usuarios sin privilegios.
-  * *Asistentes Virtuales Seguros:* Uso de arquitecturas **RAG (Generación Aumentada por Recuperación)** en nubes soberanas. El modelo solo "lee" normativa del Ayuntamiento, sin enviar datos ciudadanos a LLMs públicos, garantizando la total privacidad.
+- **2.1. Conceptos básicos (Definición y Clasificación):** 
+  * Rama de la informática que desarrolla sistemas capaces de **simular la inteligencia humana** (aprender y razonar) para tomar decisiones de forma **autónoma** a partir de **datos**.
+  * *Por capacidad:* **IA Estrecha o Débil** (sistemas actuales acotados a tareas específicas) frente a **IA General o Fuerte / AGI** (modelo teórico inexistente con inteligencia polivalente).
+  * *Por enfoque:* **IA Simbólica** (reglas lógicas preprogramadas) frente a **IA Conexionista** (basada en datos, origen del Machine Learning).
+- **2.2. Tecnologías fundamentales y aplicaciones prácticas:**
+  * **Casos de uso municipal (Tecnologías):**
+    * *Análisis Predictivo (Machine Learning):* Detección de fraude fiscal mediante anomalías y estimación de demanda en servicios sociales.
+    * *Procesamiento de Lenguaje Natural (NLP):* Chatbots en la Sede Electrónica para orientación normativa 24/7.
+    * *Visión Artificial:* Interpretación de imágenes (Ej: OCR de matrículas).
+    * *Automatización Inteligente (RPA Cognitiva):* Redirección de expedientes en registro al técnico competente. A nivel AGE destaca el **Servicio de Automatización de Procesos (SAI)** (Plan Digitalización AAPP 2021-2025).
+  * **Gestión y Gobernanza TIC (Despliegue corporativo):**
+    * *Copilotos (M365):* Obligan a auditar estrictamente los permisos del *Active Directory* para evitar que la IA exponga documentos internos a usuarios sin privilegios.
+    * *Arquitecturas Seguras (RAG):* Uso de IA en nubes soberanas que solo "lee" normativa local, sin enviar datos de ciudadanos a modelos públicos, garantizando privacidad.
 
 ## 3. Aprendizaje automático (Machine Learning). Aprendizaje supervisado, no supervisado y por refuerzo.
 El sistema aprende infiriendo reglas matemáticas a partir de datos históricos, en lugar de ser programado de forma explícita. Se divide en tres enfoques principales:
