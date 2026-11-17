@@ -7,14 +7,16 @@
 ## 2. IA: Conceptos básicos, tecnologías fundamentales y aplicaciones prácticas
 - **2.1. Conceptos básicos (Definición y Clasificación):** 
   * Rama de la informática que desarrolla sistemas capaces de **simular la inteligencia humana** (aprender y razonar) para tomar decisiones de forma **autónoma** a partir de **datos**.
-  * *Por capacidad:* **IA Estrecha o Débil** (sistemas actuales acotados a tareas específicas) frente a **IA General o Fuerte / AGI** (modelo teórico inexistente con inteligencia polivalente).
+  * *Por capacidad:* **IA Estrecha o Débil** (sistemas actuales acotados a tareas específicas) frente a **IA General o Fuerte / AGI** (modelo teórico inexistente capaz de realizar cualquier tarea intelectual humana con la misma eficacia (o superior) que una persona).
   * *Por enfoque:* **IA Simbólica** (reglas lógicas preprogramadas) frente a **IA Conexionista** (basada en datos, origen del Machine Learning).
 - **2.2. Tecnologías fundamentales y aplicaciones prácticas:**
   * **Casos de uso municipal (Tecnologías):**
-    * *Análisis Predictivo (Machine Learning):* Detección de fraude fiscal mediante anomalías y estimación de demanda en servicios sociales.
-    * *Procesamiento de Lenguaje Natural (NLP):* Chatbots en la Sede Electrónica para orientación normativa 24/7.
-    * *Visión Artificial:* Interpretación de imágenes (Ej: OCR de matrículas).
-    * *Automatización Inteligente (RPA Cognitiva):* Redirección de expedientes en registro al técnico competente. A nivel AGE destaca el **Servicio de Automatización de Procesos (SAI)** (Plan Digitalización AAPP 2021-2025).
+    * *Análisis Predictivo (Machine Learning):* Aprendizaje a partir de datos históricos para anticipar comportamientos o tendencias (Ej: Detección de fraude fiscal mediante anomalías y estimación de demanda en servicios sociales).
+    * *Procesamiento de Lenguaje Natural (NLP):* Comprensión y generación de texto/voz (Ej: Chatbots en la Sede Electrónica para orientación normativa 24/7).
+    * *Visión Artificial:* Interpretación y análisis de imágenes o vídeos (Ej: OCR de matrículas para control de tráfico o zonas de bajas emisiones).
+    * *Automatización Inteligente (RPA Cognitiva):* 
+    
+    s (Ej: Redirección de expedientes en registro al técnico competente). A nivel AGE destaca el **Servicio de Automatización de Procesos (SAI)** (Plan Digitalización AAPP 2021-2025).
   * **Gestión y Gobernanza TIC (Despliegue corporativo):**
     * *Copilotos (M365):* Obligan a auditar estrictamente los permisos del *Active Directory* para evitar que la IA exponga documentos internos a usuarios sin privilegios.
     * *Arquitecturas Seguras (RAG):* Uso de IA en nubes soberanas que solo "lee" normativa local, sin enviar datos de ciudadanos a modelos públicos, garantizando privacidad.
