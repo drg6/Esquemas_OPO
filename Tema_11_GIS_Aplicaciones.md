@@ -11,22 +11,28 @@
   * *Componente alfanumérica (atributos):* Datos descriptivos (titular, valor catastral).
 
 ## 3. Funcionalidades y Tecnologías Aplicables
-* **3.1. Pila Tecnológica:**
-  * *SGBD Espacial:* Oracle Spatial, PostgreSQL/PostGIS.
-  * *Desktop GIS (Escritorio):* ArcGIS Pro (propietario), QGIS, gvSIG (libres).
-  * *Servidores de Mapas:* GeoServer, MapServer.
-  * *Librerías Web:* Leaflet, OpenLayers.
-* **3.2. Modelos de Representación Espacial:**
-  * **Vectorial:** Objetos discretos mediante coordenadas exactas. Primitivas: Punto (0D), Línea (1D), Polígono (2D). Formatos: Shapefile (`.shp`), GeoJSON. Ideal para catastro y redes.
-  * **Ráster:** Malla continua de píxeles/celdas (el detalle depende de la *resolución espacial*). Formatos: GeoTIFF, ECW. Ideal para ortofotos (PNOA - Plan Nacional de Ortofotografía Aérea) y Modelos Digitales del Terreno (MDT).
-* **3.3. Sistemas de Coordenadas (CRS):**
-  * **WGS84 (`EPSG:4326`):** Sistema geodésico global (GPS, grados de latitud/longitud).
-  * **ETRS89 / UTM zona 30N (`EPSG:25830`):** Sistema proyectado en metros. Estándar oficial para cartografía de detalle en España peninsular y **código exacto para Alicante**.
+* **3.1. Funcionalidades**
+  - **Consultas Espaciales (*Queries*):** Filtrado por relaciones topológicas (*Contains, Intersects*).
+  - **Áreas de influencia (*Buffer*):** Generación de polígonos de afección a una distancia dada.
+  - **Superposición (*Overlay*):** Cruce geométrico de distintas capas (Clip, Intersect, Unión).
+  - **Análisis de Redes (*Network*):** Cálculo de rutas óptimas e isocronas (tiempos de respuesta).
+* **3.2. Tecnologías Aplicables**
+  - **Pila Tecnológica (Software):**
+    * *BD Espacial:* Oracle Spatial, PostgreSQL/PostGIS.
+    * *Escritorio (Desktop GIS):* ArcGIS Pro (propietario), QGIS, gvSIG (libres).
+    * *Servidores de Mapas:* GeoServer, MapServer.
+    * *Librerías Web:* Leaflet, OpenLayers.
+  - **Modelos de Representación (Estructura de Datos):**
+    * *Vectorial:* Objetos discretos mediante coordenadas exactas. Primitivas: Punto (0D), Línea (1D), Polígono (2D). Formatos: Shapefile (`.shp`), GeoJSON. Ideal para catastro y redes.
+    * *Ráster:* Malla continua de píxeles/celdas (el detalle depende de la *resolución espacial*). Formatos: GeoTIFF, ECW. Ideal para ortofotos (PNOA - Plan Nacional de Ortofotografía Aérea) y elevaciones (Modelos Digitales del Terreno - MDT).
+  - **Sistemas de Coordenadas (Bases matemáticas - CRS):**
+    * *WGS84 (`EPSG:4326`):* Sistema geodésico global (GPS, grados de latitud/longitud).
+    * *ETRS89 / UTM zona 30N (`EPSG:25830`):* Sistema proyectado en metros. Estándar oficial para cartografía de detalle en España peninsular y **código exacto para Alicante**.
 
 ## 4. Procesos de Carga de la Información y Controles de Calidad
 * **4.1. Procesos ETL Espacial (*Extract, Transform, Load*):**
   * *Extracción* (CAD, Shapefiles, GPS), *Transformación* (reproyección de CRS y limpieza) y *Carga* en la base de datos espacial.
-  * *Herramientas:* **FME** (propietario, líder del mercado) y **GDAL/ogr2ogr** (libre).
+  * *Herramientas:* **FME (Feature Manipulation Engine)** (propietario, líder del mercado) y **GDAL/ogr2ogr** (libre).
 * **4.2. Controles de Calidad Topológica:** Prevención de errores que arruinan el análisis espacial:
   * **Overshoots / Undershoots:** Líneas que se cruzan excediendo el nodo, o que se quedan cortas (rompen los grafos de redes).
   * **Gaps:** Polígonos mal cerrados (impiden calcular áreas para liquidar impuestos).
@@ -34,14 +40,13 @@
   * **Slivers (Astillas):** Micro-polígonos residuales y espurios al cruzar distintas capas.
 
 ## 5. Geoportales e Infraestructuras de Datos Espaciales (IDE)
-* **5.1. Geoportales y Estándares OGC (*Open Geospatial Consortium*):**
-  * Acceso web centralizado sin software GIS local, publicando datos mediante estándares:
-  * **WMS / WMTS:** Mapa renderizado en imagen plana (PNG) o teselas rápidas (*tiles*).
-  * **WFS:** Descarga vectorial pura (geometría interactiva + atributos).
-  * **WCS:** Descarga ráster bruta (modelos de elevación).
-  * **CSW:** Catálogo de metadatos bajo norma ISO 19115.
-* **5.2. Marco Normativo (IDE):**
-  * **Directiva INSPIRE** (transpuesta en España mediante la **LISIGE**): Prohíbe los "silos" de datos y obliga a las AAPP a publicar cartografía interoperable.
+* **5.1. Geoportales y Estándares OGC (*Open Geospatial Consortium*):** Webs para ver y descargar mapas sin instalar programas pesados, usando 4 estándares universales:
+  * **WMS (Web Map Service) / WMTS (Web Map Tile Service) [Solo ver la foto]:** El servidor te manda una imagen plana del mapa (PNG) o cuadraditos precargados rápidos tipo Google Maps (*tiles*). No se puede editar.
+  * **WFS (Web Feature Service) [Descargar formas y datos]:** Te descarga los objetos reales del mapa (puntos, líneas, polígonos) junto con sus datos (ej. nombre de calle, metros de parcela) para consultarlos o editarlos.
+  * **WCS Web Coverage Service [Descargar rejillas numéricas]:** Te descarga archivos ráster en bruto donde cada píxel guarda un dato físico real (ej. la altitud exacta en metros de cada punto).
+  * **CSW (Catalogue Service for the Web) [El buscador]:** Es el catálogo para buscar mapas y leer su ficha técnica (quién lo hizo, fecha y precisión) siguiendo la norma **ISO 19115**.
+* **5.2. Marco Normativo (IDE - Infraestructura de Datos Espaciales):**
+  * **Directiva INSPIRE (Europea)** (transpuesta en España mediante la **LISIGE**): Prohíbe los "silos" de datos y obliga a las AAPP a publicar cartografía interoperable (usando estándares OGC).
   * *Nodos de integración obligatoria:* **IDEV** (Comunitat Valenciana) e **IDEE** (Estatal).
 
 ## 6. Aplicaciones Municipales

@@ -1,16 +1,32 @@
 # Tema 25.- Protección de datos de carácter personal. Normativa. Adaptación de aplicaciones y entornos a los requisitos de la normativa legal. La Agencia Española de Protección de Datos.
 
 ## 1. Introducción
-* **Contexto:** Derecho fundamental (art. 18.4 CE) para limitar el uso de la informática. 
+* **Contexto:** Derecho fundamental (art. 18.4 CE) para limitar el uso de la informática para garantizar el honor y la intimidad de los ciudadanos.  
 * **Marco Legal:** RGPD (Europa, 2016) + LOPDGDD (España, LO 3/2018).
-* **Impacto AAPP:** Ayuntamientos manejan datos críticos. Proteger la privacidad es imperativo legal.
+* **Impacto AAPP:** Ayuntamientos manejan datos críticos. Proteger la privacidad de los individuos y garantizar sus derechos es imperativo legal.
 
 ## 2. Normativa (RGPD y LOPDGDD)
-* **2.1. RGPD (Novedades):** Enfoque de riesgo, responsabilidad proactiva (*accountability*), notificación brechas (72h), figura del DPO y multas millonarias.
-* **2.2. LOPDGDD (Adaptación española):** Datos de fallecidos, consentimiento menores a los **14 años** y nuevos derechos digitales (desconexión, testamento digital).
-* **2.3. Principios (Art. 5):** Licitud, Limitación de finalidad, Minimización, Exactitud, Conservación (tiempo), Seguridad y Responsabilidad proactiva. *(Regla: Legalmente, para una finalidad, mínimos, exactos, tiempo, seguros y demostrables).*
+* **2.1. RGPD (Novedades):** 
+  - Enfoque en el riesgo
+  - Responsabilidad proactiva (*accountability*)
+  - Notificación brechas (72h)
+  - Figura del DPO 
+  - Multas millonarias.
+* **2.2. LOPDGDD (Adaptación española):** 
+  - Regulación de los datos de personas fallecidas (derecho de acceso por herederos)
+  - Consentimiento menores a los **14 años** 
+  - Nuevos derechos digitales (desconexión, testamento digital, protección a menores en intenet).
+* **2.3. Principios (Art. 5):** 
+  - Licitud
+  - Limitación de finalidad
+  - Minimización
+  - Exactitud
+  - Conservación (tiempo)
+  - Seguridad
+  - Responsabilidad proactiva. 
+ *(Regla: Legalmente, para una finalidad, mínimos, exactos, tiempo, seguros y demostrables).*
 * **2.4. Bases de legitimación (Art. 6):** 
-  * Consentimiento, Contrato, Intereses vitales, Interés legítimo.
+  * *Consentimiento*, *Contrato*, *Intereses vitales*, *Interés legítimo*.
   * ⚠️ **AAPP:** Se basan casi exclusivamente en **Obligación Legal** e **Interés Público**, debido al desequilibrio de poder (el ciudadano no consiente, está obligado).
 * **2.5. Derechos SOPLAR (Gratuitos - Plazo 1 mes):**
   * **S**upresión (Olvido).
@@ -19,7 +35,11 @@
   * **L**imitación.
   * **A**cceso (+2 meses si es complejo).
   * **R**ectificación.
-* **2.6. Obligaciones Responsables:** DPO (obligatorio en AAPP), EIPD (alto riesgo), Brechas (72h) y Registro de Actividades (RAT).
+* **2.6. Obligaciones Responsables:** 
+  * DPO (obligatorio en AAPP)
+  * Evaluación de Impacto en Protección de Datos (EIPD): alto riesgo
+  * Brechas (72h) 
+  * Registro de Actividades (RAT) - Documenta **qué datos, finalidad, destinatarios, plazos y seguridad**.
 * **2.7. Ley 25/2007 (Comunicaciones):** Conservación de *metadatos* (no contenido) máx 12 meses para delitos graves (requiere orden judicial).
 
 ## 3. Adaptación de Aplicaciones y Entornos a los Requisitos de la Normativa Legal
@@ -27,11 +47,11 @@
 * **3.2. Medidas Técnicas:**
   * Privacidad desde el diseño y por defecto.
   * Control de acceso: RBAC (Roles).
-  * Cifrado: Reposo (AES-256, TDE) y Tránsito (TLS).
+  * Cifrado: Reposo (AES-256, TDE - Cifrado de Datos Transparente) y Tránsito (TLS).
   * Seudonimización (reversible) / Anonimización (irreversible).
   * Trazabilidad total (Auditoría de logs).
   * Borrado seguro (Derecho al olvido efectivo en BD y backups).
-  * Herramientas de evaluación: PILAR / GESTIONA.
+  * Herramientas de evaluación: PILAR / Gestiona RGPD.
 
 ## 4. La Agencia Española de Protección de Datos (AEPD)
 * **4.1. Naturaleza:** Autoridad de control independiente (Ente de derecho público).
@@ -94,10 +114,10 @@ La LOPDGDD adapta el ordenamiento jurídico español al RGPD y garantiza los der
 
 - **Consentimiento** → el interesado acepta.
 - **Contrato** → necesario para ejecutar un contrato.
-- **Obligación legal** → exigido por una ley.
 - **Intereses vitales** → proteger vida o integridad.
-- **Interés público / poderes públicos** → función pública (**habitual en AAPP**).
 - **Interés legítimo** → interés del responsable (**no AAPP en sus funciones**).
+- **Obligación legal** → exigido por una ley.
+- **Interés público / poderes públicos** → función pública (**habitual en AAPP**).
 
 **AAPP:** Se basan casi exclusivamente en **Obligación Legal** e **Interés Público**, debido al desequilibrio de poder (el ciudadano no consiente, está obligado).
 

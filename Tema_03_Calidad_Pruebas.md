@@ -1,62 +1,75 @@
 # Tema 3.- Procesos de pruebas y garantía de calidad en el desarrollo de software. Niveles, técnicas y herramientas de pruebas de software. Buenas prácticas. Criterios de aceptación de software. Desarrollo orientado a test.
 
 ## 1. Introducción
-* **Relevancia en AAPP:** El software público (tributos, padrón, sedes) maneja derechos y datos críticos protegidos por el **RGPD** y la **LOPDGDD**.
-* **Concepto de SQA (Software Quality Assurance):** Marco preventivo integral durante todo el SDLC; evalúa el proceso y el producto, no solo defectos al final.
-* **Norma ISO/IEC 25000 (SQuaRE):** Estándar de calidad del producto software (8 dimensiones: adecuación funcional, rendimiento, seguridad, mantenibilidad, etc.).
-* **Axioma del Testing:** Las pruebas demuestran la presencia de errores, nunca su ausencia absoluta.
+- **Relevancia en AAPP:** El software público (tributos, padrón, sedes) maneja derechos y datos críticos protegidos por el **RGPD** y el **ENS**.
+- **El rol del Testing (La solución):** Por la criticidad de estos datos, es indispensable aplicar procesos rigurosos de pruebas antes del paso a producción para evitar fallos que paralicen servicios o vulneren normativas ciudadanas.
+- **Axioma del Testing (Dijkstra):** Aunque son necesarias, las pruebas demuestran la presencia de errores, nunca su ausencia absoluta.
 
-## 2. Niveles de Pruebas (Pirámide de Cohn)
+## 2. Procesos de pruebas y garantía de calidad en el desarrollo de software
+- **Concepto de SQA (Software Quality Assurance):** Marco preventivo integral durante todo el ciclo de vida (SDLC); evalúa y mejora el *proceso* de construcción, no solo busca defectos al final.
+- **Garantía de calidad del producto (ISO/IEC 25000 - SQuaRE):** Estándar internacional que mide la calidad en 8 dimensiones:
+  * **Adecuación Funcional:** ¿Hace lo que se pide?
+  * **Eficiencia de Rendimiento:** Tiempos de respuesta y uso de recursos.
+  * **Compatibilidad:** Coexistencia e interoperabilidad.
+  * **Usabilidad:** Facilidad de uso y accesibilidad.
+  * **Fiabilidad:** Tolerancia a fallos y madurez.
+  * **Seguridad:** Confidencialidad, integridad y trazabilidad.
+  * **Mantenibilidad:** Facilidad de modificación y prueba.
+  * **Portabilidad:** Facilidad de instalación y reemplazo.
+
+## 3. Niveles de Pruebas (Pirámide de Cohn)
 Estructura en pirámide: base ancha de pruebas rápidas/económicas que se reduce hacia la cúspide en pruebas complejas y costosas.
-
-* **2.1. Pruebas Unitarias:**
+* **3.1. Pruebas Unitarias:**
   * Validan la unidad mínima de código (método/clase) de forma aislada.
-  * Uso de **Dobles de Prueba (Test Doubles):** Mocks, Stubs y Fakes para aislar dependencias externas (BD, APIs).
-* **2.2. Pruebas de Integración:**
+  * Uso de **Dobles de Prueba (Test Doubles):** Aislamiento de dependencias externas (BD, APIs) mediante:
+    * **Mocks:** Verifican interacciones, como comprobar que el Frontend hace la llamada POST al Backend al pulsar *Guardar*.
+    * **Stubs:** Devuelven respuestas predefinidas, como hacer que el Backend responda siempre un error 500 para probar alertas en el Frontend.
+    * **Fakes:** Implementaciones reales simplificadas, como levantar un servidor local en memoria para que el Frontend opere sin el Backend real. Usar una lista en memoria en vez de una base de datos
+* **3.2. Pruebas de Integración:**
   * Verifican la comunicación, contratos y flujos de datos entre módulos o microservicios.
   * *Estrategias:* **Top-Down** (módulos superiores con *Stubs*), **Bottom-Up** (módulos inferiores con *Drivers*), **Big-Bang** (todo a la vez, alto riesgo) e **Incremental**.
-* **2.3. Pruebas de Sistema:**
+* **3.3. Pruebas de Sistema:**
   * Validan el sistema completo contra especificaciones en entornos preproductivos idénticos a producción.
   * Incluyen rendimiento, carga, estrés, alta disponibilidad y seguridad física/lógica.
-* **2.4. Pruebas de Aceptación (UAT):**
+* **3.4. Pruebas de Aceptación (UAT):**
   * Validación funcional por los usuarios finales (técnicos y funcionarios de negocio) antes del pase a producción.
   * *Modalidades:* **Alpha** (entorno de desarrollo controlado) y **Beta** (entorno real del usuario sin tutela técnica).
 
-## 3. Técnicas y Herramientas de Pruebas
-* **3.1. Pruebas de Caja Blanca (Estructurales):**
+## 4. Técnicas y Herramientas de Pruebas
+* **4.1. Pruebas de Caja Blanca (Estructurales):**
   * Acceso total al código fuente.
   * *Técnicas de cobertura:* Cobertura de sentencias (líneas), de decisiones/ramas (if/else), de condiciones y de caminos (*Path Coverage*).
-* **3.2. Pruebas de Caja Negra (Funcionales):**
+* **4.2. Pruebas de Caja Negra (Funcionales):**
   * Desconocimiento del código interno; foco en entradas y salidas esperadas.
   * *Técnicas:* Partición de equivalencia, **Análisis de Valores Límite** (fronteras), tablas de decisión y diagramas de transición de estados.
-* **3.3. Pruebas de Caja Gris:** Enfoque híbrido (conocimiento de esquema de BD o contratos OpenAPI sin auditar código línea a línea).
-* **3.4. Ecosistema de Herramientas:**
+* **4.3. Pruebas de Caja Gris:** Enfoque híbrido (conocimiento de esquema de BD o contratos OpenAPI sin auditar código línea a línea).
+* **4.4. Ecosistema de Herramientas:**
   * *Unitarias:* JUnit (Java), PyTest (Python), NUnit (.NET), Jest (JS/TS).
   * *End-to-End (E2E) y Navegador:* Selenium WebDriver, Playwright, Cypress.
   * *APIs:* Postman, SoapUI (validación REST/SOAP y contratos JSON/XML).
   * *Carga y Rendimiento:* Apache JMeter, Gatling (concurrencia masiva en sedes electrónicas).
   * *Seguridad:* **SAST** en reposo (SonarQube) y **DAST** en ejecución (OWASP ZAP).
 
-## 4. Buenas Prácticas y Criterios de Aceptación
-* **4.1. Criterios de Aceptación y BDD:**
+## 5. Buenas Prácticas y Criterios de Aceptación
+* **5.1. Criterios de Aceptación y BDD:**
   * Contrato formal de entrega redactado en lenguaje natural estructurado.
   * Estructura **Given-When-Then (Dado-Cuando-Entonces):** Precondición, Acción disparadora y Resultado esperado (ejecutable con herramientas como Cucumber).
-* **4.2. Principios de Calidad Continua:**
+* **5.2. Principios de Calidad Continua:**
   * **Shift-Left Testing:** Adelantar las pruebas al inicio del ciclo de vida; abarata drásticamente el coste de corrección (según el NIST, corregir en producción cuesta hasta 100 veces más).
   * **Integración Continua (CI/CD):** Ejecución automática de suites de test en cada `git push` (GitLab CI, GitHub Actions, Jenkins).
   * **Quality Gates (Puertas de Calidad):** Umbrales mínimos obligatorios en pipelines (ej. mínimo 80% de cobertura y cero vulnerabilidades críticas en SonarQube para permitir el despliegue).
   * *Revisiones de Código (Code Reviews):* Auditoría entre pares obligatoria antes del merge a la rama principal.
 
-## 5. Desarrollo Orientado a Pruebas (TDD)
+## 6. Desarrollo Orientado a Pruebas (TDD)
 Metodología de Extreme Programming (Kent Beck) que invierte el orden tradicional: la prueba se diseña antes de implementar la funcionalidad.
 
-* **5.1. Ciclo Red-Green-Refactor:**
+* **6.1. Ciclo Red-Green-Refactor:**
   * **1. Red (Rojo):** Se escribe una prueba automatizada del requisito; la prueba falla obligatoriamente porque el código no existe.
   * **2. Green (Verde):** Se escribe el código mínimo necesario para que la prueba pase satisfactoriamente.
   * **3. Refactor (Refactorizar):** Se limpia y optimiza el diseño del código sin alterar su comportamiento, respaldado por la suite de pruebas verde.
-* **5.2. Ventajas:** Diseño modular emergente con bajo acoplamiento, cobertura nativa cercana al 100%, documentación viva ejecutable y reducción drástica de la deuda técnica.
+* **6.2. Ventajas:** Diseño modular emergente con bajo acoplamiento, cobertura nativa cercana al 100%, documentación viva ejecutable y prevención temprana de errores (evitando rehacer código en el futuro).
 
-## 6. Conclusión
+## 7. Conclusión
 La garantía de calidad en el software público es un imperativo legal y funcional amparado por la norma ISO 25000 y el ENS. La estructuración piramidal de las pruebas, unida a la automatización mediante Quality Gates en pipelines CI/CD y a disciplinas preventivas como Shift-Left y TDD, transforma el aseguramiento de la calidad de un cuello de botella burocrático a una salvaguarda esencial para desplegar servicios públicos digitales seguros, robustos y confiables.
 
 --------------------------

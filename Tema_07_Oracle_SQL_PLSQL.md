@@ -10,7 +10,7 @@
   * **Regla crítica:** Toda sentencia DDL ejecuta un **COMMIT implícito irreversible** (incompatible con ROLLBACK).
   * *Diferencia clave:* `TRUNCATE` (DDL, instantáneo, desasigna bloques sin generar redo individual) vs. `DELETE` (DML, transaccional, fila a fila con undo/redo).
 * **2.2. DML (Data Manipulation Language):**
-  * Operaciones transaccionales sobre datos: `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `MERGE` (operación atómica Upsert para procesos ETL).
+  * Operaciones transaccionales sobre datos: `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `MERGE` (operación atómica Upsert (Update + Insert) para procesos ETL).
   * *Cláusulas avanzadas:* Agrupación (`GROUP BY` / `HAVING`) y funciones analíticas de ventana (`OVER (PARTITION BY ... ORDER BY ...)`).
 * **2.3. DCL (Data Control Language):**
   * Gestión de privilegios del sistema y de objeto mediante `GRANT` y `REVOKE` a usuarios o roles corporativos.
@@ -18,7 +18,7 @@
   * Control del ciclo transaccional ACID: `COMMIT` (persistencia vía LGWR), `ROLLBACK` (reversión vía Undo) y `SAVEPOINT` (puntos intermedios de retroceso).
 * **2.5. Consultas Relacionales Avanzadas:**
   * **JOINs (ANSI SQL-92):** `INNER`, `LEFT`/`RIGHT`/`FULL OUTER` y `CROSS JOIN` (cartesiano).
-  * **Subconsultas:** Escalares, de lista (`IN`, `EXISTS`), tablas derivadas (*inline views*) y subconsultas correlacionadas.
+  * **Subconsultas:** *Escalares* (=,>,<), *de lista* (`IN`, `EXISTS`), *tablas derivadas* (*inline views* select ...from (select...)) y *subconsultas correlacionadas* (...where salario > (select)).
 
 ## 3. PL/SQL: El Lenguaje Procedural de Oracle
 * **3.1. Estructura de Bloque (DECLARE, BEGIN, EXCEPTION):**

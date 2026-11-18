@@ -52,7 +52,7 @@
 ## 6. Estrategia Corporativa en AAPP (RPO y RTO)
 * **Métricas objetivo:**
   * **RPO (*Recovery Point Objective*):** Pérdida máxima de datos tolerable (determinada por la frecuencia de backup de *Archive Logs*).
-  * **RTO (*Recovery Time Objective*):** Tiempo máximo de indisponibilidad para restaurar el servicio (optimizado con Nivel 1 + BCT).
+  * **RTO (*Recovery Time Objective*):** Tiempo máximo de indisponibilidad para restaurar el servicio (optimizado con Incremental Nivel 1 + BCT (Block Change Tracking)).
 * **Planificación tipo:**
   * *Semanal (Domingo):* RMAN Incremental Nivel 0 + Export lógico Data Pump de esquemas críticos + validación de integridad (`RMAN VALIDATE`).
   * *Diario (Madrugada):* RMAN Incremental Nivel 1.

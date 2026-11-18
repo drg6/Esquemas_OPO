@@ -4,10 +4,13 @@
 * **Imperativo en AAPP:** Continuidad ininterrumpida en servicios críticos (sede electrónica, recaudación, padrón) alineada con la dimensión de **Disponibilidad** del Esquema Nacional de Seguridad (ENS).
 * **Estrategia de Alta Disponibilidad (HA):** Enmascarar fallos físicos o lógicos mediante redundancia activa: **Oracle RAC** (protección frente a caída de nodo/servidor dentro del mismo CPD) y **Oracle Data Guard** (protección frente a desastres completos de CPD - *Disaster Recovery*).
 
-## 2. Fundamentos y Métricas de Alta Disponibilidad
-* **Métricas clave:**
-  * **MTBF (*Mean Time Between Failures*):** Tiempo medio entre fallos (fiabilidad; se maximiza con hardware redundante).
-  * **MTTR (*Mean Time To Repair/Recovery*):** Tiempo medio de recuperación (se minimiza con *failover* automático).
+## 2. Fundamentos y Métricas Clave
+* **RTO / RPO (Recuperación ante Desastres y Backups):**
+  * **RTO (*Recovery Time Objective*):** Tiempo máximo tolerable con el sistema caído hasta restaurar el servicio.
+  * **RPO (*Recovery Point Objective*):** Pérdida máxima de datos tolerable medida en tiempo (define la frecuencia de *backups*).
+* **MTBF / MTTR (Fiabilidad y Mantenimiento):**
+  * **MTBF (*Mean Time Between Failures*):** Tiempo medio que el sistema funciona correctamente entre un fallo y el siguiente.
+  * **MTTR (*Mean Time To Repair*):** Tiempo medio real que cuesta diagnosticar y reparar una avería.
   * **Fórmula de Disponibilidad:** $$\text{Disponibilidad} = \frac{\text{MTBF}}{\text{MTBF} + \text{MTTR}}$$
 * **Escala de los "Nueves" (Inactividad anual):**
   * **99% (2 nueves):** ~3,65 días | **99,9% (3 nueves):** ~8,76 horas.
@@ -24,7 +27,7 @@
   * **GRD (*Global Resource Directory*):** Directorio distribuido en memoria que coordina la propiedad y bloqueos de cada bloque en el clúster.
 * **3.4. Balanceo, Failover y Acceso:**
   * **SCAN (*Single Client Access Name*):** Nombre único DNS resuelto en 3 IPs virtuales; desacopla a los clientes de la topología física del clúster.
-  * **Failover transparente:** **TAF** (*Transparent Application Failover*, migra sesiones y cursores SELECT abiertos) y **FAN** (*Fast Application Notification*, alerta inmediata de caída de nodo vía ONS).
+  * **Failover transparente:** **TAF** (*Transparent Application Failover*, migra sesiones y cursores SELECT abiertos a otro nodo. Si estabas a medio de transaccion hace rollback) y **FAN** (*Fast Application Notification*, alerta inmediata de caída de nodo vía ONS, Oracle Notification Service).
   * **Oracle Clusterware:** Gestiona membresía del clúster y aplica *fencing/eviction* mediante discos de votación (*Voting Disks*) para evitar corrupción por **Split-Brain** (cerebro dividido).
 
 ## 4. Oracle Data Guard (Recuperación ante Desastres)
@@ -41,7 +44,7 @@
   * **Switchover:** Intercambio de roles planificado, reversible y sin pérdida de datos (mantenimientos/parches).
   * **Failover:** Conmutación de emergencia ante caída destructiva de la primaria (requiere reconstruir o hacer *Flashback* de la antigua primaria).
   * **Fast-Start Failover (FSFO):** Conmutación automática en segundos gobernada por un proceso **Observer** externo sin intervención del DBA.
-  * **Data Guard Broker:** Administración y monitorización centralizada vía CLI (`DGMGRL`) o Enterprise Manager (control de *transport lag* y *apply lag*).
+  * **Data Guard Broker:** Administración y monitorización centralizada vía CLI (`DGMGRL`) o Enterprise Manager (control de *Transport Lag* (latencia de red al enviar los *Redo* a la réplica) y el *Apply Lag* (retraso de la réplica al aplicar esos cambios en sus datos) para hacer Switchover o Failover si suben metricas y se satura).
 
 ## 5. Arquitectura Combinada: Oracle MAA
 * **MAA (*Maximum Availability Architecture*):** Marco de referencia de Oracle que combina **RAC en el CPD primario** (tolerancia a fallos de nodo y escalabilidad horizontal) + **Data Guard hacia el CPD de respaldo** (tolerancia a caídas completas del centro de datos), pudiendo desplegar también RAC en el sitio de contingencia.

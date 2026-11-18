@@ -12,7 +12,7 @@ Este bloque define cómo se estructuran, comunican y despliegan los componentes 
   * Uso obligatorio de **HTTPS (TLS)** por exigencia del Esquema Nacional de Seguridad (ENS) y el RGPD.
 * **Arquitectura Clásica de 3 Capas (*Tiers*):**
   1. *Capa de Presentación:* Navegador del cliente.
-  2. *Capa Lógica (Servidor):* Servidor Web (Apache, Nginx) proxy e intermediario, y Servidor de Aplicaciones (Tomcat, WebLogic) ejecutando la lógica de negocio.
+  2. *Capa Lógica (Servidor):* Servidor Web (Apache, Nginx) proxy e intermediario, y Servidor de Aplicaciones (Tomcat, WebLogic, WildFly) ejecutando la lógica de negocio.
   3. *Capa de Datos:* SGBDR (Oracle, PostgreSQL) con conexión vía JDBC/ORM.
 * **Topologías de Despliegue:**
   * **Monolítica:** Toda la app en un único artefacto desplegable (ej. `.war`).

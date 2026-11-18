@@ -1,21 +1,21 @@
 # Tema 6.- El SGBDR Oracle: Arquitectura, Modos y Administración.
 
 ## 1. Introducción
-* **Relevancia:** Estándar de facto en sistemas transaccionales de misión crítica (Tier 1) de las Administraciones Públicas (padrón, tributos, contabilidad).
+Oracle es un SGBDR de grado empresarial. Es el motor histórico en los sistemas críticos de la Administración Pública (recaudación, padrón) por su máxima disponibilidad, escalabilidad y robustez transaccional.
 * **Garantía ACID:** Arquitectura diseñada para maximizar concurrencia (OLTP) y análisis masivo (OLAP) con alta disponibilidad y tolerancia a fallos.
-* **Principio rector:** Dicotomía estricta entre elementos volátiles en memoria (Instancia) y elementos persistentes en almacenamiento (Base de Datos).
+* **Diseño:** Su arquitectura se sustenta en la separación estricta entre las estructuras físicas persistentes (**Base de Datos**) y los procesos volátiles en memoria (**Instancia**).
 
 ## 2. Dicotomía Fundamental: Instancia vs. Base de Datos
 * **2.1. Base de Datos (Física / Persistente en Disco):**
   * **Datafiles (`.dbf`):** Almacenan datos reales (tablas, índices, PL/SQL). Asociados unívocamente a Tablespaces.
-  * **Control Files:** Metadatos críticos (rutas, nombres, checkpoints, números SCN). Obligatorio multiplexar en discos físicos distintos para evitar el punto único de fallo.
+  * **Control Files:** Metadatos críticos (rutas, nombres, checkpoints, números SCN (contador incremental)). Obligatorio multiplexar en discos físicos distintos para evitar el punto único de fallo.
   * **Online Redo Log Files:** Mecanismo Write-Ahead Logging (WAL). Registran cronológicamente todo cambio DML antes de tocar disco. Mínimo 2 grupos circulares.
   * *Archivos auxiliares:* Parameter File (SPFILE binario dinámico / PFILE texto) y Password File (autenticación remota SYSDBA).
 * **2.2. Instancia (Lógica / Volátil en RAM y Procesos SO):**
   * Nace al arrancar el servicio y desaparece al apagarlo; manipula la Base de Datos persistente.
   * *Topologías:* Single Instance (1 Instancia $\leftrightarrow$ 1 BD) vs. **Oracle RAC** (N Instancias concurrentes en clúster $\leftrightarrow$ 1 BD en almacenamiento compartido).
 
-## 3. Estructuras de Memoria
+## 3. Arquitectura. Instancia. Estructuras de Memoria 
 * **3.1. SGA (System Global Area - Compartida):**
   * **Database Buffer Cache:** Almacena bloques de datos (8 KB típicos). Mitiga accesos a disco mediante política de bloques limpios y *dirty blocks* (sucios).
   * **Shared Pool:** 
@@ -26,9 +26,8 @@
 * **3.2. PGA (Program Global Area - Privada):**
   * Memoria exclusiva por sesión de usuario. Contiene el Sort Area (ORDER BY, GROUP BY), Hash Area (hash joins) y variables de sesión (controlada globalmente por `PGA_AGGREGATE_TARGET`).
 
-## 4. Procesos de Fondo (Background Processes)
+## 4. Arquitectura. Instancia. Procesos de Fondo (Background Processes)
 Sincronizan la memoria RAM con el disco garantizando durabilidad y consistencia:
-
 * **DBWn (Database Writer):** Escribe *dirty blocks* del Buffer Cache a los Datafiles de forma asíncrona/diferida (en checkpoints, saturación o timeout).
 * **LGWR (Log Writer):** Escribe el Redo Log Buffer a los Online Redo Logs en disco. **Garantiza la Durabilidad (D de ACID):** el COMMIT no retorna éxito al usuario hasta que LGWR confirma la escritura en disco.
 * **SMON (System Monitor):** Recuperación automática tras caída (*crash recovery*). Aplica *roll forward* (rehace confirmadas desde Redo Logs) y *roll back* (deshace incompletas vía Undo).
@@ -36,7 +35,7 @@ Sincronizan la memoria RAM con el disco garantizando durabilidad y consistencia:
 * **CKPT (Checkpoint):** Sincroniza cabeceras de Datafiles y Control Files actualizando el System Change Number (SCN) y avisa a DBWn para acortar tiempos de recuperación de SMON.
 * **ARCn (Archiver):** Copia los Online Redo Logs a almacenamiento seguro cuando se llenan (exclusivo de modo ARCHIVELOG).
 
-## 5. Almacenamiento Lógico: Tablespaces
+## 5. Arquitectura. Almacenamiento Lógico: Tablespaces
 Abstracción ANSI/SPARC que aísla las aplicaciones de la estructura física del sistema de ficheros:
 * **Mapeo:** Un Tablespace (lógico) contiene uno o varios Datafiles (físicos). Una tabla pertenece a un Tablespace, nunca directamente a un fichero.
 * **Tablespaces predefinidos:**

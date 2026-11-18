@@ -1,8 +1,9 @@
 # Tema 19.- Spring: Qué es Spring Framework, Ventajas de uso, Ecosistema Spring.
 
-## 1. Introducción y Origen
+## 1. Introducción 
 * **El problema de Java EE:** La especificación original (J2EE) exigía arquitecturas pesadas, descriptores XML complejos y EJBs difíciles de mantener.
 * **El origen:** Creado por **Rod Johnson** (2003) como respuesta a esta complejidad, proponiendo un modelo ligero basado en **POJOs** (*Plain Old Java Objects*) y la **Inversión de Control**. Hoy es el estándar *de facto* para backend corporativo.
+* **Spring vs. Jakarta EE (Complementariedad):** Spring no reinventa los estándares; aporta el modelo productivo (IoC, Boot), pero internamente **se apoya en las especificaciones de Jakarta EE**. Spring Web usa la *Servlet API*, Spring Data usa *Jakarta Persistence (Hibernate)*, y las validaciones usan *Jakarta Bean Validation*.
 
 ## 2. Filosofía de Diseño y Conceptos Core
 Spring Framework es un entorno de trabajo de código abierto con los siguientes principios:
@@ -10,13 +11,9 @@ Spring Framework es un entorno de trabajo de código abierto con los siguientes 
 * **Inyección de Dependencias (DI):** Es la materialización del IoC. El framework inyecta las dependencias necesarias en tiempo de ejecución (ej. mediante `@Autowired`), eliminando el acoplamiento fuerte (uso de `new`).
 * **Programación Orientada a Aspectos (AOP):** Permite aislar y encapsular la lógica transversal (seguridad, auditoría, logs, transacciones) para no "ensuciar" las clases de negocio principales.
 * **Evolución *Cloud Native*:** Soporte para programación reactiva (Spring WebFlux) y **compilación nativa AOT (*Ahead-of-Time*) mediante GraalVM**, reduciendo el arranque a milisegundos para competir en entornos Kubernetes.
+* **El Contenedor (`ApplicationContext`):** Es el corazón (Contenedor IoC) de Spring. Al arrancar, escanea las clases anotadas (`@Service`, `@Repository`), las instancia creando **Beans** que quedan residentes en memoria, y resuelve el árbol de dependencias inyectándolas automáticamente. Estructurado en bloques independientes: *Core Container, AOP, Data Access (JDBC/ORM/Transacciones), Web (MVC)* y *Test*.
 
-## 3. Arquitectura del Contenedor
-* **`ApplicationContext`:** Es el corazón (Contenedor IoC) de Spring.
-* **Ciclo de vida:** Al arrancar, escanea las clases anotadas (`@Service`, `@Repository`), las instancia creando **Beans** que quedan residentes en memoria, y resuelve el árbol de dependencias inyectándolas automáticamente.
-* **Modularidad:** Estructurado en bloques independientes: *Core Container, AOP, Data Access (JDBC/ORM/Transacciones), Web (MVC)* y *Test*.
-
-## 4. Ventajas de Uso
+## 3. Ventajas de Uso
 * **Ventajas Técnicas:**
   * **Desacoplamiento:** Facilitado por DI (Inyección de Dependencias), permite evolucionar el código de forma segura.
   * **Transaccionalidad Declarativa:** Uso de `@Transactional` para que el framework gestione los *commits* y *rollbacks* automáticamente.
@@ -26,28 +23,30 @@ Spring Framework es un entorno de trabajo de código abierto con los siguientes 
   * Independencia del servidor externo (despliegues ágiles).
   * Respaldo de una gran comunidad y soporte comercial corporativo (Tanzu/Broadcom).
 
-## 5. El Ecosistema Spring
+## 4. El Ecosistema Spring
 El framework base se amplía con proyectos satélite especializados:
 * **Spring Boot (El Acelerador):**
   * **Autoconfiguración:** Detecta e inicializa librerías sin código manual.
   * **Starters:** Paquetes de dependencias listos para usar (ej. `spring-boot-starter-web`).
-  * **Servidores Embebidos:** Incrusta Tomcat o Undertow para generar un `.jar` autoejecutable.
+  * **Servidores Embebidos:** Incrusta Tomcat o Undertow (WildFly) para generar un `.jar` autoejecutable.
   * **Actuator:** Expone *endpoints* de métricas y salud (`/health`) para entornos de producción.
 * **Spring Data:** Abstrae el acceso a datos. Con **Spring Data JPA**, el desarrollador define interfaces y Spring genera automáticamente las sentencias SQL.
 * **Spring Security:** Estándar robusto para autenticación (LDAP, Active Directory, OAuth2) y autorización por roles/URLs.
 * **Spring Cloud:** Herramientas para la orquestación de arquitecturas de Microservicios (*API Gateway, Config Server, Service Discovery*).
 
-## 6. Spring vs. Jakarta EE
-* **Complementariedad, no rivalidad:** Spring no reinventa los estándares; aporta el modelo productivo (IoC, Boot), pero internamente **se apoya en las especificaciones de Jakarta EE**. Spring Web usa la *Servlet API*, Spring Data usa *Jakarta Persistence (Hibernate)*, y las validaciones usan *Jakarta Bean Validation*.
-
-## 7. Spring en la Administración Pública
+## 5. Spring en la Administración Pública
 * **Por qué domina en las AAPP:** Estabilidad de 20 años, integración natural con bases de datos relacionales (Oracle/PostgreSQL), cumplimiento de normativas CCN-STIC y facilidad para consumir servicios del Estado.
 * **Arquitectura de Referencia (Caso Típico):**
   1. **Frontend:** SPA en Angular o React.
   2. **Backend:** API REST construida con **Spring Boot**.
   3. **Seguridad e Identidad:** **Spring Security** integrado con pasarelas públicas como Cl@ve.
-  4. **Interoperabilidad:** Clientes consumiendo servicios REST/SOAP de la plataforma @firma o SCSP.
+  4. **Interoperabilidad:** Clientes consumiendo servicios REST/SOAP de la plataforma @firma o SCSP (Sustitución de Certificados en Soporte Papel, para verificar datos de ciudadanos).
   5. **Persistencia:** **Spring Data JPA** conectando con la base de datos municipal.
+
+## 6. Conclusión
+Spring Framework ha revolucionado el desarrollo de aplicaciones empresariales en Java al simplificar drásticamente el desarrollo frente a Java EE. 
+Sus ventajas — productividad, modularidad, testabilidad y no intrusividad — estándar de facto para el backend de las aplicaciones de las AP. 
+El ecosistema Spring (Spring Boot, Spring Data, Spring Security, Spring Cloud) cubre la totalidad de las necesidades de desarrollo empresarial.
 
 -------------------
 

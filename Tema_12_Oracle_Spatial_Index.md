@@ -1,23 +1,23 @@
 # Tema 12.- Oracle Spatial and Graph: Qué es, Modelo de datos e Indexación de datos espaciales.
 
-## 1. Introducción y Concepto
-* **El problema del SGBDR tradicional:** Optimizado para datos alfanuméricos y ordenación unidimensional (índices B-Tree). Incapaz de resolver nativamente consultas espaciales complejas (intersecciones, distancias, cálculo de áreas).
-* **Solución:** **Oracle Spatial and Graph**, una extensión integrada directamente en el kernel de Oracle Database que dota al motor relacional de tipos de datos, funciones geométricas y mecanismos de indexación espacial para procesar la información geográfica.
+## 1. Introducción 
+El *SGBDR tradicional* está optimizado para datos alfanuméricos (índices B-Tree), pero carece de capacidad nativa para resolver consultas espaciales complejas (intersecciones, áreas, rutas). Para solucionar esta carencia surge la tecnología espacial *Oracle Spatial and Graph*.
 
-## 2. Ventajas de la Integración Nativa
-A diferencia de soluciones externas (como PostGIS que se instala sobre PostgreSQL), al operar dentro del núcleo de la base de datos, los datos espaciales heredan todas las capacidades corporativas de Oracle:
-* Cumplimiento estricto de transacciones **ACID**.
-* Soporte nativo para **Alta Disponibilidad** (Oracle RAC, Data Guard).
-* Compatibilidad con estrategias de **Particionamiento** (Range, Hash, List) y **Backup/Recovery** (RMAN).
-* Seguridad granular aplicando privilegios DCL (GRANT/REVOKE) a nivel de tabla/columna.
-* Inclusión de capacidades de análisis de redes complejas mediante Oracle Property Graph.
+## 2. ¿Qué es?. Concepto y Ventajas de la Integración Nativa
+- **Concepto (Qué es):** Es una extensión integrada directamente en el *kernel* de Oracle Database que dota al motor relacional de tipos de datos geométricos, funciones de geoprocesamiento y mecanismos de indexación espacial.
+- **Ventajas:** Al operar dentro del núcleo (y no ser un parche externo tipo PostGIS), hereda toda la potencia corporativa de Oracle:
+    * Cumplimiento estricto de transacciones **ACID**.
+    * Soporte nativo para **Alta Disponibilidad** (Oracle RAC, Data Guard).
+    * Compatibilidad con estrategias de **Particionamiento** (Range, Hash, List) y **Backup/Recovery** (RMAN).
+    * Seguridad granular aplicando privilegios DCL (GRANT/REVOKE) a nivel de tabla/columna.
+    * Inclusión de capacidades de análisis de redes complejas mediante Oracle Property Graph.
 
 ## 3. Modelo de Datos Espacial: Paradigma Objeto-Relacional
 * **Problema:** Almacenar geometrías de miles de vértices utilizando columnas planas (X1, Y1, X2, Y2) es altamente ineficiente e insostenible.
 * **Solución (`SDO_GEOMETRY`):** Oracle emplea un modelo **Objeto-Relacional** donde la geometría completa (punto, línea o polígono) se encapsula como un único objeto estructurado dentro de una sola celda/columna de tipo `SDO_GEOMETRY`.
 * **Cumplimiento de estándares:** La arquitectura es conforme a la especificación **SFS (*Simple Features Specification*)** del OGC y la normativa **ISO 19125**.
 
-## 4. Los 5 Atributos del Objeto `SDO_GEOMETRY`
+## 4. Modelo de Datos Espacial: Los 5 Atributos del Objeto `SDO_GEOMETRY`
 El objeto se compone internamente de cinco atributos estructurales:
 1. **`SDO_GTYPE` (Geometry Type):** Número entero con patrón **DLTT** (Dimensiones, Localización Lineal, Tipo). Ejemplos: `2001` = Punto 2D; `2003` = Polígono 2D.
 2. **`SDO_SRID` (Spatial Reference Identifier):** Código EPSG del sistema de coordenadas asociado a la geometría (ej. `4326` para WGS84 o `25830` para ETRS89/UTM 30N).

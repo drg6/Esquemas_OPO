@@ -1,9 +1,8 @@
 # Tema 21.- Spring: Spring Boot, Spring Data, Spring Security.
 
 ## 1. Introducción: La Industrialización del Ecosistema Spring
-* **La trinidad del desarrollo corporativo:** Si el contenedor IoC y la AOP constituyen la base teórica de Spring, este tema aborda sus tres módulos de producción más críticos: Spring Boot, Spring Data y Spring Security.
-* **El cambio de paradigma:** Históricamente, el desarrollo en Java empresarial (JEE) exigía configurar complejos ficheros XML, escribir código repetitivo de acceso a datos y desplegar pesados ficheros WAR en servidores de aplicaciones externos.
-* **El objetivo:** Adoptar el principio de **Convención sobre Configuración** para erradicar el código redundante (*boilerplate*) y acelerar la entrega de software listo para producción.
+- **El cambio de paradigma:** Históricamente, el desarrollo en Java empresarial (JEE) era lento y propenso a errores porque exigía tres cosas: configurar complejos ficheros XML y desplegar pesados ficheros WAR, escribir código repetitivo para el acceso a datos (JDBC manual), y programar filtros de seguridad desde cero.
+- **El objetivo:** Para solucionar esto nacen los tres módulos clave. Su propósito es erradicar el código redundante (*boilerplate*) repartiendo el trabajo: **Spring Boot** adopta la **Convención sobre Configuración** para arrancar proyectos al instante, **Spring Data** automatiza las consultas a base de datos, y **Spring Security** estandariza el control de acceso corporativo.
 
 ## 2. Spring Boot: Autonomía y Despliegue Moderno
 * **2.1. Starters y la resolución del conflicto de dependencias:**
@@ -19,7 +18,7 @@
   * Rompe con la necesidad de servidores web externos instalados en el sistema operativo.
   * Integra directamente Tomcat o Undertow dentro de un archivo `.jar` ejecutable. Esto convierte a la aplicación en un componente autónomo, diseñado a medida para su empaquetado en contenedores **Docker** y su orquestación en **Kubernetes**.
 * **2.4. Gestión de entornos mediante Perfiles (`@Profile`):**
-  * Aplica los principios de la metodología *Twelve-Factor App*. Desacopla el código compilado de la configuración sensible, permitiendo inyectar contraseñas de bases de datos mediante variables de entorno en entornos de desarrollo, pruebas o producción.
+  * Aplica los principios de la metodología *Twelve-Factor App* (reglas crear app nube). Desacopla el código compilado de la configuración sensible, permitiendo inyectar contraseñas de bases de datos mediante variables de entorno en entornos de desarrollo, pruebas o producción.
 * **2.5. Observabilidad con Spring Boot Actuator:**
   * **Detalle técnico de infraestructura:** Vital para la monitorización municipal. Expone endpoints nativos como `/actuator/health`, utilizado como sonda de comprobación (*liveness* y *readiness*) por Kubernetes, y `/actuator/metrics`, integrable con sistemas corporativos como Prometheus y Grafana.
 
@@ -32,7 +31,7 @@
   * El framework infiere la sentencia SQL directamente leyendo el nombre del método. Por ejemplo, `findByDniAndEstado(String dni, String est)` genera internamente el correspondiente `SELECT` con cláusulas `WHERE`, operadores lógicos y ordenaciones automáticas.
 * **3.4. Consultas Avanzadas y Optimización (`@Query`):**
   * Permite redactar consultas explícitas en JPQL (orientadas a objetos) o SQL nativo mediante el atributo `nativeQuery`.
-  * **Detalle de rendimiento (El problema N+1):** En tramitación de expedientes, consultar una entidad con relaciones (*hijos*) puede provocar decenas de consultas secundarias innecesarias. Un arquitecto de software debe solventarlo utilizando cláusulas `JOIN FETCH` en la anotación `@Query` o definiendo *Entity Graphs*.
+  * **Detalle de rendimiento (El problema N+1):** Hacer 1 consulta para los expedientes y muchas consultas extra para sus hijos (lento). Solución: Traer todo de golpe con *JOIN FETCH (@Query)* o *@EntityGraph*.
 * **3.5. Paginación y modelo políglota:**
   * Soporte nativo de paginación mediante interfaces `Pageable`, optimizando el tráfico de red en listados masivos.
   * El mismo patrón de repositorios es reutilizable en motores NoSQL mediante **Spring Data MongoDB** o **Spring Data Redis**.

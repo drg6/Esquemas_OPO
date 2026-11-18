@@ -2,29 +2,39 @@
 
 ## 1. Introducción
 - **Contexto AAPP:** Gran volumen de datos brutos (padrón, tributos).
-- **Objetivo:** Dato bruto → Información → **Conocimiento** (patrones/decisiones).
-- **Herramientas:** Pilares: Análisis previo, arquitectura de implantación y explotación en Dashboards.
+- **Objetivo:** Organos de gobierno tomen decisiones. Transformar dato bruto → **Conocimiento** (patrones/decisiones).
+- **Pilares:** Análisis previo, arquitectura de implantación y explotación en Dashboards.
 
 ## 2. Cuadros de Mando (Dashboards)
 - **2.1. Concepto:** Interfaz visual única que consolida KPIs para detectar tendencias y anomalías de un vistazo.
 - **2.2. Tipología:**
-  * **Operativo (CMO):** Corto plazo, técnicos/jefes servicio (ej. patrullas activas).
-  * **Táctico/Directivo (CMD):** Medio plazo, directores de área.
-  * **Integral (CMI - Balanced Scorecard de Kaplan y Norton, 1992):** Evalúa la estrategia en 4 perspectivas: Financiera, Ciudadano, Procesos Internos, y Aprendizaje/Innovación.
+  * **Operativo (CMO - Cuadro de Mando Operativo):** Corto plazo, técnicos/jefes servicio (ej. patrullas activas).
+  * **Táctico/Directivo (CMD - Cuadro de Mando Táctico o Directivo):** Medio plazo, directores de área (ej. presupuesto ejecutado vs. presupuestado)
+  * **Integral (CMI - Balanced Scorecard de Kaplan y Norton, 1992):** Evalúa la estrategia en 4 perspectivas: 
+   - *Financiera:* ¿Cumplimos los objetivos?
+   - *Ciudadano/Cliente:* ¿Satisfacemos al ciudadano?
+   - *Procesos Internos:* ¿Somos eficientes?
+   - *Aprendizaje/Innovación:* ¿Mejoramos?
 
 ## 3. Análisis: Del Dato al Conocimiento
-- **3.1. Business Intelligence (BI):** Transformar transacciones (OLTP) en sistemas para análisis (OLAP).
+- **3.1. Business Intelligence (BI):** Transformar transacciones (OLTP) en sistemas para análisis y la toma de decisiones(OLAP).
 - **3.2. OLTP vs OLAP:** 
-  * *OLTP:* Día a día, normalizado (3FN), detallado. 
-  * *OLAP:* Histórico, dimensional, agregado (toma de decisiones).
-- **3.3. KPI (Key Performance Indicator):** La base del análisis. Métrica cuantificable + Objetivo estratégico. (Métrica ≠ KPI). SMART (Medible, temporal, accionable).
+  * *OLTP:* Día a día, normalizado (3FN), datos actuales al detalle, usuarios operativos.
+  * *OLAP:* Datos históricos/agregados (toma de decisiones), modelo *dimensional*, suarios directivos/analistas
+- **3.3. KPI (Key Performance Indicator):** La base del análisis. 
+  - Métrica cuantificable + Objetivo estratégico. (Métrica ≠ KPI) → Un KPI siempre está ligado a un objetivo. 
+  - Características de un buen KPI: 
+    - *Medible*
+    - *Temporal* (periodo definido)
+    - *Comparable* (con otros periodos/objetivos) 
+    - *Accionable* (permite tomar decisiones).
 
 ## 4. Implantación
 - **4.1. Arquitectura BI (Pipeline):** 
   * Fuentes (OLTP) → Proceso ETL (Extract, Transform, Load) → Data Warehouse → Visualización.
 - **4.2. Modelado Dimensional:** 
-  * **Estrella:** Tabla de Hechos (métricas) central + Tablas de Dimensiones (desnormalizadas) alrededor.
-  * **Copo de nieve:** Dimensiones normalizadas (desglosadas).
+  * **Estrella:** Tabla de Hechos (métricas) central (Ej. importe recaudado, número de expedientes) + Tablas de Dimensiones (desnormalizadas) alrededor (Ej. (contribuyente, tipo de tributo, distrito).
+  * **Copo de nieve:** Dimensiones normalizadas (desglosadas). La dimensión "ubicación" se descompone en tablas separadas de calle, barrio, distrito, municipio.
 - **4.3. Fases de Implantación en Ayuntamientos:**
   1. **Requisitos:** Objetivos estratégicos.
   2. **Fuentes:** Inventario y calidad del dato.
@@ -41,7 +51,7 @@
 - **5.1. Visualización:** Velocímetro (vs objetivo), Semáforo (estado), Barras (comparación), Heatmap (distribución geográfica).
 - **5.2. Interactividad (Operaciones OLAP):** 
   * *Drill-Down* (desglosar al detalle) / *Roll-Up* (agrupar).
-  * *Slice & Dice* (Filtros multidimensionales / Slicers).
+  * *Slice & Dice* (Filtros multidimensionales / Slicers). Ej. Ventas solo de 2026 o para una ciudad.
 - **5.3. ⚠️ Seguridad (El detalle AAPP):** Anonimización de datos sensibles (RGPD) y control de acceso basado en roles (ENS) para garantizar el cumplimiento normativo en su explotación.
 
 ## 6. Conclusión

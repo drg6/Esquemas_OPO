@@ -1,13 +1,13 @@
 # Tema 17.- Accesibilidad y usabilidad de las tecnologías, productos y servicios relacionados con la sociedad de la información: W3C. Diseño universal; conceptos de UX (user experience) y UI (user interface).
-
 ## 1. Introducción
-* **Propósito en la AP:** La digitalización de trámites exige que las interfaces sean universalmente utilizables, mitigando cualquier barrera por discapacidad o brecha digital.
-* **Obligatoriedad:** La usabilidad y accesibilidad han dejado de ser recomendaciones estéticas para convertirse en mandatos legales estrictos.
+
+- **Propósito en la AP** La digitalización de trámites exige que la interfaz de usuario (**UI**) esté construida bajo el paradigma del **Diseño Universal**, garantizando una experiencia de uso (**UX**) óptima que mitigue cualquier barrera por discapacidad técnica, sensorial o brecha digital.
+- **Obligatoriedad:** La usabilidad y la accesibilidad han dejado de ser recomendaciones estéticas para convertirse en mandatos legales estrictos (**RD 1112/2018**), cuyo cumplimiento técnico se articula a través de los estándares internacionales dictados por el **W3C**.
 
 ## 2. Accesibilidad y usabilidad de las tecnologías, productos y servicios de la sociedad de la información
 * **Marco Normativo (Crítico para AAPP):** El **Real Decreto 1112/2018** obliga al sector público a cumplir el nivel **WCAG 2.1 AA** en webs y apps móviles. 
 * **Obligaciones derivadas:** Publicación obligatoria de una **Declaración de Accesibilidad** y habilitación de un mecanismo de comunicación para reporte de barreras.
-* **Norma y Auditoría:** Norma técnica europea **UNE-EN 301549**. El **OBSAE** (Observatorio de Accesibilidad Web) audita y emite informes periódicos sobre el cumplimiento de los portales públicos.
+* **Norma y Auditoría:** Norma técnica europea **UNE-EN 301549**. El **OAW** (Observatorio de Accesibilidad Web) audita y emite informes periódicos sobre el cumplimiento de los portales públicos.
 * **Adaptabilidad (RWD):** La usabilidad multidispositivo se garantiza mediante el **Responsive Web Design** (uso de CSS Media Queries y *Mobile First*), desplazando al costoso modelo adaptativo (AWD).
 
 ## 3. W3C (World Wide Web Consortium) y estándares
@@ -35,7 +35,7 @@
 * **Herramientas de prototipado:** Software como Figma o Adobe XD permite validar los flujos de UX y el contraste visual de UI antes de escribir código.
 
 ## 6. Conclusión
-La accesibilidad web y la usabilidad son un imperativo legal (RD 1112/2018) en la Administración Pública. La aplicación del Diseño Universal, articulada mediante los estándares del W3C (WCAG AA y WAI-ARIA) y apoyada en metodologías rigurosas de UX/UI, garantiza que los servicios digitales sean equitativos y no generen barreras de exclusión ciudadana.
+La accesibilidad web y la usabilidad son un imperativo legal (RD 1112/2018) en la Administración Pública. La aplicación del Diseño Universal, articulada mediante los estándares del W3C (WCAG AA y WAI-ARIA) y apoyada en metodologías rigurosas de UX/UI, garantiza que los servicios digitales sean equitativos (utilizado por todas las personas en igualdad de condiciones) y no generen barreras de exclusión ciudadana.
 
 ---------------------
 

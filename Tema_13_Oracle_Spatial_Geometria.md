@@ -5,12 +5,12 @@
 * **Gestión técnica:** Comprender la estructura de este objeto y el registro obligatorio en las vistas de metadatos es requisito previo para la indexación y el análisis espacial.
 
 ## 2. Estructura Interna del Objeto `SDO_GEOMETRY`
-Definido en el esquema `MDSYS`, encapsula toda la geometría en 5 atributos estructurales:
+Definido en el esquema `MDSYS` (Multi-Dimensional System), encapsula toda la geometría en 5 atributos estructurales:
 
 * **2.1. `SDO_GTYPE` (Dimensionalidad y Tipo):**
   * Entero de 4 dígitos (formato **DLTT**).
-  * **D (Dimensión):** 2 (2D), 3 (3D), 4 (4D con medida).
-  * **L (LRS):** Habitualmente 0.
+  * **D (Dimensión):** 2 (2D), 3 (3D), 4 (3D con medida).
+  * **L (LRS - Sistema de Referencia Lineal):** Habitualmente 0.
   * **TT (Tipo OGC):** `01` (Punto), `02` (Línea), `03` (Polígono), `04` (Colección), `05` (Multipunto), `06` (Multilínea), `07` (Multipolígono).
   * *Ejemplos:* `2001` (Punto 2D), `2003` (Polígono 2D), `3001` (Punto 3D).
 
@@ -30,15 +30,14 @@ Definido en el esquema `MDSYS`, encapsula toda la geometría en 5 atributos estr
 
 ## 3. Constructores, Formatos y Métodos
 * **Constructores:** Desde la estructura explícita de 5 atributos hasta constructores simplificados en Oracle 12c (ej. `SDO_GEOMETRY(x, y, srid)`).
-* **Interoperabilidad (Estándares OGC):**
-  * **WKT (*Well-Known Text*):** Representación textual humana (ej. `POINT(724500 4247800)`). Conversión: `SDO_UTIL.TO_WKTGEOMETRY()`.
-  * **WKB (*Well-Known Binary*):** Representación binaria para tráfico de red rápido (`SDO_UTIL.TO_WKBGEOMETRY()`).
-  * **GeoJSON:** Estándar web (`SDO_UTIL.TO_GEOJSON()`).
+* **Interoperabilidad (Estándares OGC). Datos desde QGIS y PostGIS:**
+  * **WKT (*Well-Known Text*):** Representación textual humana (ej. `SDO_GEOMETRY('POINT (724500 4247800)', 25830)`). Conversión: `SDO_UTIL.TO_WKTGEOMETRY()`.
+  * **WKB (*Well-Known Binary*):** Representación binaria para tráfico de red rápido (`SDO_UTIL.TO_WKBGEOMETRY(geometry)`, `SDO_UTIL.FROM_WKBGEOMETRY(wkb)`).
+  * **GeoJSON:** Estándar web (`SDO_UTIL.TO_GEOJSON(geometry)`, `SDO_UTIL.FROM_GEOJSON(geojson)`).
 * **Métodos integrados:** `geometry.GET_GTYPE()`, `geometry.GET_DIMS()` o la validación directa con `geometry.ST_ISVALID()`.
 
 ## 4. Vistas de Metadatos de Geometría
 Para poder crear el índice espacial R-Tree (Tema 12), es **obligatorio** registrar la tabla y la columna espacial en el diccionario de datos:
-
 * **`USER_SDO_GEOM_METADATA`:** Vista crítica de 4 columnas:
   1. `TABLE_NAME`: Nombre de la tabla espacial (ej. `PARCELAS`).
   2. `COLUMN_NAME`: Nombre de la columna (ej. `FORMA`).
@@ -49,6 +48,20 @@ Para poder crear el índice espacial R-Tree (Tema 12), es **obligatorio** regist
   * Estructura: `SDO_DIM_ELEMENT('X', min_x, max_x, tolerancia)`.
   * Define la distancia umbral bajo la cual dos vértices se consideran el mismo punto. En España (metros), suele ser **$0.005$** (5 milímetros). *Un error en la tolerancia (ej. poner 1 metro) deforma la geometría al colapsar vértices cercanos al crear el índice.*
 * **Otras vistas:** `ALL_SDO_GEOM_METADATA` (acceso multi-esquema), `USER_SDO_INDEX_METADATA` (info de los índices R-Tree).
+
+```sql
+INSERT INTO USER_SDO_GEOM_METADATA (TABLE_NAME, COLUMN_NAME, DIMINFO, SRID)
+VALUES (
+    'PARCELAS',
+    'FORMA',
+    SDO_DIM_ARRAY(
+        SDO_DIM_ELEMENT('X', 680000, 780000, 0.005),
+        SDO_DIM_ELEMENT('Y', 4200000, 4350000, 0.005)
+    ),
+    25830
+);
+COMMIT;
+```
 
 ## 5. Validación Topológica
 * **Función clave:** `SDO_GEOM.VALIDATE_GEOMETRY_WITH_CONTEXT(geometria, tolerancia)`. Devuelve `'TRUE'` si la forma es correcta, o un código de error si está corrupta.

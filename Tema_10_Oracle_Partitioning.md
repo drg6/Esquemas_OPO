@@ -34,25 +34,25 @@
   * Anida dos criterios (`PARTITION BY ... SUBPARTITION BY ...`), combinando habitualmente *Range-List*, *Range-Hash* o *Range-Range* (ej. particionar por año y subparticionar por provincia).
 * **4.5. Interval Partitioning (Automático por Intervalos):**
   * Extensión de *Range* que automatiza la administración: Oracle **crea dinámicamente nuevas particiones** cuando entra un registro que supera el límite superior existente.
-  * *Sintaxis:* `PARTITION BY RANGE (fecha) INTERVAL (NUMTOYMINTERVAL(1,'MONTH')) (PARTITION p_ini VALUES LESS THAN (DATE '2025-01-01'));`
+  * *Sintaxis:* Particion cada mes -> `PARTITION BY RANGE (fecha) INTERVAL (NUMTOYMINTERVAL(1,'MONTH')) (PARTITION p_ini VALUES LESS THAN (DATE '2025-01-01'));`
 
 ## 5. Oracle Enterprise Manager (OEM)
 * **5.1. Propósito:** Consola web centralizada para administrar infraestructuras complejas (instancias, RAC, Data Guard, almacenamiento ASM) sin depender exclusivamente de CLI (`SQL*Plus`).
 * **5.2. Ediciones y Arquitecturas:**
-  * **EM Database Express (EM Express):** Consola web ligera integrada de serie en la propia instancia (desde 12c, puerto HTTPS típico `5500`). Sin agentes externos; **solo gestiona una base de datos individual** (sesiones ASH, tablespaces, parámetros).
+  * **EM Database Express (EM Express):** Consola web ligera integrada de serie en la propia instancia (desde 12c, puerto HTTPS típico `5500`). Sin agentes externos; **solo gestiona una base de datos individual** (sesiones ASH (Active Session History), tablespaces, parámetros).
   * **EM Cloud Control (EMCC):** Plataforma corporativa multi-sistema basada en arquitectura de 3 capas:
     1. **OMS (*Oracle Management Server*):** Servidor de aplicaciones central.
     2. **OMA (*Oracle Management Agent*):** Agente desplegado en cada host monitorizado.
     3. **Management Repository:** Base de datos Oracle dedicada que almacena métricas e inventario.
 * **5.3. Módulos y Capacidades Clave de Cloud Control:**
-  * **Targets & Incident Manager:** Inventario global (BDs, listeners, nodos) y gestión de alertas por umbrales con notificación/ticketing.
+  * **Targets & Incident Manager:** Inventario global (BDs, listeners, nodos) y gestión de alertas por umbrales (espacio libre 5%) con notificación(Email, SMS) / ticketing(Jira).
   * **Performance Hub (Diagnóstico):** Integra **AWR** (*Automatic Workload Repository*, histórico de rendimiento), **ASH** (*Active Session History*, actividad en tiempo real) y **ADDM** (motor de diagnóstico automático).
   * **SQL Tuning Advisor & SQL Monitor:** Seguimiento de queries pesadas en vivo y recomendaciones automáticas de índices, perfiles SQL o estadísticas.
   * **Job System, Parches y RMAN:** Planificación visual de backups RMAN, despliegue automatizado de parches de seguridad y aprovisionamiento/clonación de BDs.
-  * **Compliance:** Auditoría continua de seguridad frente a estándares (CIS, STIG y controles aplicables al ENS).
+  * **Compliance:** Auditoría continua de seguridad frente a estándares (Guias CIS, guias STIG y controles aplicables al ENS).
 
 ## 6. Conclusión
-Oracle Partitioning y Enterprise Manager son herramientas indispensables para el escalado sostenible en la Administración Pública. Mientras Partitioning resuelve el cuello de botella físico de las bases de datos masivas (VLDB) mediante *Partition Pruning*, mantenimientos no disruptivos y políticas de ahorro ILM, OEM Cloud Control dota a los equipos de sistemas de observabilidad integral (AWR/ADDM) y automatización centralizada, garantizando el rendimiento y la disponibilidad exigidos por los servicios públicos digitales.
+Oracle Partitioning y Enterprise Manager son herramientas indispensables para el escalado sostenible en la Administración Pública. Mientras Partitioning resuelve el cuello de botella físico de las bases de datos masivas (VLDB) mediante *Partition Pruning*, mantenimientos no disruptivos y políticas de ahorro ILM (punto 3.3), OEM Cloud Control dota a los equipos de sistemas de observabilidad integral (AWR/ADDM) y automatización centralizada, garantizando el rendimiento y la disponibilidad exigidos por los servicios públicos digitales.
 
 -------------------
 

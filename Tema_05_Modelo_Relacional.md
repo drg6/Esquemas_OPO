@@ -1,11 +1,11 @@
-# Tema 5.- El modelo relacional. Normas y estándares para la interoperabilidad entre gestores de bases de datos relacionales.
+# Tema 5.- El # Tema 5.- El modelo relacional. Normas y estándares para la interoperabilidad entre gestores de bases de datos relacionales.
 
 ## 1. Introducción
 * **Origen y vigencia:** Formulado por E. F. Codd (1970) bajo teoría matemática de conjuntos y lógica de predicados de primer orden.
 * **El reto en AAPP:** Heterogeneidad histórica de motores (Oracle, PostgreSQL, SQL Server).
 * **Imperativo legal (Detalle de Oro):** La interoperabilidad y la neutralidad tecnológica son mandatos del **Esquema Nacional de Interoperabilidad (ENI - RD 4/2010)** y el **ENS (RD 311/2022)** para evitar el bloqueo de proveedor (*vendor lock-in*).
 
-## 2. Fundamentos Lógicos y Estructura Formal
+## 2. Modelo Relacional. Fundamentos Lógicos y Estructura Formal
 * **Correspondencias formales:**
   * Relación = Tabla.
   * Tupla = Fila / Registro.
@@ -18,7 +18,7 @@
   * *Clave Primaria (PK):* Candidata elegida para indexar e identificar la relación.
   * *Clave Foránea (FK):* Atributo que referencia la PK de otra relación.
 
-## 3. Manipulación: Álgebra Relacional (Sistema Cerrado)
+## 3. Modelo Relacional. Manipulación: Álgebra Relacional (Sistema Cerrado)
 Tanto las entradas como las salidas de cualquier operación son siempre relaciones.
 * **Operadores Primitivos:**
   * $\sigma$ (*Selección*): Filtra tuplas en horizontal (filas).
@@ -26,15 +26,15 @@ Tanto las entradas como las salidas de cualquier operación son siempre relacion
   * $\cup$ (*Unión*), $-$ (*Diferencia*) y $\times$ (*Producto Cartesiano*).
 * **Operadores Derivados:** $\cap$ (*Intersección*) y $\bowtie$ (*Join Natural* / Combinación).
 
-## 4. Reglas de Integridad y Reglas de Codd
+## 4. Modelo Relacional. Reglas de Integridad y Reglas de Codd
 * **Reglas de Integridad Básicas:**
   * *Entidad:* Ningún componente de la PK puede ser `NULL`.
   * *Referencial:* Toda FK debe coincidir con una PK existente o ser `NULL`.
   * *Dominio:* Tipo de dato, longitud y restricciones `CHECK`.
   * *Usuario:* Triggers y procedimientos para reglas de negocio específicas.
-* **Las 12 Reglas de Codd (1985):** Espíritu formal para evaluar SGBD relacionales puros. Exigen representación única en tablas, acceso exclusivo mediante sublenguaje relacional, tratamiento sistemático de `NULL` e independencia física, lógica y de distribución.
+* **Las 12 Reglas de Codd (1985):** Espíritu formal para evaluar SGBD relacionales puros. Exigen representación única en tablas, acceso exclusivo mediante sublenguaje relacional, tratamiento sistemático de `NULL` e independencia física, lógica y de distribución (repartir datos entre servidores).
 
-## 5. Normalización (Eliminación de Anomalías)
+## 5. Modelo Relacional. Normalización (Eliminación de Anomalías)
 Descomposición sistemática para erradicar redundancias y evitar anomalías de inserción, borrado y actualización:
 * **1FN:** Atributos atómicos; ausencia de grupos repetitivos.
 * **2FN:** 1FN + dependencia funcional completa de la PK (sin dependencias parciales).
@@ -43,8 +43,10 @@ Descomposición sistemática para erradicar redundancias y evitar anomalías de 
 
 ## 6. El Estándar SQL (ANSI / ISO)
 Lenguaje declarativo universal estructurado en cuatro sublenguajes:
-* **DDL** (`CREATE`, `ALTER`, `DROP`) | **DML** (`SELECT`, `INSERT`, `UPDATE`, `DELETE`).
-* **DCL** (`GRANT`, `REVOKE`) | **TCL** (`COMMIT`, `ROLLBACK`, `SAVEPOINT`).
+* **DDL** (`CREATE`, `ALTER`, `DROP`) 
+* **DML** (`SELECT`, `INSERT`, `UPDATE`, `DELETE`).
+* **DCL** (`GRANT`, `REVOKE`) 
+* **TCL** (`COMMIT`, `ROLLBACK`, `SAVEPOINT`).
 * **Dialectos propietarios:** Extensiones procedimentales de fabricantes: **PL/SQL** (Oracle), **T-SQL** (SQL Server), **PL/pgSQL** (PostgreSQL).
 
 ## 7. Estándares y Mecanismos de Interoperabilidad
@@ -52,7 +54,7 @@ Lenguaje declarativo universal estructurado en cuatro sublenguajes:
   * API en C/C++ desacoplada mediante un **ODBC Driver Manager** que traduce las llamadas al driver específico de cada motor.
 * **JDBC (Java Database Connectivity):**
   * API en `java.sql` / `javax.sql` con interfaces estándar (`Connection`, `PreparedStatement`, `ResultSet`).
-  * **Driver Tipo 4 (100% Java puro):** Estándar de facto moderno; convierte llamadas JDBC directamente al protocolo de red nativo del SGBD (sin puentes intermedios ni librerías C cliente).
+  * **Driver Tipo 4 (100% Java puro):** Estándar de facto moderno; habla *directamente por red* con la base de datos usando su protocolo nativo (sin instalar programas externos ni librerías de Windows/Linux).
 * **Otras capas de abstracción:**
   * *ADO.NET:* Interfaz desacoplada en el ecosistema Microsoft (.NET).
   * *ORM (Object-Relational Mapping):* Hibernate, JPA, Entity Framework (mapean objetos a tablas, aislando el dialecto SQL).

@@ -7,12 +7,12 @@
 ## 2. Metodologías Predictivas (Modelo en Cascada)
 Exigen requisitos estables y planificación exhaustiva antes de ejecutar. El coste de cambiar algo en fases avanzadas es altísimo.
 * **El Diagrama de GANTT:**
-  * Herramienta visual cronológica. Cruza un Eje X (Calendario) con un Eje Y (Tareas/WBS).
+  * Herramienta visual cronológica. Cruza un Eje X (Calendario) con un Eje Y (Tareas/EDT).
   * Elementos clave: Barras de duración, dependencias lógicas e **Hitos** (eventos de entrega sin duración).
 * **La Técnica PERT / CPM (Ruta Crítica):**
   * Supera a Gantt en proyectos complejos usando un **Diagrama de Red**.
   * Utiliza estimación probabilística (Tiempo optimista, pesimista y más probable).
-  * **El Camino Crítico (CPM):** Identifica la secuencia de tareas con "holgura cero". Si una tarea de esta ruta se retrasa un día, todo el proyecto del Ayuntamiento se retrasa un día.
+  * **El Método Camino Crítico (CPM):** Identifica la secuencia de tareas con "holgura cero". Si una tarea de esta ruta se retrasa un día, todo el proyecto del Ayuntamiento se retrasa un día.
 
 ## 3. Metodologías Ágiles (Manifiesto de 2001)
 El software se entrega en ciclos cortos (iterativo e incremental) priorizando el software funcional y la respuesta ante el cambio.

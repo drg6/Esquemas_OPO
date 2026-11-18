@@ -17,18 +17,22 @@
 ## 3. Consultas Espaciales
 La ejecución de consultas geoespaciales en Oracle se articula en dos grandes mecanismos complementarios: los operadores (basados en índices) y las funciones (basadas en cálculos matemáticos), sustentados por un modelo topológico estandarizado.
 
-### 3.1. Operadores Espaciales (Spatial Operators)
+### 3.1. El Modelo Topológico DE-9IM
+* Estándar del OGC (*Dimensionally Extended 9-Intersection Model*) que clasifica las relaciones espaciales entre Interior, Frontera y Exterior de dos geometrías.
+* Estados clave: `DISJOINT` (separados), `TOUCH` (tocan bordes), `EQUAL` (idénticos geométricamente), `OVERLAPBDYINTERSECT` (solape parcial), `CONTAINS`/`COVERS` (inclusión).
+
+### 3.2. Operadores Espaciales (Spatial Operators)
 * **Concepto:** Predicados para la cláusula `WHERE` que devuelven `TRUE`/`FALSE`.
-* **Regla de Oro:** **Exigen obligatoriamente la existencia de un índice espacial R-Tree**.
+* **Regla de Oro:** *Exigen obligatoriamente la existencia de un índice espacial R-Tree*.
 * **Ejecución en 2 fases:** Filtro Primario (cálculo rápido de intersección de MBRs usando el R-Tree) y Filtro Secundario (cálculo topológico exacto vértice a vértice sobre los candidatos resultantes).
 * **Operadores Principales:**
-  * **`SDO_ANYINTERACT`:** El más utilizado. `TRUE` si existe cualquier tipo de cruce, toque o solape.
-  * **`SDO_CONTAINS` / `SDO_INSIDE`:** Verifica si $A$ contiene totalmente a $B$ o si $A$ está dentro de $B$.
-  * **`SDO_WITHIN_DISTANCE`:** Filtra entidades a menos de $N$ metros (ej. edificios a menos de 50m de un río).
+  * **`SDO_ANYINTERACT`:** El más utilizado. `TRUE` si existe cualquier tipo de cruce, toque o solape. Ej. Parcelas que intersectan con una zona de inundabilidad
+  * **`SDO_CONTAINS` / `SDO_INSIDE`:** Verifica si $A$ contiene totalmente a $B$ o si $A$ está dentro de $B$. Ej. ¿Qué municipio contiene este punto (coordenada GPS)?
+  * **`SDO_WITHIN_DISTANCE`:** Filtra entidades a menos de $N$ metros (ej. edificios a menos de 50m de un río). Ej. Farolas a menos de 200 metros de un incidente
   * **`SDO_NN` (*Nearest Neighbor*):** Devuelve los $N$ vecinos más cercanos (útil para emergencias: buscar los 3 hospitales más próximos).
-  * **`SDO_RELATE`:** Operador genérico que evalúa relaciones topológicas exactas del modelo DE-9IM pasándole una máscara (`mask=TOUCH`, `mask=OVERLAPBDYINTERSECT`).
+  * **`SDO_RELATE`:** Operador genérico que evalúa relaciones topológicas exactas del modelo DE-9IM pasándole una máscara (`mask=TOUCH`, `mask=OVERLAPBDYINTERSECT`). Ej. Parcelas que comparten borde con la parcela 100 (TOUCH)
 
-### 3.2. Funciones Espaciales (Spatial Functions)
+### 3.3. Funciones Espaciales (Spatial Functions)
 * **Concepto:** Devuelven un valor matemático (metros, $m^2$) o una nueva geometría calculada.
 * **Importante (Rendimiento):** No exigen índice espacial, por lo que su cálculo secuencial es costoso en CPU. En sentencias `SELECT`, deben usarse junto a un **operador espacial en el `WHERE`** para que el R-Tree prefiltre los registros antes de calcular.
 * **Funciones de Medición (`SDO_GEOM`):**
@@ -37,15 +41,17 @@ La ejecución de consultas geoespaciales en Oracle se articula en dos grandes me
   * `SDO_DISTANCE()`: Distancia mínima exacta entre los bordes de dos geometrías.
 * **Funciones de Análisis Geométrico (Devuelven geometrías):**
   * `SDO_BUFFER()`: Crea un polígono de afección ensanchando la entidad una distancia dada.
+    ```sql
+    -- Zona de afección de 500 metros alrededor de una carretera
+    SELECT SDO_GEOM.SDO_BUFFER(c.trazado, 500, 0.005, 'unit=METER') AS zona_afeccion
+    FROM CARRETERAS c
+    WHERE c.nombre = 'AP-7';
+    ```
   * `SDO_INTERSECTION()` / `SDO_UNION()` / `SDO_DIFFERENCE()`: Operaciones booleanas entre polígonos.
 * **Función de Agregación:**
   * `SDO_AGGR_UNION()`: Fusiona múltiples registros geométricos en un único macropolígono (equivalente al `SUM()` clásico).
 
-### 3.3. El Modelo Topológico DE-9IM
-* Estándar del OGC (*Dimensionally Extended 9-Intersection Model*) que clasifica las relaciones espaciales entre Interior, Frontera y Exterior de dos geometrías.
-* Estados clave: `DISJOINT` (separados), `TOUCH` (tocan bordes), `EQUAL` (idénticos geométricamente), `OVERLAPBDYINTERSECT` (solape parcial), `CONTAINS`/`COVERS` (inclusión).
-
-## 6. Conclusión
+## 4. Conclusión
 El motor analítico de Oracle Spatial se basa en la combinación simbiótica de **Operadores** (búsqueda ultrarrápida usando el índice R-Tree) y **Funciones** (cálculo matemático de la geometría resultante). Al anclar estos cálculos al SRID adecuado (ETRS89/UTM30N), el ayuntamiento puede resolver consultas espaciales masivas (afecciones urbanísticas, proximidad de servicios) sin necesidad de extraer los datos a un software GIS externo, manteniendo la integridad transaccional de Oracle.
 
 ----------------------

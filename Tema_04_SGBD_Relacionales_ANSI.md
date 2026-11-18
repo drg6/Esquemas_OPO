@@ -13,7 +13,7 @@
   * **DML** (Manipulación: `SELECT`, `INSERT`, `UPDATE`, `DELETE`).
   * **DCL** (Control: `GRANT`, `REVOKE` de permisos granulares).
   * **Integridad:** Reglas de negocio (PK, FK, UNIQUE, NOT NULL, CHECK).
-  * **Concurrencia:** Control multiversión (**MVCC**) y bloqueos.
+  * **Concurrencia:** Control multiversión (**MVCC**), crea versiones temporales del dato para que unos lean mientras otros escriben sin frenarse, y bloqueos.
   * **Recuperación:** Mecanismos de *Write-Ahead Logging* (WAL) y *Rollback*.
 
 ## 3. El Modelo Relacional y Garantías ACID
@@ -57,6 +57,7 @@ El SGBD traduce las consultas entre niveles mediante correspondencias lógicas a
   * Permite sustituir discos (ej. migrar a SSD/NVMe), reindexar tablas o reorganizar *tablespaces* sin tocar las tablas lógicas ni recompilar las aplicaciones.
 * **Independencia Lógica de Datos (Nivel Externo - Conceptual):**
   * Permite añadir tablas o columnas nuevas en el esquema global sin romper las vistas existentes ni el código de las aplicaciones consumidoras.
+  El Frontend consulta una **Vista** (nivel externo). Si modificas las **tablas reales** por debajo (nivel conceptual), actualizas la vista y el Front ni se entera.
 * **Correspondencias (*Mappings*):**
   * *Externa-Conceptual:* Traduce las vistas a las tablas base.
   * *Conceptual-Interna:* Traduce las tablas lógicas a bloques de disco e índices físicos.
