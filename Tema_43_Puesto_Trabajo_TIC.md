@@ -17,7 +17,7 @@
 - **2.4. Actualización Continua (Lifecycle & Patching):**
   * El puesto no es estático; requiere mantenimiento constante. Uso de **WSUS/Intune** para inyectar parches críticos del Sistema Operativo (cumpliendo los plazos exigidos por el ENS, <30 días) y herramientas como **WinGet** mediante scripts para actualizar software de terceros de forma silenciosa.
 
-  ## 3. Políticas de Seguridad del Entorno (Directrices ENS)
+## 3. Políticas de Seguridad del Entorno (Directrices ENS)
 - **3.1. Identidad y Accesos:** Contraseñas de 12 caracteres, caducidad (90 días), bloqueo (5 intentos) y **MFA obligatorio** para administradores TIC y accesos remotos.
 - **3.2. Cifrado y Control:** **BitLocker** obligatorio en portátiles y pendrives corporativos (riesgo de pérdida o robo). Deshabilitación de *Autorun* y control de periféricos por lista blanca.
 - **3.3. Integración de Seguridad en Active Directory (AD):** El AD centraliza y custodia secretos críticos del puesto:
@@ -44,7 +44,7 @@
     - *Despliegue de aplicaciones y actualizaciones*
 
 ## 5. El Centro de Atención a Usuarios (CAU) y el marco ITIL
-* **5.1. Concepto SPOC:** Punto Único de Contacto entre el usuario y el servicio de TIC. Su función es recibir, registrar, clasificar, resolver o escalar todas las incidencias y peticiones de los usuarios.
+* **5.1. Concepto SPOC:** Punto Único de Contacto entre el usuario y el servicio de TIC. Su función es atender, registrar, clasificar, resolver o escalar todas las incidencias y peticiones de los usuarios.
 * **5.2. Marco ITIL 4 (Estándar de facto para la gestión de servicios TI):**
   * *Gestión de Incidencias:* Restaurar el servicio normal minimizando el impacto.
   * *Gestión de Peticiones:* Solicitudes predefinidas (alta de usuario, cambio de contraseña, instalación de software).
@@ -54,11 +54,16 @@
   * Potenciar el **Nivel 0 (Portal de Autoservicio / FAQ)** para que el usuario resuelva sus problemas (Shift-Left), filtrando el volumen que llega al Nivel 1 (CAU), Nivel 2 (Sistemas/Redes) y Nivel 3 (Fabricante).
 * **5.5. KPIs y Herramientas:** Medir el tiempo medio de respuesta, de resolución y FCR (First Contact Resolution) -> % Nivel 1 sin escalar >70%, usando plataformas como *GLPI* (Open Source, muy común en AAPP), *ServiceNow* o *Jira*.
 
-## 6. Herramientas Digitales, Políticas de Seguridad y Configuración de Sistemas. Soporte y resolución de incidencias.
-- **6.1. Productividad y Colaboración:** Microsoft 365, LibreOffice (ODF/ENI) y Teams.
-- **6.2. Políticas de seguridad y Configuración de sistemas**: Bastionado de las herramientas según guías CCN-STIC (bloqueo de macros, restricción de extensiones) y configuración funcional del entorno operativo (asociaciones de archivos por defecto y ajustes de proxy/firewall).
-- **6.3. Certificados y Firma:** Despliegue y configuración de AutoFirma, certificados (PKCS#11) y lectores DNIe.
-- **6.4. Asistencia Remota (Soporte y Resolución de incidencias):** Herramientas nativas (RDP, Asistencia remota de Windows) o de terceros (AnyDesk/TeamViewer) para aplicar resoluciones rápidas en el primer contacto.
+ ## 6. Herramientas Digitales, Políticas de Seguridad y Configuración de Sistemas. Soporte y resolución de incidencias.
+- **6.1. Herramientas Digitales (Puesto del empleado):**
+  - *Productividad:* **Microsoft 365**, **LibreOffice** (formatos abiertos ODF/ENI), **Teams** y gestores de expedientes.
+  - *Admin. Electrónica:* **AutoFirma**, certificados digitales y lectores DNIe (**PKCS#11**).
+- **6.2. Políticas de Seguridad y Configuración de Aplicaciones:**
+  - *Bastionado (Guías CCN-STIC):* Bloqueo de macros en Office, restricción de extensiones de navegador y **DLP** (*Data Loss Prevention* – prevención de fuga de datos).
+  - *Configuración funcional:* Perfiles/carpetas redirigidas, asociaciones de archivos por defecto (PDF/XML), certificados raíz y proxy.
+- **6.3. Herramientas Técnicas de Soporte y Resolución:**
+  - *Control remoto auditado:* Herramientas nativas (RDP, Asistencia Rápida de Windows) o de terceros (AnyDesk/TeamViewer) para diagnosticar y resolver en el primer contacto (FCR) sin desplazamientos.
+  - *Diagnóstico y remediación:* Visor de eventos, PowerShell remoto, comandos (`gpresult`, `nslookup`) y scripts de autorreparación.
 
 ## 7. Conclusión
 El puesto de trabajo no se gestiona PC a PC, se gobierna. La transición desde el despliegue manual mediante imágenes maestras hacia el *Zero-Touch* con Autopilot e Intune, sumado al blindaje exigido por el ENS (LAPS, BitLocker, MFA) y el soporte estructurado bajo ITIL, garantiza que el Ayuntamiento preste un servicio digital continuo, ágil y, sobre todo, resiliente ante ciberamenazas.

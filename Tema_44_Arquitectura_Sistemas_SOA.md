@@ -26,7 +26,7 @@
 ## 4. Buses de Servicio Empresarial (ESB): principios básicos, características, ventajas y funcionamiento
 - **4.1. Concepto y Principios básicos:** 
   * Soluciona el "Problema Espagueti" (maraña de integraciones punto a punto entre Tributos, Padrón, al conectarse todos con todos). El ESB es el *middleware* central que elimina este caos: todos se conectan al ESB, y él reparte el tráfico.
-  * *Principios:* Desacoplamiento de sistemas, virtualización de servicios y estandarización.
+  * **Principios:** *Desacoplamiento de sistemas* (sin dependendecia entre aplicaciones, si cambias una la otra sigue funcionando porque hablan con el ESB), *virtualización de servicios* y *estandarización*.
 - **4.2. Características (Las herramientas del ESB):**
     * **Enrutamiento:** Dirige el mensaje al servicio correcto.
     * **Transformación:** Traduce formatos (ej. recibe JSON y lo envía al *legacy* en XML).
@@ -52,7 +52,7 @@
   * **Base de datos:** Oracle, PostgreSQL u otra base de datos accesible desde el backend.
     **Ventajas del modelo SPA + API:** Separación clara de responsabilidades, experiencia de usuario fluida, la misma API puede alimentar web, app móvil y otros consumidores, facilita la reutilización de servicios.
 - **5.3. De SOA a Microservicios:**
-  * SOA/ESB tiende a ser monolítico (punto único de fallo). La industria migra a **Microservicios** independientes.
+  * SOA+ESB tiende a ser monolítico (punto único de fallo). La industria migra a **Microservicios** independientes.
   * El ESB se sustituye por un **API Gateway**, que centraliza la seguridad (valida tokens JWT), limita el tráfico y enruta hacia las APIs ligeras.
 
 ## 6. Conclusión

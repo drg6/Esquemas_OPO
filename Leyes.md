@@ -1,3 +1,56 @@
+# Guía Rápida de Leyes (Repaso Flash Diario)
+
+## Reglas de estudio
+- Ignorar día y mes: memorizar solo **Tipo + Número/Año + Sigla/Objeto**.
+- En normativa europea de un solo tema, priorizar **Nombre + Año** (no gastar memoria en números de 4 cifras).
+
+---
+
+## Bloque 1: El "Core" obligatorio (transversales a medio temario)
+Memorizar por parejas lógicas:
+
+- **Ley 39/2015 (LPAC)** — Procedimiento Administrativo Común.
+- **Ley 40/2015 (LRJSP)** — Régimen Jurídico del Sector Público.
+- **RD 203/2021** — Reglamento de actuación y funcionamiento del sector público por medios electrónicos (desarrolla las dos anteriores).
+- **RD 4/2010 (ENI)** — Esquema Nacional de Interoperabilidad.
+- **RD 311/2022 (ENS)** — Esquema Nacional de Seguridad actual (deroga al antiguo **RD 3/2010**, hermano gemelo del ENI).
+- **Regl. (UE) 2016/679 (RGPD)** — Reglamento General de Protección de Datos.
+- **LO 3/2018 (LOPDGDD)** — Protección de Datos Personales y garantía de los derechos digitales.
+- **Regl. (UE) 910/2014 (eIDAS)** — Identificación electrónica y servicios de confianza.
+- **Ley 6/2020** — Reguladora de determinados aspectos de los servicios electrónicos de confianza (complementa a eIDAS en España).
+- **Ley 9/2017 (LCSP)** — Contratos del Sector Público.
+- **RD 1112/2018** — Accesibilidad de sitios web y apps móviles del sector público (transpone la **Dir. UE 2016/2102**).
+
+---
+
+## Bloque 2: Normativa específica (estudiar solo al volcar su tema)
+
+### GIS (Temas 11 y 14)
+*Truco: 2007 agrupa INSPIRE y Geodésico.*
+- **Dir. 2007/2/CE (INSPIRE)** — Infraestructura de información espacial europea (Tema 11).
+- **Ley 14/2010 (LISIGE)** — Infraestructuras y servicios de información geográfica en España (Tema 11).
+- **RD 1071/2007** — Sistema geodésico de referencia oficial en España (Tema 14).
+
+### Derechos e Internet (Temas 25 y 26)
+- **Constitución Española 1978 (Art. 18.4)** — Limitación del uso de la informática para garantizar honor e intimidad (Tema 25).
+- **Ley 25/2007** — Conservación de datos relativos a comunicaciones electrónicas (Tema 25).
+- **Ley 34/2002 (LSSICE)** — Servicios de la sociedad de la información y comercio electrónico (Tema 26).
+
+### Ciberseguridad UE (Tema 27)
+- **Dir. (UE) 2016/1148 (NIS)** — Primera directiva europea de ciberseguridad.
+- **Dir. (UE) 2022/2555 (NIS 2)** — Directiva actual de ciberseguridad (deroga a NIS).
+
+### Europa e Interoperabilidad (Tema 31)
+*Truco: escalera cronológica 2018 -> 2019 -> 2024.*
+- **Regl. (UE) 2018/1724** — Pasarela Digital Única.
+- **Dir. (UE) 2019/1024** — Datos abiertos y reutilización de la información del sector público.
+- **Regl. (UE) 2024/903** — Reglamento sobre la Europa Interoperable.
+
+### Inteligencia Artificial (Tema 50)
+- **Regl. (UE) 2024/1689 (AI Act)** — Reglamento de Inteligencia Artificial.
+
+----------------------------------------------------
+
 # Leyes y otras normas citadas en los esquemas
 
 Relación de normas jurídicas mencionadas en los 50 documentos de `Esquemas`. Las referencias repetidas se han unificado. Se incluyen leyes, reales decretos, reglamentos y directivas porque todos aparecen citados en los temas. Los títulos se han contrastado con el BOE o EUR-Lex. Se excluyen estándares técnicos y normas ISO, que no son leyes.

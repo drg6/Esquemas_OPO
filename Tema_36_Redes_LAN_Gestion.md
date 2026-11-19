@@ -5,19 +5,20 @@
 * **El reto:** Administrar cientos de puestos, switches y APs requiere herramientas de monitorización y control (NAC) para garantizar disponibilidad y cumplir el ENS.
 
 ## 2. Fundamentos de las Redes LAN
-* **2.1. Arquitectura Jerárquica (Estrella extendida):** Es el estándar de diseño actual. Divide la red en tres capas físicas: **Núcleo (Core) → Distribución → Acceso**.
+* **2.1. Arquitectura Jerárquica (Estrella extendida):** Es el estándar de diseño actual. Divide la red en tres capas físicas: **Núcleo (Core)** (backbone alta velocidad) → **Distribución** (enrutamiento y políticas/ACL) → **Acceso** (conexión usuarios finales).
 * **2.2. Ethernet (IEEE 802.3) y Medios:**
   * 1000BASE-T (1 Gbps - Cat5e/6).
   * 10GBASE-T (10 Gbps - Cat6a/7).
   * Enlaces *Backbone* de fibra óptica (25GB/40GB/100GBASE) entre los armarios de planta y el CPD central.
-  * Area de trabajo -> Cableado horizontal -> Armario de telecomunicaciones -> Cableado vertical (backbone) -> Sala de equipos/CPD
+  * Área de trabajo -> Cableado horizontal -> Armario de telecomunicaciones (Capa de Acceso) -> Cableado vertical (backbone edificio) -> Sala de equipos de edificio (Capa de Distribución) -> Cableado troncal (backbone de campus / hacia edificio del CPD) -> CPD Central (Capa de Núcleo / Core)
+
 * **2.3. Wi-Fi (IEEE 802.11):** 
   * Estándares: Wi-Fi 5 (802.11ac), Wi-Fi 6/6E (802.11ax).
   * Seguridad: Implementación obligatoria de **WPA3-Enterprise** (protocolo 802.1X y servidor RADIUS).
 
 ## 3. Gestión y Monitorización de Dispositivos
 * **3.1. SNMP (Simple Network Management Protocol):** 
-  * Opera por UDP (161/162).
+  * Protocolo estándar (UDP 161/162) utilizado para *monitorizar el estado, recoger métricas de rendimiento, recibir alertas de fallos y configurar de forma centralizada* los dispositivos de red.
   * *Componentes:* **NMS** (El servidor gestor), **Agente** (en el switch) y **MIB** (árbol jerárquico de variables con sus OID).
   * *Versiones:* SNMPv2c (texto sin cifrar, mas usado) vs **SNMPv3 (Autenticación y cifrado, obligatorio ENS)**.
 * **3.2. Herramientas NMS (Network Management System):** Zabbix, Nagios (Open Source), PRTG, SolarWinds (Comerciales). Sirven para hacer *polling* (consultas) y recibir *traps* (alertas).

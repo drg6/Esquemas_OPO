@@ -4,22 +4,25 @@
 * **Contexto:** El puesto de trabajo público ha evolucionado del PC fijo aislado a un entorno híbrido (teletrabajo, movilidad).
 * **El reto TIC:** Proporcionar herramientas ágiles al funcionario sin comprometer el cumplimiento del ENS y el RGPD.
 
-## 2. Sistemas de Administración del Entorno de Usuario (Puesto de Trabajo Digital) y conectividad
-* **2.1. Estaciones (Hardware):**
+## 2. Estaciones de trabajo, dispositivos personales y conectividad
+* **2.1. Estaciones de trabajo (Hardware):**
   * *Desktop:* Puestos fijos (Atención al ciudadano). Mayor rendimiento y durabilidad
   * *Laptop:* Movilidad. Teletrabajo (VPN). Exige cifrado de disco (BitLocker).
   * *Thin Client:* Dispositivo que no ejecuta aplicaciones localmente conectado a VDI. Máxima seguridad y bajo consumo.
-* **2.2. Dispositivos Móviles:** Smartphones (correo/apps) y Tablets (inspecciones a pie de calle).
+* **2.2. Dispositivos Móviles y Personales:** Smartphones (correo/apps) y Tablets (inspecciones a pie de calle).
 * **2.3. Conectividad:** LAN (Gigabit), WLAN (WPA3-Enterprise con 802.1X), VPN (acceso remoto) y Redes móviles 4G/5G (SIM corporativa o APN privada).
 
-## 3. Sistemas de Administración del Entorno de Usuario
-* **3.1. Active Directory (AD On-Premise):**
-  * **Usuarios:** Identidades de los empleados (UPN) para autenticarse en la red.
+## 3. Sistemas de Administración del entorno de Usuario y estaciones de trabajo
+* **3.1. Gestión del Entorno de Usuario (Perfiles y Sesión):**
+  * **Concepto:** Conjunto de configuraciones, credenciales, datos personales (Registro de usuario `HKCU`, Escritorio, Documentos), unidades mapeadas e impresoras que acompañan al usuario al iniciar sesión, con independencia de la estación física.
+  * **Gestión de perfiles:** Perfiles locales, perfiles móviles (*Roaming Profiles*), redirección de carpetas (*Folder Redirection*) y contenedores virtuales (**FSLogix** en entornos VDI) para persistir la sesión sin penalizar el tiempo de inicio.
+* **3.2. Active Directory (AD On-Premise):**
+  * **Usuarios:** Identidades de los empleados (UPN / User Principal Name) para autenticarse en la red.
   * **Equipos:** Máquinas del dominio. Tienen cuenta propia para recibir políticas incluso sin iniciar sesión.
   * **Grupos:** Base de la seguridad. Los permisos de acceso (carpetas, impresoras) se asignan siempre a grupos, nunca por usuario individual.
   * **OUs (Unidades Organizativas):** Contenedores lógicos diseñados para agrupar usuarios y/o equipos. Permiten delegar permisos a técnicos y aplicar GPOs.
   * **GPO (Group Policy Objects):** Las políticas de seguridad controlan la configuración de los equipos y las restricciones de los usuarios (políticas de contraseñas, seguridad (bitlocker, USB), mapeo de unidades de red, configuracion de pantalla y restricciones de sofware).
-* **3.2. Microsoft Entra ID (El salto al Cloud):**
+* **3.3. Microsoft Entra ID (El salto al Cloud):**
   * Extensión de AD que permite la gestión de identidades en la nube.
   * Proporciona **SSO (Single Sign-On)** y **MFA (Doble factor)**, obligatorio por el ENS para accesos externos.
 
@@ -33,12 +36,12 @@
   * **Ansible:** Automatización de configuraciones y apps. Open Source.
   * **WinGet (Windows Package Manager):** Herramienta de línea de comandos nativa de Microsoft, que permite automatizar la instalación y el parcheado ágil de aplicaciones de terceros.
 * **4.3. Proceso de Parcheado (El Ciclo):**
-  1. *Evaluación:* Priorización de parches críticos de seguridad (CVE) guiada por las alertas del **CCN-CERT**.
+  1. *Evaluación:* Priorización de parches críticos de seguridad (CVE / Common Vulnerabilities and Exposures) guiada por las alertas del **CCN-CERT**.
   2. *Piloto:* Pruebas en grupo reducido.
   3. *Aprobación & Despliegue:* Instalación masiva en tiers.
   4. *Verificación:* Monitorizar incidencias.
 
-## 5. Gestión de dispositivos externos BYOD (Bring Your Own Device) y movilidad
+## 5. Gestión de dispositivos externos BYOD (Bring Your Own Device) 
 * **5.1. Concepto y Riesgos:** Usar el móvil personal del empleado para trabajar. Riesgo altísimo de fuga de datos (Padrón/Tributos) o malware.
 * **5.2. La Solución (MDM - Mobile Device Management):**
   * Gestiona de forma remota los dispositivos móviles. *Microsoft Intune* o *VMware Workspace ONE*.
@@ -47,7 +50,7 @@
   * **Remote Wipe (Borrado selectivo):** Si roban el móvil, el TIC borra el contenedor corporativo sin tocar lo personal.
 * **5.3. Modelos de Movilidad:**
   * **BYOD:** Dispositivo personal (Control parcial).
-  * **COPE (Corporate-Owned, Personally Enabled):** Dispositivo corporativo pero con uso personal (Control total).
+  * **COPE (Corporate-Owned, Personally Enabled):** Dispositivo corporativo pero con uso personal (Control total con MDM).
   * **COBO (Corporate-Owned, Business Only):** 100% corporativo (Solo uso laboral).
 * **5.4. BYOD en el Teletrabajo (VDI):** 
   * La mejor forma de hacer BYOD seguro desde el PC personal de casa es mediante **Escritorios Virtuales (VDI)**. Los datos del ciudadano se procesan en el CPD municipal y nunca viajan al disco duro doméstico del empleado.

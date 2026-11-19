@@ -14,11 +14,11 @@
   * *Ventajas:* Coste lineal, tolerancia a fallos.
   * *Inconveniente:* Complejidad (requiere que la aplicación soporte distribución).
 * **2.3. Clústeres y Balanceo:** 
-  * Conjunto de servidores (Nodos) interconectados que trabajan de forma coordinada y actuan como un único ordenador de gran capacidad. 
+  * *Clúster:* Conjunto de servidores (Nodos) interconectados que trabajan de forma coordinada y actuan como un único ordenador de gran capacidad. 
   * Tipos: 
     - *Alta Disponibilidad* (HA - Ej. Oracle RAC): Garantizar continuidad del servicio
     - *Balanceo de Carga* (HAProxy/F5): Distribuir peticiones entre servidores, con algoritmos de balanceo Round Robin o Least Connections
-    - *Computación HPC* (Apache Spark, Hadoop): Procesamiento paralelo masivo.
+    - *Computación HPC* (Apache Spark, Arquitectura Hadoop): Procesamiento paralelo masivo.
 
 ## 3. Arquitecturas Multinúcleo (Multi-Core)
 * **3.1. Evolución:** Al topar con el límite térmico (frecuencia estancada en ~4 GHz), la industria opta por el paralelismo: meter muchos cerebros (cores) en un solo chip.
@@ -42,11 +42,11 @@ La instalación física que alberga la infraestructura.
   - **Infraestructura Física:** Racks estándar de 19" (42U), falso suelo y canalizaciones de cableado separadas (datos vs. energía).
   - **Control de Accesos:** Lectores biométricos/tarjetas, videovigilancia y registro estricto de entradas.
   - **Suministro Eléctrico:** Acometida dual, SAI/UPS (para microcortes) y grupo electrógeno diésel (para cortes prolongados).
-  - **Climatización:** Separación física de pasillo frío/caliente y aire de precisión CRAC (18-27ºC, estándar ASHRAE).
+  - **Climatización:** Separación física de pasillo frío/caliente y aire de precisión CRAC (Computer Room Air Conditioner) 18-27ºC, estándar ASHRAE.
   - **Protección contra Incendios:** Detección temprana VESDA y extinción mediante gas limpio (Novec 1230 o FM-200) para no dañar los equipos.
 * **6.2. Clasificación Uptime Institute (TIER):**
   * TIER I (Básico, 99.6%) → TIER II → TIER III (Mantenimiento sin parada) → **TIER IV (Tolerante a Fallos, 99.995%)**.
-* **6.3. Recuperación de Desastres (DRP) - Incendio, inundación, terremoto:** 
+* **6.3. Plan de Recuperación ante Desastres (DRP) - Incendio, inundación, terremoto:** 
   * Necesidad de centro de respaldo: *Cold Site* (días/sin servidores), *Warm Site* (horas/servidores sin sincronizar), *Hot Site* (minutos/sincronizado).
   * *Tendencia AAPP:* Migrar el sitio de respaldo a una **Nube Pública certificada en el nivel Alto del ENS** para garantizar la soberanía del dato y ahorrar costes inmobiliarios.
 

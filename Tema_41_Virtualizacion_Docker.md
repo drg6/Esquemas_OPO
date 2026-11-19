@@ -9,19 +9,19 @@
   * **Tipo 1 (Bare Metal):** Directo al hardware (ESXi, Hyper-V, KVM / Proxmox).
   * **Tipo 2 (Hosted):** Sobre un SO (VirtualBox / VMware Workstation). Solo para desarrollo.
 * **2.2. Ventajas:** Consolidación (Ratio 10:1), aislamiento, *Snapshots*, Aprovisionamiento rápido mediante plantillas y **Portabilidad** (*vMotion* / *Live Migration* para mover VMs sin corte de servicio).
-* **2.3. Gestión Centralizada y Actualidad AAPP:**
-  * vCenter (VMware) y System Center (Hyper-V). Gestión de hosts. Balanceo de carga (DRS), alta disponibilidad (HA), migración en caliente (vMotion)
+* **2.3. Gestión Centralizada:**
+  * *vCenter* (VMware) y *System Center* (Hyper-V). Gestión de hosts. Balanceo de carga (DRS / Distributed Resource Scheduler), alta disponibilidad (HA), migración en caliente (vMotion)
   * ⚠️ *Detalle Táctico:* Ante el drástico aumento de costes tras la compra de VMware por Broadcom, soluciones basadas en KVM (como **Proxmox VE**) están liderando la migración en la Administración Local.
 
 ## 3. VDI (Infraestructura de Escritorio Virtual)
 * **3.1. Arquitectura:** El escritorio Windows no corre en el PC, sino en el CPD.
-  `Thin Client → Protocolo (RDP, PCoIP) → Connection Broker (VMware Horizon, Microsoft AVD) → VM en Hipervisor (CPD)`
+  `Thin Client → Protocolo (RDP, PCoIP) → Connection Broker (VMware Horizon, Microsoft AVD) → Máquina Virtual en Hipervisor (CPD)`
 * **3.2. Ventajas AAPP (El factor Zero Trust / ENS):**
   * Seguridad -> La información (Tributos, Padrón) nunca viaja al equipo físico. 
   * Zero Trust -> Si un teletrabajador infecta su PC doméstico con ransomware, no afecta a la red porque solo recibe píxeles de pantalla. 
   * Teletrabajo -> Escritorio corporativo desde cualquier lugar.
   * Sustitución de hardware averiado en minutos (el Thin Client no almacena información).
-* **3.3. Inconvenientes:** Alta dependencia de red (latencia), coste de licencias (VmWare Horizon) y aplicaciones gráficos intensivos (CAD, GIS).
+* **3.3. Inconvenientes:** Alta dependencia de red (latencia), coste de licencias (VmWare Horizon) y limitaciones en aplicaciones gráficos intensivos (CAD, GIS).
 
 ## 4. Virtualización de Contenedores (Docker)
 * **4.1. Concepto:** Empaqueta una app y sus dependencias en un contenedor compartiendo el *kernel* del host. No arranca un SO completo por instancia.

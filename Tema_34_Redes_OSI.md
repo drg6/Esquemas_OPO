@@ -1,16 +1,15 @@
 # Tema 34.- Redes. El modelo de referencia de interconexión de sistemas abiertos (OSI) de ISO: Arquitectura, capas, interfaces, protocolos, direccionamiento y encaminamiento.
 
 ## 1. Introducción
-* **Contexto:** En los años 80, cada fabricante usaba protocolos propietarios e incompatibles (SNA, AppleTalk).
+* **Contexto:** En los años 80, cada fabricante usaba protocolos propietarios e incompatibles (SNA de IBM, AppleTalk).
 * **Solución:** La ISO crea el **Modelo OSI** en 1984. Un marco teórico universal para estandarizar la comunicación.
 * *Nota:* TCP/IP es el estándar real (de facto), pero OSI es el mapa conceptual para el diseño y diagnóstico (ej. "Tengo un problema de Capa 3").
 
 ## 2. Arquitectura del Modelo e Interfaces
 - **Capas (Layers):** 7 niveles funcionales.
-- **Interfaces y Servicios:** Límites entre capas adyacentes. Permiten que una capa ofrezca servicios a la superior ocultando su implementación técnica.
-- **Encapsulamiento:** Descenso añadiendo cabeceras (creando **PDUs**).
-- **Desencapsulamiento:** Ascenso retirando cabeceras.
+- **Encapsulamiento:** Descenso añadiendo cabeceras (creando **PDUs**). **Desencapsulamiento:** Ascenso retirando cabeceras.
 - **Independencia:** Cambiar el cable de red (Capa 1) no afecta al software de correo (Capa 7).
+- **Interfaces:** Límite entre capas adyacentes. **Servicios:** Función que una capa realiza para entregársela a la capa superior a través de la interfaz, ocultando su implementación técnica.
 
 ## 3. Las Siete Capas del Modelo OSI y sus Protocolos
 1. **Física (Capa 1):**
@@ -20,19 +19,19 @@
    * Comunicación fiable local (LAN). Direcciones **MAC** (48 bits). PDU: Trama (*Frame*). Dispositivos: Switches. Subcapas: LLC (Logical Link Control) y MAC (Media Access Control).
    * **Detalle AAPP:** Uso intensivo del estándar **IEEE 802.1Q (VLANs)** para segmentar la red (ej. Policía Local aislada del resto) como exige el **ENS**.
 3. **Red (Capa 3):**
-   * Encaminamiento (*Routing*) entre distintas redes. Direcciones **IP** lógicas (IPv4 32bits, IPv6 128bits). PDU: Paquete. Dispositivos: Routers. *Protocolos:* IP, ICMP, ARP
+   * Encaminamiento (*Routing*) entre distintas redes. Direcciones **IP** lógicas (IPv4 32bits, IPv6 128bits). PDU: Paquete. Dispositivos: Routers. *Protocolos:* IP, ICMP, ARP (revolver de MAC a IP)
 4. **Transporte (Capa 4):**
    * Comunicación extremo a extremo (Puertos 0-65535). PDU: Segmento (TCP) o Datagrama (UDP). 
-   * **TCP:** Orientado a conexión, fiable (HTTP, SSH).
-   * **UDP:** Sin conexión, rápido, no fiable (DNS, streaming, VoIP).
-5. **Sesión (Capa 5):** * Mantiene el diálogo (sincronización) entre aplicaciones. *Protocolos:* NetBIOS, RPC, PPTP (fase de control)
+   * **TCP (Transmission Control Protocol):** Orientado a conexión, fiable (HTTP, SSH).
+   * **UDP (User Datagram Protocol)** Sin conexión, rápido, no fiable (DNS, streaming, VoIP).
+5. **Sesión (Capa 5):** Mantiene el diálogo (sincronización) entre aplicaciones. *Protocolos:* NetBIOS, RPC, PPTP (fase de control)
 6. **Presentación (Capa 6):**
    * Traducción, compresión y **cifrado** de los datos (*protocolos* SSL/TLS para HTTPS).
 7. **Aplicación (Capa 7):**
    * Interfaz con el usuario. *Protocolos:* HTTP (80), HTTPS (443), SMTP (25), DNS (53), LDAP (389).
 
 ## 4. Direccionamiento (Capa 3)
-* **IPv4:** 32 bits (4 octetos). Parte de Red + Parte de Host (separado por la máscara / CIDR).
+* **IPv4:** 32 bits (4 octetos). Parte de Red + Parte de Host (separado por la máscara / CIDR (Abreviar: /16 es 255.255.0.0).
   * *Direcciones Privadas (RFC 1918):* `10.x.x.x`, `172.16.x.x`, `192.168.x.x`. Usadas en intranets municipales y la **Red SARA** (requieren NAT para salir a Internet).
 * **IPv6:** 128 bits (8 bloques hex). Soluciona el agotamiento de IPv4. Autoconfiguración y elimina la necesidad de NAT.
 
@@ -40,9 +39,9 @@
 * **Concepto:** Proceso del router para enviar paquetes por la ruta óptima mediante su **Tabla de Enrutamiento**. La tabla se puede construir:
    * **Estáticamente:** Rutas configuradas manualmente por el administrador. Adecuado para redes pequeñas.
    * **Dinámicamente:** Rutas aprendidas automáticamente mediante protocolos de enrutamiento.
-* **Protocolos IGP (Interiores):** **OSPF** (Estado de enlace/Algoritmo Dijkstra).
-* **Protocolos EGP (Exteriores):** **BGP** (Para interconectar Internet).
-* **Tendencia actual (El toque pro):** Adopción de **SD-WAN** en AAPP descentralizadas para gestionar el *routing* entre múltiples sedes de forma centralizada por software, optimizando costes y mejorando la seguridad.
+* **Protocolos IGP (Interior Gateway Protocol,):** *OSPF - Open Shortest Path First* (Estado de enlace/Algoritmo Dijkstra).
+* **Protocolos EGP (Exterior Gateway Protocol,):** *BGP - Border Gateway Protocol* (Para interconectar Internet).
+* **Tendencia actual (El toque pro):** Adopción de **SD-WAN** en AAPP descentralizadas para gestionar el *routing* entre múltiples sedes de forma centralizada por software, optimizando costes y mejorando la seguridad. Sin usar servicios de red privados MPLS.
 
 ## 6. OSI vs. TCP/IP
 * El Modelo TCP/IP comprime las 7 capas en 4 prácticas: 

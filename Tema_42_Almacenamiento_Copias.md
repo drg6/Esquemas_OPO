@@ -24,7 +24,7 @@
 Abstrae el almacenamiento físico (discos y cabinas) en un pool lógico unificado, se gestionan volumenes sin saber en que disco fisico residen.
 - **3.1. RAID (Redundancia Física):** Agrupación de discos físicos en una unidad lógica.
   * **RAID 0 (Striping / Reparto):** Reparte los archivos entre los discos. Máxima velocidad, pero 0 redundancia (si cae uno, se pierde todo). Mínimo 2 discos.
-  * **RAID 1 (Mirror / Espejo):** Clon exacto y simultáneo. Tolerancia a la pérdida de 1 disco. Mínimo 2 discos.
+  * **RAID 1 (Mirror / Espejo):** Clon exacto y simultáneo. Máxima seguridad, tolerancia a la pérdida de 1 disco. Mínimo 2 discos.
   * **RAID 5 (Paridad distribuida):** Reparte archivos entre discos y guarda cálculo matemático. Si muere 1 disco, lo reconstruye "adivinando" los datos. Mínimo 3 discos. Habitual en cabinas de almacenamiento.
   * **RAID 10 (Espejos + Reparto):** Combina RAID 1 y RAID 0. Máxima velocidad y máxima seguridad (ideal para Bases de Datos como Oracle). Mínimo 4 discos.
 * **3.2. Software-Defined Storage (SDS):** VMware vSAN o Ceph (open source). El software une por red los discos locales de decenas de servidores distintos para crear una única "súper cabina" virtual.
@@ -46,7 +46,8 @@ ENS exige *políticas de copias de seguridad* que garanticen la recuperación de
   * Las BBDD exigen copias consistentes sin paradas. Herramientas nativas como **RMAN (Oracle)** o **pg_basebackup (PostgreSQL)**.
 * **4.4. Tecnologías de Ahorro y Agilidad:**
   * **Deduplicación:** Elimina bloques repetidos (en origen o en destino) usando Hash SHA-256. Ahorra hasta un 90% de espacio.
-  * **Snapshots y CDP:** Foto instantánea de la VM (*Snapshot*) y protección de datos en tiempo real (*CDP (Continuous Data Protection)* para RPO=0). Ideal para actualizar y dar marcha atrás al instante. (*Nota: Un snapshot NO sustituye a un backup off-site*).
+  * **Snapshots:** Foto instantánea de la VM (*Snapshot*). Ideal para actualizar y dar marcha atrás al instante (*Nota: Un snapshot NO sustituye a un backup off-site*)
+  * **CDP (Continuous Data Protection):** Protección de datos en tiempo real para RPO=0. Guarda cada cambio en los datos en tiempo real en lugar de hacer copias periódicas.
 
 ## 5. DRP (Disaster Recovery Plan) y Métricas Vitales
 * El Plan de Continuidad de Negocio municipal exige medir:

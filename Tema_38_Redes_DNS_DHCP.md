@@ -9,17 +9,23 @@ Función principal es la **resolución de nombres**: traducir un nombre de domin
 * **2.1. Arquitectura Jerárquica:** Árbol invertido: Los 13 servidores Raíz (.) → Top-Level Domains TLD (geograficos .es, genéricos .com) → Dominios de segundo nivel (alicante.es) → Subdominios (sede).
 * **2.2. Tipos de Registros DNS:**
   * **A / AAAA:** Nombre → IPv4 / IPv6.
+    * *Ej:* `sede.ayuntamiento.es` → `195.55.120.10` (Registro **A**) / `2001:db8::10` (Registro **AAAA**).
   * **CNAME:** Alias (un nombre apunta a otro nombre).
-  * **MX:** Servidor de correo.
-  * **PTR:** Resolución inversa (IP → Nombre).
-  * **TXT:** Texto plano (vital para seguridad de correo: SPF, DKIM, DMARC).
-  * **SRV:** Localizador de servicios (ej. indispensable para que los PCs encuentren el Active Directory).
-* **2.3. Proceso de Resolución:** Caché Local → DNS Recursivo interno → DNS Raíz → TLD → DNS Autoritativo.
+    * *Ej:* `www.ayuntamiento.es` → `sede.ayuntamiento.es` *(nunca apunta directamente a una IP)*.
+  * **MX:** Servidor de correo (incluye un número de prioridad; menor número = mayor prioridad).
+    * *Ej:* `ayuntamiento.es` → `10 mail1.ayuntamiento.es` / `20 mail2.ayuntamiento.es`.
+  * **PTR:** Resolución inversa (IP → Nombre, usado en zonas `in-addr.arpa`).
+    * *Ej:* `10.120.55.195.in-addr.arpa` → `sede.ayuntamiento.es` *(vital para validar servidores de correo y evitar spam)*.
+  * **TXT:** Texto plano (vital para seguridad de correo: SPF, DKIM, DMARC y verificación de dominios).
+    * *Ej:* `ayuntamiento.es` → `"v=spf1 ip4:195.55.120.15 -all"` *(autoriza qué IPs pueden enviar correo en nombre del dominio)*.
+  * **SRV:** Localizador de servicios (indica protocolo, puerto y servidor; indispensable para Active Directory).
+    * *Ej:* `_ldap._tcp.dc._msdcs.ayuntamiento.local` → `0 100 389 dc01.ayuntamiento.local` *(localiza el Controlador de Dominio en el puerto 389)*.
+* **2.3. Proceso de Resolución:** Caché Local (PC) → DNS Recursivo interno (Red local) → DNS Raíz → TLD → DNS Autoritativo (dueño del dominio).
 * **2.4. DNS Corporativo (Detalle Táctico AAPP):**
   * **Split DNS (Horizontes divididos):** El DNS interno resuelve `sede.alicante.es` con la IP privada de la DMZ (optimizando tráfico interno), mientras el DNS externo da la IP pública a los ciudadanos.
   * Integración nativa con **Active Directory** (zonas replicadas entre controladores de dominio).
 * **2.5. Seguridad DNS (ENS):**
-  * **DNSSEC:** Firma criptográfica para evitar *Cache Poisoning*.
+  * **DNSSEC:** Firma criptográfica para evitar *Cache Poisoning* (inyección de IPs falsas).
   * **DNS Sinkholing:** El DNS corporativo se usa como filtro de ciberseguridad (ej. herramientas del **CCN-CERT**) para bloquear resoluciones a dominios de malware/ransomware.
 
 ## 3. Servicio DHCP (Dynamic Host Configuration Protocol)

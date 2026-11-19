@@ -8,7 +8,7 @@
 ## 2. Servicios de Seguridad Aportados
 * **Confidencialidad:** Cifrado (AES-256). Solo los extremos pueden leer el dato.
 * **Integridad:** Hashes (SHA-256/HMAC) detectan si el paquete fue alterado.
-* **Autenticación:** Certificados (X.509) o PSK validan quién está al otro lado.
+* **Autenticación:** Certificados (X.509) o PSK (Pre-shared Key, clave compartida) validan quién está al otro lado.
 * **Anti-replay:** Protege contra la retransmisión de paquetes interceptados.
 
 ## 3. Tipologías de VPN (La Arquitectura)
@@ -26,8 +26,8 @@
   * *Fases:* IKE (Negociación/Claves) → ESP/AH (Cifrado e integridad de datos).
   * Seguro y transparente, pero complejo si hay NAT (requiere NAT-T).
 * **4.2. SSL/TLS (Capas 4 a 6 - Estándar Teletrabajo):**
-  * *Clientless* (vía web HTTPS) o *Full-Tunnel* (con Agente).
-  * Amigable con firewalls de terceros (usa el puerto 443). Ej: GlobalProtect, Cisco AnyConnect, OpenVPN.
+  * *Clientless* (vía web HTTPS) o *Client-based* (con Agente).
+  * No sufre bloqueos en firewalls de terceros al poder operar por el puerto **TCP 443 (TLS/HTTPS)**. Ej: GlobalProtect, Cisco AnyConnect, OpenVPN *(solo con agente)*.
 * **4.3. WireGuard:** Protocolo de Capa 3 moderno, ligero (integrado en el kernel Linux), altísimo rendimiento (usa Curve25519/ChaCha20).
 * **4.4. Obsoletos:** **PPTP** (Cifrado roto, prohibido explícitamente en el ENS).
 
@@ -41,7 +41,7 @@
 * **El futuro (ZTNA - Zero Trust Network Access):** Ante los riesgos de la VPN tradicional (que da acceso a toda la subred), las AAPP están migrando a ZTNA. Principio de menor privilegio: el teletrabajador no se conecta a la "red", sino a una pasarela que solo le da acceso a "la aplicación" específica que necesita.
 
 ## 7. Conclusión
-Las VPN son la infraestructura habilitadora del teletrabajo y la descentralización municipal. Ya sea mediante túneles IPSec para interconectar oficinas (Site-to-Site) o portales TLS para funcionarios, la VPN debe aplicarse bajo la política estricta del ENS: cifrado fuerte (AES), túnel completo (Full-Tunnel) y, obligatoriamente, doble factor de autenticación (MFA) evolucionando hacia arquitecturas Zero Trust.
+Las VPN son la infraestructura habilitadora del teletrabajo y la descentralización municipal. Ya sea mediante túneles IPSec para interconectar oficinas (Site-to-Site) o portales TLS para funcionarios, la VPN debe aplicarse bajo la política estricta del ENS: cifrado fuerte (AES), túnel completo (Full Tunneling) y, obligatoriamente, doble factor de autenticación (MFA) evolucionando hacia arquitecturas Zero Trust.
 
 -----------------------------
 
