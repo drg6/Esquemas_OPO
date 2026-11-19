@@ -9,12 +9,13 @@
   * **Reglamento eIDAS (910/2014):** Identificación y servicios de confianza. Equipara la firma electrónica cualificada a la manuscrita.
   * **Directiva de Accesibilidad (2016/2102):** Obliga a estandarizar la accesibilidad en webs y apps móviles del sector público.
 - **2.2. Normativa Nacional (Sociedad de la Información):**
-  * **LSSICE (Ley 34/2002):** Ley fundacional. Regula contratos electrónicos, responsabilidad de ISPs y política de cookies.
-  * **Ley 6/2020:** Regula los servicios electrónicos de confianza (FNMT, ACCV) complementando al eIDAS.
+  * **Ley de Servicios de la Sociedad de la Información y de Comercio Electrónico / LSSICE (34/2002):** Ley fundacional. Regula contratos electrónicos, responsabilidad de ISPs y política de cookies.
+  * **Ley de Servicios Electrónicos de Confianza / LSEC (6/2020) :** Regula los servicios electrónicos de confianza (FNMT, ACCV) complementando al eIDAS.
 - **2.3. El Núcleo de la e-Administración (Leyes de 2015):**
   * **Ley 39/2015 (PAC - "Hacia Afuera"):** Define Sujetos Obligados, consagra el Expediente Electrónico, Registro 24x7x365 y Notificaciones obligatorias (DEHú).
   * **Ley 40/2015 (LRJSP - "Hacia Adentro"):** Regula la Sede Electrónica, el principio **"Once Only"** (Solo una vez) y la Actuación Administrativa Automatizada (Sello/CSV).
-  * **RD 203/2021:** Reglamento de desarrollo (PAGe y Carpeta Ciudadana).
+  * **RD Reglamento de Administración Electrónica (203/2021):** PAGe(Punto de Acceso General electrónico) y Carpeta Ciudadana.
+  * **RD 1112/2018 (Accesibilidad del Sector Público)**: Traspone la Directiva 2016/2102. Obliga a que webs y apps móviles de las AAPP (WCAG 2.1 AA), publiquen declaración de accesibilidad y tengan buzón de quejas.
 - **2.4. Los Esquemas Nacionales:**
   * **ENI (RD 4/2010):** Interoperabilidad (organizativa, semántica, técnica).
   * **ENS (RD 311/2022):** Seguridad (Confidencialidad, Integridad, Trazabilidad, Autenticidad, Disponibilidad).
@@ -26,14 +27,14 @@
   * Generación de firmas longevas (XAdES/PAdES + TimeStamping).
 - **3.2. Interoperabilidad (Principio "Once Only"):** 
   * Integración del registro municipal con **SIR** mediante norma **SICRES 4.0**.
-  * Consumo de web services de la **PID / SCSP** (Plataforma de Intermediación de Datos) para evitar pedir papeles al ciudadano.
+  * Consumo de web services de la **PID (Plataforma de Intermediación de Datos) / SCSP** para evitar pedir papeles al ciudadano.
 - **3.3. Notificaciones Electrónicas:** 
   * Integración vía API con **Notifica** y **DEHú**.
   * Lógica de negocio automática: registro de rechazo tras **10 días naturales** sin acceso.
 - **3.4. Archivo Electrónico Único:** Uso de herramientas (ej. *Archive*), inyección de metadatos ENI y resellado criptográfico para expedientes cerrados (evita obsolescencia).
 - **3.5. Accesibilidad Universal (RD 1112/2018):** 
   * Front-end adaptado al estándar **WCAG 2.1 Nivel AA**.
-  * Sometimiento a auditorías automatizadas del OAW (Informes IRA).
+  * Sometimiento a auditorías automatizadas del OAW (Observatorio de Accesibilidad Web), AAPP deben remitir Informes IRA ( Informe de Revisión de Accesibilidad).
 
 ## 4. Conclusión
 El marco normativo (Leyes 39/40, ENI, ENS, eIDAS) ha enterrado la "ventanilla física" y el papel. La adaptación de la arquitectura TIC municipal (integración con Red SARA, interoperabilidad, accesibilidad estricta y seguridad) trasciende el reto técnico para convertirse en el cumplimiento inexcusable de la Ley.

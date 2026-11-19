@@ -2,44 +2,54 @@
 
 ## 1. Introducción
 * **Contexto:** El ciberespacio es un dominio crítico. Un Ayuntamiento no puede ser un "silo aislado". 
-* **Tríada:** ENS (Marco Normativo) + Guías CCN-STIC (Implementación técnica) + Estrategia Nacional (Coordinación y Gobernanza).
+El **ENS** establece el marco normativo unificado y obligatorio para la protección de los sistemas de información del sector público. Las **Guías CCN-STIC** desarrollan técnicamente sus requisitos. Y la **Estrategia de Ciberseguridad Nacional** coordina los esfuerzos de todas las entidades públicas y privadas implicadas en la defensa del ciberespacio español.
 
 ## 2. El Esquema Nacional de Seguridad (ENS)
-* **2.1. Regulación:** RD 311/2022 (Alineado con directivas europeas NIS2). 
-* **2.2. Ámbito:** Sector público (AGE, CCAA, EELL) y proveedores privados conectados.
-* **2.3. Principios:** Proceso integral, Gestión basada en riesgos (MAGERIT), Defensa en profundidad, Vigilancia continua y Segregación de roles.
+* **2.1. Regulación:** RD 311/2022 (Alineado con directivas europeas NIS y NIS2). 
+* **2.2. Ámbito:** Sector público (AGE, CCAA, EELL) y sistemas de proveedores privados que presten servicios a las AAPP.
+* **2.3. Principios (12 en total):** 
+  - Proceso integral
+  - Gestión basada en riesgos (MAGERIT)
+  - Defensa en profundidad (multiples capas)
+  - Vigilancia continua
+  - Segregación de roles.
 * **2.4. Dimensiones (D-I-C-A-T):** Disponibilidad, Integridad, Confidencialidad, Autenticidad y Trazabilidad.
 * **2.5. Categorización y Certificación:** (Hereda la dimensión de mayor nivel).
   * **Básica:** Impacto limitado -> Autoevaluación (Herramienta INÉS).
-  * **Media / Alta:** Impacto grave/muy grave -> Auditoría externa ENAC cada 2 años.
-  * *Registro:* Inscripción obligatoria en el Registro del CCN.
-* **2.6. Medidas de Seguridad (73 controles):** Divididas en Marcos: Organizativo [org], Operacional [op] y Protección [mp].
+  * **Media / Alta:** Impacto grave/muy grave -> Auditoría externa ENAC (Entidad Nacional de Acreditación) cada 2 años.
+  * *Registro:* Inscripción obligatoria en el *Registro del CCN* y *distintivo de cumpliento del ENS* en la Sede
+* **2.6. Medidas de Seguridad (73 controles):** • Se estructuran en tres marcos:
+	* *Marco Organizativo [org]:* Política de seguridad, normativa, procedimientos y autorización.
+	* *Marco Operacional [op]:* Planificación, control de acceso, explotación, servicios externos, continuidad y monitorización.
+	* *Medidas de Protección [mp]:* Protección de instalaciones, personal, equipos, comunicaciones, soportes e información.
 
 ## 3. Normas CCN-STIC (El brazo técnico)
 * **3.1. Concepto:** Guías del Centro Criptológico Nacional con instrucciones técnicas de obligado cumplimiento o recomendación.
 * **3.2. Series Clave:**
-  * **Serie 400:** Perfiles de Cumplimiento para Ayuntamientos (PCE-EELL).
+  * **Serie 400:** Normativa general, criterios de evaluación y acreditación.
   * **Serie 500:** Entornos Windows (configuración segura, hardening)
   * **Serie 800:** Core del ENS (Implantación, auditoría, métricas).
 * **3.3. Herramientas del CCN para AAPP:** LUCÍA (gestión incidentes), microCLAUDIA (vacunación ransomware), INES (estado de seguridad), CARMEN (analisis trafico red), PILAR (Analisis de riesgos), ANA (auditorias).
 
 ## 4. Estrategia de Ciberseguridad Nacional (2019)
-* **4.1. Concepto:** Define las líneas de acción del Estado para defender el ciberespacio.
+* **4.1. Concepto:** Define las líneas de acción del Estado para garantizar un uso seguro del ciberespacio.
+  Se rige por *4 principios rectores* (Unidad de acción, Anticipación, Eficiencia y Resiliencia)
 * **4.2. Gobernanza:**
   * **CSN (Consejo de Seguridad Nacional):** Asesora al Presidente en crisis.
   * **DSN (Departamento de Seguridad Nacional):** Apoyo técnico y gestión de crisis.
-  * **Consejo Nacional de Ciberseguridad:** Órgano colegiado de apoyo.
+  * **Consejo Nacional de Ciberseguridad:** Órgano colegiado de apoyo al CSN.
 
 ## 5. Principales Entidades Actoras
 * **5.1. Sector Público:**
-  * **CCN-CERT:** Centro de respuesta para AAPP. (Depende del CNI / Defensa).
-  * **MCCE (Mando Conjunto del Ciberespacio):** Ciberdefensa militar.
-  * **CNPIC:** Protección de Infraestructuras Críticas.
+  * **CCN-CERT:** Centro de respuesta para AAPP y sistemas clasificados (depende del CNI / Defensa).
+  * **MCCE (Mando Conjunto del Ciberespacio / ESPDEF-CERT):** Ciberdefensa militar y Fuerzas Armadas.
+  * **CNPIC (Centro Nacional de Protección de Infraestructuras Críticas):** Coordina la protección de operadores críticos (depende del Ministerio del Interior).
 * **5.2. Sector Privado y Ciudadanía:**
-  * **INCIBE / INCIBE-CERT:** Empresas, ciudadanos (Línea 017) e infraestructuras críticas privadas.
+  * **INCIBE / INCIBE-CERT:** Empresas, ciudadanos (**Línea 017**) y operadores privados de servicios esenciales (depende del Ministerio para la Transformación Digital).
 * **5.3. Modelo Federado (El gancho local):** 
-  * Impulso de la **Red Nacional de SOC (RNS)** para que las Diputaciones actúen como SOC Local dando cobertura a municipios pequeños.
-  * **Foro Nacional de Ciberseguridad:** Órgano supremo de colaboración público-privada.
+  * Impulso de la **Red Nacional de SOC (RNS)** para que las Diputaciones actúen como SOC Local (Centros de Operaciones de Ciberseguridad) dando cobertura a municipios pequeños (coordinados con el CSIRT autonómico, como **CSIRT-CV**).
+  * **Foro Nacional de Ciberseguridad:** Espacio principal de colaboración público-privada adscrito al Consejo Nacional de Ciberseguridad.
+
 
 ## 6. Conclusión
 El RD 311/2022 dota a las EELL de un blindaje jurídico-técnico irrenunciable. La aplicación del ENS mediante las guías CCN-STIC, orquestado bajo la Estrategia Nacional y el modelo de SOCs federados, es la única vía para garantizar la resiliencia de los servicios públicos municipales frente a amenazas híbridas.

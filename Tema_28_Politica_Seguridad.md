@@ -4,14 +4,14 @@
 La seguridad no es un problema puramente tecnológico del departamento de informática, sino un instrumento de **gobierno organizacional** que debe emanar de la máxima autoridad de la entidad y vincular a todo su personal.
 
 ## 2. Diseño de la Política de Seguridad
-- **2.1. Naturaleza:** Documento fundacional de máximo nivel que articula las directrices de protección de los sistemas, exigido por el ENS (RD 311/2022). Define el "qué" y el "por qué", pero no el "cómo".
+- **2.1. Naturaleza:** Documento fundacional de máximo nivel (no técnico) aprobado por el órgano competente (ej. Pleno/Alcaldía) y que establece las directrices de protección de los sistemas, exigido por el ENS (RD 311/2022). Define el "qué" y el "por qué", pero no el "cómo".
 - **2.2. Contenido obligatorio (Estricto Art. 12.1 ENS):** 
   1. Misión y objetivos institucionales.
   2. Marco regulatorio (ENS, RGPD, LOPDGDD, Ley 39/2015, Ley 40/2015).
-  3. Roles de seguridad (deberes, designación y renovación).
+  3. Roles de seguridad (deberes y responsabilidades, procedimiento de designación y renovación).
   4. Comités de seguridad (estructura y responsabilidades).
-  5. Documentación (directrices de gestión y acceso).
-  6. Riesgos de datos personales.
+  5. Documentación (directrices de gestión y acceso de la seguridad del sistema).
+  6. Riesgos derivados del tratamiento de datos personales.
 - **2.3. Organización y Roles (Art. 11 y 13):**
   * *Responsables:* Información, Servicio, Seguridad (CISO) y Sistema.
   * *Comité de Seguridad:* Órgano colegiado de coordinación directiva.
@@ -21,20 +21,16 @@ La seguridad no es un problema puramente tecnológico del departamento de inform
 - **2.5. Proceso de diseño:** Análisis de contexto → Definición de objetivos → Asignación de roles → Redacción clara → Revisión por el Comité.
 
 ## 3. Aprobación de la Política de Seguridad
-
 * **3.1. Requisito de Aprobación al máximo nivel:** 
   * Un documento firmado por el Jefe de Informática no tiene validez legal frente a terceros o empleados.
   * En la Administración Local, debe aprobarse por la máxima autoridad: el **Pleno del Ayuntamiento**, la **Junta de Gobierno Local** o **Alcaldía** (según delegación). En la AGE (Subsecretaría, Secretaría General).
-
 * **3.2. Publicación y Difusión:**
   * Publicación formal (Boletín Oficial de la Provincia - BOP, Portal de Transparencia).
   * Comunicación interna obligatoria a empleados públicos y empresas proveedoras (cláusulas contractuales).
-
 * **3.3. Revisión y Actualización:** Ordinaria (anual) o Extraordinaria (cambios normativos, migración tecnológica grave, ciberataque).
 
 ## 4. Aplicación: La Pirámide Documental (El SGSI)
 Para que la Política (abstracta) se aplique en el día a día, se despliega un cuerpo documental jerárquico:
-
 * **Nivel 1: La Política de Seguridad.** (Directrices generales aprobadas por el Pleno/Alcaldía).
 * **Nivel 2: Normativas de Seguridad.** Reglas de obligado cumplimiento aprobadas por el CISO. 
   * *Ejemplos:* Teletrabajo, Uso de Medios Informáticos, Escritorio Limpio, Control de Accesos (Contraseñas).

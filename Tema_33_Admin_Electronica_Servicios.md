@@ -1,8 +1,9 @@
 # Tema 33.- La administración electrónica. Sede electrónica y carpeta ciudadana. Registro electrónico e interconexión de registros. Digitalización certificada. Firma y sellado digital. Gestor documental.
 
 ## 1. Introducción
-* **Contexto legal:** Leyes 39/2015 y 40/2015. Establecen la obligatoriedad del medio electrónico como canal nativo de la tramitación administrativa.
-* **El Ecosistema:** Sede → Carpeta → Registro (SIR) → Firma → Digitalización → Archivo.
+* **Contexto legal:** Leyes 39/2015 y 40/2015. La Administración Electrónica dejó de ser un canal alternativo para convertirse en el **entorno nativo y obligatorio** de tramitación.
+No es digitalizar la burocracia, sino garantizar la **seguridad jurídica, la trazabilidad y la interoperabilidad** del dato público bajo el principio de (*Once-Only*) y el marco del ENI y el ENS.
+* **El Ecosistema:** *Sede y Carpeta* (interacción ciudadana) → *Registro y SIR* (entrada e intercambio) → *Firma y Digitalización* (validez legal) → *Gestor Documental* (archivo perpetuo).
 
 ## 2. La Administración Electrónica: Concepto y Arquitectura
 * **e-Government:** No es escanear papel, es transformar procesos con TIC para ganar eficiencia y transparencia.
@@ -11,13 +12,13 @@
 
 ## 3. Sede Electrónica (Front-Office)
 * **3.1. Naturaleza:** URL oficial. Lo publicado aquí tiene **plena validez jurídica** (no es una web informativa normal).
-* **3.2. Requisitos (ENS):** SSL/TLS, disponibilidad 24x7, Accesibilidad WCAG 2.1 AA, hora oficial del ROA.
+* **3.2. Requisitos (ENS):** SSL/TLS, disponibilidad 24x7, Accesibilidad WCAG 2.1 AA, hora oficial del ROA (Real Observatorio de la Armada).
 * **3.3. Contenido Local Clave:** Carta de servicios, Perfil del Contratante y el **Tablón de Edictos Electrónico** (sustituye al tablón físico del Ayuntamiento).
 * **3.4. Sede Asociada:** Subsede para servicios específicos con requisitos más flexibles.
 
 ## 4. Carpeta Ciudadana (Front-Office)
 * **Concepto:** Espacio personal (autenticado con Cl@ve/DNIe) para ver el estado de expedientes y notificaciones.
-* **Integración:** El Ayuntamiento debe conectar su Gestor de Expedientes a la **Carpeta Ciudadana del Estado (PAG)** mediante la Plataforma de Intermediación de Datos (PID).
+* **Integración:** El Ayuntamiento debe conectar su Gestor de Expedientes a la **Carpeta Ciudadana del Estado (PAGe)** mediante la Plataforma de Intermediación de Datos (PID).
 
 ## 5. Registro e Interconexión (Front/Back-Office)
 * **5.1. Registro General:** Obligatorio (Art. 16 Ley 39/2015), 24x7, emite recibo con fecha y hora oficial que marca los plazos legales.
@@ -28,19 +29,19 @@
 
 ## 6. Firma y Sellado Electrónico (Back-Office)
 * **6.1. Conceptos y eIDAS:** Garantiza Autenticidad, Integridad y No Repudio. Tres niveles eIDAS: Simple, Avanzada y Cualificada (equivalente legal a manuscrita, ej. DNIe).
-* **6.2. PKI y Certificados X.509 v3:** Emitidos por prestadores cualificados (FNMT).
+* **6.2. PKI (Infraestructura de clave pública) y Certificados X.509 v3:** Emitidos por prestadores cualificados (FNMT).
 * **6.3. Sello de Órgano:** Identifica a una persona jurídica u órgano administrativo, usado para actuaciones automatizadas (ej. emitir un volante de empadronamiento masivo sin intervención humana).
 * **6.4. Plataforma @firma:** Del Estado, valida formatos XAdES, CAdES, PAdES.
 * **6.5. Sellado de tiempo (Timestamping) y Funcionario Habilitado:** 
   * El sello de tiempo acredita que un documento existía en un momento determinado y que no ha sido modificado desde entonces y garantiza validez a largo plazo.
-  * Si el ciudadano no tiene firma, actúa el **Funcionario Habilitado** firmando por él con consentimiento expreso.
+  * Si el ciudadano no tiene firma, actúa el **Funcionario Habilitado** firmando por él con consentimiento expreso (con certificado Empleado público).
 
 ## 7. Digitalización Certificada
 * **Concepto:** Pasar de papel a digital con idéntica validez legal (fiel al original, >200ppp, metadatos, PDF/A).
-* **Proceso OAMR:** Ciudadano entrega papel → Funcionario escanea → Añade metadatos ENI → Firma electrónicamente → **Devuelve el papel original al ciudadano** → Se destruyen copias innecesarias.
+* **Proceso OAMR (Oficina de Asistencia en Materia de Registro):** Ciudadano entrega papel → Funcionario escanea → Añade metadatos ENI → Firma electrónicamente → **Devuelve el papel original al ciudadano** → Se destruyen copias innecesarias.
 
 ## 8. Gestor Documental y Archivo
-* **8.1. Gestor Documental (DMS):** Gestiona el ciclo de vida completo del documento electrónico (metadatos, firma y sellado, versionado, conservación a largo plazo, archivo histórico, eliminación).
+* **8.1. Gestor Documental (DMS):** Gestiona el ciclo de vida completo del documento electrónico (metadatos, firma y sellado, versionado, conservación a largo plazo, archivo histórico, eliminación). 
 * **8.2. Archivo Electrónico Único (Ley 40/2015):** Destino del expediente cerrado. Garantiza la conservación a largo plazo aplicando resellado criptográfico para mantener las **firmas longevas** en formato de archivo permanente o archive (AdES-LTA).
 
 ## 9. Conclusión

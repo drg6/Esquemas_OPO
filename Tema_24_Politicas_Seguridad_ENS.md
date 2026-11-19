@@ -8,10 +8,10 @@ El **ENS (RD 311/2022)** obliga a toda AAPP a disponer de una **Política de Seg
 - **2.1. Concepto:** Documento de gobierno de máximo nivel (no técnico) aprobado por el órgano competente (ej. Pleno/Alcaldía) y que establece directrices, principios y compromisos de la organización en seguridad
 - **2.2. Contenido obligatorio (Estricto Art. 12.1 ENS):**
   1. Misión y objetivos de la organización.
-  2. Marco regulatorio (ENS, RGPD, LOPDGDD).
+  2. Marco regulatorio (ENS, RGPD, LOPDGDD, Ley 39/2015, Ley 40/2015).
   3. Roles de seguridad (deberes, procedimiento de designación y renovación).
-  4. Comités de seguridad (estructura, responsabilidad y relación).
-  5. Documentación (directrices para su estructuración y acceso).
+  4. Comités de seguridad (estructura y responsabilidades).
+  5. Documentación (directrices de gestión y acceso).
   6. Riesgos de datos personales (derivados de su tratamiento).
 
 ## 3. Organización e Implantación en Administraciones Locales
@@ -21,6 +21,7 @@ El **ENS (RD 311/2022)** obliga a toda AAPP a disponer de una **Política de Seg
   * *Responsable de la Seguridad (CISO):* Toma decisiones y supervisa.
   * *Responsable del Sistema:* Ejecuta la operación técnica.
   * ⚠️ *Segregación de funciones (Art. 11):* Responsable de Seguridad ≠ Responsable del Sistema (Sin dependencia jerárquica).
+  * *DPD:* Supervisión RGPD (colaborador, no es rol estructural ENS)
 - **3.2. Ciclo PDCA (Deming):**
   1. **Plan (Planificar):** Aprobar Política → Categorizar Sistemas (D-I-C-A-T) → Análisis de Riesgos (MAGERIT / PILAR) → Declaración de Aplicabilidad (SoA - Statement of Applicability) → Plan de Adecuación. *(Reporte anual en INES).*
   2. **Do (Ejecutar):** Implantar los controles del Anexo II del ENS (Organizativos, Operacionales y de Protección) siguiendo la hoja de ruta del **Plan de Adecuación**.

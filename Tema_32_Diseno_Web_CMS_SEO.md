@@ -29,7 +29,7 @@
 ## 4. Generadores de Formularios
 * **4.1. Concepto:** Herramientas sin código (*no-code*) para capturar datos (citas, quejas, encuestas).
 * **4.2. Funcionalidades:** Diseño *drag-and-drop*, validación de campos, antispam (CAPTCHA), accesibilidad (WCAG 2.1) e integración con gestores de expedientes.
-* **4.3. Soluciones:** Plugins de CMS (Gravity Forms, Contact Form 7 (WordPress), Webform (Drupal)), Independientes (Typeform, Microsoft Forms) o Nativos de plataformas de e-Administración (Gestiona, SIGM).
+* **4.3. Soluciones:** Plugins de CMS (Gravity Forms, Contact Form 7 (WordPress), Webform (Drupal)), Independientes (Typeform, Microsoft Forms) o Nativos de plataformas de e-Administración (Gestiona (pago), SIGM (estado y gratis)).
 
 ## 5. Búsqueda de Información (Crawlers)
 * **5.1. Concepto:** *Crawlers / Spiders / Robots* son programas automatizados de motores de búsqueda que recorren la web para indexarla.
@@ -37,7 +37,7 @@
   1. *Descubrimiento* (leyendo enlaces).
   2. *Indexación* (almacenando el contenido en su base de datos masiva).
   3. *Ranking* (ordenando por relevancia).
-* **5.3. Control del Crawling:** Uso del archivo `robots.txt` (permisos de rastreo), etiquetas Meta `noindex` / `nofollow` y envíos de `Sitemap XML`.
+* **5.3. Control del Crawling:** Uso del archivo `robots.txt` (permisos de rastreo), etiquetas Meta `noindex` / `nofollow` y envíos de `Sitemap XML` (facilita al crawler descubrir URLs).
 
 ## 6. Posicionamiento (SEO - Search Engine Optimization)
 * **Concepto:** Técnicas para mejorar el ranking orgánico (gratuito) de una web institucional.
@@ -45,16 +45,15 @@
   * URLs amigables (`/licencia-obra`), Etiquetas `<title>` y `<meta description>`.
   * Jerarquía HTML (`<h1>-<h6>`) y atributos `alt` en imágenes (crucial para WCAG 2.1).
   * Rendimiento web (*Core Web Vitals* de Google) y *Mobile-First*.
-  * Datos estructurados (Schema.org / JSON-LD).
-* **6.2. SEO Off-Page (Externos):** *Backlinks* (enlaces entrantes de webs con autoridad, ej. ministerios o universidades) y señales sociales.
+* **6.2. SEO Off-Page (Externos):** *Backlinks* (enlaces entrantes de webs con autoridad, ej. ministerios o universidades) e interacciones en redes sociales.
 * **6.3. SEO Técnico:** Certificados HTTPS/SSL (Seguridad), URLs canónicas (evita contenido duplicado).
 
 ## 7. Herramientas de Trabajo Colaborativo
 * **7.1. Concepto:** Plataformas para coedición, comunicación y gestión de tareas en equipos.
 * **7.2. Soluciones AAPP:** 
   * *Suites:* Microsoft 365, **Nextcloud** (Muy implantado en AAPP como alternativa de código abierto y soberana para nube privada).
-  * *Comunicación:* Teams, Slack, Jitsi (Videoconferencia Open Source).
-  * *Gestión:* Trello, Jira, Planner, Confluence (Wikis de conocimiento).
+  * *Comunicación:* Teams, Slack.
+  * *Gestión:* Trello, Jira, Planner.
 * **7.3. Restricciones AAPP:** Cumplimiento estricto del ENS, protección de datos (RGPD) priorizando la **soberanía del dato** (almacenamiento en territorio nacional/UE).
 
 ## 8. Conclusión

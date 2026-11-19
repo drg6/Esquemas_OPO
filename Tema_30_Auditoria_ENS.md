@@ -15,16 +15,16 @@
 * **3.1. Autoevaluación (Categoría Básica):** La hace la propia entidad con la herramienta INES. Genera una **Declaración de Conformidad** publicable en la Sede Electrónica.
 * **3.2. Auditoría Interna:** Personal propio independiente del sistema auditado (Segregación de funciones). Válido para mejorar, pero *no da sello oficial ENS*.
 * **3.3. Auditoría Externa (Certificación):** 
-  * Entidad **Independiente** y **Acreditada por ENAC** (Ej: AENOR, BSI).
+  * Entidad **Independiente** y **Acreditada por ENAC - Entidad Nacional de Acreditación** (Ej: AENOR, BSI).
   * Otorga la **Certificación de Conformidad ENS** (Nivel Medio/Alto).
   * Válida por **2 años**.
 
-## 4. Fases del Proceso de Auditoría
+## 4. Fases del Proceso de Auditoría (Recordar PEIP)
 * **4.1. Fase 1: Planificación.** Definir el alcance (*Scope*) y revisión documental previa (Política de Seguridad, SoA, MAGERIT).
 * **4.2. Fase 2: Ejecución (In situ).** 
   * Entrevistas (al CISO, técnicos y dirección).
-  * Inspección técnica (Reglas firewall, políticas en Active Directory, backups RMAN, cifrado).
-  * Muestreo de evidencias.
+  * Inspección técnica (Reglas firewall, políticas en Active Directory, backups RMAN, cifrado, logs).
+  * Muestreo de evidencias (sin analizar el 100%).
 * **4.3. Fase 3: Informe de Auditoría (Hallazgos).**
   * **Conforme:** Cumple.
   * **No conformidad menor:** Deficiencia sin impacto grave.

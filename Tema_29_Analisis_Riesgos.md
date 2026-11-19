@@ -8,25 +8,16 @@
   * Determinar **cuánto invertir** en protección (Equilibrio coste/riesgo).
 - **Mandato Legal:** Es un proceso **continuo** y un principio básico del **ENS (Art. 7)**, no un proyecto puntual.
 
-## 2. Conceptos Clave (El Glosario del Riesgo)
-**Gestión de Riesgos:** Proceso de identificar, analizar, evaluar y modificar los riesgos para equilibrar el *riesgo asumido* con el *coste de protección*. Se divide en dos fases operativas: *Análisis* y *Tratamiento*.
-* **Activo:** Lo que tiene valor (Información y Servicios). Ej. Bd oracle, padron, etc...
-* **Amenaza:** Lo que puede hacernos daño (Ransomware, inundación, error humano).
-* **Vulnerabilidad:** Debilidad de nuestro sistema (Falta de parches).
-* **Riesgo:** Probabilidad de que la amenaza explote la vulnerabilidad. *(Riesgo = Probabilidad x Impacto)*.
-* **Impacto:** Daño real producido.
-* **Salvaguarda:** Medida de protección (Controles preventivos, detectivos o correctivos).
-* **Riesgo Residual:** El riesgo que queda *después* de aplicar las salvaguardas. (El inicial es el *Riesgo Potencial*).
-
-## 3. Análisis de Riesgos: Metodología MAGERIT v3
-Metodología oficial del Estado. Fases secuenciales:
-1. **Caracterización de Activos:** Identificar y valorar (D-I-C-A-T de 0 a 5). *Dependencias* (el servicio depende del servidor).
-2. **Caracterización de Amenazas:** Estimar *Frecuencia* y *Degradación*.
-3. **Determinación del Impacto:** Daño si ocurre la amenaza.
-4. **Determinación del Riesgo Potencial:** Riesgo en "desprotección total".
-5. **Caracterización de Salvaguardas:** Identificar controles actuales y su eficacia.
-6. **Estado de Riesgo:** Cálculo del **Riesgo Residual**.
-* **Informes resultantes:** Modelo de valor, Mapa de riesgos, Declaración de Aplicabilidad (SoA) e Informe de Insuficiencias.
+## 2. Análisis de Riesgos: Conceptos y Metodología MAGERIT v3
+**Gestión de Riesgos:** Proceso de identificar, analizar, evaluar y modificar los riesgos para equilibrar el *riesgo asumido* con el *coste de protección* (fases: *Análisis* y *Tratamiento*). 
+En las AAPP españolas, la metodología oficial de referencia es **MAGERIT v3**, estructurada en 6 fases secuenciales:
+1. **Caracterización de Activos:** Identificar qué tiene valor (datos, servicios como BD Oracle o Padrón), valorarlos en las 5 dimensiones (**D-I-C-A-T**, de 0 a 5) y trazar sus *dependencias* (el servicio X depende del servidor Y).
+2. **Caracterización de Amenazas:** Identificar qué puede causar daño (ransomware, error humano, inundación) explotando una **vulnerabilidad** (debilidad del sistema, ej. falta de parches). Se estima su *Frecuencia* y *Degradación*.
+3. **Determinación del Impacto:** Medir el daño real producido sobre los activos si se materializa la amenaza.
+4. **Determinación del Riesgo Potencial:** Probabilidad de que la amenaza explote la vulnerabilidad en escenario de "desprotección total" (*Riesgo = Probabilidad × Impacto*).
+5. **Caracterización de Salvaguardas:** Identificar las medidas de protección ya existentes y evaluar su eficacia real.
+6. **Estado de Riesgo:** Cálculo del **Riesgo Residual** (el riesgo que permanece *después* de aplicar las salvaguardas).
+- **Informes resultantes:** Modelo de valor (activos y dependencias), Mapa de riesgos (amenazas y frecuencia), Declaración de Aplicabilidad / SoA (contramedidas) e Informe de Insuficiencias.
 
 ## 4. Gestión / Tratamiento del Riesgo (MATE)
 Objetivo → reducir el riesgo hasta un nivel **aceptable** (riesgo residual). Estrategias **MATE**:
@@ -35,7 +26,7 @@ Objetivo → reducir el riesgo hasta un nivel **aceptable** (riesgo residual). E
   * **Detectivos:** Alertan del incidente (IDS/IPS, SIEM, auditoría de logs).
   * **Correctivos:** Recuperan la normalidad (Planes de contingencia, restauración de backups).
 * **A**ceptar: Asumirlo (El coste del firewall es mayor que el daño).
-* **T**ransferir: Pasarlo a un tercero (Ej: contratar un ciberseguro o un proveedor con SLA).
+* **T**ransferir: Pasarlo a un tercero (Ej: contratar un ciberseguro o un proveedor con SLA - Acuerdo de Nivel de Servicio).
 * **E**vitar: Eliminar la causa (Ej: apagar un servidor obsoleto).
 * **Nivel de exigencia ENS [op.pl.1]:** Básica (Informal), Media (Semiformal), Alta (Formal/Matemático).
 
@@ -43,8 +34,8 @@ Objetivo → reducir el riesgo hasta un nivel **aceptable** (riesgo residual). E
 * **5.1. Ecosistema ISO / COBIT:**
   * **ISO 27005:** Gestión de riesgos de seguridad TI (dentro del SGSI de ISO 27001).
   * **ISO 31000:** Gestión de riesgos global (no solo TI).
-  * **COBIT / COSO:** Marcos de gobierno corporativo orientados a la alta dirección.
-* **5.2. Familia EAR (Herramientas del CCN):**
+  * **COBIT / COSO:** Marcos de gobierno corporativo de referencia mundial para que la alta dirección gobierne la empresa, gestione los riesgos y asegure el control interno.
+* **5.2. Familia EAR (Entorno de Análisis de Riesgos) / Herramientas del CCN:**
   * **PILAR:** Versión completa. Automatiza MAGERIT y genera la SoA.
   * **PILAR Basic / μPILAR:** Orientadas a Administración Local. 
   * ⚠️ *Detalle de oro AAPP:* Permiten importar el **PCE-EELL** (Perfil para Entidades Locales) y tienen módulos para hacer la **EIPD** exigida por el RGPD.
