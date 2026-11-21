@@ -12,7 +12,7 @@
 
 ## 3. Beneficios Arquitectónicos del Particionamiento
 * **3.1. Rendimiento — *Partition Pruning* (Poda de particiones):**
-  * El optimizador de costes (**CBO**) analiza el predicado `WHERE` y **excluye de la lectura física todas las particiones irrelevantes** (ej. leer solo la partición de marzo de 2026 ignorando otros 10 años de histórico).
+  * El optimizador de costes (**CBO - Cost-Based Optimizer**) analiza el predicado `WHERE` y **excluye de la lectura física todas las particiones irrelevantes** (ej. leer solo la partición de marzo de 2026 ignorando otros 10 años de histórico).
 * **3.2. Mantenimiento Independiente (Operaciones DDL granulares):**
   * Permite operar sobre una partición sin bloquear el resto de la tabla activa: `ALTER TABLE ... TRUNCATE PARTITION`, `DROP PARTITION`, `ADD PARTITION` o `ALTER INDEX ... REBUILD PARTITION`.
 * **3.3. Gestión del Ciclo de Vida del Dato (ILM - *Information Lifecycle Management*):**

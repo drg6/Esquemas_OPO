@@ -18,7 +18,7 @@
   * *NOARCHIVELOG:* Sobrescritura circular de Online Redo Logs. Solo permite restaurar en frío hasta el último backup completo (pérdida de transacciones posteriores).
   * *ARCHIVELOG:* El proceso **ARCn** archiva cada Redo Log lleno antes de su reutilización. Habilita *Hot Backups*, recuperación completa sin pérdida de datos y alimentación de *Data Guard*.
 * **Point-in-Time Recovery (PITR / Recuperación incompleta):**
-  * Permite detener la aplicación secuencial de *Archived Redo Logs* en el segundo u operación (SCN) inmediatamente anterior a un error humano o corrupción lógica (ej. `DROP TABLE`), abriendo posteriormente la BD con `ALTER DATABASE OPEN RESETLOGS`.
+  * Permite detener la aplicación secuencial de *Archived Redo Logs* en el segundo u operación (SCN) inmediatamente anterior a un error humano (ej. `DROP TABLE`) o corrupción lógica, abriendo posteriormente la BD con `ALTER DATABASE OPEN RESETLOGS`.
 
 ## 4. RMAN (Recovery Manager): Backup y Recuperación Física
 * **4.1. Ventajas arquitectónicas:**

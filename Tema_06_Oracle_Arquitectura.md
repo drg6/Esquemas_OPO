@@ -10,7 +10,7 @@ Oracle es un SGBDR de grado empresarial. Es el motor histórico en los sistemas 
   * **Datafiles (`.dbf`):** Almacenan datos reales (tablas, índices, PL/SQL). Asociados unívocamente a Tablespaces.
   * **Control Files:** Metadatos críticos (rutas, nombres, checkpoints, números SCN (contador incremental)). Obligatorio multiplexar en discos físicos distintos para evitar el punto único de fallo.
   * **Online Redo Log Files:** Mecanismo Write-Ahead Logging (WAL). Registran cronológicamente todo cambio DML antes de tocar disco. Mínimo 2 grupos circulares.
-  * *Archivos auxiliares:* Parameter File (SPFILE binario dinámico / PFILE texto) y Password File (autenticación remota SYSDBA).
+  * *Archivos auxiliares:* Parameter File (SPFILE binario dinámico / PFILE texto), Password File (autenticación remota SYSDBA) y Archived Redo Logs (modo ARCHIVELOG)
 * **2.2. Instancia (Lógica / Volátil en RAM y Procesos SO):**
   * Nace al arrancar el servicio y desaparece al apagarlo; manipula la Base de Datos persistente.
   * *Topologías:* Single Instance (1 Instancia $\leftrightarrow$ 1 BD) vs. **Oracle RAC** (N Instancias concurrentes en clúster $\leftrightarrow$ 1 BD en almacenamiento compartido).

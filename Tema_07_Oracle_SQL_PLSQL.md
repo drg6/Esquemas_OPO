@@ -24,7 +24,7 @@
 * **3.1. Estructura de Bloque (DECLARE, BEGIN, EXCEPTION):**
   * **DECLARE (opcional):** Variables tipadas fuertemente, constantes y tipos dinámicos (`%TYPE` ligado a columna y `%ROWTYPE` ligado a registro completo).
   * **BEGIN (obligatorio):** Bloque ejecutable con control de flujo (`IF-THEN-ELSE`, `CASE`, bucles `LOOP`/`WHILE`/`FOR`) y SQL embebido (`SELECT INTO`).
-  * **EXCEPTION (opcional):** Captura de errores predefinidos (`NO_DATA_FOUND`, `TOO_MANY_ROWS`, `DUP_VAL_ON_INDEX`) o genéricos (`WHEN OTHERS USING SQLERRM`).
+  * **EXCEPTION (opcional):** Captura de errores predefinidos (`NO_DATA_FOUND`, `TOO_MANY_ROWS`, `DUP_VAL_ON_INDEX`) o genéricos (`WHEN OTHERS THEN y SQLERRM`).
 * **3.2. Subprogramas Almacenados:**
   * **Procedimientos (`PROCEDURE`):** Ejecutan acciones; devuelven valores mediante parámetros `OUT` o `IN OUT`.
   * **Funciones (`FUNCTION`):** Deben retornar obligatoriamente un valor (`RETURN`); invocables directamente dentro de sentencias SQL.
