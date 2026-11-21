@@ -14,12 +14,10 @@
     * *Análisis Predictivo (Machine Learning):* Aprendizaje a partir de datos históricos para anticipar comportamientos o tendencias (Ej: Detección de fraude fiscal mediante anomalías y estimación de demanda en servicios sociales).
     * *Procesamiento de Lenguaje Natural (NLP):* Comprensión y generación de texto/voz (Ej: Chatbots en la Sede Electrónica para orientación normativa 24/7).
     * *Visión Artificial:* Interpretación y análisis de imágenes o vídeos (Ej: OCR de matrículas para control de tráfico o zonas de bajas emisiones).
-    * *Automatización Inteligente (RPA Cognitiva):* 
-    
-    s (Ej: Redirección de expedientes en registro al técnico competente). A nivel AGE destaca el **Servicio de Automatización de Procesos (SAI)** (Plan Digitalización AAPP 2021-2025).
+    * *Automatización Inteligente (RPA Cognitiva):* Ej. Redirección de expedientes en registro al técnico competente. 
   * **Gestión y Gobernanza TIC (Despliegue corporativo):**
     * *Copilotos (M365):* Obligan a auditar estrictamente los permisos del *Active Directory* para evitar que la IA exponga documentos internos a usuarios sin privilegios.
-    * *Arquitecturas Seguras (RAG):* Uso de IA en nubes soberanas que solo "lee" normativa local, sin enviar datos de ciudadanos a modelos públicos, garantizando privacidad.
+    * *Arquitecturas Seguras (RAG - Retrieval-Augmented Generation):* Uso de IA en nubes soberanas que solo "lee" normativa local, sin enviar datos de ciudadanos a modelos públicos, garantizando privacidad.
 
 ## 3. Aprendizaje automático (Machine Learning). Aprendizaje supervisado, no supervisado y por refuerzo.
 El sistema aprende infiriendo reglas matemáticas a partir de datos históricos, en lugar de ser programado de forma explícita. Se divide en tres enfoques principales:
@@ -30,9 +28,9 @@ El sistema aprende infiriendo reglas matemáticas a partir de datos históricos,
 ## 4. Deep Learning
 Subconjunto del ML que utiliza **Redes Neuronales Profundas** (múltiples capas ocultas) para extraer características automáticamente de datos crudos (imágenes, audios).
 - **4.1. Arquitecturas principales:**
-  * *Redes Convolucionales (CNN):* Para visión artificial (ej. lectura de matrículas policiales).
-  * *Redes Recurrentes (RNN):* Para análisis de series temporales (ej. predicción meteorológica).
-  * *Transformers:* Arquitectura base de la IA Generativa y los LLMs.
+  * *Redes Convolucionales (CNN - Espacio/Imágenes):* Para visión artificial (ej. lectura de matrículas policiales).
+  * *Redes Recurrentes (RNN - Tiempo/Secuencias):* Para análisis de series temporales (ej. predicción meteorológica).
+  * *Transformers (Atención/Contexto):* Arquitectura base de la IA Generativa y los LLMs.
     * *Ejemplos LLMs (Texto/Código):* ChatGPT, Gemini, Claude.
     * *Ejemplos GenAI (Multimedia):* Midjourney, DALL-E (generación de imágenes).
 

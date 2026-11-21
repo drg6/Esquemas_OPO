@@ -1,7 +1,7 @@
 # Tema 47.- Identificación y firma electrónica. Algoritmos de cifrado simétricos y asimétricos. Prestación de servicios de certificación públicos y privados. Mecanismos de identificación y firma basados certificados X.500 y basados en datos biométricos.
 
 ## 1. Introducción
-* **El Objetivo Principal:** Trasladar la seguridad y confianza del mundo físico al entorno digital de las AAPP.
+- **El Objetivo Principal:** Trasladar la seguridad y confianza del mundo físico al entorno digital de las AAPP.
 - **El Doble Pilar:** La seguridad digital en las AAPP exige un motor matemático (Criptografía) y una infraestructura legal (Prestadores de certificación).
 - **Evolución:** La autenticación migra de "lo que se tiene" (Certificados) a "lo que se es" (Biometría).
 
@@ -12,7 +12,7 @@
 - **2.2. Tipos de Firma (eIDAS):** 
   * *Simple:* Aceptación básica sin garantías técnicas de quién firma ni de si el documento cambia (Poco valor probatorio).
   * *Avanzada:* Identifica unívocamente, bajo el control exclusivo del firmante y detecta modificaciones.
-  * *Cualificada:* Avanzada + Dispositivo cualificado (QSCD). Es la única que equivale legalmente a la firma manuscrita.
+  * *Cualificada:* Avanzada + Dispositivo cualificado (QSCD/Qualified Signature Creation Device). Es la única que equivale legalmente a la firma manuscrita.
 - **2.3. Sistemas Admitidos en las AAPP (Aplicación práctica):** 
   * *Ciudadanos:* DNIe, Certificado cualificado (FNMT,ACCV) y plataforma **Cl@ve**.
   * *Administración:* **Portafirmas corporativo** (para empleados), Sello Electrónico de Órgano (actuación automatizada) y el **CSV (Código Seguro de Verificación)**, vital porque permite imprimir un PDF firmado y verificar su autenticidad original en la Sede Electrónica.
@@ -33,7 +33,7 @@
 - **3.3. Cifrado Híbrido (El mundo real):** Protocolos como **TLS 1.3** usan asimétrico (ECDHE) para intercambiar la clave inicial y simétrico (AES-GCM) para el tráfico pesado.
 
 ## 4. Prestación de servicios de certificación públicos y privados
-- **4.1. Marco (eIDAS):** Los **QTSP** (Prestadores Cualificados) actúan como "Terceros de Confianza" emitiendo certificados y manteniendo la TSL (Trusted Service List).
+- **4.1. Marco (eIDAS):** Los **QTSP** (Prestadores Cualificados) actúan como "Terceros de Confianza" emitiendo certificados y figurando inscritos en la TSL (Trusted Service List), que mantiene cada pais.
 - **4.2. Prestadores Públicos (AAPP):** 
   * *DGP* (Dirección General de la Policía): Emisor del DNIe (para ciudadanos).
   * *FNMT-RCM* (Fábrica Nacional de Moneda y Timbre - Real Casa de la Moneda) y *ACCV* (Comunitat Valenciana): Emiten certificados de persona física / representante como de uso interno para las Administraciones Públicas (empleado público, Sede Electrónica y Sello de Órgano para el Ayuntamiento).

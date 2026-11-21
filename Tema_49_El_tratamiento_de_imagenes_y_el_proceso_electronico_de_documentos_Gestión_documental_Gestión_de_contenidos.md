@@ -2,7 +2,7 @@
 
 ## 1. Introducción
 * Las Leyes 39/2015 y 40/2015 obligan a que los procedimientos sean íntegramente electrónicos, prohíben (salvo excepciones) el documento en papel.
-* **El ecosistema:** Entra documento en papel, se **digitaliza** (Imagen) → se integra en un **Expediente** (ENI) → se custodia internamente (**DMS**) → y la información se publica al ciudadano (**CMS**).
+* **El ecosistema:** Entra documento en papel, se **digitaliza** (Imagen y PDF/A) → se integra en un **Expediente** (ENI) → se custodia internamente (**DMS**) → y la información se publica al ciudadano (**CMS**).
 
 ## 2. El tratamiento de imágenes (Del papel al píxel)
 * **2.1. Captura:** Resolución mínima exigida por el ENI para copias auténticas: **200 DPI** (puntos por pulgada) en B/N o escala de grises (8 bits).
@@ -24,8 +24,10 @@
   * *Alternativa "Papel Cero" nativo:* Uso de **tabletas de firma biométrica** en ventanilla para que el ciudadano firme sin llegar a imprimir el papel.
 
 ## 4. Gestión Documental (DMS)
+* Normas y prácticas para administrar el flujo de información, garantizando su autenticidad e integridad. 
 * Norma base: **ISO 15489** (organiza, custodia y expurga).
-* **4.1. Metadatos y el DIR3:** Uso del Esquema **eMGDE** del ENI para intercambio de documentos entre AAPP. Destaca el uso del código **DIR3** para identificar unívocamente al órgano productor o destino en toda la Administración.
+* *Las 5 Fases:* 1. Creación/Captura (digitalización certificada) -> 2. Tramitación (workflows) -> 3. Almacenamiento -> 4. Archivo (preservación) -> 5. Expurgo (destrucción legal dictaminada).
+* **4.1. Metadatos y el DIR3:** Uso del Esquema **eMGDE/Esquema de Metadatos para la Gestión del Documento Electrónico** del ENI para intercambio de documentos entre AAPP. Destaca el uso del código **DIR3** para identificar unívocamente al órgano productor o destino en toda la Administración.
 * **4.2. Infraestructura DMS:**
   * Plataformas como **Alfresco** (Open Source) o SharePoint. Controlan el versionado, las auditorías de acceso y los flujos de trabajo (workflows) y avisan cuando se ha de firmar un documento. Usa el protcolo CMIS.
   * Archivo final: Remisión al **Archivo Electrónico Único** (ej. plataforma ARCHIVE bajo estándar OAIS).

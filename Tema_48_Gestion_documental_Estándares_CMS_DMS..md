@@ -11,7 +11,7 @@
   * *Definición:* Normas y prácticas para administrar el flujo de información, garantizando su autenticidad e integridad. 
   * *Las 5 Fases:* 1. Creación/Captura (digitalización certificada) -> 2. Tramitación (workflows) -> 3. Almacenamiento -> 4. Archivo (preservación) -> 5. Expurgo (destrucción legal dictaminada).
 - **2.2. El Núcleo de la AAPP: Documento y Expediente Electrónico:**
-  * *El Documento Electrónico (ENI):* No es un simple PDF. Es información estructurada formada obligatoriamente por 3 piezas: `Contenido + Firma Electrónica + Metadatos (esquema eMGDE)`. Para mantener su validez legal al imprimirse en papel, incorpora el **CSV (Código Seguro de Verificación)**.
+  * *El Documento Electrónico (ENI):* No es un simple PDF. Es información estructurada formada obligatoriamente por 3 piezas: `Contenido + Firma Electrónica + Metadatos (esquema eMGDE/Esquema de Metadatos para la Gestión del Documento Electrónico)`. Para mantener su validez legal al imprimirse en papel, incorpora el **CSV (Código Seguro de Verificación)**.
   * *El Expediente Electrónico (ENI):* Objeto digital complejo (XML) que agrupa documentos. Su pieza vital es el **Índice Electrónico firmado** (el "candado" que garantiza la integridad, impidiendo añadir o extraer folios a posteriori).
 - **2.3. El Marco Normativo (Las NTI del ENI):**
   * Toda esta gestión se rige por las Normas Técnicas de Interoperabilidad: NTI de Documento, NTI de Expediente, NTI de Digitalización Certificada (para el papel antiguo) y la NTI de Política de Gestión de Documentos (PGDE).
@@ -23,21 +23,21 @@
 ## 3. Gestión de contenidos
 - **3.1. Concepto:** Software que desacopla el diseño visual de los datos, permitiendo a perfiles no técnicos (periodistas, administrativos) publicar mediante flujos de aprobación.
 - **3.2. Arquitecturas:**
-  * *Monolítica:* Backend y Frontend acoplados (el CMS pinta la web entera).
+  * *Monolítica:* Backend y Frontend acoplados (el CMS gestiona los datos y pinta la web entera mediante plantillas). Uso de editores visuales WYSIWYG (What You See Is What You Get).
   * *Headless (Sin cabeza):* Backend puro que expulsa contenido vía API. Fundamental para la **omnicanalidad** (mandar el mismo dato a la Sede web, a la App móvil y a tótems del Ayuntamiento).
 
 ## 4. Tecnologías CMS y DMS de alta implantación
 - **4.1. Tecnologías DMS (Gestión Documental):**
   * *Mercado Open Source:* **Alfresco** (Estándar de facto en Ayuntamientos medianos, basado en Java y CMIS).
   * *Mercado Propietario:* Microsoft SharePoint (líder en Office 365), Documentum.
-  * *Ecosistema AGE (Red SARA):* INSIDE (tramitación viva) y ARCHIVE (archivo definitivo OAIS).
+  * *Ecosistema AGE (Red SARA):* INSIDE (tramitación viva, mientras estan abiertos) y ARCHIVE (archivo definitivo OAIS).
 - **4.2. Tecnologías CMS (Gestión de Contenidos):**
   * **WordPress (PHP):** Rey por usabilidad (intranets ligeras). ⚠️ *Riesgo AAPP:* Su abuso de *plugins* de terceros sin auditar es un vector crítico de *ransomware*.
   * **Drupal (PHP):** Modular y robusto. Orientado a *Security by Design*. Es el estándar del PAe (Portal de Administración Electrónica).
   * **Liferay (Java):** Gestor pesado para portales corporativos e intranets complejas.
 
 ## 5. Conclusión (El puente DMS-CMS)
-El éxito de la Administración Electrónica reside en la perfecta integración de estas herramientas. El **DMS** (ej. Alfresco) genera el expediente jurídico cumpliendo las normas ENI y OAIS, mientras que el **CMS** (ej. Liferay) publica la Sede Electrónica. El nexo físico entre ambos es el **CSV (Código Seguro de Verificación)**, que permite al ciudadano introducir en el CMS web un código impreso para recuperar instantáneamente la evidencia electrónica custodiada en el DMS.
+El éxito de la Administración Electrónica reside en la perfecta integración de estas herramientas. El **DMS** (ej. Alfresco) custodia los documentos y expedientes conforme a las normas *ENI* —apoyándose en soluciones *OAIS* como ARCHIVE para su conservación definitiva—, mientras que el **CMS** (ej. Drupal) publica la Sede Electrónica. El nexo físico entre ambos es el **CSV (Código Seguro de Verificación)**, que permite al ciudadano introducir en el CMS web un código impreso para recuperar instantáneamente la evidencia electrónica custodiada en el DMS.
 
 -----------
 

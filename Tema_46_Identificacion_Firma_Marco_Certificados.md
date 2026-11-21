@@ -15,7 +15,7 @@
 - **2.2. Tipos de Firma (eIDAS):** 
   * *Simple:* Aceptación básica sin garantías técnicas de quién firma ni de si el documento cambia (Poco valor probatorio).
   * *Avanzada:* Identifica unívocamente, bajo el control exclusivo del firmante y detecta modificaciones.
-  * *Cualificada:* Avanzada + Dispositivo cualificado (QSCD). Es la única que equivale legalmente a la firma manuscrita.
+  * *Cualificada:* Avanzada + Dispositivo cualificado (QSCD/Qualified Signature Creation Device). Es la única que equivale legalmente a la firma manuscrita.
 - **2.3. Sistemas Admitidos en las AAPP (Aplicación práctica):** 
   * *Ciudadanos:* DNIe, Certificado cualificado (FNMT,ACCV) y plataforma **Cl@ve**.
   * *Administración:* **Portafirmas corporativo** (para empleados), Sello Electrónico de Órgano (actuación automatizada) y el **CSV (Código Seguro de Verificación)**, vital porque permite imprimir un PDF firmado y verificar su autenticidad original en la Sede Electrónica.
@@ -28,12 +28,12 @@
 - **3.2. Marco Nacional:**
   * **Ley 6/2020:** Traspone el eIDAS y regula los prestadores de servicios de confianza cualificados en España.
   * **Ley 39/2015:** Art. 9 (Sistemas de Identificación) y Art. 10 (Sistemas de Firma).
-  * **Ley 40/2015:** Art. 42 y 43 (Firma por actuación automatizada y Sello de Órgano).
+  * **Ley 40/2015:** Art. 42 y 43 (Firma por actuación automatizada (trámite) con Sello de Órgano).
   * **Plataforma @firma:** Pasarela del Estado (Red SARA) que usan los Ayuntamientos para validar identidades y firmas.
 
 ## 4. Certificados digitales
 - **4.1. Concepto y Estructura (X.509 v3):** Fichero electrónico emitido por una Autoridad de Certificación (CA) que vincula matemáticamente a una persona con su Clave Pública.
-- **4.2. Validación (OCSP vs CRL):** Para comprobar si un certificado está revocado hoy, las AAPP usan **OCSP** (verificación online en tiempo real), descartando las pesadas listas CRL.
+- **4.2. Validación (OCSP vs CRL):** Para comprobar si un certificado está revocado hoy, las AAPP usan **OCSP** (verificación online en tiempo real - Online Certificate Status Protocol), descartando las pesadas listas CRL(Certificate Revocation List).
 - **4.3. Uso en AAPP:** Destacan el Sello de Órgano y los **Certificados de Empleado Público con Seudónimo** (ej. Policía Local, exigido por el ENS para proteger la identidad real).
 
 ## 5. Claves privadas, públicas y concertadas
@@ -42,8 +42,8 @@
   * *Privada:* Secreta, solo en poder del titular (Firma y descifra).
   * *Pública:* Distribuida abiertamente en el certificado (Verifica y cifra).
 - **5.3. El proceso de firma (El Hash):**
-  1. El firmante cifra el **Hash SHA-256** del documento usando su Clave Privada.
-  2. El receptor descifra la firma con la Clave Pública y comprueba que el Hash coincida.
+  1. El firmante calcula el **Hash SHA-256** del documento y la *firma* usando su *Clave Privada*.
+  2. El receptor *verifica* la firma con la *Clave Pública* para extraer Hash y comprueba que el Hash coincida con el del documento.
 
 ## 6. Formatos de firma electrónica
 - **6.1. Formatos Base:**

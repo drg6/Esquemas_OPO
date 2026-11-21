@@ -7,7 +7,7 @@
 
 ## 2. Procesos de pruebas y garantía de calidad en el desarrollo de software
 - **Concepto de SQA (Software Quality Assurance):** Marco preventivo integral durante todo el ciclo de vida (SDLC); evalúa y mejora el *proceso* de construcción, no solo busca defectos al final.
-- **Garantía de calidad del producto (ISO/IEC 25000 - SQuaRE):** Estándar internacional que mide la calidad en 8 dimensiones:
+- **Garantía de calidad del producto (ISO/IEC 25000 - SQuaRE/System and Software Quality Requirements and Evaluation):** Estándar internacional que mide la calidad en 8 dimensiones:
   * **Adecuación Funcional:** ¿Hace lo que se pide?
   * **Eficiencia de Rendimiento:** Tiempos de respuesta y uso de recursos.
   * **Compatibilidad:** Coexistencia e interoperabilidad.
