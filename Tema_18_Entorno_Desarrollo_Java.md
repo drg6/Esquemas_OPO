@@ -1,3 +1,14 @@
+- **1-2. El motor:** Origen (Sun/Oracle) → WORA (`.java` → `javac` → `.class` → JVM) → Muñecas rusas (JVM ⊂ JRE ⊂ JDK) → GC (Young/Old, G1/ZGC) y LTS (**8, 11, 17, 21**).
+- **3. Las ediciones:** SE (base), **Jakarta EE** (Core / Web / Full), ME (IoT/JavaCard).
+- **4. Las 3 capas de Jakarta EE (la parte más densa):**
+  - *Web:* Servlet + JSP / Faces.
+  - *Negocio:* EJB (Stateless, Stateful, Singleton + MDB) con **S.T.C.P.** + CDI.
+  - *Persistencia/Integración:* Las tres J (**JPA** datos, **JMS** colas/temas, **JTA** transacciones) + **JAX-RS** (REST) / **JAX-WS** (SOAP).
+- **5. Evolución de servidores:** Clásicos (Tomcat vs. WildFly/GlassFish/WebLogic/WebSphere) → **Spring** (IoC/DI, AOP) y **Spring Boot** (JAR embebido) → **Quarkus + GraalVM** (nativo/AOT).
+- **6. La caja de herramientas:** Build (Maven/Gradle), IDEs (IntelliJ/Eclipse), Calidad (JUnit/Mockito, JMeter, SonarQube), CI/CD (Git/Jenkins/GitLab) y Políglotas (Kotlin/Scala).
+
+-----------------
+
 # Tema 18.- Entorno de desarrollo JAVA.
 
 ## 1. **Introducción:**
@@ -12,7 +23,7 @@
     - **JRE (*Java Runtime Environment*):** JVM + Bibliotecas estándar de ejecución.
     - **JDK (*Java Development Kit*):** JRE + Herramientas de desarrollo (compilador `javac`, empaquetador `jar`, depurador).
    * **Gestión de memoria:** *Garbage Collector*, división generacional (*Young* vs *Old*) y recolectores concurrentes (G1, ZGC).
-   * **Soporte LTS:** Cadencia semestral frente a versiones corporativas de largo recorrido (8, 11, 17, 21).
+   * **Soporte LTS:** Cadencia semestral frente a versiones corporativas de largo recorrido (Lambdas en version 8, HTTP Client en version 11, Records en version 17, Virtual Threads en version 21).
 
 ## 3. Ediciones y Perfiles de la Plataforma
   * **Java SE (*Standard Edition*):** Núcleo del lenguaje y bibliotecas base (colecciones, concurrencia, E/S, red).
@@ -20,7 +31,7 @@
     * **Core Profile:** Conjunto mínimo para microservicios y contenedores (CDI Lite [Inyección dep], JSON, REST).
     * **Web Profile:** Orientado a aplicaciones web dinámicas ligeras.
     * **Full Platform:** Especificación completa para sistemas corporativos pesados.
-  * **Java ME (*Micro Edition*):** Edición reducida para dispositivos limitados, IoT y tarjetas inteligentes (*JavaCard*).
+  * **Java ME (*Micro Edition*):** Edición reducida para dispositivos con recursos muy limitados de memoria, procesamiento y pantalla, IoT y tarjetas inteligentes (*JavaCard*).
 
 ## 4. Arquitectura de N-Capas (Jakarta EE)
 * **4.1. Capa de Presentación (Web Tier):**
@@ -32,10 +43,10 @@
     * *Session Beans:* **Stateless** (sin estado conversacional), **Stateful** (mantienen estado entre llamadas) y **Singleton** (instancia única compartida).
     * *MDB (*Message-Driven Beans*):* Consumidores asíncronos de mensajes.
   * **CDI:** Estándar para Inyección de Dependencias y ciclo de vida de componentes.
-* **4.3. Capa de Persistencia e Integración (EIS Tier):**
-  * **JPA (*Jakarta Persistence*):** Estándar ORM (ej. Hibernate) mapeado mediante anotaciones (`@Entity`, `@Table`, `@Id`).
-  * **JMS (*Jakarta Messaging*):** Mensajería asíncrona desacoplada mediante Colas (*Queue*) y Temas (*Topic*).
-  * **JTA (*Jakarta Transactions*):** Coordinador de transacciones distribuidas (garantiza atomicidad global "todo o nada").
+* **4.3. Capa de Persistencia e Integración (EIS - Enterprise Information System Tier):**
+  * **JPA (*Jakarta Persistence API*):** Estándar ORM (ej. Hibernate) mapeado mediante anotaciones (`@Entity`, `@Table`, `@Id`).
+  * **JMS (*Jakarta Messaging Service*):** Mensajería asíncrona desacoplada mediante Colas (*Queue*) y Temas (*Topic*).
+  * **JTA (*Jakarta Transactions API*):** Coordinador de transacciones distribuidas (garantiza atomicidad global "todo o nada").
   * **Servicios Web:** 
     - **JAX-RS** (APIs RESTful mediante `@Path`, `@GET`) 
     - **JAX-WS** (servicios SOAP/WSDL tradicionales en la AAPP).

@@ -27,7 +27,7 @@ Spring Framework es un entorno de trabajo de código abierto con los siguientes 
 El framework base se amplía con proyectos satélite especializados:
 * **Spring Boot (El Acelerador):**
   * **Autoconfiguración:** Detecta e inicializa librerías sin código manual.
-  * **Starters:** Paquetes de dependencias listos para usar (ej. `spring-boot-starter-web`).
+  * **Starters:** Paquetes de dependencias listos para usar (ej. `spring-boot-starter-web`). Spring Initializr
   * **Servidores Embebidos:** Incrusta Tomcat o Undertow (WildFly) para generar un `.jar` autoejecutable.
   * **Actuator:** Expone *endpoints* de métricas y salud (`/health`) para entornos de producción.
 * **Spring Data:** Abstrae el acceso a datos. Con **Spring Data JPA**, el desarrollador define interfaces y Spring genera automáticamente las sentencias SQL.
