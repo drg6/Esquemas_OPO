@@ -19,7 +19,7 @@ El *SGBDR tradicional* está optimizado para datos alfanuméricos (índices B-Tr
 
 ## 4. Modelo de Datos Espacial: Los 5 Atributos del Objeto `SDO_GEOMETRY`
 El objeto se compone internamente de cinco atributos estructurales:
-1. **`SDO_GTYPE` (Geometry Type):** Número entero con patrón **DLTT** (Dimensiones, Localización Lineal, Tipo). Ejemplos: `2001` = Punto 2D; `2003` = Polígono 2D.
+1. **`SDO_GTYPE` (Geometry Type):** Número entero con patrón **DLTT** (Dimensiones, Sistema de Referencia Lineal - LRS, Tipo). Ejemplos: `2001` = Punto 2D; `2003` = Polígono 2D.
 2. **`SDO_SRID` (Spatial Reference Identifier):** Código EPSG del sistema de coordenadas asociado a la geometría (ej. `4326` para WGS84 o `25830` para ETRS89/UTM 30N).
 3. **`SDO_POINT`:** Almacena directamente las coordenadas X, Y, Z **únicamente** cuando se trata de un punto simple (se deja en `NULL` para líneas o polígonos).
 4. **`SDO_ELEM_INFO`:** Array de metadatos (tripletes numéricos) que indica cómo interpretar las coordenadas. Especifica el *Offset* (inicio), *Element Type* (tipo, ej. 1003 anillo exterior) e *Interpretation* (ej. 1 segmentos rectos).
