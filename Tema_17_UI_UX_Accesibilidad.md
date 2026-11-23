@@ -28,7 +28,9 @@
 ## 5. Conceptos de UX (user experience) y UI (user interface)
 * **UX (*User Experience*):**
   * Lo que el usuario **siente y experimenta** de forma global (eficiencia, satisfacción, tolerancia a errores, arquitectura de la información).
-  * *Metodologías:* *Design Thinking* (Empatizar $\rightarrow$ Definir $\rightarrow$ Idear $\rightarrow$ Prototipar $\rightarrow$ Testear), Diseño Centrado en el Usuario (UCD) y Mapas de Experiencia (*Customer Journey*).
+  * *Metodologías:* 
+    * **Diseño Centrado en el Usuario (UCD):** Diseñar para las limitaciones ciudadanas, no para el técnico.
+    * **Heurísticas de Nielsen:** Principios de usabilidad (ej. *feedback* visual al cargar, usar iconos reconocibles del mundo real, prevención de errores mediante confirmación).
 * **UI (*User Interface*):**
   * Lo que el usuario **ve y con lo que interactúa** (botones, menús, tipografía).
   * *Principios:* Consistencia, Jerarquía visual, *Feedback* inmediato y *Affordance* (el diseño de un elemento debe sugerir intuitivamente cómo usarlo).

@@ -1,13 +1,13 @@
 # Tema 16.- Frameworks Web, UX, Backend e Interoperabilidad
 
 ## 1. Introducción
-* El desarrollo web corporativo exige pasar de la codificación manual a ecosistemas robustos. Los **Frameworks** proporcionan la estructura, la **UX** garantiza que el servicio público sea accesible y usable, y el **Backend** orquesta la lógica, la persistencia en bases de datos y la interconexión segura con otras Administraciones Públicas.
+* El desarrollo web corporativo exige pasar de la codificación manual a ecosistemas robustos. Los **Frameworks** proporcionan la estructura, la **UX** contribuye que el servicio público sea usable, y el **Backend** orquesta la lógica, la persistencia en bases de datos y la interconexión segura con otras Administraciones Públicas.
 
 ## 2. Frameworks de Desarrollo Web
 * **Concepto e IoC:** Un framework impone la estructura de la aplicación mediante la **Inversión de Control (IoC)**: es el framework quien llama al código del desarrollador, no al revés. Garantiza seguridad (protección XSS/SQLi) y escalabilidad.
 
 ### 2.1. Frameworks Frontend (JavaScript/TypeScript)
-* **React (Meta):** Biblioteca declarativa basada en componentes y **Virtual DOM** (actualiza solo las diferencias en pantalla). Ecosistema: Next.js (Server-Side Rendering (SSR)).
+* **React (Meta):** Biblioteca declarativa basada en componentes y **Virtual DOM** (calcula diferencias en memoria antes de actualizar el DOM real). Ecosistema: Next.js (Server-Side Rendering (SSR) -> genera el HTML dinámicamente en el servidor en cada petición).
 * **Angular (Google):** Framework *full-featured* muy estricto. Usa TypeScript, Inyección de Dependencias nativa y MVC completo. Ideal para macroproyectos corporativos.
 * **Vue.js:** Framework progresivo, curva de aprendizaje suave, mezcla la reactividad de React con la estructura de Angular.
 
@@ -45,7 +45,7 @@ La modernización municipal requiere que los sistemas hablen entre sí sin inter
   * **SOAP:** Protocolo formal basado en **XML** y WSDL. Muy presente en integraciones heredadas (AEAT, Seguridad Social).
 * **Mensajería Asíncrona (Colas):**
   * Uso de **Apache Kafka**, **RabbitMQ** o JMS para procesos pesados en segundo plano (envío masivo de notificaciones) sin bloquear al usuario.
-* **Plataformas de Intermediación del Estado:** Integración obligatoria con herramientas comunes como **@firma** (certificados), **Cl@ve** (identidad), **SIR** (Registro) y la **PID** (Plataforma de Intermediación de Datos).
+* **Interoperabilidad mediante Servicios Comunes de la AGE:** Integración obligatoria con herramientas comunes como **@firma** (certificados), **Cl@ve** (identidad), **SIR** (Registro) y la **PID** (Plataforma de Intermediación de Datos).
 
 ## 6. Conclusión
 El desarrollo web en la Administración trasciende la simple programación. Requiere orquestar el Frontend (React/Tailwind) aplicando principios estrictos de usabilidad (UX) e integrarlo con un Backend robusto (Spring/Tomcat). La gestión eficiente de la persistencia (ORM/Pools) y la interoperabilidad mediante APIs (REST/SOAP) bajo la Red SARA garantizan servicios digitales ágiles, escalables y centrados en el ciudadano.
