@@ -1,7 +1,7 @@
 # Tema 19.- Spring: Qué es Spring Framework, Ventajas de uso, Ecosistema Spring.
 
 ## 1. Introducción 
-* **El problema de Java EE:** La especificación original (J2EE) exigía arquitecturas pesadas, descriptores XML complejos y EJBs difíciles de mantener.
+* **El problema de Java EE:** La especificación original (J2EE) exigía arquitecturas pesadas, configurar complejos ficheros XML y EJBs difíciles de mantener.
 * **El origen:** Creado por **Rod Johnson** (2003) como respuesta a esta complejidad, proponiendo un modelo ligero basado en **POJOs** (*Plain Old Java Objects*) y la **Inversión de Control**. Hoy es el estándar *de facto* para backend corporativo.
 * **Spring vs. Jakarta EE (Complementariedad):** Spring no reinventa los estándares; aporta el modelo productivo (IoC, Boot), pero internamente **se apoya en las especificaciones de Jakarta EE**. Spring Web usa la *Servlet API*, Spring Data usa *Jakarta Persistence (Hibernate)*, y las validaciones usan *Jakarta Bean Validation*.
 

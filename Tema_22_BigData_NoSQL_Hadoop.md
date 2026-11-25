@@ -5,11 +5,11 @@
 * **Concepto Big Data:** Tecnologías/arquitecturas para procesar datos que el paradigma relacional no soporta. Capturar, almacenar, transformar y explotar conjuntos masivos (IoT, Redes Sociales, logs)
 
 ## 2. Big Data. Las "V" del Big Data (Doug Laney)
-* **Volumen:** Escala masiva (Terabytes, Petabytes). Ej: Histórico satelital.
-* **Velocidad:** Ritmo de generación. *Batch* (lotes) vs *Streaming* (tiempo real, ej. semáforos).
-* **Variedad:** Estructurados (tablas), Semiestructurados (JSON/XML), No estructurados (vídeo/PDF).
-* **Veracidad:** Gestión del ruido y limpieza de datos.
-* **Valor:** Utilidad real del dato. Sin valor, no tiene sentido almacenar el dato.
+* **Volumen:** Escala masiva (Terabytes, Petabytes). Ej: Histórico de imágenes satelitales.
+* **Velocidad:** Ritmo de generación. *Batch* (procesamiento por lotes programados) vs *Streaming* (flujo continuo en tiempo real, ej. semáforos).
+* **Variedad:** Estructurados (tablas), Semiestructurados (JSON/XML/GeoJSON), No estructurados (imágenes/vídeo/PDF). Ej. Emergencias e inundaciones
+* **Veracidad:** Gestión del ruido y limpieza de datos. Ej.: Un sensor meteorológico averiado que marca 85 °C en invierno
+* **Valor:** Utilidad real del dato. Sin valor, no tiene sentido almacenar el dato. Ej. usar datos de tráfico para reducir atascos.
 
 ## 3. Captura, análisis, transformación, almacenamiento y explotación de conjuntos masivos de datos. Ciclo de Vida 
 * **3.1. Captura (Ingesta):** Recolección. *Batch* (Apache Sqoop desde SGBDR) o *Streaming/Tiempo real* (Apache Kafka, Flume para IoT/Logs).
@@ -33,9 +33,8 @@
 
 ## 5. Entornos Hadoop o similares
 * **5.1. Arquitectura Hadoop:** Usa escalado horizontal (*Scale-Out*), sumando muchos ordenadores normales en red (*clúster*) en lugar de un único superordenador caro.
-* **5.2. HDFS (Almacenamiento):** Sistema de archivos distribuido en bloques. • El *NameNode* (maestro) guarda el mapa de dónde está cada bloque, y los *DataNodes* (esclavos) guardan los datos reales con 3 copias de seguridad (replicación 3x) por si falla un equipo.
+* **5.2. HDFS (Hadoop Distributed File System - Almacenamiento):** Sistema de archivos distribuido en bloques. • El *NameNode* (maestro) guarda el mapa de dónde está cada bloque, y los *DataNodes* (esclavos) guardan los datos reales con 3 copias de seguridad (replicación 3x) por si falla un equipo.
 * **5.3. MapReduce:** Paradigma clásico de procesamiento distribuido ("divide y vencerás"). Se divide en tres fases: *Map* (cada nodo procesa sus datos localmente y genera pares clave-valor), *Shuffle* (reordena y agrupa las claves iguales por la red) y *Reduce* (consolida y resume los resultados finales). Es fiable pero lento porque escribe en disco duro tras cada paso.
-• 5.4
 * **5.4. Apache Spark:** Evolución que reemplaza a MapReduce. Procesa los datos directamente en *memoria RAM* en lugar de escribir constantemente en disco, haciéndolo hasta *100x más rápido*. Soporta procesamiento por lotes (Batch), Streaming y ML.
 * **5.5. Data Lake:** Almacén masivo y barato (como S3 o HDFS) donde se guardan datos en bruto tal como llegan. A diferencia del Data Warehouse (que obliga a ordenar los datos antes de guardarlos, *Schema-on-Write*), el Data Lake permite guardarlos sin orden previo y estructurarlos solo cuando se van a consultar (*Schema-on-Read*). Usa formatos como *Apache Parquet* (que agrupan datos por columnas) para ahorrar espacio y leer consultas muy rápido.
 

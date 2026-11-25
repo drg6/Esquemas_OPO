@@ -38,7 +38,7 @@ El **ENS (RD 311/2022)** obliga a toda AAPP a disponer de una **Política de Seg
 ### 4.1. Concepto
 Evento que compromete *al menos una* 5 dimensiones de seguridad de la información DICAT. (Ej. Ransomware, exfiltración de padrón, caída de Sede Electrónica).
 ### 4.2. Plan de Respuesta (Fases estándar)
-1. **Detección e Identificación:** Mediante SIEM / IDS.
+1. **Detección e Identificación:** Mediante SIEM / IDS (sistema de detección de intrusiones).
 2. **Contención:** Aislar sistemas, desconectar red.
 3. **Erradicación:** Eliminar malware, parchear vulnerabilidad.
 4. **Recuperación:** Restaurar desde backups seguros.

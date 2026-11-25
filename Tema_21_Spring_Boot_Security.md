@@ -5,9 +5,9 @@
 - **El objetivo:** Para solucionar esto nacen los tres módulos clave. Su propósito es erradicar el código redundante (*boilerplate*) repartiendo el trabajo: **Spring Boot** adopta la **Convención sobre Configuración** para arrancar proyectos al instante, **Spring Data** automatiza las consultas a base de datos, y **Spring Security** estandariza el control de acceso corporativo.
 
 ## 2. Spring Boot: Autonomía y Despliegue Moderno
-* **2.1. Starters y la resolución del conflicto de dependencias:**
-  * Resuelven el histórico problema del empaquetado de librerías (*Dependency Hell*).
-  * Son agrupaciones preconfiguradas que importan todas las dependencias compatibles en un único bloque dentro de Maven o Gradle:
+* **2.1. Starters:**
+  * Resuelven el histórico problema del empaquetado de librerías y del conflicto de dependencias (*Dependency Hell*).
+  * Paquetes que agrupan todas las librerías necesarias y compatibles en un único bloque dentro de Maven o Gradle:
     * `spring-boot-starter-web`: Importa Spring MVC, serialización JSON y un servidor embebido.
     * `spring-boot-starter-data-jpa`: Incluye Hibernate, Spring Data y el pool de conexiones de alto rendimiento HikariCP.
     * `spring-boot-starter-security`: Activa el motor de autenticación y autorización.
@@ -47,7 +47,7 @@
   * *A nivel de red (HTTP):* Configuración declarativa en la cadena de filtros para proteger rutas (por ejemplo, restringiendo `/api/admin/**` a determinados perfiles).
   * *A nivel de método (AOP):* Mediante anotaciones como **`@PreAuthorize`** directamente sobre los métodos de servicio, validando expresiones lógicas de seguridad antes de ejecutar el trámite administrativo.
 * **4.4. Mitigación de vulnerabilidades por diseño:**
-  * Protección activa contra ataques CSRF (Falsificación de Petición en Sitios Cruzados).
+  * Protección activa contra ataques CSRF (Cross-Site Request Forgery - Falsificación de Petición en Sitios Cruzados).
   * Inyección automática de cabeceras de protección web contra *Clickjacking* (`X-Frame-Options`) y Cross-Site Scripting (XSS), garantizando el cumplimiento de las guías de bastionado del **CCN-STIC**.
 
 ## 5. Conclusión: Relevancia en la Administración Electrónica

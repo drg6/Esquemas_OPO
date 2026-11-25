@@ -3,25 +3,25 @@
 ## 1. Introducción
 * **Contexto:** Derecho fundamental (art. 18.4 CE) para limitar el uso de la informática para garantizar el honor y la intimidad de los ciudadanos.  
 * **Marco Legal:** RGPD (Europa, 2016) + LOPDGDD (España, LO 3/2018).
-* **Impacto AAPP:** Ayuntamientos manejan datos críticos. Proteger la privacidad de los individuos y garantizar sus derechos es imperativo legal.
+* **Impacto AAPP:** Ayuntamientos manejan datos críticos. Proteger los datos personales de los ciudadanos y garantizar sus derechos es imperativo legal.
 
 ## 2. Normativa (RGPD y LOPDGDD)
 * **2.1. RGPD (Novedades):** 
-  - Enfoque en el riesgo
-  - Responsabilidad proactiva (*accountability*)
+  - Enfoque en el riesgo: Medidas proporcionales al impacto (EIPD).
+  - Responsabilidad proactiva (*accountability*): Prevenir y demostrar el cumplimiento (RAT / Registro de Actividades, diseño).
   - Notificación brechas (72h)
   - Figura del DPO 
   - Multas millonarias.
 * **2.2. LOPDGDD (Adaptación española):** 
   - Regulación de los datos de personas fallecidas (derecho de acceso por herederos)
   - Consentimiento menores a los **14 años** 
-  - Nuevos derechos digitales (desconexión, testamento digital, protección a menores en intenet).
+  - Nuevos derechos digitales (desconexión digital, testamento digital, protección a menores en intenet).
 * **2.3. Principios (Art. 5):** 
   - Licitud
   - Limitación de finalidad
   - Minimización
   - Exactitud
-  - Conservación (tiempo)
+  - Conservación (tiempo, Limitación del plazo de conservación)
   - Seguridad
   - Responsabilidad proactiva. 
  *(Regla: Legalmente, para una finalidad, mínimos, exactos, tiempo, seguros y demostrables).*
@@ -32,7 +32,7 @@
   * **S**upresión (Olvido).
   * **O**posición.
   * **P**ortabilidad (CSV/JSON).
-  * **L**imitación.
+  * **L**imitación del tratamiento.
   * **A**cceso (+2 meses si es complejo).
   * **R**ectificación.
 * **2.6. Obligaciones Responsables:** 
@@ -51,7 +51,7 @@
   * Seudonimización (reversible) / Anonimización (irreversible).
   * Trazabilidad total (Auditoría de logs).
   * Borrado seguro (Derecho al olvido efectivo en BD y backups).
-  * Herramientas de evaluación: PILAR / Gestiona RGPD.
+  * Herramientas de evaluación: PILAR para riesgos ENS / Gestiona RGPD de la AEPD
 
 ## 4. La Agencia Española de Protección de Datos (AEPD)
 * **4.1. Naturaleza:** Autoridad de control independiente (Ente de derecho público).

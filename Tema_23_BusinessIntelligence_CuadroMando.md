@@ -18,9 +18,9 @@
 
 ## 3. Análisis: Del Dato al Conocimiento
 - **3.1. Business Intelligence (BI):** Transformar transacciones (OLTP) en sistemas para análisis y la toma de decisiones(OLAP).
-- **3.2. OLTP vs OLAP:** 
+- **3.2. OLTP (Online Transaction Processing) vs OLAP (Online Analytical Processing):** 
   * *OLTP:* Día a día, normalizado (3FN), datos actuales al detalle, usuarios operativos.
-  * *OLAP:* Datos históricos/agregados (toma de decisiones), modelo *dimensional*, suarios directivos/analistas
+  * *OLAP:* Datos históricos/agregados (toma de decisiones), modelo *dimensional*, usuarios directivos/analistas
 - **3.3. KPI (Key Performance Indicator):** La base del análisis. 
   - Métrica cuantificable + Objetivo estratégico. (Métrica ≠ KPI) → Un KPI siempre está ligado a un objetivo. 
   - Características de un buen KPI: 
