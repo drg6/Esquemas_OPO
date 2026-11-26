@@ -1,12 +1,11 @@
 # Tema 33.- La administración electrónica. Sede electrónica y carpeta ciudadana. Registro electrónico e interconexión de registros. Digitalización certificada. Firma y sellado digital. Gestor documental.
 
 ## 1. Introducción
-* **Contexto legal:** Leyes 39/2015 y 40/2015. La Administración Electrónica dejó de ser un canal alternativo para convertirse en el **entorno nativo y obligatorio** de tramitación.
-No es digitalizar la burocracia, sino garantizar la **seguridad jurídica, la trazabilidad y la interoperabilidad** del dato público bajo el principio de (*Once-Only*) y el marco del ENI y el ENS.
-* **El Ecosistema:** *Sede y Carpeta* (interacción ciudadana) → *Registro y SIR* (entrada e intercambio) → *Firma y Digitalización* (validez legal) → *Gestor Documental* (archivo perpetuo).
+- **Marco legal:** Con las Leyes 39/2015 y 40/2015, la vía electrónica deja de ser opcional para ser el **entorno obligatorio** de tramitación, regido por el ENS y el ENI.
+- **El Ecosistema:** *Sede y Carpeta* (interacción) → *Registro y SIR* (entrada e intercambio) → *Firma y Digitalización* (validez legal) → *Gestor Documental* (ciclo de vida del expediente).
 
 ## 2. La Administración Electrónica: Concepto y Arquitectura
-* **e-Government:** No es escanear papel, es transformar procesos con TIC para ganar eficiencia y transparencia.
+* **Administración Electrónica:** No es escanear papel, es transformar procesos con TIC para ganar eficiencia y transparencia.
 * **Front-Office (Hacia el ciudadano):** Escaparate digital (Sede Electrónica, Carpeta Ciudadana, Registro Electrónico).
 * **Back-Office (Maquinaria interna):** Tramitación oculta (SIR, plataforma @firma, Gestor Documental).
 
