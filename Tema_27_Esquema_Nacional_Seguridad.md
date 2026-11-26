@@ -5,7 +5,7 @@
 El **ENS** establece el marco normativo unificado y obligatorio para la protección de los sistemas de información del sector público. Las **Guías CCN-STIC** desarrollan técnicamente sus requisitos. Y la **Estrategia de Ciberseguridad Nacional** coordina los esfuerzos de todas las entidades públicas y privadas implicadas en la defensa del ciberespacio español.
 
 ## 2. El Esquema Nacional de Seguridad (ENS)
-* **2.1. Regulación:** RD 311/2022 (Alineado con directivas europeas NIS y NIS2). 
+* **2.1. Regulación:** RD 311/2022 (Alineado con directivas europeas NIS y NIS2 - Network and Information Security). 
 * **2.2. Ámbito:** Sector público (AGE, CCAA, EELL) y sistemas de proveedores privados que presten servicios a las AAPP.
 * **2.3. Principios (12 en total):** 
   - Proceso integral
@@ -20,8 +20,8 @@ El **ENS** establece el marco normativo unificado y obligatorio para la protecci
   * *Registro:* Inscripción obligatoria en el *Registro del CCN* y *distintivo de cumpliento del ENS* en la Sede
 * **2.6. Medidas de Seguridad (73 controles):** • Se estructuran en tres marcos:
 	* *Marco Organizativo [org]:* Política de seguridad, normativa, procedimientos y autorización.
-	* *Marco Operacional [op]:* Planificación, control de acceso, explotación, servicios externos, continuidad y monitorización.
-	* *Medidas de Protección [mp]:* Protección de instalaciones, personal, equipos, comunicaciones, soportes e información.
+	* *Marco Operacional [op]:* Planificación, control de acceso, explotación (parcheo y configuracion), servicios externos, continuidad (planes ante incidentes graves) y monitorización.
+	* *Medidas de Protección [mp]:* Protección de instalaciones, personal (formación), equipos, comunicaciones, soportes, información (cifrado) y servicios.
 
 ## 3. Normas CCN-STIC (El brazo técnico)
 * **3.1. Concepto:** Guías del Centro Criptológico Nacional con instrucciones técnicas de obligado cumplimiento o recomendación.
@@ -41,14 +41,14 @@ El **ENS** establece el marco normativo unificado y obligatorio para la protecci
 
 ## 5. Principales Entidades Actoras
 * **5.1. Sector Público:**
-  * **CCN-CERT:** Centro de respuesta para AAPP y sistemas clasificados (depende del CNI / Defensa).
+  * **CCN-CERT:** Respuesta a incidentes en AAPP y sistemas clasificados.
   * **MCCE (Mando Conjunto del Ciberespacio / ESPDEF-CERT):** Ciberdefensa militar y Fuerzas Armadas.
-  * **CNPIC (Centro Nacional de Protección de Infraestructuras Críticas):** Coordina la protección de operadores críticos (depende del Ministerio del Interior).
+  * **CNPIC (Centro Nacional de Protección de Infraestructuras Críticas):**
 * **5.2. Sector Privado y Ciudadanía:**
-  * **INCIBE / INCIBE-CERT:** Empresas, ciudadanos (**Línea 017**) y operadores privados de servicios esenciales (depende del Ministerio para la Transformación Digital).
+  * **INCIBE / INCIBE-CERT:** Empresas, ciudadanía (017) y operadores esenciales.
 * **5.3. Modelo Federado (El gancho local):** 
-  * Impulso de la **Red Nacional de SOC (RNS)** para que las Diputaciones actúen como SOC Local (Centros de Operaciones de Ciberseguridad) dando cobertura a municipios pequeños (coordinados con el CSIRT autonómico, como **CSIRT-CV**).
-  * **Foro Nacional de Ciberseguridad:** Espacio principal de colaboración público-privada adscrito al Consejo Nacional de Ciberseguridad.
+  * **Red Nacional de SOC (RNS)** Diputaciones como SOC Local para municipios pequeños, coordinadas con el CSIRT autonómico (ej. *CSIRT-CV*).
+  * **Foro Nacional de Ciberseguridad:** Colaboración público-privada adscrito al Consejo Nacional de Ciberseguridad.
 
 
 ## 6. Conclusión

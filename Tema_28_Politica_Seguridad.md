@@ -1,24 +1,23 @@
 # Tema 28.- Política de Seguridad. Diseño, aprobación y aplicación.
 
 ## 1. Introducción
-La seguridad no es un problema puramente tecnológico del departamento de informática, sino un instrumento de **gobierno organizacional** que debe emanar de la máxima autoridad de la entidad y vincular a todo su personal.
+La seguridad de la información no es solo un asunto técnico del servicio de informática, sino un instrumento de **gobierno organizacional** aprobado por la máxima autoridad de la entidad y vincula a todo su personal.
 
 ## 2. Diseño de la Política de Seguridad
 - **2.1. Naturaleza:** Documento fundacional de máximo nivel (no técnico) aprobado por el órgano competente (ej. Pleno/Alcaldía) y que establece las directrices de protección de los sistemas, exigido por el ENS (RD 311/2022). Define el "qué" y el "por qué", pero no el "cómo".
 - **2.2. Contenido obligatorio (Estricto Art. 12.1 ENS):** 
-  1. Misión y objetivos institucionales.
+  1. Misión y objetivos  de la organización.
   2. Marco regulatorio (ENS, RGPD, LOPDGDD, Ley 39/2015, Ley 40/2015).
   3. Roles de seguridad (deberes y responsabilidades, procedimiento de designación y renovación).
   4. Comités de seguridad (estructura y responsabilidades).
   5. Documentación (directrices de gestión y acceso de la seguridad del sistema).
-  6. Riesgos derivados del tratamiento de datos personales.
+  6. Riesgos derivados del *tratamiento de datos personales*.
 - **2.3. Organización y Roles (Art. 11 y 13):**
   * *Responsables:* Información, Servicio, Seguridad (CISO) y Sistema.
   * *Comité de Seguridad:* Órgano colegiado de coordinación directiva.
   * ⚠️ *Diferenciación de responsabilidades:* CISO ≠ Responsable del Sistema (sin dependencia jerárquica).
   * *DPD:* Supervisión RGPD (colaborador, no es rol estructural ENS).
-- **2.4. Desarrollo (Art. 12.6 y Guía 805):** Aplicación de gestión de riesgos (MAGERIT), plan de concienciación, gestión de incidentes y revisión periódica.
-- **2.5. Proceso de diseño:** Análisis de contexto → Definición de objetivos → Asignación de roles → Redacción clara → Revisión por el Comité.
+- **2.4. Proceso de diseño:** Análisis de contexto → Definición de objetivos → Asignación de roles → Redacción clara → Revisión por el Comité.
 
 ## 3. Aprobación de la Política de Seguridad
 * **3.1. Requisito de Aprobación al máximo nivel:** 

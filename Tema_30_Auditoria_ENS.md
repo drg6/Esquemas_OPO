@@ -12,12 +12,12 @@
 * **Auditoría Extraordinaria:** Obligatoria si hay cambios sustanciales (migración a *cloud*, rediseño de arquitectura o tras un ciberincidente grave).
 
 ## 3. Tipos de Auditoría y Certificación
-* **3.1. Autoevaluación (Categoría Básica):** La hace la propia entidad con la herramienta INES. Genera una **Declaración de Conformidad** publicable en la Sede Electrónica.
-* **3.2. Auditoría Interna:** Personal propio independiente del sistema auditado (Segregación de funciones). Válido para mejorar, pero *no da sello oficial ENS*.
-* **3.3. Auditoría Externa (Certificación):** 
-  * Entidad **Independiente** y **Acreditada por ENAC - Entidad Nacional de Acreditación** (Ej: AENOR, BSI).
-  * Otorga la **Certificación de Conformidad ENS** (Nivel Medio/Alto).
-  * Válida por **2 años**.
+- **3.1. Autoevaluación (Categoría Básica):** La hace la propia entidad mediante **INES** (*Informe Nacional del Estado de Seguridad*, herramienta del CCN basada en la guía **CCN-STIC 824** para medir la "salud ciber" de las AAPP). Genera una **Declaración de Conformidad** publicable en la Sede Electrónica.
+- **3.2. Auditoría Interna:** Personal propio independiente del sistema auditado (segregación de funciones). Válida para mejorar, pero *no da sello oficial ENS*.
+- **3.3. Auditoría Externa (Certificación):**
+  - Entidad **Independiente** y **Acreditada por ENAC** (*Entidad Nacional de Acreditación*, ej. AENOR, BSI).
+  - Otorga la **Certificación de Conformidad ENS** (Nivel Medio/Alto), válida por **2 años**.
+  - **Publicidad:** Debe inscribirse en el **Registro de Conformidad ENS del CCN** para ser válida públicamente.
 
 ## 4. Fases del Proceso de Auditoría (Recordar PEIP)
 * **4.1. Fase 1: Planificación.** Definir el alcance (*Scope*) y revisión documental previa (Política de Seguridad, SoA, MAGERIT).
@@ -35,11 +35,7 @@
   * Ante las deficiencias, la organización elabora un **Plan de Adecuación** (cronograma correctivo).
   * El auditor hace seguimiento. Si se solventan las mayores, se emite el certificado.
 
-## 5. El Papel del CCN: Herramienta INES y Registros
-* **5.1. INES (Informe Nacional del Estado de Seguridad):** Herramienta del CCN para la autoevaluación (basada en métricas de la guía **CCN-STIC 824**). Permite al Estado conocer la "salud ciber" global de las AAPP.
-* **5.2. Registro Oficial:** Los certificados emitidos por entidades ENAC deben inscribirse en el **Registro de Conformidad ENS del CCN** para ser válidos públicamente.
-
-## 6. Conclusión
+## 5. Conclusión
 La auditoría ENS es el motor que obliga a las Administraciones Locales a pasar de la teoría a la práctica. El proceso estructurado (Planificación, Ejecución, Informe y Corrección) garantiza que la seguridad no dependa de la buena voluntad, sino de evidencias verificables por ENAC. El resultado (el Sello ENS en la Sede Electrónica) es la garantía pública de que el Ayuntamiento protege los derechos y datos del ciudadano con los estándares exigidos por el Estado.
 
 --------------

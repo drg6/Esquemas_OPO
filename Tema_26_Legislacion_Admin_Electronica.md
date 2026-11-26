@@ -7,27 +7,27 @@
 ## 2. Legislación en materia de Sociedad de la Información y e-Administración
 - **2.1. Normativa Europea:**
   * **Reglamento eIDAS (910/2014):** Identificación y servicios de confianza. Equipara la firma electrónica cualificada a la manuscrita.
-  * **Directiva de Accesibilidad (2016/2102):** Obliga a estandarizar la accesibilidad en webs y apps móviles del sector público.
+  * **Directiva de Accesibilidad (2102/2016):** Obliga a estandarizar la accesibilidad en webs y apps móviles del sector público.
 - **2.2. Normativa Nacional (Sociedad de la Información):**
-  * **Ley de Servicios de la Sociedad de la Información y de Comercio Electrónico / LSSICE (34/2002):** Ley fundacional. Regula contratos electrónicos, responsabilidad de ISPs y política de cookies.
+  * **Ley de Servicios de la Sociedad de la Información y de Comercio Electrónico / LSSICE (34/2002):** Ley fundacional. Regula contratos electrónicos, responsabilidad de ISPs (Proveedores de Servicio de Internet) y política de cookies.
   * **Ley de Servicios Electrónicos de Confianza / LSEC (6/2020) :** Regula los servicios electrónicos de confianza (FNMT, ACCV) complementando al eIDAS.
 - **2.3. El Núcleo de la e-Administración (Leyes de 2015):**
   * **Ley 39/2015 (PAC - "Hacia Afuera"):** Define Sujetos Obligados, consagra el Expediente Electrónico, Registro 24x7x365 y Notificaciones obligatorias (DEHú).
   * **Ley 40/2015 (LRJSP - "Hacia Adentro"):** Regula la Sede Electrónica, el principio **"Once Only"** (Solo una vez) y la Actuación Administrativa Automatizada (Sello/CSV).
-  * **RD Reglamento de Administración Electrónica (203/2021):** PAGe(Punto de Acceso General electrónico) y Carpeta Ciudadana.
+  * **RD Reglamento de Actuación Electrónica (203/2021):** PAGe(Punto de Acceso General electrónico) y Carpeta Ciudadana.
   * **RD 1112/2018 (Accesibilidad del Sector Público)**: Traspone la Directiva 2016/2102. Obliga a que webs y apps móviles de las AAPP (WCAG 2.1 AA), publiquen declaración de accesibilidad y tengan buzón de quejas.
 - **2.4. Los Esquemas Nacionales:**
   * **ENI (RD 4/2010):** Interoperabilidad (organizativa, semántica, técnica).
   * **ENS (RD 311/2022):** Seguridad (Confidencialidad, Integridad, Trazabilidad, Autenticidad, Disponibilidad).
 
 ## 3. Impacto en los Sistemas de Información
-- **Concepto clave:** Los Ayuntamientos dejan de ser "islas" monolíticas para ser nodos conectados a los servicios de la SGAD vía **Red SARA**.
+- **Concepto clave:** Los Ayuntamientos dejan de ser "islas" monolíticas para ser nodos conectados a los servicios de la SGAD (Secretaría General de Administración Digital) vía **Red SARA**.
 - **3.1. Identidad y Firma:** 
   * Integración con **Cl@ve** (autenticación ciudadana) y **@firma** (delegación de validación de firmas).
   * Generación de firmas longevas (XAdES/PAdES + TimeStamping).
 - **3.2. Interoperabilidad (Principio "Once Only"):** 
   * Integración del registro municipal con **SIR** mediante norma **SICRES 4.0**.
-  * Consumo de web services de la **PID (Plataforma de Intermediación de Datos) / SCSP** para evitar pedir papeles al ciudadano.
+  * Consumo de web services de la **PID (Plataforma de Intermediación de Datos) / SCSP (Sustitución de Certificados en Soporte Papel)** para evitar pedir papeles al ciudadano.
 - **3.3. Notificaciones Electrónicas:** 
   * Integración vía API con **Notifica** y **DEHú**.
   * Lógica de negocio automática: registro de rechazo tras **10 días naturales** sin acceso.

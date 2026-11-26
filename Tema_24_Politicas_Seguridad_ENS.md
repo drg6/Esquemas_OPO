@@ -5,34 +5,31 @@ La seguridad es un **proceso continuo**. Los Ayuntamientos gestionan datos muy s
 El **ENS (RD 311/2022)** obliga a toda AAPP a disponer de una **Política de Seguridad** formal que articule un Sistema de Gestión de Seguridad de la Información (SGSI).
 
 ## 2. Diseño de la Política de Seguridad
-- **2.1. Concepto:** Documento de gobierno de máximo nivel (no técnico) aprobado por el órgano competente (ej. Pleno/Alcaldía) y que establece directrices, principios y compromisos de la organización en seguridad
+- **2.1. Concepto:** Documento de gobierno de máximo nivel (no técnico) aprobado por el órgano competente (ej. Pleno/Alcaldía) y que establece directrices, principios y compromisos de la organización en seguridad. Exigido por el ENS (RD 311/2022).
 - **2.2. Contenido obligatorio (Estricto Art. 12.1 ENS):**
   1. Misión y objetivos de la organización.
   2. Marco regulatorio (ENS, RGPD, LOPDGDD, Ley 39/2015, Ley 40/2015).
-  3. Roles de seguridad (deberes, procedimiento de designación y renovación).
+  3. Roles de seguridad (deberes y responsabilidades, procedimiento de designación y renovación).
   4. Comités de seguridad (estructura y responsabilidades).
-  5. Documentación (directrices de gestión y acceso).
-  6. Riesgos de datos personales (derivados de su tratamiento).
+  5. Documentación (directrices de gestión y acceso de la seguridad del sistema).
+  6. Riesgos derivados del tratamiento de datos personales.
 
 ## 3. Organización e Implantación en Administraciones Locales
 - **3.1. Roles y Responsabilidades (Art. 13):**
-  * *Responsable de la Información:* Define requisitos de la información.
-  * *Responsable del Servicio:* Define requisitos del servicio.
-  * *Responsable de la Seguridad (CISO):* Toma decisiones y supervisa.
-  * *Responsable del Sistema:* Ejecuta la operación técnica.
+  * *Responsables:* Información, Servicio, Seguridad (CISO) y Sistema.
   * ⚠️ *Segregación de funciones (Art. 11):* Responsable de Seguridad ≠ Responsable del Sistema (Sin dependencia jerárquica).
   * *DPD:* Supervisión RGPD (colaborador, no es rol estructural ENS)
 - **3.2. Ciclo PDCA (Deming):**
   1. **Plan (Planificar):** Aprobar Política → Categorizar Sistemas (D-I-C-A-T) → Análisis de Riesgos (MAGERIT / PILAR) → Declaración de Aplicabilidad (SoA - Statement of Applicability) → Plan de Adecuación. *(Reporte anual en INES).*
   2. **Do (Ejecutar):** Implantar los controles del Anexo II del ENS (Organizativos, Operacionales y de Protección) siguiendo la hoja de ruta del **Plan de Adecuación**.
-     * *Organizativos [org]:* Normativas, procedimientos y formación.
-     * *Operacionales [op]:* Planes de continuidad (antes incidente grave), parcheo y monitorización.
-     * *De Protección [mp]:* Controles técnicos (cifrado, MFA) y físicos (control de acceso a instalaciones).
+     * *Organizativos [org]:* Política de seguridad, normativa, procedimientos y autorización.
+     * *Operacionales [op]:* Planificación, control de acceso, explotación (parcheo y configuracion), servicios externos, continuidad (planes ante incidentes graves) y monitorización.
+     * *De Protección [mp]:* Protección de instalaciones, personal (formación), equipos, comunicaciones, soportes, información (cifrado) y servicios.
   3. **Check (Verificar):** Auditorías externas bienales (categoría Media/Alta) o autoevaluación (Básica).
   4. **Act (Mejorar):** Ejecutar acciones correctivas post-auditoría.
 - **3.3 Particularidades Locales (Ayuntamientos)**
     * **Retos:** Presupuesto/Personal TIC limitado, dependencia de proveedores externos, sistemas *legacy*.
-    * **Soluciones ENS 2022:** Adopción del **Perfil de Cumplimiento Específico para EELL (PCE-EELL)** (marco adaptado para facilitar la certificación proporcional en municipios con recursos limitados), servicios compartidos (Diputaciones) y herramientas del CCN.
+    * **Soluciones ENS 2022:** Adopción del **Perfil de Cumplimiento Específico para Entidades Locales (PCE-EELL)** (marco adaptado para facilitar la certificación proporcional en municipios con recursos limitados), servicios compartidos (Diputaciones) y herramientas del CCN.
 
 ## 4. Respuesta a Incidentes de Seguridad
 ### 4.1. Concepto

@@ -2,15 +2,10 @@
 
 ## 1. Introducción
 - **Seguridad de la Información (ENS):** Capacidad de los sistemas para resistir, de manera fiable, acciones que comprometan su Disponibilidad, Autenticidad, Integridad y Confidencialidad.
-- **Propósito:** Frente a la exposición a amenazas y vulnerabilidades, el análisis y gestión de riesgos permite:
-  * Identificar **qué proteger** (Activos).
-  * Identificar **de qué protegerlo** (Amenazas).
-  * Determinar **cuánto invertir** en protección (Equilibrio coste/riesgo).
-- **Mandato Legal:** Es un proceso **continuo** y un principio básico del **ENS (Art. 7)**, no un proyecto puntual.
+- **Gestión de Riesgos:** Principio básico del ENS (Art. 7) y proceso continuo que permite identificar qué proteger (activos), de qué protegerlo (amenazas) y equilibrar el riesgo asumido con el coste de protección. Se divide en dos fases: **Análisis** y **Tratamiento**.
 
-## 2. Análisis de Riesgos: Conceptos y Metodología MAGERIT v3
-**Gestión de Riesgos:** Proceso de identificar, analizar, evaluar y modificar los riesgos para equilibrar el *riesgo asumido* con el *coste de protección* (fases: *Análisis* y *Tratamiento*). 
-En las AAPP españolas, la metodología oficial de referencia es **MAGERIT v3**, estructurada en 6 fases secuenciales:
+## 2. Análisis de Riesgos: Metodología MAGERIT v3
+Fase diagnóstica destinada a identificar activos, amenazas y calcular el nivel de exposición (riesgo residual). En las AAPP españolas, la metodología oficial es **MAGERIT v3**, estructurada en 6 fases secuenciales:
 1. **Caracterización de Activos:** Identificar qué tiene valor (datos, servicios como BD Oracle o Padrón), valorarlos en las 5 dimensiones (**D-I-C-A-T**, de 0 a 5) y trazar sus *dependencias* (el servicio X depende del servidor Y).
 2. **Caracterización de Amenazas:** Identificar qué puede causar daño (ransomware, error humano, inundación) explotando una **vulnerabilidad** (debilidad del sistema, ej. falta de parches). Se estima su *Frecuencia* y *Degradación*.
 3. **Determinación del Impacto:** Medir el daño real producido sobre los activos si se materializa la amenaza.
@@ -18,29 +13,28 @@ En las AAPP españolas, la metodología oficial de referencia es **MAGERIT v3**,
 5. **Caracterización de Salvaguardas:** Identificar las medidas de protección ya existentes y evaluar su eficacia real.
 6. **Estado de Riesgo:** Cálculo del **Riesgo Residual** (el riesgo que permanece *después* de aplicar las salvaguardas).
 - **Informes resultantes:** Modelo de valor (activos y dependencias), Mapa de riesgos (amenazas y frecuencia), Declaración de Aplicabilidad / SoA (contramedidas) e Informe de Insuficiencias.
+- **Marcos de Referencia:**
+  * **ISO 27005:** Gestión de riesgos de seguridad TI (dentro del SGSI de ISO 27001).
+  * **ISO 31000:** Gestión de riesgos global (no solo TI).
 
-## 4. Gestión / Tratamiento del Riesgo (MATE)
+## 3. Gestión / Tratamiento del Riesgo (MATE)
 Objetivo → reducir el riesgo hasta un nivel **aceptable** (riesgo residual). Estrategias **MATE**:
 * **M**itigar (Reducir): Aplicar más salvaguardas (Ej: poner un firewall) para bajar el riesgo. Tipología: 
-  * **Preventivos:** Evitan el incidente (Hardening, cifrado, formación, control de acceso).
-  * **Detectivos:** Alertan del incidente (IDS/IPS, SIEM, auditoría de logs).
+  * **Preventivos:** Evitan el incidente (Hardening, cifrado, formación, control de acceso, firewall / IPS Intrusion Prevention System).
+  * **Detectivos:** Alertan del incidente (IDS - Intrusion Detection System, SIEM, auditoría de logs).
   * **Correctivos:** Recuperan la normalidad (Planes de contingencia, restauración de backups).
 * **A**ceptar: Asumirlo (El coste del firewall es mayor que el daño).
 * **T**ransferir: Pasarlo a un tercero (Ej: contratar un ciberseguro o un proveedor con SLA - Acuerdo de Nivel de Servicio).
 * **E**vitar: Eliminar la causa (Ej: apagar un servidor obsoleto).
 * **Nivel de exigencia ENS [op.pl.1]:** Básica (Informal), Media (Semiformal), Alta (Formal/Matemático).
 
-## 5. Marcos de Referencia y Herramientas
-* **5.1. Ecosistema ISO / COBIT:**
-  * **ISO 27005:** Gestión de riesgos de seguridad TI (dentro del SGSI de ISO 27001).
-  * **ISO 31000:** Gestión de riesgos global (no solo TI).
-  * **COBIT / COSO:** Marcos de gobierno corporativo de referencia mundial para que la alta dirección gobierne la empresa, gestione los riesgos y asegure el control interno.
-* **5.2. Familia EAR (Entorno de Análisis de Riesgos) / Herramientas del CCN:**
+## 4. Herramientas
+El CCN-CERT provee la **Familia EAR** (*Entorno de Análisis de Riesgos*), estándar de facto en las AAPP:
   * **PILAR:** Versión completa. Automatiza MAGERIT y genera la SoA.
   * **PILAR Basic / μPILAR:** Orientadas a Administración Local. 
-  * ⚠️ *Detalle de oro AAPP:* Permiten importar el **PCE-EELL** (Perfil para Entidades Locales) y tienen módulos para hacer la **EIPD** exigida por el RGPD.
+  * ⚠️ *Detalle de oro AAPP:* Permiten importar el **PCE-EELL** (Perfil de Cumplimiento Específico para Entidades Locales) y tienen módulos para hacer la **EIPD** exigida por el RGPD.
 
-## 6. Conclusión
+## 5. Conclusión
 La gestión de riesgos es el motor de la seguridad. MAGERIT y PILAR transforman el miedo a las ciberamenazas en una toma de decisiones matemática y presupuestaria (MATE), garantizando el cumplimiento simultáneo del ENS y del RGPD en la Administración Local.
 
 --------------

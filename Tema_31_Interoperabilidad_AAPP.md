@@ -6,53 +6,39 @@
 * **El Motor Legal:** **Art. 28.2 Ley 39/2015** (Principio *Once Only*). El ciudadano tiene derecho a NO aportar documentos que ya tenga la Administración.
 
 ## 2. Política de la UE en Interoperabilidad
-* **2.1. EIF (Marco Europeo de Interoperabilidad):** 47 recomendaciones en 4 capas (Jurídica, Organizativa, Semántica, Técnica).
-* **2.2. Normativa Europea:**
-  * **Reglamento eIDAS (910/2014):** Identidad y servicios de confianza.
-  * **Reglamento Pasarela Digital Única (2018/1724):** Portal *Your Europe* (Sistema Técnico Once Only - OOTS).
-  * **Reglamento Europa Interoperable (2024/903):** Crea el Comité de Europa Interoperable y obliga a realizar *Evaluaciones de Interoperabilidad*.
-  * **Directiva Open Data (2019/1024):** Reutilización de información en AAPP.
-* **2.3. Programas de financiación:** ISA² → relevado por **Digital Europe**.
+- **EIF (Marco Europeo de Interoperabilidad):** Define las 4 capas (Jurídica, Organizativa, Semántica y Técnica).
+- **Normativa clave:**
+  - **Reglamento eIDAS:** Identidad electrónica y servicios de confianza.
+  - **Reglamento Pasarela Digital Única:** Portal *Your Europe* y Sistema Técnico *Once Only* (OOTS).
+  - **Reglamento Europa Interoperable (2024):** Obliga a realizar Evaluaciones de Interoperabilidad transfronterizas.
 
 ## 3. El Esquema Nacional de Interoperabilidad (ENI)
-- **Concepto (RD 4/2010):** Criterios y recomendaciones de seguridad, normalización y conservación que garantizan la interoperabilidad entre las AAPP y con los ciudadanos, evitando su discriminación tecnológica.
+- **Concepto (RD 4/2010):** Criterios y estándares para que las AAPP intercambien datos entre sí y con los ciudadanos, garantizando la neutralidad tecnológica.
 - **Marco legal clave:**
   * **Ley 40/2015 (Art. 156):** Establece conjuntamente el ENI y el ENS para normalizar información, formatos y aplicaciones.
+    * El ENI (RD 4/2010) asegura que los sistemas *se puedan comunicar* e inter-operar.
+    * El ENS (RD 311/2022) asegura que lo hagan *sin riesgos*.
   * **Ley 39/2015 (Art. 28.2):** Derecho a no aportar documentos (*Once Only*). Es el motor jurídico que obliga a inter-operar.
-  * **RD 203/2021:** *Reglamento de actuación electrónica* que complementa el ENI y lo alinea con Europa.
+  * **RD Reglamento de actuación electrónica 203/2021:** Desarrolla las Leyes 39 y 40/2015 y complementa al ENI.
+- **Ámbito de aplicación:** Obligatorio para todo el sector público (AGE, CCAA, Entidades Locales y Universidades).
 - **Principios del ENI:** 
     * **Cualidad integral** (presente de principio a fin)
-    * **Carácter multidimensional** (organizativa, semántica, técnica y temporal)
+    * **Carácter multidimensional** (organizativa, semántica, técnica)
     * **Soluciones multilaterales** (compartir y reutilizar componentes)
-- **Ámbito de aplicación:** Obligatorio para todo el sector público (AGE, CCAA, Entidades Locales y Universidades).
-- **ENI vs ENS (Art. 156 LRJSP):** Aplicación conjunta y obligatoria.
-  * El ENI (RD 4/2010) asegura que los sistemas *se puedan comunicar* e inter-operar.
-  * El ENS (RD 311/2022) asegura que lo hagan *sin riesgos*.
+
 
 ## 4. Dimensiones de la Interoperabilidad (Las 4 Capas)
-1. **Jurídica:** 
- - Leyes (normas que autorizan el intercambio y dan validez legal)
- - Convenios de cesión de datos
- - Validez de la firma electrónica
- - RGPD (minimización, datos estrictamente necesarios).
+1. **Jurídica:** Marco legal que autoriza y da validez al intercambio (leyes, convenios de cesión, firma electrónica y RGPD).
 2. **Organizativa:** Acuerdos de Nivel de Servicio (SLA), alineación de procesos de negocio y designación de responsables.
 3. **Semántica (El gran reto):** Que los datos signifiquen lo mismo al intercambiarlos. 
    * *Soluciones:* Modelos de datos comunes, vocabularios y código unívoco de oficina **DIR3**.
-4. **Técnica:** Conectividad física y lógica, protocolos y formatos (REST, XML), infraestructuras y servicios comunes (Red SARA, PID, SIR).
+4. **Técnica:** Infraestructuras, conectividad física y lógica, protocolos y formatos (REST, XML) y servicios comunes (Red SARA, PID, SIR).
   
 ## 5. Normas Técnicas de Interoperabilidad (NTI)
 Desarrollan técnicamente el ENI mediante especificaciones concretas.
-  * Catálogo de estándares
-  * Modelos de datos
-  * Documento  
-  * Gestión documental
-  * Expediente
-  * Digitalización
-  * Copiado auténtico
-  * Reutilización
-  * Firma
-  * Intermediación PID/SCSP
-  * Red SARA
+- Digitalización, Copiado auténtico, Documento, Expediente, Gestión documental.
+- Catálogo de estándares, Modelos de datos, Firma.
+- Red SARA, Intermediación PID/SCSP, Reutilización.
 
 ## 6. Intercambio de Datos y Sistemas de Cooperación
 La SGAD (Secretaría General de Administración Digital) provee las infraestructuras que los Ayuntamientos consumen:
