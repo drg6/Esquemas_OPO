@@ -2,7 +2,7 @@
 
 ## 1. Introducción
 * **Concepto:** Las redes LAN conectan dispositivos en un ámbito geográfico limitado (un edificio municipal o campus) con altísima velocidad (1-10 Gbps) y baja latencia.
-* **El reto:** Administrar cientos de puestos, switches y APs requiere herramientas de monitorización y control (NAC) para garantizar disponibilidad y cumplir el ENS.
+* **El reto:** Administrar cientos de puestos, switches y APs (punto de acceso inalámbrico) requiere herramientas de monitorización y control (NAC) para garantizar disponibilidad y cumplir el ENS.
 
 ## 2. Fundamentos de las Redes LAN
 * **2.1. Arquitectura Jerárquica (Estrella extendida):** Es el estándar de diseño actual. Divide la red en tres capas físicas: **Núcleo (Core)** (backbone alta velocidad) → **Distribución** (enrutamiento y políticas/ACL) → **Acceso** (conexión usuarios finales).
@@ -19,15 +19,17 @@
 ## 3. Gestión y Monitorización de Dispositivos
 * **3.1. SNMP (Simple Network Management Protocol):** 
   * Protocolo estándar (UDP 161/162) utilizado para *monitorizar el estado, recoger métricas de rendimiento, recibir alertas de fallos y configurar de forma centralizada* los dispositivos de red.
-  * *Componentes:* **NMS** (El servidor gestor), **Agente** (en el switch) y **MIB** (árbol jerárquico de variables con sus OID).
+  * *Componentes:* 
+    - **NMS - Network Management System** (El servidor gestor)
+    - **Agente** (en el switch) 
+    - **MIB - Management Information Base** (BD árbol jerárquico de variables con sus OID / Object Identifier).
   * *Versiones:* SNMPv2c (texto sin cifrar, mas usado) vs **SNMPv3 (Autenticación y cifrado, obligatorio ENS)**.
-* **3.2. Herramientas NMS (Network Management System):** Zabbix, Nagios (Open Source), PRTG, SolarWinds (Comerciales). Sirven para hacer *polling* (consultas) y recibir *traps* (alertas).
-* **3.3. Syslog y NetFlow:** 
-  * **Syslog:** Envío centralizado de logs a un servidor SIEM para auditoría.
-  * **NetFlow/sFlow:** Análisis profundo de tráfico (quién habla con quién y qué volumen) para detectar anomalías o DDoS.
+  * *Herramientas NMS:* Zabbix, Nagios (Open Source), PRTG.
+* **3.2. Syslog:** Envío centralizado de logs a un servidor SIEM para auditoría.
+* **3.2. NetFlow/sFlow:** Análisis profundo de tráfico (quién habla con quién y qué volumen) para detectar anomalías o DDoS.
 
 ## 4. Administración de Redes LAN
-* **4.1. Segmentación:** División en VLANs (separación lógica) + Subredes IP + ACLs en los routers inter-VLAN + Firewalls.
+* **4.1. Segmentación:** División en VLANs 802.1Q (separación lógica) + Subredes IP + ACLs en los routers inter-VLAN + Firewalls.
 * **4.2. Control de Acceso a la Red (NAC) e IEEE 802.1X:**
   * Arquitectura que impide el acceso a la red de dispositivos no autorizados en la propia roseta (puerto físico) o Wi-Fi.
   * *Componentes:* **Suplicante** (Equipo), **Autenticador / NAS** (Switch) y **Servidor** (RADIUS).
@@ -38,10 +40,6 @@
 * **4.3. Servicios de Red Base:** 
   * **DHCP:** Asignación dinámica de IPs para evitar conflictos manuales.
   * **DNS:** Resolución de nombres locales (integrado con Active Directory).
-* **4.4. Alta Disponibilidad (Resiliencia):**
-  * **STP / RSTP (Spanning Tree):** Evita bucles catastróficos en Capa 2 cuando hay cables redundantes.
-  * **LACP (Link Aggregation):** Suma varios cables físicos en un único enlace lógico de más ancho de banda.
-  * **Stacking:** Apilar varios switches físicos para que se comporten y administren como uno solo.
 
 ## 5. Conclusión
 La red LAN de un Ayuntamiento ha dejado de ser un simple conjunto de cables para convertirse en una infraestructura inteligente. El uso de arquitecturas jerárquicas con Ethernet/Wi-Fi 6, monitorizadas cifradamente mediante SNMPv3 y aseguradas perimetralmente desde la misma roseta de la pared mediante políticas NAC (802.1X), es la única vía para garantizar una administración de red alineada con los altísimos requisitos del Esquema Nacional de Seguridad.

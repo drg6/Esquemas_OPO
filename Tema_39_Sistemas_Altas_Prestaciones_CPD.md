@@ -42,8 +42,8 @@ La instalación física que alberga la infraestructura.
   - **Infraestructura Física:** Racks estándar de 19" (42U), falso suelo y canalizaciones de cableado separadas (datos vs. energía).
   - **Control de Accesos:** Lectores biométricos/tarjetas, videovigilancia y registro estricto de entradas.
   - **Suministro Eléctrico:** Acometida dual, SAI/UPS (para microcortes) y grupo electrógeno diésel (para cortes prolongados).
-  - **Climatización:** Separación física de pasillo frío/caliente y aire de precisión CRAC (Computer Room Air Conditioner) 18-27ºC, estándar ASHRAE.
-  - **Protección contra Incendios:** Detección temprana VESDA y extinción mediante gas limpio (Novec 1230 o FM-200) para no dañar los equipos.
+  - **Climatización:** Separación física de pasillo frío/caliente y aire de precisión **CRAC** (*Computer Room Air Conditioner*): **18–27 °C** y **40–60 % humedad** (según estándares internacionales **ASHRAE**).
+  **Protección contra Incendios:** Detección temprana por **aspiración de humo** y extinción automática mediante **gases limpios** (no conductores de electricidad y sin residuos) para no dañar los equipos.
 * **6.2. Clasificación Uptime Institute (TIER):**
   * TIER I (Básico, 99.6%) → TIER II → TIER III (Mantenimiento sin parada) → **TIER IV (Tolerante a Fallos, 99.995%)**.
 * **6.3. Plan de Recuperación ante Desastres (DRP) - Incendio, inundación, terremoto:** 

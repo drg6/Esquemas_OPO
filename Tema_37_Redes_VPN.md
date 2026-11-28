@@ -19,16 +19,24 @@
 * **3.2. Client-to-Site (Acceso Remoto / Teletrabajo):**
   * Conecta el dispositivo del empleado a la red corporativa.
   * Requiere **Agente VPN** (o navegador).
-  * ⚠️ *Detalle AAPP:* Requiere integración con Directorio Activo y **MFA (Múltiple Factor de Autenticación)** por imperativo del ENS.
+  * ⚠️ *Detalle AAPP:* Para cumplir con el ENS se requiere integración con Directorio Activo y **MFA (Múltiple Factor de Autenticación)**.
 
 ## 4. Protocolos VPN
 * **4.1. IPSec (Capa 3 - Estándar Site-to-Site):**
-  * *Fases:* IKE (Negociación/Claves) → ESP/AH (Cifrado e integridad de datos).
-  * Seguro y transparente, pero complejo si hay NAT (requiere NAT-T).
-* **4.2. SSL/TLS (Capas 4 a 6 - Estándar Teletrabajo):**
+  * Protege el tráfico IP (Autenticación, Integridad, Confidencialidad y Anti-replay). Transparente para las aplicaciones (requiere NAT-T si hay NAT)
+  * *Protocolos:* 
+    - **AH** (*Authentication Header*: autenticación e integridad, **sin cifrado**)
+    - **ESP** (*Encapsulating Security Payload*: autenticación, integridad y **cifrado**, ej. AES-256).
+  * *Modos:* 
+    - **Transporte** (*Host a Host*, solo cifra *payload*, no cabecera IP) 
+    - **Túnel** (protege el paquete IP completo y lo encapsula dentro de una nueva cabecera IP. Se usa en VPNs *Site-to-Site*, ej. conectar Ayuntamiento con Biblioteca).
+  * *Negociación:* **IKE** (*Internet Key Exchange* - intercambio de claves).
+* **4.2. SSL/TLS (Capa 6 - Estándar Teletrabajo):**
+  * Protege conexiones concretas entre aplicaciones usando certificados **X.509**. Cifrado, Autenticación e Integridad
+  * *Versiones:* SSL/TLS 1.0 y 1.1 obsoletas. **TLS 1.2 vigente, TLS 1.3 recomendada**.
   * *Clientless* (vía web HTTPS) o *Client-based* (con Agente).
   * No sufre bloqueos en firewalls de terceros al poder operar por el puerto **TCP 443 (TLS/HTTPS)**. Ej: GlobalProtect, Cisco AnyConnect, OpenVPN *(solo con agente)*.
-* **4.3. WireGuard:** Protocolo de Capa 3 moderno, ligero (integrado en el kernel Linux), altísimo rendimiento (usa Curve25519/ChaCha20).
+* **4.3. WireGuard:** Protocolo de Capa 3 (sobre **UDP**) moderno, ligero (integrado en el kernel Linux), altísimo rendimiento (usa Curve25519/ChaCha20).
 * **4.4. Obsoletos:** **PPTP** (Cifrado roto, prohibido explícitamente en el ENS).
 
 ## 5. El Control del Tráfico: Split vs. Full Tunneling

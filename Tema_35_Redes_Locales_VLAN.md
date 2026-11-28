@@ -20,11 +20,11 @@
 
 ## 3. Protocolos Seguros (La Criptografía en Red)
 * **3.1. El problema de IP:** El protocolo IP fue creado para ser rápido, no seguro. Viaja en texto plano.
-* **3.2. IPSec (Internet Protocol Security - Capa 3):**
-  * Protege todo el paquete IP (Autenticación, Integridad, Confidencialidad, Anti-replay). Transparente para las aplicaciones.
-  * *Protocolos:* **AH** (Autenticación/Integridad/Sin cifrado) y **ESP** (Autenticación, integridad y cifrado AES-256).
-  * *Modos:* Transporte (Host a Host, solo cifra payload) y **Túnel** (Cifra paquete completo y encapsula IP dentro de otro IP. Se usa para VPNs *Site-to-Site*, ej. conectar Ayuntamiento con Biblioteca).
-  * *Negociación:* **IKE** (Intercambio de claves).
+* **3.2. IPsec (*Internet Protocol Security* - Capa 3):**
+  * Protege el tráfico IP (Autenticación, Integridad, Confidencialidad y Anti-replay). Transparente para las aplicaciones.
+  * *Protocolos:* **AH** (*Authentication Header*: autenticación e integridad, **sin cifrado**) y **ESP** (*Encapsulating Security Payload*: autenticación, integridad y **cifrado**, ej. AES-256).
+  * *Modos:* **Transporte** (*Host a Host*, solo protege el *payload* manteniendo la cabecera IP original) y **Túnel** (protege el paquete IP completo y lo encapsula dentro de una nueva cabecera IP. Se usa en VPNs *Site-to-Site*, ej. conectar Ayuntamiento con Biblioteca).
+  * *Negociación:* **IKE** (*Internet Key Exchange* - intercambio de claves y negociación de parámetros).
 * **3.3. TLS (Transport Layer Security - Capas 4 a 6):**
   * Protege conexiones concretas entre aplicaciones usando certificados **X.509**. Cifrado, Autenticación e Integridad
   * *Versiones:* SSL/TLS 1.0 y 1.1 obsoletas. **TLS 1.2 vigente, TLS 1.3 recomendada**.

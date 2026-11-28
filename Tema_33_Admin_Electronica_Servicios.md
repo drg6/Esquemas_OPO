@@ -22,8 +22,8 @@
 ## 5. Registro e Interconexión (Front/Back-Office)
 * **5.1. Registro General:** Obligatorio (Art. 16 Ley 39/2015), 24x7, emite recibo con fecha y hora oficial que marca los plazos legales.
 * **5.2. SIR y SICRES:** 
-  * **SIR:** La Infraestructura "autopista" que interconecta los registros de todas las AAPP.
-  * **SICRES 4.0:** El "idioma" (Norma Técnica) que define el formato XML del asiento registral.
+  * **SIR:** La Infraestructura que interconecta los registros de todas las AAPP.
+  * **SICRES 4.0:** El estándar que define el formato XML del asiento registral.
 * **5.3. Herramientas (GEISER/ORVE) y OAMR:** El ciudadano sin medios va a la **OAMR (Oficina de Asistencia en Materia de Registros)**, donde el Ayuntamiento usa ORVE para digitalizar y enviar por SIR.
 
 ## 6. Firma y Sellado Electrónico (Back-Office)
